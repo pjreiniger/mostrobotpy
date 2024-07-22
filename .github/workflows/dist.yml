@@ -65,7 +65,7 @@ jobs:
     needs: [setup_concurrency]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
-      fail-fast: true
+      fail-fast: false
       matrix: 
         os: ["ubuntu-22.04", "macos-12", "windows-2022"]
         python_version:
@@ -122,6 +122,82 @@ jobs:
       env:
         RPYBUILD_STRIP_LIBPYTHON: "1"
         RPYBUILD_CC_LAUNCHER: ccache
+
+    - name: Add files
+      if: ${{ always() }}
+      run: |
+        git add -f subprojects/pyntcore/ntcore/_init_ntcore.py
+        git add -f subprojects/pyntcore/ntcore/pkgcfg.py
+        git add -f subprojects/robotpy-apriltag/robotpy_apriltag/_init_apriltag.py
+        git add -f subprojects/robotpy-apriltag/robotpy_apriltag/pkgcfg.py
+        git add -f subprojects/robotpy-cscore/cscore/_init_cscore.py
+        git add -f subprojects/robotpy-cscore/cscore/pkgcfg.py
+        git add -f subprojects/robotpy-hal/hal/_init_wpiHal.py
+        git add -f subprojects/robotpy-hal/hal/pkgcfg.py
+        git add -f subprojects/robotpy-hal/hal/simulation/_init_simulation.py
+        git add -f subprojects/robotpy-hal/hal/simulation/pkgcfg.py
+        git add -f subprojects/robotpy-hal/hal/version.py
+        git add -f subprojects/robotpy-halsim-ds-socket/halsim_ds_socket/_init_halsim_ds_socket.py
+        git add -f subprojects/robotpy-halsim-ds-socket/halsim_ds_socket/pkgcfg.py
+        git add -f subprojects/robotpy-halsim-gui/halsim_gui/_ext/_init_halsim_gui_ext.py
+        git add -f subprojects/robotpy-halsim-gui/halsim_gui/_ext/pkgcfg.py
+        git add -f subprojects/robotpy-halsim-gui/halsim_gui/_init_halsim_gui.py
+        git add -f subprojects/robotpy-halsim-gui/halsim_gui/pkgcfg.py
+        git add -f subprojects/robotpy-halsim-ws/halsim_ws/client/_init_client.py
+        git add -f subprojects/robotpy-halsim-ws/halsim_ws/client/pkgcfg.py
+        git add -f subprojects/robotpy-halsim-ws/halsim_ws/server/_init_server.py
+        git add -f subprojects/robotpy-halsim-ws/halsim_ws/server/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/tests/test_notifier.py
+        git add -f subprojects/robotpy-wpilib/wpilib/_impl/_init_wpilibc.py
+        git add -f subprojects/robotpy-wpilib/wpilib/_impl/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/_init_wpilib.py
+        git add -f subprojects/robotpy-wpilib/wpilib/counter/_init_counter.py
+        git add -f subprojects/robotpy-wpilib/wpilib/counter/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/drive/_init_drive.py
+        git add -f subprojects/robotpy-wpilib/wpilib/drive/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/event/_init_event.py
+        git add -f subprojects/robotpy-wpilib/wpilib/event/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/interfaces/_init_interfaces.py
+        git add -f subprojects/robotpy-wpilib/wpilib/interfaces/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/shuffleboard/_init_shuffleboard.py
+        git add -f subprojects/robotpy-wpilib/wpilib/shuffleboard/pkgcfg.py
+        git add -f subprojects/robotpy-wpilib/wpilib/simulation/_init_simulation.py
+        git add -f subprojects/robotpy-wpilib/wpilib/simulation/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/tests/cpp/wpimath_test/_init_wpimath_test.py
+        git add -f subprojects/robotpy-wpimath/tests/cpp/wpimath_test/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/_controls/_init_controls.py
+        git add -f subprojects/robotpy-wpimath/wpimath/_controls/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/_impl/_init_wpimath_cpp.py
+        git add -f subprojects/robotpy-wpimath/wpimath/_impl/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/_init_wpimath.py
+        git add -f subprojects/robotpy-wpimath/wpimath/filter/_init_filter.py
+        git add -f subprojects/robotpy-wpimath/wpimath/filter/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/geometry/_init_geometry.py
+        git add -f subprojects/robotpy-wpimath/wpimath/geometry/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/interpolation/_init_interpolation.py
+        git add -f subprojects/robotpy-wpimath/wpimath/interpolation/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/kinematics/_init_kinematics.py
+        git add -f subprojects/robotpy-wpimath/wpimath/kinematics/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/pkgcfg.py
+        git add -f subprojects/robotpy-wpimath/wpimath/spline/_init_spline.py
+        git add -f subprojects/robotpy-wpimath/wpimath/spline/pkgcfg.py
+        git add -f subprojects/robotpy-wpinet/wpinet/_init_wpinet.py
+        git add -f subprojects/robotpy-wpinet/wpinet/pkgcfg.py
+        git add -f subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/_initmodule.py
+        git add -f subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/pkgcfg.py
+        git add -f subprojects/robotpy-wpiutil/wpiutil/_init_wpiutil.py
+        git add -f subprojects/robotpy-wpiutil/wpiutil/pkgcfg.py
+
+    - name: Generate diff
+      run: git diff HEAD > bazel-lint-fixes.patch
+      if: ${{ always() }}
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-${{ matrix.python_version }} Diff
+        path: bazel-lint-fixes.patch
+      if: ${{ always() }}
 
     - uses: actions/upload-artifact@v4
       with:
