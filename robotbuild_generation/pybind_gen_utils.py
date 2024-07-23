@@ -1,5 +1,6 @@
 from robotpy_build.pkgcfg_provider import PkgCfgProvider, PkgCfg
 from robotpy_build.pkgcfg_provider import PkgCfg
+from robotpy_build.static_libs import StaticLib
 from robotpy_build.config.pyproject_toml import RobotpyBuildConfig, Download
 from robotpy_build.wrapper import Wrapper
 from robotpy_build.autowrap.writer import WrapperWriter
@@ -109,6 +110,7 @@ class Setup:
         self.setup_kwargs = {}
         self.incdir = ["x/"]
 
+        self._collect_static_libs()
         self._collect_wrappers(output_directory=output_directory)
 
         self.pkgcfg.detect_pkgs()
@@ -152,6 +154,17 @@ class Setup:
 
         if ext_modules:
             self.setup_kwargs["ext_modules"] = ext_modules
+
+    def _collect_static_libs(self):
+        for name, cfg in self.project.static_libs.items():
+            if cfg.ignore:
+                continue
+            self._fix_downloads(cfg, True)
+            if not cfg.download:
+                raise ValueError(f"static_lib {name} must specify downloads")
+            s = StaticLib(name, cfg, self)
+            self.static_libs.append(s)
+            self.pkgcfg.add_pkg(s)
 
     def _fix_downloads(self, cfg, static: bool):
         if cfg.maven_lib_download:
