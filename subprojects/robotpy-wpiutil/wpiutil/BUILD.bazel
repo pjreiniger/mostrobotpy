@@ -1,0 +1,73 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "wpiutil",
+    config_file = "//subprojects/robotpy-wpiutil:config_file",
+    visibility = ["//subprojects/robotpy-wpiutil:__subpackages__"],
+)
+
+filegroup(
+    name = "special_headers",
+    srcs = ["src/wpistruct/wpystruct_fns.h"],
+    visibility = ["//subprojects/robotpy-wpiutil:__subpackages__"],
+)
+
+cc_library(
+    name = "type_casters_headers",
+    hdrs = glob(["src/type_casters/*.h"]),
+    strip_include_prefix = "src/type_casters",
+)
+
+cc_library(
+    name = "wpistruct_headers",
+    hdrs = glob([
+        "src/wpistruct/wpystruct.h",
+        "src/wpistruct/wpystruct_fns.h",
+    ]),
+    includes = ["src/wpistruct"],
+    strip_include_prefix = "src/wpistruct",
+)
+
+create_pybind_library(
+    "wpiutil",
+    entry_point = ["src/main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpiutil:__subpackages__"],
+    extra_srcs = glob(
+        ["src/**/*.cpp"],
+        exclude = ["src/main.cpp"],
+    ),
+    generation_helper_prefix = "//subprojects/robotpy-wpiutil:wpiutil",
+    includes = [
+        # ".",
+        # "src/type_casters",
+        # "src/wpistruct",
+    ],
+    deps = [
+        ":type_casters_headers",
+        ":wpistruct_headers",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil",
+    ],
+)
+
+alias(
+    name = "TEMP_shared_library",
+    actual = select({
+        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_osxuniversal//:shared_libs",
+        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_windowsx86-64//:shared_libs",
+        "//conditions:default":                "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_linuxx86-64//:shared_libs",
+    }),
+)
+
+copy_native_file(
+    name = "wpiutil",
+    library = ":TEMP_shared_library",
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["**/*.py"]),
+    visibility = ["//subprojects/robotpy-wpiutil:__subpackages__"],
+)

@@ -1,0 +1,69 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@rules_python//python:defs.bzl", "py_library")
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+generated_files_helper(
+    name = "halsim-ws",
+    visibility = ["//subprojects/robotpy-halsim-ws:__subpackages__"],
+)
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-halsim-ws:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "halsim-ws",
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    internal_project_dependencies = [
+        "wpiutil",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "halsim-ws",
+    srcs = [
+        "//subprojects/robotpy-halsim-ws/halsim_ws/client:python_files",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/server:python_files",
+    ],
+    data = [
+        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/client:copy_lib",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/client:halsim-ws.pyso",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/server:copy_lib",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/server:halsim-ws.pyso",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-wpinet:wpinet",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-halsim-ws/halsim_ws/client:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)
+
+write_source_files(
+    name = "write_on_build_dl_files",
+    additional_update_targets = [
+        "//subprojects/robotpy-halsim-ws/halsim_ws/client:write_on_build_dl_files",
+        "//subprojects/robotpy-halsim-ws/halsim_ws/server:write_on_build_dl_files",
+    ] if not DEFAULT_DISABLE_GEN else [],
+    suggested_update_target = "//:write_on_build_dl_files",
+    visibility = ["//visibility:public"],
+)

@@ -4,3 +4,8 @@
 
 rpy-include
 py.typed
+
+bazel-*
+user.bazelrc
+
+/venv/

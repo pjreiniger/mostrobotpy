@@ -1,0 +1,131 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilib_core",
+    rpy_include_dir = "generated/rpy-include/wpilib/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_interfaces",
+    rpy_include_dir = "generated/rpy-include/wpilib/interfaces/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_counter",
+    rpy_include_dir = "generated/rpy-include/wpilib/counter/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_drive",
+    rpy_include_dir = "generated/rpy-include/wpilib/drive/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_event",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_shuffleboard",
+    rpy_include_dir = "generated/rpy-include/wpilib/shuffleboard/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generated_files_helper(
+    name = "wpilibc_simulation",
+    rpy_include_dir = "generated/rpy-include/wpilib/simulation/rpy-include",
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "wpilib",
+    config_file = ":pyproject.toml",
+    headers = [
+        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
+        "//subprojects/robotpy-wpilib/wpilib:rpy_headers",
+    ],
+    internal_project_dependencies = [
+        "wpiutil",
+        "wpinet",
+        "ntcore",
+        "hal",
+        "wpimath",
+    ],
+    projects = [
+        "wpilib",
+        "_impl",
+        "counter",
+        "drive",
+        "event",
+        "interfaces",
+        "shuffleboard",
+        "simulation",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "wpilib",
+    srcs = [
+        "//subprojects/robotpy-wpilib/wpilib:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/_impl:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/counter:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/drive:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/event:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/interfaces:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/shuffleboard:python_files",
+        "//subprojects/robotpy-wpilib/wpilib/simulation:python_files",
+    ],
+    data = [
+        "//subprojects/robotpy-wpilib/wpilib:wpilib.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/_impl:copy_lib",
+        "//subprojects/robotpy-wpilib/wpilib/counter:counter.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/drive:drive.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/event:event.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/interfaces:interfaces.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/shuffleboard:shuffleboard.pyso",
+        "//subprojects/robotpy-wpilib/wpilib/simulation:simulation.pyso",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-wpimath:wpimath",
+    ],
+)
+
+write_source_files(
+    name = "write_on_build_dl_files",
+    additional_update_targets = [
+        "//subprojects/robotpy-wpilib/wpilib:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/_impl:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/counter:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/drive:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/event:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/interfaces:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/shuffleboard:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib/wpilib/simulation:write_on_build_dl_files",
+    ] if not DEFAULT_DISABLE_GEN else [],
+    suggested_update_target = "//:write_on_build_dl_files",
+    visibility = ["//visibility:public"],
+)

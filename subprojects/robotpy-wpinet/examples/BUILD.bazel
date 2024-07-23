@@ -1,0 +1,9 @@
+load("//:python_rules.bzl", "wpilib_py_binary")
+
+wpilib_py_binary(
+    name = "portfwd",
+    srcs = ["portfwd.py"],
+    deps = [
+        "//subprojects/robotpy-wpinet:wpinet",
+    ],
+)

@@ -1,0 +1,44 @@
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "wpinet",
+    config_file = "//subprojects/robotpy-wpinet:config_file",
+    internal_project_dependencies = ["wpiutil"],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
+)
+
+create_pybind_library(
+    "wpinet",
+    entry_point = ["src/main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
+    generation_helper_prefix = "//subprojects/robotpy-wpinet:wpinet",
+    deps = [
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet",
+    ],
+)
+
+alias(
+    name = "TEMP_shared_library",
+    actual = select({
+        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpinet_wpinet-cpp_osxuniversal//:shared_libs",
+        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpinet_wpinet-cpp_windowsx86-64//:shared_libs",
+        "//conditions:default":                "@bazelrio_edu_wpi_first_wpinet_wpinet-cpp_linuxx86-64//:shared_libs",
+    }),
+)
+
+copy_native_file(
+    name = "wpinet",
+    library = ":TEMP_shared_library",
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
+)

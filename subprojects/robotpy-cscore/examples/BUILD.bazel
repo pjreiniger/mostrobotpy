@@ -1,0 +1,22 @@
+load("//:python_rules.bzl", "wpilib_py_binary")
+
+EXAMPLES = [
+    "cvstream",
+    "dual_cameraserver",
+    "enum_usb",
+    "httpcvstream",
+    "intermediate_cameraserver",
+    "quick_cameraserver",
+    "settings",
+    "switched_cameraserver",
+    "usbcvstream",
+    "usbstream",
+]
+
+[wpilib_py_binary(
+    name = example,
+    srcs = [example + ".py"],
+    deps = [
+        "//subprojects/robotpy-cscore:cscore",
+    ],
+) for example in EXAMPLES]

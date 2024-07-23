@@ -1,0 +1,36 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "drive",
+    config_file = "//subprojects/robotpy-wpilib:config_file",
+    internal_project_dependencies = [
+        "hal",
+        "wpiutil",
+        "wpimath",
+        "ntcore",
+    ],
+    parent_folder = "wpilib/",
+    python_deps = [
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+create_pybind_library(
+    "drive",
+    entry_point = ["drive.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+    generation_helper_prefix = "//subprojects/robotpy-wpilib:wpilibc_drive",
+    deps = [
+        "//subprojects/robotpy-wpilib/wpilib:wpilib_pybind_library",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)

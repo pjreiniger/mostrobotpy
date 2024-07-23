@@ -1,0 +1,33 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+create_pybind_library(
+    "simulation",
+    entry_point = ["main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-hal:__subpackages__"],
+    extra_hdrs = glob(["*.h"]),
+    extra_srcs = ["resethandles.cpp"],
+    generation_helper_prefix = "//subprojects/robotpy-hal:hal_simulation",
+    includes = ["."],
+    deps = [
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-hal:__subpackages__"],
+)
+
+generate_robotpy_project_files(
+    name = "simulation",
+    config_file = "//subprojects/robotpy-hal:config_file",
+    internal_project_dependencies = ["wpiutil"],
+    parent_folder = "hal/",
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-hal:__subpackages__"],
+)

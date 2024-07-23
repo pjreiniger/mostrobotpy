@@ -1,0 +1,22 @@
+load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "requirement")
+load("//:python_rules.bzl", "wpilib_py_test")
+
+wpilib_py_test(
+    "apriltag_tests",
+    data = glob([
+        "*.png",
+        "*.jpg",
+    ]),
+    extra_sources = ["conftest.py"],
+    tests = glob(
+        ["**/*.py"],
+        exclude = [
+            "conftest.py",
+            "run_tests.py",
+        ],
+    ),
+    deps = [
+        "//subprojects/robotpy-apriltag:apriltag",
+        requirement("opencv-python"),
+    ],
+)

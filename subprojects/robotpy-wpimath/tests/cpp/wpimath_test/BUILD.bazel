@@ -1,0 +1,31 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "wpimath_test",
+    config_file = "//subprojects/robotpy-wpimath/tests/cpp:config_file",
+    internal_project_dependencies = ["wpimath"],
+    python_deps = [
+        "//subprojects/robotpy-wpimath:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpimath/tests:__subpackages__"],
+)
+
+create_pybind_library(
+    name = "wpimath_test",
+    entry_point = ["src/module.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpimath/tests:__subpackages__"],
+    extra_hdrs = glob(["include/*.h"]),
+    generation_helper_prefix = "//subprojects/robotpy-wpimath/tests/cpp:wpimath_test",
+    strip_include_prefix = "include",
+    deps = [
+        "//subprojects/robotpy-wpimath/wpimath:wpimath_pybind_library",
+        #  "//subprojects/robotpy-wpimath/wpimath:wpimath_pybind_library",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["**/*.py"]),
+    visibility = ["//subprojects/robotpy-wpimath/tests:__subpackages__"],
+)

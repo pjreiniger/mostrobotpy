@@ -1,0 +1,43 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
+
+compile_pip_requirements(
+    name = "requirements",
+    requirements_in = "requirements.in.txt",
+    requirements_txt = "requirements_linux.txt",
+    requirements_darwin = "requirements_osx.txt",
+    requirements_windows = "requirements_windows.txt",
+)
+
+write_source_files(
+    name = "write_on_build_dl_files",
+    additional_update_targets = [
+        "//subprojects/robotpy-wpiutil/wpiutil:write_on_build_dl_files",
+        "//subprojects/robotpy-wpinet/wpinet:write_on_build_dl_files",
+        "//subprojects/pyntcore/ntcore:write_on_build_dl_files",
+        "//subprojects/robotpy-hal:write_on_build_dl_files",
+        "//subprojects/robotpy-wpimath:write_on_build_dl_files",
+        "//subprojects/robotpy-cscore/cscore:write_on_build_dl_files",
+        "//subprojects/robotpy-apriltag/robotpy_apriltag:write_on_build_dl_files",
+        "//subprojects/robotpy-wpilib:write_on_build_dl_files",
+        "//subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test:write_on_build_dl_files",
+        "//subprojects/robotpy-wpimath/tests/cpp/wpimath_test:write_on_build_dl_files",
+        "//subprojects/robotpy-halsim-ws:write_on_build_dl_files",
+    ] if not DEFAULT_DISABLE_GEN else [],
+)
+
+# write_source_files(
+#     name = "write_on_build_gen",
+#     additional_update_targets = [
+#         "//wpiutil/src/main/python:write_on_build_gen",
+#         "//wpinet/src/main/python:write_on_build_gen",
+#         "//ntcore/src/main/python:write_on_build_gen",
+#         "//hal/src/main/python:write_on_build_gen",
+#         "//wpimath/src/main/python:write_on_build_gen",
+#         "//cscore/src/main/python:write_on_build_gen",
+#         "//apriltag/src/main/python:write_on_build_gen",
+#         "//wpilib/src/main/python:write_on_build_gen",
+#         "//wpimath/src/test/python/cpp:write_on_build_gen",
+#     ] if not DISABLE_PROJECT_GEN_TEST else [],
+# )

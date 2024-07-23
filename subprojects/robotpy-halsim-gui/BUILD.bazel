@@ -1,0 +1,56 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+generated_files_helper(
+    name = "halsim-gui",
+    visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+)
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "halsim-gui",
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    internal_project_dependencies = [
+        "wpiutil",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "halsim-gui",
+    srcs = [
+        "//subprojects/robotpy-halsim-gui/halsim_gui:python_files",
+        "//subprojects/robotpy-halsim-gui/halsim_gui/_ext:python_files",
+    ],
+    data = [
+        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
+        "//subprojects/robotpy-halsim-gui/halsim_gui:copy_lib",
+        "//subprojects/robotpy-halsim-gui/halsim_gui:halsim-gui.pyso",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-wpimath:wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-halsim-gui/halsim_gui:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

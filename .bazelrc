@@ -1,0 +1,21 @@
+try-import %workspace%/user.bazelrc
+
+build --noenable_bzlmod
+test --test_output=errors
+
+build --enable_platform_specific_config
+
+build:linux   --copt=-std=c++20
+build:macos   --copt=-std=c++20
+
+build:windows --copt=/std:c++20
+build:windows --copt=/Zc:__cplusplus
+build:windows --copt=/Zc:preprocessor
+
+build:remote --bes_results_url=https://app.buildbuddy.io/invocation/
+build:remote --bes_backend=grpcs://cloud.buildbuddy.io
+build:remote --remote_cache=grpcs://cloud.buildbuddy.io
+build:remote --remote_timeout=3600
+build:remote --remote_download_toplevel # Helps remove network bottleneck if caching is enabled
+
+build --config=remote

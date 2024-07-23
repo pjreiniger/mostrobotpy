@@ -1,0 +1,14 @@
+load("//:python_rules.bzl", "wpilib_py_binary")
+
+EXAMPLES = [
+    "printlog",
+    "writelog",
+]
+
+[wpilib_py_binary(
+    name = example,
+    srcs = [example + ".py"],
+    deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+) for example in EXAMPLES]

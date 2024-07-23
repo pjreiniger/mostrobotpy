@@ -10,7 +10,7 @@ from wpilib import Notifier
 from wpilib.simulation import pauseTiming, restartTiming, resumeTiming, stepTiming
 
 # These tests fail because of race conditions in simulation
-if False:
+if True:
 
     class AtomicInteger:
         def __init__(self) -> None:

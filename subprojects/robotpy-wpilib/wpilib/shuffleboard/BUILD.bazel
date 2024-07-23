@@ -1,0 +1,44 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "shuffleboard",
+    config_file = "//subprojects/robotpy-wpilib:config_file",
+    internal_project_dependencies = [
+        "hal",
+        "wpiutil",
+        "wpimath",
+        "ntcore",
+    ],
+    parent_folder = "wpilib/",
+    python_deps = [
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+create_pybind_library(
+    "shuffleboard",
+    entry_point = ["shuffleboard.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+    extra_hdrs = glob(["*.h"]),
+    extra_srcs = glob(
+        ["*.cpp"],
+        exclude = ["shuffleboard.cpp"],
+    ),
+    generation_helper_prefix = "//subprojects/robotpy-wpilib:wpilibc_shuffleboard",
+    local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
+    strip_include_prefix = ".",
+    deps = [
+        "//subprojects/robotpy-wpilib/wpilib:wpilib_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)

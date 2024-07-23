@@ -1,0 +1,52 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+generated_files_helper(
+    name = "halsim-ds-socket",
+    visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
+)
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "halsim-ds-socket",
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    internal_project_dependencies = [
+        "wpiutil",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "halsim-ds-socket",
+    srcs = ["//subprojects/robotpy-halsim-ds-socket/halsim_ds_socket:python_files"],
+    data = [
+        "//subprojects/robotpy-halsim-ds-socket/halsim_ds_socket:copy_lib",
+        "//subprojects/robotpy-halsim-ds-socket/halsim_ds_socket:halsim_ds_socket.pyso",
+        "@bazelrio_edu_wpi_first_halsim_halsim_ds_socket_linuxx86-64//:shared_libs",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-wpinet:wpinet",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-halsim-ds-socket/halsim_ds_socket:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

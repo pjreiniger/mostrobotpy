@@ -1,0 +1,6 @@
+load("//:python_rules.bzl", "wpilib_py_binary")
+
+wpilib_py_binary(
+    name = "create_units",
+    srcs = ["create_units.py"],
+)

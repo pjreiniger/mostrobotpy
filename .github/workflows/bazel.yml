@@ -1,0 +1,59 @@
+name: Bazel
+
+on: [pull_request, push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: "Build Linux",   action: "test",  os: ubuntu-22.04 }
+          - { name: "Build OSX",     action: "test",  os: macos-14     }
+          - { name: "Build Windows", action: "test",  os: windows-2022 }
+    name: "${{ matrix.name }}"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Update requirements
+        run: bazel run //:requirements.update || true
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} Requirements
+          path: requirements*
+        if: ${{ always() }}
+
+      - name: Diff Requirements
+        run: git --no-pager diff
+
+      - name: Apply Linux hack patch
+        run: git apply linux_gen.patch
+        if: matrix.os == 'ubuntu-22.04'
+
+      - name: Apply Mac hack patch
+        run: git apply osx_gen.patch
+        if: matrix.os == 'macos-14'
+
+      - name: Apply Windows hack patch
+        run: git apply windows_gen.patch
+        if: matrix.os == 'windows-2022'
+
+      - name: Build Allowing Failure
+        run: bazel ${{ matrix.action }} -k ... || true
+        shell: bash
+
+      - name: Build
+        run: bazel ${{ matrix.action }} -k ...
+        shell: bash
+
+      - name: Debug
+        run: cat bazel-mostrobotpy/external/rules_robotpy_utils_pip_deps_pytest/BUILD.bazel
+        if: ${{ always() }}

@@ -1,0 +1,17 @@
+load("//:python_rules.bzl", "wpilib_py_binary")
+
+EXAMPLES = [
+    "pubsub_client",
+    "pubsub_server",
+    "simple_client",
+    "simple_poller",
+    "simple_robot",
+]
+
+[wpilib_py_binary(
+    name = example,
+    srcs = [example + ".py"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+    ],
+) for example in EXAMPLES]
