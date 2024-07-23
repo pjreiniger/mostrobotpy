@@ -117,9 +117,9 @@ pip_parse(
     #     "@//:requirements_windows.txt": "windows_*",
     # },
     
-    requirements_windows = "@//:requirements_windows.txt",
-    requirements_darwin = "@//:requirements_osx.txt",
-    requirements_lock = "@//:requirements_linux.txt",
+    requirements_windows = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_windows.txt",
+    requirements_darwin = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_osx.txt",
+    requirements_lock = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_linux.txt",
     python_interpreter_target = "@python_" + PYTHON_UNDERSCORE_VERSION + "_host//:python",
 )
 

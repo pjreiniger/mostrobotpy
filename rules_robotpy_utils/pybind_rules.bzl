@@ -10,6 +10,7 @@ def create_pybind_library(
         extra_srcs = [],
         extra_hdrs = [],
         deps = [],
+        static_deps = [],
         entry_point = [],
         local_defines = [],
         extension_visibility = None,
@@ -29,7 +30,7 @@ def create_pybind_library(
         name = "{}_pybind_library".format(name),
         srcs = generated_srcs + extra_srcs,
         hdrs = extra_hdrs,
-        deps = deps + rpy_include_libs + gensrc_headers + [
+        deps = deps + static_deps + rpy_include_libs + gensrc_headers + [
             "//rules_robotpy_utils/include:robotpy_includes",
         ],
         copts = select({
@@ -80,7 +81,7 @@ def create_pybind_library(
     pybind_extension(
         name = extension_name,
         srcs = entry_point,
-        deps = gensrc_headers + [":{}_pybind_library".format(name)],
+        deps = gensrc_headers + [":{}_pybind_library".format(name)] + static_deps,
         defines = ["RPYBUILD_MODULE_NAME={}".format(extension_name)],
         visibility = ["//visibility:private"],
         target_compatible_with = select({

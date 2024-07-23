@@ -27,9 +27,14 @@ create_pybind_library(
     strip_include_prefix = ".",
     deps = [
         "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver",
-        "@bzlmodrio-allwpilib//libraries/cpp/cscore",
     ],
+    static_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:static",
+        "@bzlmodrio-opencv//libraries/cpp/opencv:static",
+    ]
 )
 
 filegroup(

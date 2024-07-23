@@ -1,6 +1,23 @@
 import re
 import os
 import shutil
+import subprocess
+
+SUBPROJECTS = [
+    "pyntcore",
+    "robotpy-apriltag",
+    "robotpy-build",
+    "robotpy-cscore",
+    "robotpy-hal",
+    "robotpy-halsim-ds-socket",
+    "robotpy-halsim-gui",
+    "robotpy-halsim-ws",
+    "robotpy-wpimath",
+    "robotpy-wpinet",
+    "robotpy-wpiutil",
+    
+    "wpimath-test",
+]
 
 def run_replacement(filename):
     with open(filename, 'r') as f:
@@ -18,71 +35,80 @@ def run_replacement(filename):
     with open(filename, 'w') as f:
         f.write(contents)
 
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/wpiutil/BUILD.bazel")
 
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/wpinet/BUILD.bazel")
-
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/pyntcore/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/pyntcore/ntcore/BUILD.bazel")
-
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/hal/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/hal/simulation/BUILD.bazel")
-
-# import os
-# for root, _, files in os.walk("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath"):
-#     for f in files:
-#         if f == "BUILD.bazel":
-#             run_replacement(os.path.join(root, f))
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/hal/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/hal/simulation/BUILD.bazel")
+def fixup_build_files():
+    for subproject in SUBPROJECTS:
+        for root, _, files in os.walk(os.path.join("subprojects", subproject)):
+            for f in files:
+                if f == "BUILD.bazel":
+                    run_replacement(os.path.join(root, f))
 
 
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/robotpy_apriltag/BUILD.bazel")
+def delete_gitignored_files():
+    for root, dirs, files in os.walk("."):
+        for d in dirs:
+            if d == ".pytest_cache" or d == "dist" or d == "__pycache__" or d == "wpiutil_test.egg-info" or d == "wpimath_test.egg-info" or d == "wpilib.egg-info" or d == "build" or d == "lib":
+                print("Removing ", root, d)
+                shutil.rmtree(os.path.join(root, d))
+            if  d == "rpy-include" and "generated" not in root:
+                print("Removing ", root, d)
+                shutil.rmtree(os.path.join(root, d))
+            if d == "include" and "rules_robotpy_utils" not in root:
+                print("Removing ", root, d)
+                shutil.rmtree(os.path.join(root, d))
 
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/BUILD.bazel")
-# run_replacement("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/cscore/BUILD.bazel")
-
-
-# for root, _, files in os.walk("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib"):
-#     for f in files:
-#         if f == "BUILD.bazel":
-#             run_replacement(os.path.join(root, f))
-
-
-files_to_delete = []
-
-
-
-for root, dirs, files in os.walk("."):
-    # for d in dirs:
-    #     if d == ".pytest_cache" or d == "dist" or d == "__pycache__" or d == "wpiutil_test.egg-info" or d == "wpimath_test.egg-info":
-    #         print("Removing ", root, d)
-    #         shutil.rmtree(os.path.join(root, d))
-    #     if  d == "rpy-include" and "generated" not in root:
-    #         print("Removing ", root, d)
-    #         shutil.rmtree(os.path.join(root, d))
-    #     if d == "include" and "rules_robotpy_utils" not in root:
-    #         print("Removing ", root, d)
-    #         shutil.rmtree(os.path.join(root, d))
+        for f in files:
+            if f == ".gitignore":
+                print("Removing ", root, f)
+                os.remove(os.path.join(root, f))
 
 
-    for f in files:
-        # if f == ".gitignore":
-        #     os.remove(os.path.join(root, f))
-        # if f.endswith(".so"):
-        #     os.remove(os.path.join(root, f))
+def find_generated_files():
+    generated_files = []
 
-        if f.startswith("_init"):
-            files_to_delete.append(os.path.join(root, f))
-        if f == "pkgcfg.py":
-            files_to_delete.append(os.path.join(root, f))
-        if f == "version.py":
-            files_to_delete.append(os.path.join(root, f))
+    for root, dirs, files in os.walk("."):
+        for f in files:
+            if f.startswith("_init"):
+                generated_files.append(os.path.join(root, f))
+            if f == "pkgcfg.py":
+                generated_files.append(os.path.join(root, f))
+            if f == "version.py":
+                generated_files.append(os.path.join(root, f))
 
-for f in files_to_delete:
-    print("Removing ", f)
-    os.remove(f)
+    return generated_files
+
+
+def delete_generated_files():
+    files_to_delete = find_generated_files()
+    for f in files_to_delete:
+        print("Removing ", f)
+        os.remove(f)
+        
+        
+def add_generated_files():
+    files_to_delete = find_generated_files()
+    
+    args = ["git", "add", "-f"] + files_to_delete
+    subprocess.check_call(args)
+
+
+def uninstall_dev_versions():
+    for project in SUBPROJECTS:
+        print(project)
+        subprocess.check_call(["pip3", "uninstall", project, "-y"])
+
+
+# fixup_build_files()
+delete_generated_files()
+
+# add_generated_files()
+
+
+# delete_gitignored_files()
+# delete_generated_files()
+
+# uninstall_dev_versions()
+
+
+
+

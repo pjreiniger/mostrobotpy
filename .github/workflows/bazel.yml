@@ -11,28 +11,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { name: "Build Linux",   action: "test",  os: ubuntu-22.04 }
-          - { name: "Build OSX",     action: "test",  os: macos-14     }
-          - { name: "Build Windows", action: "test",  os: windows-2022 }
-    name: "${{ matrix.name }}"
+        os:
+          - ubuntu-22.04
+          - macos-14    
+          - windows-2022
+        python_version:
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Update requirements
-        run: bazel run //:requirements.update || true
-        shell: bash
+      - name: Fix Python Version
+        run: sed -i -e "s/PYTHON_VERSION = .*/PYTHON_VERSION = '${{ matrix.python_version }}'/" WORKSPACE
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.os }} Requirements
-          path: requirements*
-        if: ${{ always() }}
-
-      - name: Diff Requirements
-        run: git --no-pager diff
+      - name: Renable requirements test
+        run: sed -i -e "s/tags = .*//" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
+        if: matrix.os != 'windows-2022'
 
       - name: Apply Linux hack patch
         run: git apply linux_gen.patch
@@ -47,13 +46,10 @@ jobs:
         if: matrix.os == 'windows-2022'
 
       - name: Build Allowing Failure
-        run: bazel ${{ matrix.action }} -k ... || true
+        run: bazel test -k ... || true
         shell: bash
 
       - name: Build
-        run: bazel ${{ matrix.action }} -k ...
+        run: bazel test -k ...
         shell: bash
-
-      - name: Debug
-        run: cat bazel-mostrobotpy/external/rules_robotpy_utils_pip_deps_pytest/BUILD.bazel
-        if: ${{ always() }}
+  
