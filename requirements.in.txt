@@ -1,5 +1,6 @@
-robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2024.05.04-rc1
+robotpy-build @ git+https://github.com/pjreiniger/robotpy-build@2024.07.23-rc1
 pytest
 pluggy
 numpy<2
+setuptools==69.0.2
 opencv-python~=4.6

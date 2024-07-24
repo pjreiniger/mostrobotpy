@@ -33,6 +33,22 @@ jobs:
         run: sed -i -e "s/tags = .*//" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
         if: matrix.os != 'windows-2022'
 
+      - name: Run requirements update
+        run: bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update
+        if: matrix.os != 'windows-2022'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/requirements_linux.txt
+        if: matrix.os == 'ubuntu-22.04'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/requirements_osx.txt
+        if: matrix.os == 'macos-14'
+
       - name: Apply Linux hack patch
         run: git apply linux_gen.patch
         if: matrix.os == 'ubuntu-22.04'
@@ -53,3 +69,14 @@ jobs:
         run: bazel test --config=ci -k ...
         shell: bash
   
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Merge Windows Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: dist-Windows
+          pattern: * Requirements
+          delete-merged: true
