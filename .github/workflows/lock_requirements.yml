@@ -35,28 +35,36 @@ jobs:
 
       - name: Run requirements update
         run: |
-          sed -i "s/requirements_windows = .*/requirements_windows = '\/\/:requirements_windows.txt'/" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
+          sed -i "s/requirements_windows = .*/requirements_windows = '\/\/:requirements_windows.txt',/" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
           touch requirements_windows.txt
           bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
         if: matrix.os == 'windows-2022'
 
+      - name: Run diff
+        run: git diff HEAD --no-pager
+
+      # Upload appropriate file
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
           path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_linux.txt
+          retention-days: 1
         if: matrix.os == 'ubuntu-22.04'
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
           path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_osx.txt
+          retention-days: 1
         if: matrix.os == 'macos-14'
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
           path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows.txt
+          retention-days: 1
         if: matrix.os == 'macos-14'
+        if: matrix.os == 'windows-2022'
 
   merge:
     runs-on: ubuntu-latest
@@ -67,4 +75,5 @@ jobs:
         with:
           name: Requirements
           pattern: "* Requirements"
-          delete-merged: true
+          retention-days: 1
+          separate-directories: True
