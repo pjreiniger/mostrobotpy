@@ -1,4 +1,4 @@
-name: Bazel
+name: Lock Requirements
 
 on: [pull_request, push]
 
@@ -33,16 +33,29 @@ jobs:
         run: bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update
         if: matrix.os != 'windows-2022'
 
+      - name: Run requirements update
+        run: |
+          sed -i "s/requirements_windows = .*/requirements_windows = '\/\/:requirements_windows.txt'/" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
+          touch requirements_windows.txt
+          bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
+        if: matrix.os == 'windows-2022'
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
-          path: bazel_utils/requirements/${{ matrix.python_version }}/requirements_linux.txt
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_linux.txt
         if: matrix.os == 'ubuntu-22.04'
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
-          path: bazel_utils/requirements/${{ matrix.python_version }}/requirements_osx.txt
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_osx.txt
+        if: matrix.os == 'macos-14'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows.txt
         if: matrix.os == 'macos-14'
 
   merge:
