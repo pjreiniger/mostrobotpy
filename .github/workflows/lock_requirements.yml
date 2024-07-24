@@ -39,11 +39,17 @@ jobs:
           touch requirements_windows.txt
           echo 'exports_files(["requirements_windows.txt"])' >> BUILD.bazel
           bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
-          cp bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles\requirements_windows.txt bazel_utils/requirements/${{ matrix.python_version }}/requirements_windows.txt
+          echo "About to do copy"
+          ls bazel-bin
+          ls bazel-bin\bazel_utils
+          ls bazel-bin\bazel_utils\requirements
+          ls bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}
+          ls bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles
+          cp bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles\requirements_windows.txt bazel_utils/requirements/${{ matrix.python_version }}/requirements_windows_${{ matrix.python_version }}.txt
         if: matrix.os == 'windows-2022'
 
       - name: Run diff
-        run: git --no-pager diff HEAD
+        run: git add .; git --no-pager diff HEAD
 
       # Upload appropriate file
       - uses: actions/upload-artifact@v4
