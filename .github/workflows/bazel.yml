@@ -78,5 +78,5 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           name: dist-Windows
-          pattern: * Requirements
+          pattern: "* Requirements"
           delete-merged: true
