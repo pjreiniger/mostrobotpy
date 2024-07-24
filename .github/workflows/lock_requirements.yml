@@ -39,6 +39,7 @@ jobs:
           touch requirements_windows.txt
           echo 'exports_files(["requirements_windows.txt"])' >> BUILD.bazel
           bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
+          cp bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles\requirements_windows.txt bazel_utils/requirements/${{ matrix.python_version }}/requirements_windows.txt
         if: matrix.os == 'windows-2022'
 
       - name: Run diff
