@@ -1,3 +1,4 @@
+load("@rules_python//python:defs.bzl", "py_library")
 load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
 load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
 
@@ -14,10 +15,8 @@ filegroup(
 
 generate_robotpy_source_files(
     name = "cscore",
-    config_file = ":pyproject.toml",
-    headers = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"
-    ],
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_cscore_cscore-cpp_headers//:header_files"],
     internal_project_dependencies = [
         "wpiutil",
         "wpinet",
@@ -44,3 +43,13 @@ pybind_python_library(
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],
 )
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-cscore/cscore:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)
+

@@ -98,8 +98,21 @@ def uninstall_dev_versions():
         subprocess.check_call(["pip3", "uninstall", project, "-y"])
 
 
+def delete_subproject_build_files():
+    fut = []
+
+    for root, dirs, files in os.walk("subprojects"):
+        for f in files:
+            if f == "BUILD.bazel":
+                fut.append(os.path.join(root, f))
+
+    for f in fut:
+        print("Deleting ", f)
+        os.remove(f)
+
+
 # fixup_build_files()
-delete_generated_files()
+# delete_generated_files()
 
 # add_generated_files()
 
@@ -109,6 +122,6 @@ delete_generated_files()
 
 # uninstall_dev_versions()
 
-
+delete_subproject_build_files()
 
 

@@ -16,9 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "ntcore",
     config_file = ":config_file",
-    headers = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"
-    ],
+    headers = ["@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers//:header_files"],
     internal_project_dependencies = [
         "wpiutil",
         "wpinet",
@@ -33,7 +31,6 @@ pybind_python_library(
     name = "ntcore",
     srcs = ["//subprojects/pyntcore/ntcore:python_files"],
     data = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
         "//subprojects/pyntcore/ntcore:copy_lib",
         "//subprojects/pyntcore/ntcore:ntcore.pyso",
     ],
@@ -57,3 +54,4 @@ py_library(
         "//subprojects/robotpy-wpiutil:pkgcfg",
     ],
 )
+

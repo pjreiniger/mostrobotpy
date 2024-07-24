@@ -3,6 +3,14 @@ load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
 
 exports_files(["requirements.in.txt"])
 
+py_binary(
+    name = "generate_build_files",
+    srcs = ["generate_build_files.py"],
+    deps = [
+        "//robotbuild_generation:pybind_gen_utils",
+    ]
+)
+
 write_source_files(
     name = "write_on_build_dl_files",
     additional_update_targets = [

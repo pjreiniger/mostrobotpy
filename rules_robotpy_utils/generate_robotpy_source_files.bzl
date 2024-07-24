@@ -9,7 +9,7 @@ def generate_robotpy_source_files(
         projects = None,
         headers = [],
         internal_project_dependencies = [],
-        disable = DEFAULT_DISABLE_GEN,
+        disable = True,
         project_name = None):
     if disable:
         print("Skipping gen")

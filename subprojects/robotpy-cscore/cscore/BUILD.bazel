@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
 load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
 load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
 
@@ -16,6 +18,7 @@ generate_robotpy_project_files(
     ],
     visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
 )
+
 
 create_pybind_library(
     "cscore",
@@ -42,3 +45,4 @@ filegroup(
     srcs = glob(["*.py"]),
     visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
 )
+

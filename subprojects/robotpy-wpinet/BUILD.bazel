@@ -16,7 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "wpinet",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    headers = ["@bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers//:header_files"],
     internal_project_dependencies = [
         "wpiutil",
     ],
@@ -29,7 +29,6 @@ pybind_python_library(
     name = "wpinet",
     srcs = ["//subprojects/robotpy-wpinet/wpinet:python_files"],
     data = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
         "//subprojects/robotpy-wpinet/wpinet:copy_lib",
         "//subprojects/robotpy-wpinet/wpinet:wpinet.pyso",
     ],
@@ -48,3 +47,4 @@ py_library(
     imports = ["."],
     visibility = ["//visibility:public"],
 )
+
