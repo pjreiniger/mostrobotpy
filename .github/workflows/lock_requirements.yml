@@ -63,7 +63,6 @@ jobs:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
           path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows.txt
           retention-days: 1
-        if: matrix.os == 'macos-14'
         if: matrix.os == 'windows-2022'
 
   merge:
