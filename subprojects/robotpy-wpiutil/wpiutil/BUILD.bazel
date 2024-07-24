@@ -57,7 +57,7 @@ alias(
     actual = select({
         "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_osxuniversal//:shared_libs",
         "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default":                "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_linuxx86-64//:shared",
+        "//conditions:default": "@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_linuxx86-64//:shared",
     }),
 )
 

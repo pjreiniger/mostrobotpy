@@ -1,4 +1,3 @@
-load("@rules_cc//cc:defs.bzl", "cc_library")
 load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
 load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
 load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
@@ -16,7 +15,6 @@ generate_robotpy_project_files(
     ],
     visibility = ["//subprojects/pyntcore:__subpackages__"],
 )
-
 
 create_pybind_library(
     "ntcore",
@@ -38,13 +36,12 @@ create_pybind_library(
     ],
 )
 
-
 alias(
     name = "TEMP_shared_library",
     actual = select({
         "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_osxuniversal//:shared_libs",
         "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default":                "@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_linuxx86-64//:shared",
+        "//conditions:default": "@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_linuxx86-64//:shared",
     }),
 )
 
@@ -58,4 +55,3 @@ filegroup(
     srcs = glob(["*.py"]),
     visibility = ["//subprojects/pyntcore:__subpackages__"],
 )
-

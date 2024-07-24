@@ -14,7 +14,7 @@ http_archive(
 
 local_repository(
     name = "bzlmodrio-allwpilib",
-    path = "/home/pjreiniger/git/bzlmodRio/monorepo/libraries/bzlmodRio-allwpilib"
+    path = "/home/pjreiniger/git/bzlmodRio/monorepo/libraries/bzlmodRio-allwpilib",
 )
 
 # Rules Python
@@ -116,16 +116,10 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
     name = "rules_robotpy_utils_pip_deps",
-    # requirements_by_platform = {
-    #     "@//:requirements_linux.txt": "linux_*",
-    #     "@//:requirements_osx.txt": "osx_*,darwin_*",
-    #     "@//:requirements_windows.txt": "windows_*",
-    # },
-    
-    requirements_windows = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_windows_" + PYTHON_VERSION + ".txt",
+    python_interpreter_target = "@python_" + PYTHON_UNDERSCORE_VERSION + "_host//:python",
     requirements_darwin = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_osx_" + PYTHON_VERSION + ".txt",
     requirements_lock = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_linux_" + PYTHON_VERSION + ".txt",
-    python_interpreter_target = "@python_" + PYTHON_UNDERSCORE_VERSION + "_host//:python",
+    requirements_windows = "@//bazel_utils/requirements/" + PYTHON_VERSION + ":requirements_windows_" + PYTHON_VERSION + ".txt",
 )
 
 load("@rules_robotpy_utils_pip_deps//:requirements.bzl", "install_deps")

@@ -1,6 +1,5 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_python//python:defs.bzl", "py_binary")
-load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
 
 def generate_robotpy_source_files(
         name,

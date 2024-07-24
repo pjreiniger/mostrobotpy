@@ -1,4 +1,5 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@rules_python//python:defs.bzl", "py_binary")
 load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
 
 exports_files(["requirements.in.txt"])
@@ -8,7 +9,7 @@ py_binary(
     srcs = ["generate_build_files.py"],
     deps = [
         "//robotbuild_generation:pybind_gen_utils",
-    ]
+    ],
 )
 
 write_source_files(

@@ -1,5 +1,3 @@
-load("//:python_rules.bzl", "wpilib_py_test")
-
 # wpilib_py_test(
 #     "wpilib_tests",
 #     extra_sources = ["conftest.py"],
