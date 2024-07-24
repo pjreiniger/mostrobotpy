@@ -16,7 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "wpiutil",
     config_file = ":config_file",
-    headers = ["//wpiutil/src/main/native:headers"] + ["//subprojects/robotpy-wpiutil/wpiutil:special_headers"],
+    headers = ["@bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers//:header_files"] + ["//subprojects/robotpy-wpiutil/wpiutil:special_headers"],
 )
 
 pybind_python_library(

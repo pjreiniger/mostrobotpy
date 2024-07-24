@@ -140,7 +140,7 @@ class Setup:
                     )
                 else:
                     cfg.generation_data = (
-                        f"{self.project.base_package}/src/main/python/" + cfg.generation_data
+                        f"subprojects/robotpy-{self.project.base_package}/" + cfg.generation_data
                     )
 
             # print(package_name, cfg)

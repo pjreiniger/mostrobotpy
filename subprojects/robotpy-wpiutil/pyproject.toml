@@ -26,6 +26,7 @@ sources = [
 extra_includes = [
     "wpiutil/src/wpistruct",
     "wpiutil/src/type_casters",
+    "subprojects/robotpy-wpiutil/wpiutil",
 ]
 
 generation_data = "gen"

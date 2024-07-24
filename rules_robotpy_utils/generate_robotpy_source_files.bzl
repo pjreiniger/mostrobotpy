@@ -1,5 +1,6 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_python//python:defs.bzl", "py_binary")
+load("//rules_robotpy_utils:generation_variables.bzl", "DEFAULT_DISABLE_GEN")
 
 def generate_robotpy_source_files(
         name,
@@ -8,9 +9,9 @@ def generate_robotpy_source_files(
         projects = None,
         headers = [],
         internal_project_dependencies = [],
-        disable = False,
+        disable = DEFAULT_DISABLE_GEN,
         project_name = None):
-    if True:  # disable:
+    if disable:
         print("Skipping gen")
         return
 
