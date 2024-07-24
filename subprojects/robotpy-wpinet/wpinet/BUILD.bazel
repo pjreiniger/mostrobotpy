@@ -39,6 +39,6 @@ copy_native_file(
 
 filegroup(
     name = "python_files",
-    srcs = glob(["*.py"]),
+    srcs = glob(["**/*.py"]),
     visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
 )

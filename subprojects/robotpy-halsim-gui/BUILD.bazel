@@ -16,12 +16,20 @@ filegroup(
 generate_robotpy_source_files(
     name = "halsim-gui",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    headers = ["@bazelrio_edu_wpi_first_halsim_gui_halsim_gui-cpp_headers//:header_files"],
     internal_project_dependencies = [
         "wpiutil",
+        "hal",
+        "ntcore",
+        "wpimath_cpp",
+        "halsim_gui",
     ],
     python_deps = [
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-wpimath_cpp:pkgcfg",
+        "//subprojects/robotpy-halsim_gui:pkgcfg",
     ],
 )
 
@@ -32,7 +40,6 @@ pybind_python_library(
         "//subprojects/robotpy-halsim-gui/halsim_gui/_ext:python_files",
     ],
     data = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
         "//subprojects/robotpy-halsim-gui/halsim_gui:copy_lib",
         "//subprojects/robotpy-halsim-gui/halsim_gui:halsim-gui.pyso",
     ],

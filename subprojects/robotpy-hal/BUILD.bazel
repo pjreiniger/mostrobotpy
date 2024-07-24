@@ -46,7 +46,7 @@ pybind_python_library(
         "//subprojects/robotpy-hal/hal:copy_lib",
         "//subprojects/robotpy-hal/hal:wpiHal.pyso",
         "//subprojects/robotpy-hal/hal/simulation:simulation.pyso",
-        "@bazelrio_edu_wpi_first_hal_hal-cpp_linuxx86-64//:shared_libs",
+        "@bazelrio_edu_wpi_first_hal_hal-cpp_linuxx86-64//:shared",
     ],
     imports = ["."],
     visibility = ["//visibility:public"],

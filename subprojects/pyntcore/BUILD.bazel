@@ -22,8 +22,8 @@ generate_robotpy_source_files(
         "wpinet",
     ],
     python_deps = [
-        "//subprojects/robotpy-wpinet:pkgcfg",
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
     ],
 )
 

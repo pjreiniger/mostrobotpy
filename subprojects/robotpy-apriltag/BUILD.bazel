@@ -1,3 +1,4 @@
+load("@rules_python//python:defs.bzl", "py_library")
 load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
 load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
 
@@ -14,13 +15,11 @@ filegroup(
 
 generate_robotpy_source_files(
     name = "apriltag",
-    config_file = ":pyproject.toml",
-    headers = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"
-    ],
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_robotpy_apriltag_robotpy_apriltag-cpp_headers//:header_files"],
     internal_project_dependencies = [
-        "wpimath",
         "wpiutil",
+        "wpimath",
     ],
     python_deps = [
         "//subprojects/robotpy-wpiutil:pkgcfg",
@@ -30,11 +29,8 @@ generate_robotpy_source_files(
 
 pybind_python_library(
     name = "apriltag",
-    srcs = ["//subprojects/robotpy-apriltag/robotpy_apriltag:python_files"] + glob([
-        "apriltag/**/*.py",
-    ]),
+    srcs = ["//subprojects/robotpy-apriltag/robotpy_apriltag:python_files"],
     data = [
-        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
         "//subprojects/robotpy-apriltag/robotpy_apriltag:apriltag.pyso",
         "//subprojects/robotpy-apriltag/robotpy_apriltag:copy_lib",
     ],
@@ -43,5 +39,18 @@ pybind_python_library(
     deps = [
         "//subprojects/robotpy-wpimath:wpimath",
         "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-apriltag/robotpy_apriltag:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/robotpy-wpiutil:pkgcfg",
     ],
 )

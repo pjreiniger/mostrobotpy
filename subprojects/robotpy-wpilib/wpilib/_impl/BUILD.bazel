@@ -23,9 +23,9 @@ generate_robotpy_project_files(
 alias(
     name = "TEMP_shared_library",
     actual = select({
-        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_osxuniversal//:shared_libs",
-        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_linuxx86-64//:shared_libs",
+        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_osxuniversal//:shared",
+        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_windowsx86-64//:shared",
+        "//conditions:default": "@bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_linuxx86-64//:shared",
     }),
 )
 

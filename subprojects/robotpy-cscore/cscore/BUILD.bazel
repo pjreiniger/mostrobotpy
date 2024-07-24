@@ -10,9 +10,9 @@ generate_robotpy_project_files(
         "ntcore",
     ],
     python_deps = [
-        "//subprojects/pyntcore:pkgcfg",
-        "//subprojects/robotpy-wpinet:pkgcfg",
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
     ],
     visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
 )
@@ -21,9 +21,12 @@ create_pybind_library(
     "cscore",
     entry_point = ["src/main.cpp"],
     extension_visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
-    extra_hdrs = glob(["cvnp/*.h"]),
-    extra_srcs = glob(["cvnp/*.cpp"]),
+    extra_srcs = [
+        "cvnp/cvnp.cpp",
+        "cvnp/cvnp_synonyms.cpp",
+    ] + glob(["cvnp/*.h"]),
     generation_helper_prefix = "//subprojects/robotpy-cscore:cscore",
+    includes = ["."],
     static_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:static",
         "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
@@ -31,7 +34,6 @@ create_pybind_library(
         "@bzlmodrio-allwpilib//libraries/cpp/wpinet:static",
         "@bzlmodrio-opencv//libraries/cpp/opencv:static",
     ],
-    strip_include_prefix = ".",
     deps = [
         "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
     ],
@@ -39,6 +41,6 @@ create_pybind_library(
 
 filegroup(
     name = "python_files",
-    srcs = glob(["*.py"]),
+    srcs = glob(["**/*.py"]),
     visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
 )

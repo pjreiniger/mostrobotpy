@@ -8,14 +8,11 @@ generate_robotpy_project_files(
     init_file = "_init_apriltag.py",
     internal_project_dependencies = [
         "wpiutil",
-        "wpinet",
         "wpimath",
     ],
     python_deps = [
-        "//subprojects/robotpy-wpimath:pkgcfg",
-        "//subprojects/pyntcore:pkgcfg",
-        "//subprojects/robotpy-wpinet:pkgcfg",
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
     ],
     visibility = ["//subprojects/robotpy-apriltag:__subpackages__"],
 )
@@ -37,7 +34,7 @@ alias(
     actual = select({
         "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_apriltag_apriltag-cpp_osxuniversal//:shared_libs",
         "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_apriltag_apriltag-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default": "@bazelrio_edu_wpi_first_apriltag_apriltag-cpp_linuxx86-64//:shared_libs",
+        "//conditions:default": "@bazelrio_edu_wpi_first_apriltag_apriltag-cpp_linuxx86-64//:shared",
     }),
 )
 
@@ -48,6 +45,6 @@ copy_native_file(
 
 filegroup(
     name = "python_files",
-    srcs = glob(["*.py"]),
+    srcs = glob(["**/*.py"]),
     visibility = ["//subprojects/robotpy-apriltag:__subpackages__"],
 )

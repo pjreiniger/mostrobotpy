@@ -35,16 +35,12 @@ create_pybind_library(
     "wpiutil",
     entry_point = ["src/main.cpp"],
     extension_visibility = ["//subprojects/robotpy-wpiutil:__subpackages__"],
-    extra_srcs = glob(
-        ["src/**/*.cpp"],
-        exclude = ["src/main.cpp"],
-    ),
-    generation_helper_prefix = "//subprojects/robotpy-wpiutil:wpiutil",
-    includes = [
-        # ".",
-        # "src/type_casters",
-        # "src/wpistruct",
+    extra_srcs = [
+        "src/safethread_gil.cpp",
+        "src/stacktracehook.cpp",
+        "src/wpistruct/wpystruct_fns.cpp",
     ],
+    generation_helper_prefix = "//subprojects/robotpy-wpiutil:wpiutil",
     deps = [
         ":type_casters_headers",
         ":wpistruct_headers",

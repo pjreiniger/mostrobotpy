@@ -6,14 +6,12 @@ generate_robotpy_project_files(
     name = "halsim_ds_socket",
     config_file = "//subprojects/robotpy-halsim-ds-socket:config_file",
     internal_project_dependencies = [
-        "wpiutil",
-        "wpinet",
         "hal",
+        "wpinet",
     ],
     python_deps = [
-        "//subprojects/robotpy-wpiutil:pkgcfg",
-        "//subprojects/robotpy-wpinet:pkgcfg",
         "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
     ],
     visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
 )
@@ -24,7 +22,6 @@ create_pybind_library(
     extension_visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
     generation_helper_prefix = None,
     deps = [
-        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/halsim_ds_socket",
     ],
 )
@@ -34,7 +31,7 @@ alias(
     actual = select({
         "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_halsim_halsim_ds_socket_osxuniversal//:shared_libs",
         "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_halsim_halsim_ds_socket_windowsx86-64//:shared_libs",
-        "//conditions:default": "@bazelrio_edu_wpi_first_halsim_halsim_ds_socket_linuxx86-64//:shared_libs",
+        "//conditions:default": "@bazelrio_edu_wpi_first_halsim_halsim_ds_socket_linuxx86-64//:shared",
     }),
 )
 
@@ -45,6 +42,6 @@ copy_native_file(
 
 filegroup(
     name = "python_files",
-    srcs = glob(["*.py"]),
+    srcs = glob(["**/*.py"]),
     visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
 )

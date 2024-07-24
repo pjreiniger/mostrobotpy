@@ -31,9 +31,9 @@ filegroup(
 alias(
     name = "TEMP_shared_library",
     actual = select({
-        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_osxuniversal//:shared_libs",
-        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_linuxx86-64//:shared_libs",
+        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_osxuniversal//:shared",
+        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_windowsx86-64//:shared",
+        "//conditions:default": "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_linuxx86-64//:shared",
     }),
 )
 

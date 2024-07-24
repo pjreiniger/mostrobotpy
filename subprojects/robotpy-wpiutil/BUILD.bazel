@@ -23,7 +23,6 @@ pybind_python_library(
     name = "wpiutil",
     srcs = ["//subprojects/robotpy-wpiutil/wpiutil:python_files"],
     data = [
-        # "//wpiutil/src/main/native:wpiutil",
         "//subprojects/robotpy-wpiutil/wpiutil:copy_lib",
         "//subprojects/robotpy-wpiutil/wpiutil:wpiutil.pyso",
     ],

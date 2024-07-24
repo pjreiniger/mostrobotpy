@@ -20,16 +20,16 @@ create_pybind_library(
     "ntcore",
     entry_point = ["src/ntcore.cpp"],
     extension_visibility = ["//subprojects/pyntcore:__subpackages__"],
-    extra_hdrs = glob([
+    extra_srcs = [
+        "src/nt_instance.cpp",
+        "src/py2value.cpp",
+        "src/pyentry.cpp",
+    ] + glob([
         "src/*.h",
         "src/*.inl",
     ]),
-    extra_srcs = glob(
-        ["src/*.cpp"],
-        exclude = ["src/ntcore.cpp"],
-    ),
     generation_helper_prefix = "//subprojects/pyntcore:ntcore",
-    strip_include_prefix = ".",
+    includes = ["."],
     deps = [
         "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/ntcore",
@@ -52,6 +52,6 @@ copy_native_file(
 
 filegroup(
     name = "python_files",
-    srcs = glob(["*.py"]),
+    srcs = glob(["**/*.py"]),
     visibility = ["//subprojects/pyntcore:__subpackages__"],
 )
