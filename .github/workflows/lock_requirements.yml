@@ -37,6 +37,7 @@ jobs:
         run: |
           sed -i "s/requirements_windows = .*/requirements_windows = '\/\/:requirements_windows.txt',/" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
           touch requirements_windows.txt
+          echo 'exports_files(["requirements_windows.txt"])' >> BUILD.bazel
           bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
         if: matrix.os == 'windows-2022'
 
@@ -47,21 +48,21 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
-          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_linux.txt
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_linux_${{ matrix.python_version }}.txt
           retention-days: 1
         if: matrix.os == 'ubuntu-22.04'
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
-          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_osx.txt
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_osx_${{ matrix.python_version }}.txt
           retention-days: 1
         if: matrix.os == 'macos-14'
 
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
-          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows.txt
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows_${{ matrix.python_version }}.txt
           retention-days: 1
         if: matrix.os == 'windows-2022'
 
@@ -75,4 +76,3 @@ jobs:
           name: Requirements
           pattern: "* Requirements"
           retention-days: 1
-          separate-directories: True
