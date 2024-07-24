@@ -17,6 +17,8 @@ write_source_files(
         "//subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test:write_on_build_dl_files",
         "//subprojects/robotpy-wpimath/tests/cpp/wpimath_test:write_on_build_dl_files",
         "//subprojects/robotpy-halsim-ws:write_on_build_dl_files",
+        "//subprojects/robotpy-halsim-ds-socket/halsim_ds_socket:write_on_build_dl_files",
+        "//subprojects/robotpy-halsim-gui/halsim_gui:write_on_build_dl_files",
     ] if not DEFAULT_DISABLE_GEN else [],
 )
 

@@ -1,6 +1,6 @@
 name: Lock Requirements
 
-on: [pull_request, push]
+on: [workflow_dispatch]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
