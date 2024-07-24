@@ -168,7 +168,7 @@ class Setup:
 
     def _fix_downloads(self, cfg, static: bool):
         if cfg.maven_lib_download:
-            downloads = [Download(url="FAKE", incdir="FAKE INCLUDE", libdir = "FAKE LIB", libs=cfg.maven_lib_download.libs)]
+            downloads = [Download(url="FAKE", incdir="FAKE INCLUDE", libdir = "FAKE LIB", libs=cfg.maven_lib_download.libs, dlopenlibs=cfg.maven_lib_download.dlopenlibs)]
             cfg.maven_lib_download = None
             if cfg.download:
                 cfg.download.append(downloads)
