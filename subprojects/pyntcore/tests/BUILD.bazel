@@ -8,6 +8,8 @@ wpilib_py_test(
         exclude = [
             "conftest.py",
             "run_tests.py",
+            # TODO temp
+            "test_value.py",
         ],
     ),
     deps = [

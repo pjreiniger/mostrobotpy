@@ -5,9 +5,17 @@ load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
 generate_robotpy_project_files(
     name = "halsim_gui",
     config_file = "//subprojects/robotpy-halsim-gui:config_file",
-    internal_project_dependencies = ["wpiutil"],
+    internal_project_dependencies = [
+        "wpiutil",
+        "ntcore",
+        "wpimath",
+        "hal",
+    ],
     python_deps = [
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-hal:pkgcfg",
     ],
     visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
 )

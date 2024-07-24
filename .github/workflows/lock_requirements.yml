@@ -1,0 +1,85 @@
+name: Lock Requirements
+
+on: [workflow_dispatch]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-14    
+          - windows-2022
+        python_version:
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Fix Python Version
+        run: sed -i -e "s/PYTHON_VERSION = .*/PYTHON_VERSION = '${{ matrix.python_version }}'/" WORKSPACE
+
+      - name: Run requirements update
+        run: bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update
+        if: matrix.os != 'windows-2022'
+
+      - name: Run requirements update
+        run: |
+          sed -i "s/requirements_windows = .*/requirements_windows = '\/\/:requirements_windows.txt',/" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
+          touch requirements_windows.txt
+          echo 'exports_files(["requirements_windows.txt"])' >> BUILD.bazel
+          bazel run //bazel_utils/requirements/${{ matrix.python_version }}:requirements.update || true
+          echo "About to do copy"
+          ls bazel-bin
+          ls bazel-bin\bazel_utils
+          ls bazel-bin\bazel_utils\requirements
+          ls bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}
+          ls bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles
+          cp bazel-bin\bazel_utils\requirements\${{ matrix.python_version }}\requirements.update.exe.runfiles\requirements_windows.txt bazel_utils/requirements/${{ matrix.python_version }}/requirements_windows_${{ matrix.python_version }}.txt
+        if: matrix.os == 'windows-2022'
+
+      - name: Run diff
+        run: git add .; git --no-pager diff HEAD
+
+      # Upload appropriate file
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_linux_${{ matrix.python_version }}.txt
+          retention-days: 1
+        if: matrix.os == 'ubuntu-22.04'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_osx_${{ matrix.python_version }}.txt
+          retention-days: 1
+        if: matrix.os == 'macos-14'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} ${{ matrix.python_version }} Requirements
+          path: bazel_utils/requirements/${{ matrix.python_version }}/*equirements_windows_${{ matrix.python_version }}.txt
+          retention-days: 1
+        if: matrix.os == 'windows-2022'
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Merge Requirements
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: Requirements
+          pattern: "* Requirements"
+          retention-days: 1

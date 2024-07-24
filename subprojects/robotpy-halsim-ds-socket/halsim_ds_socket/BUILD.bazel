@@ -5,9 +5,15 @@ load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
 generate_robotpy_project_files(
     name = "halsim_ds_socket",
     config_file = "//subprojects/robotpy-halsim-ds-socket:config_file",
-    internal_project_dependencies = ["wpiutil"],
+    internal_project_dependencies = [
+        "wpiutil",
+        "wpinet",
+        "hal",
+    ],
     python_deps = [
         "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/robotpy-hal:pkgcfg",
     ],
     visibility = ["//subprojects/robotpy-halsim-ds-socket:__subpackages__"],
 )
