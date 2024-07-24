@@ -6,16 +6,17 @@ http_archive(
     url = "https://github.com/bzlmodRio/rules_bzlmodRio_toolchains/releases/download/2024-1/rules_bzlmodRio_toolchains-2024-1.tar.gz",
 )
 
-# http_archive(
-#     name = "bzlmodrio-allwpilib",
-#     sha256 = "f0d477e7236df5d46980566943a64045f6ed69b498fd7a959c58425a6afcf6db",
-#     url = "https://github.com/bzlmodRio/bzlmodRio-allwpilib/releases/download/{}/bzlmodRio-allwpilib-{}.tar.gz".format("2024.3.2", "2024.3.2"),
-# )
-
-local_repository(
+http_archive(
     name = "bzlmodrio-allwpilib",
-    path = "/home/pjreiniger/git/bzlmodRio/monorepo/libraries/bzlmodRio-allwpilib",
+    sha256 = "1ca3d4c6051bf436890f048aa59fde0ee3e245e08d765f7c191b43e20cc2535b",
+    strip_prefix = "bzlmodRio-allwpilib-better_for_robotpy",
+    url = "https://github.com/bzlmodRio/bzlmodRio-allwpilib/archive/refs/heads/better_for_robotpy.zip",
 )
+
+# local_repository(
+#     name = "bzlmodrio-allwpilib",
+#     path = "/home/pjreiniger/git/bzlmodRio/monorepo/libraries/bzlmodRio-allwpilib",
+# )
 
 # Rules Python
 http_archive(

@@ -16,7 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "cscore",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_cscore_cscore-cpp_headers//:header_files"],
+    headers = ["@bzlmodrio-allwpilib//libraries/cpp/cscore:header_files"],
     internal_project_dependencies = [
         "wpiutil",
         "wpinet",

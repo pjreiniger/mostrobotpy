@@ -97,7 +97,6 @@ pybind_python_library(
         "//subprojects/robotpy-wpimath/wpimath/interpolation:interpolation.pyso",
         "//subprojects/robotpy-wpimath/wpimath/kinematics:kinematics.pyso",
         "//subprojects/robotpy-wpimath/wpimath/spline:spline.pyso",
-        "@bazelrio_edu_wpi_first_wpimath_wpimath-cpp_linuxx86-64//:shared",
     ],
     imports = ["."],
     visibility = ["//visibility:public"],

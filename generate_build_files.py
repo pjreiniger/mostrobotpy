@@ -19,14 +19,13 @@ def write_toplevel(setup, project_root, wrappers):
 
     for wrapper in wrappers:
         print("--Wrapper", wrapper.package_name)
-        if pybind_deps is None:
-            pybind_deps = "deps = [\n"
-            gen_internal_proj_deps += 'internal_project_dependencies = ['
-            gen_python_deps = "python_deps = ["
-            pkgcfg_deps += "deps = ["
 
         if wrapper.depends:
-            pass
+            if pybind_deps is None:
+                pybind_deps = "deps = [\n"
+                gen_internal_proj_deps += 'internal_project_dependencies = ['
+                gen_python_deps = "python_deps = ["
+                pkgcfg_deps += "deps = ["
 
             for dep in wrapper.depends:
                 if dep in seen_deps:
@@ -42,6 +41,8 @@ def write_toplevel(setup, project_root, wrappers):
         gen_internal_proj_deps += '],\n'
         gen_python_deps += '],\n'
         pkgcfg_deps += '],\n'
+    else:
+        pybind_deps = ""
 
 
     contents = f"""load("@rules_python//python:defs.bzl", "py_library")
@@ -62,7 +63,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "{setup.project.base_package}",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_{setup.project.base_package}_{setup.project.base_package}-cpp_headers//:header_files"],
+    headers = ["@bzlmodrio-allwpilib//libraries/cpp/{wrapper.package_name}:header_files"],
 {gen_internal_proj_deps}{gen_python_deps})
 
 pybind_python_library(
@@ -157,18 +158,9 @@ create_pybind_library(
     ],
 )
 
-alias(
-    name = "TEMP_shared_library",
-    actual = select({{
-        "@bazel_tools//src/conditions:darwin": "@bazelrio_edu_wpi_first_{wrapper.package_name}_{wrapper.package_name}-cpp_osxuniversal//:shared_libs",
-        "@rules_bazelrio//conditions:windows": "@bazelrio_edu_wpi_first_{wrapper.package_name}_{wrapper.package_name}-cpp_windowsx86-64//:shared_libs",
-        "//conditions:default": "@bazelrio_edu_wpi_first_{wrapper.package_name}_{wrapper.package_name}-cpp_linuxx86-64//:shared",
-    }}),
-)
-
 copy_native_file(
     name = "{wrapper.package_name}",
-    library = ":TEMP_shared_library",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/{wrapper.package_name}:shared_raw",
 )
 
 filegroup(
@@ -203,16 +195,16 @@ def generate_project_build_files(project_root):
 
 def main():
     SUBPROJECTS = [
-        # "pyntcore",
-        # "robotpy-apriltag",
-        # "robotpy-cscore",
-        # "robotpy-hal",
-        # "robotpy-halsim-ds-socket",
+        "pyntcore",
+        "robotpy-apriltag",
+        "robotpy-cscore",
+        "robotpy-hal",
+        "robotpy-halsim-ds-socket",
         "robotpy-halsim-gui",
-        # "robotpy-halsim-ws",
-        # "robotpy-wpimath",
-        # "robotpy-wpinet",
-        # "robotpy-wpiutil",
+        "robotpy-halsim-ws",
+        "robotpy-wpimath",
+        "robotpy-wpinet",
+        "robotpy-wpiutil",
     ]
 
     for p in SUBPROJECTS:

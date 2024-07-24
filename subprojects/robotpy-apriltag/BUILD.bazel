@@ -16,7 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "apriltag",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_robotpy_apriltag_robotpy_apriltag-cpp_headers//:header_files"],
+    headers = ["@bzlmodrio-allwpilib//libraries/cpp/apriltag:header_files"],
     internal_project_dependencies = [
         "wpiutil",
         "wpimath",

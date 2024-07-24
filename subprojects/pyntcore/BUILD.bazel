@@ -16,7 +16,7 @@ filegroup(
 generate_robotpy_source_files(
     name = "ntcore",
     config_file = ":config_file",
-    headers = ["@bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers//:header_files"],
+    headers = ["@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files"],
     internal_project_dependencies = [
         "wpiutil",
         "wpinet",
