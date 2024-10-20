@@ -11,6 +11,7 @@ build:macos   --copt=-std=c++20
 build:windows --copt=/std:c++20
 build:windows --copt=/Zc:__cplusplus
 build:windows --copt=/Zc:preprocessor
+build:windows --cxxopt=/utf-8
 
 # Build Buddy Cache Setup
 build:build_buddy --bes_results_url=https://app.buildbuddy.io/invocation/
