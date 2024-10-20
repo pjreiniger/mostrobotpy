@@ -1,0 +1,1 @@
+{"frc::StadiaController": ["frc::GenericHID", "wpi::Sendable"], "frc::StadiaController::Button": [], "frc::StadiaController::Axis": []}

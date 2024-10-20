@@ -1,0 +1,55 @@
+name: Bazel
+
+on: [pull_request, push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-14    
+          - windows-2022
+        python_version:
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Fix Python Version
+        run: sed -i -e "s/PYTHON_VERSION = .*/PYTHON_VERSION = '${{ matrix.python_version }}'/" WORKSPACE
+
+      - name: Renable requirements test
+        run: sed -i -e "s/tags = .*//" bazel_utils/requirements/${{ matrix.python_version }}/BUILD.bazel
+        if: matrix.os != 'windows-2022'
+
+      - name: Apply Linux hack patch
+        run: git apply linux_gen.patch
+        if: matrix.os == 'ubuntu-22.04'
+
+      - name: Apply Mac hack patch
+        run: git apply osx_gen.patch
+        if: matrix.os == 'macos-14'
+
+      - name: Apply Windows hack patch
+        run: git apply windows_gen.patch
+        if: matrix.os == 'windows-2022'
+
+      - name: Build Allowing Failure
+        run: bazel test --config=ci -k ... || true
+        shell: bash
+
+      - name: Build
+        run: bazel test --config=ci -k ...
+        shell: bash
+  

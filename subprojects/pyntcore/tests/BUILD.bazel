@@ -1,0 +1,18 @@
+load("//:python_rules.bzl", "wpilib_py_test")
+
+wpilib_py_test(
+    "ntcore_tests",
+    extra_sources = ["conftest.py"],
+    tests = glob(
+        ["**/*.py"],
+        exclude = [
+            "conftest.py",
+            "run_tests.py",
+            # TODO temp
+            "test_value.py",
+        ],
+    ),
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+    ],
+)

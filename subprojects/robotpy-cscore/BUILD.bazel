@@ -1,0 +1,46 @@
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+generated_files_helper(
+    name = "cscore",
+    visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
+)
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "cscore",
+    config_file = ":pyproject.toml",
+    headers = [
+        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"
+    ],
+    internal_project_dependencies = [
+        "wpiutil",
+        "wpinet",
+        "ntcore",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "cscore",
+    srcs = ["//subprojects/robotpy-cscore/cscore:python_files"],
+    data = [
+        "//subprojects/robotpy-cscore/cscore:cscore.pyso",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+        "//subprojects/robotpy-wpinet:wpinet",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)

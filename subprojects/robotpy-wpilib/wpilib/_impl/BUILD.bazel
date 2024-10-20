@@ -1,0 +1,32 @@
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+
+generate_robotpy_project_files(
+    name = "_impl",
+    config_file = "//subprojects/robotpy-wpilib:config_file",
+    init_file = "_init_wpilibc.py",
+    internal_project_dependencies = [
+        "hal",
+        "wpiutil",
+        "wpimath",
+        "ntcore",
+    ],
+    parent_folder = "wpilib/",
+    python_deps = [
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+copy_native_file(
+    name = "wpilibc",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)

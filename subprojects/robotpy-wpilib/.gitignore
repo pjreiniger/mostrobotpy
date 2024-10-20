@@ -46,11 +46,17 @@ MANIFEST
 /wpilib/trajectory/constraint/_init_constraint.py
 /wpilib/trajectory/constraint/pkgcfg.py
 
-rpy-include
 /wpilib/_impl/_init_wpilibc.py
 /wpilib/_impl/pkgcfg.py
 /wpilib/_impl/include
 /wpilib/_impl/lib
+
+/wpilib/rpy-include
+/wpilib/counter/rpy-include
+/wpilib/drive/rpy-include
+/wpilib/interfaces/rpy-include
+/wpilib/shuffleboard/rpy-include
+/wpilib/simulation/rpy-include
 
 
 

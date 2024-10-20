@@ -1,0 +1,44 @@
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "robotpy_apriltag",
+    config_file = "//subprojects/robotpy-apriltag:config_file",
+    init_file = "_init_apriltag.py",
+    internal_project_dependencies = [
+        "wpiutil",
+        "wpinet",
+        "wpimath",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-apriltag:__subpackages__"],
+)
+
+create_pybind_library(
+    "apriltag",
+    entry_point = ["src/main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-apriltag:__subpackages__"],
+    generation_helper_prefix = "//subprojects/robotpy-apriltag:apriltag",
+    deps = [
+        "//subprojects/robotpy-wpimath/wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/apriltag",
+    ],
+)
+
+copy_native_file(
+    name = "apriltag",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-apriltag:__subpackages__"],
+)

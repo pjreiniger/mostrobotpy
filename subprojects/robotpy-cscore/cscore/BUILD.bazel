@@ -1,0 +1,44 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "cscore",
+    config_file = "//subprojects/robotpy-cscore:config_file",
+    internal_project_dependencies = [
+        "wpiutil",
+        "wpinet",
+        "ntcore",
+    ],
+    python_deps = [
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-wpinet:pkgcfg",
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
+)
+
+create_pybind_library(
+    "cscore",
+    entry_point = ["src/main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
+    extra_hdrs = glob(["cvnp/*.h"]),
+    extra_srcs = glob(["cvnp/*.cpp"]),
+    generation_helper_prefix = "//subprojects/robotpy-cscore:cscore",
+    strip_include_prefix = ".",
+    deps = [
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+    ],
+    static_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:static",
+        "@bzlmodrio-opencv//libraries/cpp/opencv:static",
+    ]
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-cscore:__subpackages__"],
+)

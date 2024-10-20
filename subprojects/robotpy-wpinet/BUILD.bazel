@@ -1,0 +1,50 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("//rules_robotpy_utils:generate_robotpy_source_files.bzl", "generate_robotpy_source_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "generated_files_helper", "pybind_python_library")
+
+generated_files_helper(
+    name = "wpinet",
+    visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
+)
+
+filegroup(
+    name = "config_file",
+    srcs = ["pyproject.toml"],
+    visibility = ["//subprojects/robotpy-wpinet:__subpackages__"],
+)
+
+generate_robotpy_source_files(
+    name = "wpinet",
+    config_file = ":config_file",
+    headers = ["@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs"],
+    internal_project_dependencies = [
+        "wpiutil",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+)
+
+pybind_python_library(
+    name = "wpinet",
+    srcs = ["//subprojects/robotpy-wpinet/wpinet:python_files"],
+    data = [
+        # "@bazelrio_edu_wpi_first_xx-cpp_linuxx86-64//:shared_libs",
+        "//subprojects/robotpy-wpinet/wpinet:copy_lib",
+        "//subprojects/robotpy-wpinet/wpinet:wpinet.pyso",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+py_library(
+    name = "pkgcfg",
+    srcs = [
+        "//subprojects/robotpy-wpinet/wpinet:pkgcfg",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

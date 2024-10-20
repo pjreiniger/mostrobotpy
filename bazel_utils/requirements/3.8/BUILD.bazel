@@ -1,0 +1,11 @@
+
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+compile_pip_requirements(
+    name = "requirements",
+    requirements_in = "//:requirements.in.txt",
+    requirements_txt = "requirements_linux_3.8.txt",
+    requirements_darwin = "requirements_osx_3.8.txt",
+    requirements_windows = "requirements_windows_3.8.txt",
+    tags = ["manual"],
+)

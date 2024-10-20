@@ -38,11 +38,16 @@ MANIFEST
 /wpimath/trajectory/_init_trajectory.py
 /wpimath/trajectory/pkgcfg.py
 
-rpy-include
 /wpimath/_impl/_init_wpimath_cpp.py
 /wpimath/_impl/pkgcfg.py
 /wpimath/_impl/include
 /wpimath/_impl/lib
+
+/wpimath/_controls/rpy-include
+/wpimath/filter/rpy-include
+/wpimath/interpolation/rpy-include
+/wpimath/kinematics/rpy-include
+/wpimath/spline/rpy-include
 
 
 

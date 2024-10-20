@@ -1,0 +1,5 @@
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+)

@@ -1,0 +1,17 @@
+load("//:python_rules.bzl", "wpilib_py_test")
+
+wpilib_py_test(
+    "wpimath_tests",
+    extra_sources = ["conftest.py"],
+    tests = glob(
+        ["**/*.py"],
+        exclude = [
+            "conftest.py",
+            "run_tests.py",
+        ],
+    ),
+    deps = [
+        "//subprojects/robotpy-wpimath:wpimath",
+        "//subprojects/robotpy-wpimath/tests/cpp:wpimath_test",
+    ],
+)

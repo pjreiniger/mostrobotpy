@@ -1,0 +1,42 @@
+load("//rules_robotpy_utils:copy_native_file.bzl", "copy_native_file")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "halsim_gui",
+    config_file = "//subprojects/robotpy-halsim-gui:config_file",
+    internal_project_dependencies = [
+        "wpiutil",
+        "ntcore",
+        "wpimath",
+        "hal",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+        "//subprojects/robotpy-hal:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+)
+
+create_pybind_library(
+    "halsim-gui",
+    extension_visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+    generation_helper_prefix = None,
+    deps = [
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/halsim_gui",
+    ],
+)
+
+copy_native_file(
+    name = "halsim_gui",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/halsim_gui:shared_raw",
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-halsim-gui:__subpackages__"],
+)

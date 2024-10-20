@@ -1,0 +1,35 @@
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "wpiutil_test",
+    config_file = "//subprojects/robotpy-wpiutil/tests/cpp:config_file",
+    init_file = "_initmodule.py",
+    internal_project_dependencies = ["wpiutil"],
+    python_deps = [
+        "//subprojects/robotpy-wpiutil:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpiutil/tests:__subpackages__"],
+)
+
+create_pybind_library(
+    name = "module",
+    entry_point = ["module.cpp"],
+    extension_name = "module",
+    extension_visibility = ["//subprojects/robotpy-wpiutil/tests:__subpackages__"],
+    extra_srcs = glob(
+        ["*.cpp"],
+        exclude = ["module.cpp"],
+    ),
+    generation_helper_prefix = None,  # "//subprojects/robotpy-wpiutil/tests/cpp:wpiutil",
+    # strip_include_prefix = "src/type_casters",
+    deps = [
+        "//subprojects/robotpy-wpiutil/wpiutil:wpiutil_pybind_library",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["**/*.py"]),
+    visibility = ["//subprojects/robotpy-wpiutil/tests:__subpackages__"],
+)

@@ -2,5 +2,8 @@
 *.py[ciod]
 /dist
 
-rpy-include
 py.typed
+
+bazel-*
+venv
+user.bazelrc

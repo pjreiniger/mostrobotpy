@@ -1,0 +1,59 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//rules_robotpy_utils:generate_robotpy_project_files.bzl", "generate_robotpy_project_files")
+load("//rules_robotpy_utils:pybind_rules.bzl", "create_pybind_library")
+
+generate_robotpy_project_files(
+    name = "wpilib",
+    config_file = "//subprojects/robotpy-wpilib:config_file",
+    internal_project_dependencies = [
+        "hal",
+        "wpiutil",
+        "wpimath",
+        "ntcore",
+    ],
+    python_deps = [
+        "//subprojects/robotpy-hal:pkgcfg",
+        "//subprojects/robotpy-wpimath:pkgcfg",
+        "//subprojects/pyntcore:pkgcfg",
+    ],
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+filegroup(
+    name = "rpy_headers",
+    srcs = glob([
+        "src/rpy/*.h",
+        "src/rpy/*.inc",
+    ]),
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
+
+cc_library(
+    name = "rpy_includes",
+    hdrs = [":rpy_headers"],
+    includes = ["src"],
+    strip_include_prefix = ".",
+)
+
+create_pybind_library(
+    "wpilib",
+    entry_point = ["src/main.cpp"],
+    extension_visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+    #extra_hdrs = ,
+    extra_srcs = glob(
+        ["src/rpy/*.cpp"],
+    ),
+    generation_helper_prefix = "//subprojects/robotpy-wpilib:wpilib_core",
+    local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
+    deps = [
+        ":rpy_includes",
+        "//subprojects/pyntcore/ntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-wpilib/wpilib/interfaces:interfaces_pybind_library",
+    ],
+)
+
+filegroup(
+    name = "python_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//subprojects/robotpy-wpilib:__subpackages__"],
+)
