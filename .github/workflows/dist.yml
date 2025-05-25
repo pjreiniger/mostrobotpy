@@ -212,7 +212,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: "meson-intermediates-${{ runner.os }}-${{ runner.arch }}-${{ matrix.python_version }}"
-        path: /tmp/temp_gen_results
+        path: __genresults
 
   #
   # Build roboRIO/raspbian wheels
@@ -315,6 +315,11 @@ jobs:
       with:
         name: cross-meson-${{ matrix.os.name }}
         path: dist
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: "cross-meson-intermediates-${{ matrix.os.name }}"
+        path: __genresults
 
   #
   # Publish wheels to wpilib artifactory, pypi

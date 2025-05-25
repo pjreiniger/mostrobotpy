@@ -98,12 +98,17 @@ class Subproject:
 
         def __pjs_copy_files():
             # DUMP_DIR = "/home/pjreiniger/git/robotpy/temp_gen_results"
-            DUMP_DIR = "/tmp/temp_gen_results"
+            DUMP_DIR = "__genresults"
+            search_base = tempfile.gettempdir()
+
+            print("-" * 80)
+            print(f"Running search on {search_base} and copying results to {DUMP_DIR}")
+            print("-" * 80)
             magic_dir = None
             while running_build and not magic_dir:
-                for ddd in os.listdir("/tmp"):
+                for ddd in os.listdir(search_base):
                     if "build-via-sdist" in ddd:
-                        magic_dir = "/tmp/" + ddd
+                        magic_dir = search_base + "/" + ddd
                         break
 
                 time.sleep(0.01)
