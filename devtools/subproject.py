@@ -171,33 +171,43 @@ class Subproject:
 
         with tempfile.TemporaryDirectory() as td:
             print(f"-------------------------------{td}")
-            # I wonder if we should use hatch build instead?
-            run_cmd(
-                sys.executable,
-                "-m",
-                "build",
-                "--no-isolation",
-                "--outdir",
-                td,
-                *config_args,
-                cwd=self.path,
-            )
+            try:
+                # I wonder if we should use hatch build instead?
+                run_cmd(
+                    sys.executable,
+                    "-m",
+                    "build",
+                    "--no-isolation",
+                    "--outdir",
+                    td,
+                    *config_args,
+                    cwd=self.path,
+                )
 
-            tdp = pathlib.Path(td)
-            twhl = list(tdp.glob("*.whl"))[0]
-            dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
-            shutil.move(twhl, dst_whl)
+                tdp = pathlib.Path(td)
+                twhl = list(tdp.glob("*.whl"))[0]
+                dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
+                shutil.move(twhl, dst_whl)
+            except:
+                running_build = False
+                ttttt.join()
+                raise
 
         if install:
             # Install the wheel
-            run_pip(
-                "install",
-                "--find-links",
-                str(wheel_path),
-                "--find-links",
-                str(other_wheel_path),
-                str(dst_whl),
-            )
+            try:
+                run_pip(
+                    "install",
+                    "--find-links",
+                    str(wheel_path),
+                    "--find-links",
+                    str(other_wheel_path),
+                    str(dst_whl),
+                )
+            except:
+                running_build = False
+                ttttt.join()
+                raise
 
         running_build = False
         ttttt.join()

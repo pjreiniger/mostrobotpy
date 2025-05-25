@@ -26,6 +26,11 @@ def create_pybind_library(
                 "-Wno-unused-value",
                 "-Wno-deprecated",
                 "-Wno-deprecated-declarations",
+                "-Wno-unused-parameter",
+                "-Wno-redundant-move",
+                "-Wno-unused-but-set-variable",
+                "-Wno-unused-variable",
+                "-Wno-pessimizing-move",
             ],
         }),
         deps = deps + [
