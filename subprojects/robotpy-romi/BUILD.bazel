@@ -32,7 +32,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "romi",
-    srcs = glob(["romi/**/*.py"]),
+    srcs = glob(["romi/**/*.py"]) + ["romi/_init__romi.py"],
     data = [
         ":copy_romi",
     ],

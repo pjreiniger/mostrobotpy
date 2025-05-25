@@ -40,7 +40,7 @@ def romi_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_
 
     gen_libinit(
         name = "romi.gen_lib_init",
-        output_file = "_init__romi.py",
+        output_file = "romi/_init__romi.py",
         modules = ["native.romi._init_robotpy_native_romi", "wpilib._init__wpilib", "wpimath.geometry._init__geometry"],
     )
 

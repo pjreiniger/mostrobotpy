@@ -18,12 +18,15 @@ def create_pybind_library(
         srcs = generated_srcs + extra_srcs,
         hdrs = extra_hdrs,
         copts = copts + select({
-            "@bazel_tools//src/conditions:darwin": [],
+            "@bazel_tools//src/conditions:darwin": [
+                "-Wno-deprecated-declarations",
+            ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-attributes",
                 "-Wno-unused-value",
+                "-Wno-deprecated",
+                "-Wno-deprecated-declarations",
             ],
-            "@bazel_tools//src/conditions:windows": [],
         }),
         deps = deps + [
             "//bazel_scripts/semiwrap_headers",

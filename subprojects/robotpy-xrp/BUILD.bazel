@@ -32,7 +32,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "xrp",
-    srcs = glob(["xrp/**/*.py"]),
+    srcs = glob(["xrp/**/*.py"]) + ["xrp/_init__xrp.py"],
     data = [
         ":copy_xrp",
     ],

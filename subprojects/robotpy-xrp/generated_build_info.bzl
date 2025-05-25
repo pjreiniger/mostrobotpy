@@ -67,7 +67,7 @@ def xrp_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_d
 
     gen_libinit(
         name = "xrp.gen_lib_init",
-        output_file = "_init__xrp.py",
+        output_file = "xrp/_init__xrp.py",
         modules = ["native.xrp._init_robotpy_native_xrp", "wpilib._init__wpilib", "wpimath.geometry._init__geometry"],
     )
 
