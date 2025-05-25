@@ -45,7 +45,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "wpiutil",
-    srcs = glob(["wpiutil/**/*.py"]),
+    srcs = glob(["wpiutil/**/*.py"]) + ["wpiutil/_init__wpiutil.py"],
     data = [
         ":copy_wpiutil",
     ],

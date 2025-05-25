@@ -136,7 +136,7 @@ def wpiutil_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_d
 
     gen_libinit(
         name = "wpiutil.gen_lib_init",
-        output_file = "_init__wpiutil.py",
+        output_file = "wpiutil/_init__wpiutil.py",
         modules = ["native.wpiutil._init_robotpy_native_wpiutil"],
     )
 
