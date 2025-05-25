@@ -28,7 +28,7 @@ def copy_native_file(name, library, base_path):
     native.alias(
         name = "{}.copy_lib".format(name),
         actual = select({
-            # "@bazel_tools//src/conditions:darwin": name + ".osx_copy_lib",
+            "@bazel_tools//src/conditions:darwin": name + ".osx_copy_lib",
             # "@rules_bazelrio//conditions:windows": name + ".win_copy_lib",
             "//conditions:default": name + ".linux_copy_lib",
         }),
