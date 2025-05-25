@@ -147,6 +147,8 @@ class Subproject:
                             file.endswith(".o")
                             or file.endswith(".so")
                             or file.endswith(".a")
+                            or file.endswith(".dylib")
+                            or file.endswith(".exe")
                             or file.endswith(".dat")
                             or file.endswith(".d")
                             or file.endswith(".pkl")
