@@ -58,3 +58,11 @@ pybind_python_library(
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],
 )
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "cscore.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

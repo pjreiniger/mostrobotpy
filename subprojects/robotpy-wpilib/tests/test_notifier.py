@@ -11,8 +11,10 @@ from wpilib.simulation import pauseTiming, restartTiming, resumeTiming, stepTimi
 
 # These tests fail because of race conditions in simulation
 if True:
+
     def test_dummy():
         pass
+
 else:
 
     class AtomicInteger:

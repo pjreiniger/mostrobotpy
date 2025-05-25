@@ -103,7 +103,7 @@ def header_to_dat(
     for class_name, yml_file, header_location in class_names:
         # print(class_name)
         cmd = "$(locations //bazel_scripts:wrapper) semiwrap.cmd.header2dat "
-        cmd += "--cpp 202002L " # TODO
+        cmd += "--cpp 202002L "  # TODO
         cmd += class_name
         cmd += _location_helper(yml_file)
         cmd += " -I " + include_root
@@ -116,7 +116,7 @@ def header_to_dat(
         cmd += " " + include_root
         cmd += _location_helper(RESOLVE_CASTERS_DIR + casters_pickle)
         cmd += " $(OUTS)"
-        cmd += " bogus c++20 ccache c++ -- -std=c++20" # TODO
+        cmd += " bogus c++20 ccache c++ -- -std=c++20"  # TODO
         native.genrule(
             name = name + "." + class_name,
             srcs = [RESOLVE_CASTERS_DIR + casters_pickle],

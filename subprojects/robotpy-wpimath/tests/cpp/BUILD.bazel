@@ -33,3 +33,11 @@ pybind_python_library(
     imports = ["."],
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "wpimath_test.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)
