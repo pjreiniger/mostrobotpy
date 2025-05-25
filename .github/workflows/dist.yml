@@ -105,6 +105,11 @@ jobs:
         name: "pypi-other-${{ runner.os }}-${{ runner.arch }}"
         path: dist
 
+    - uses: actions/upload-artifact@v4
+      with:
+        name: "pypi-intermediate-other-${{ runner.os }}-${{ runner.arch }}"
+        path: __genresults
+
   #
   # Build meson wheels
   #
@@ -255,6 +260,11 @@ jobs:
       with:
         name: cross-other-${{ matrix.os.name }}
         path: dist
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cross-intermediate-other-${{ matrix.os.name }}
+        path: __genresults
 
   cross-meson:
     runs-on: ubuntu-latest

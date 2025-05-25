@@ -129,6 +129,9 @@ class Subproject:
                     "PKG-INFO",
                     "pyproject.toml",
                     "hatch-meson-native-file.ini",
+                    "meson.lock",
+                    ".ninja_deps",
+                    ".ninja_logs",
                 ]
             )
 
@@ -148,6 +151,12 @@ class Subproject:
                             or file.endswith(".d")
                             or file.endswith(".pkl")
                             or file.endswith(".yml")
+                            or file.endswith(".exe")
+                            or file.endswith(".pyc")
+                            or file.endswith("Zone.Identifier")
+                            or "meson-info" in root
+                            or "meson-logs" in root
+                            or "meson-private" in root
                         ):
                             continue
                         elif file in ignored_files:
