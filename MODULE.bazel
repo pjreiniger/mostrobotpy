@@ -13,12 +13,12 @@ bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_
 
 archive_override(
     module_name = "pybind11_bazel",
-    strip_prefix = "pybind11_bazel-2b6082a4d9d163a52299718113fa41e4b7978db5",
-    urls = ["https://github.com/pybind/pybind11_bazel/archive/2b6082a4d9d163a52299718113fa41e4b7978db5.tar.gz"],
     patch_strip = 1,
     patches = [
         "//:0001-Patch-to-robotpy-version.patch",
-    ]
+    ],
+    strip_prefix = "pybind11_bazel-2b6082a4d9d163a52299718113fa41e4b7978db5",
+    urls = ["https://github.com/pybind/pybind11_bazel/archive/2b6082a4d9d163a52299718113fa41e4b7978db5.tar.gz"],
 )
 
 archive_override(

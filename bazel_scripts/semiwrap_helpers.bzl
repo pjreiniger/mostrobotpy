@@ -2,7 +2,6 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 PUBLISH_CASTERS_DIR = "generated/publish_casters/"
 RESOLVE_CASTERS_DIR = "generated/resolve_casters/"
-GEN_LIBINIT_DIR = "generated/gen_libinit/"
 GEN_PKGCONF_DIR = "generated/gen_pkgconf/"
 HEADER_DAT_DIR = "generated/header_to_dat/"
 DAT_TO_CC_DIR = "generated/dat_to_cc/"
@@ -68,7 +67,7 @@ def gen_libinit(
 
     native.genrule(
         name = name,
-        outs = [GEN_LIBINIT_DIR + output_file],
+        outs = [output_file],
         cmd = cmd,
         tools = ["//bazel_scripts:wrapper"],
     )

@@ -18,10 +18,12 @@ def create_pybind_library(
         srcs = generated_srcs + extra_srcs,
         hdrs = extra_hdrs,
         copts = copts + select({
+            "@bazel_tools//src/conditions:darwin": [],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-attributes",
                 "-Wno-unused-value",
             ],
+            "@bazel_tools//src/conditions:windows": [],
         }),
         deps = deps + [
             "//bazel_scripts/semiwrap_headers",
@@ -38,10 +40,6 @@ def create_pybind_library(
         defines = ["RPYBUILD_MODULE_NAME={}".format(extension_name)],
         visibility = ["//visibility:private"],
         target_compatible_with = select({
-            # "@rules_bzlmodrio_toolchains//constraints/is_bullseye32:bullseye32": ["@platforms//:incompatible"],
-            # "@rules_bzlmodrio_toolchains//constraints/is_bullseye64:bullseye64": ["@platforms//:incompatible"],
-            # "@rules_bzlmodrio_toolchains//constraints/is_raspi32:raspi32": ["@platforms//:incompatible"],
-            # "@rules_bzlmodrio_toolchains//constraints/is_roborio:roborio": ["@platforms//:incompatible"],
             "//conditions:default": [],
         }),
     )

@@ -28,7 +28,6 @@ import os
 import toposort
 
 
-
 @dataclasses.dataclass(frozen=True)
 class Dat2HeaderConfig:
     class_name: str
@@ -449,13 +448,13 @@ class _BuildPlanner:
             header2dat_args = []
 
             header2dat_config = Dat2HeaderConfig(
-                class_name = yml,
-                yml_file = yml_input,
-                header_input = h_input,
-                header_root = h_root,
-                all_type_casters = all_type_casters,
-                output_file = OutputFile(f"{yml}.dat"),
-                dep_file = Depfile(f"{yml}.d")
+                class_name=yml,
+                yml_file=yml_input,
+                header_input=h_input,
+                header_root=h_root,
+                all_type_casters=all_type_casters,
+                output_file=OutputFile(f"{yml}.dat"),
+                dep_file=Depfile(f"{yml}.d"),
             )
 
             datfile = BuildTarget(
@@ -549,7 +548,6 @@ class _BuildPlanner:
         )
 
 
-
 def makeplan(project_root: pathlib.Path, missing_yaml_ok: bool = False):
     """
     Given the pyproject.toml configuration for a semiwrap project, reads the
@@ -558,7 +556,6 @@ def makeplan(project_root: pathlib.Path, missing_yaml_ok: bool = False):
     """
     planner = _BuildPlanner(project_root, missing_yaml_ok)
     yield from planner.generate()
-
 
 
 @dataclasses.dataclass(frozen=True)
@@ -570,18 +567,39 @@ class HeaderGenInfo:
     trampolines: T.List[T.Tuple[str, str]] = dataclasses.field(default_factory=list)
 
 
-def write_library(generated_info_buffer, build_file_buffer, lib_name, publish_casters, resolve_casters_item, gen_libinit, gen_pkgconf, gen_modinit_hpp, casters_pickle_file, header2dats, dat2cpps, dat2tmplcpps, dat2tmplhpps, dat2trampolines):
+def write_library(
+    generated_info_buffer,
+    build_file_buffer,
+    lib_name,
+    publish_casters,
+    resolve_casters_item,
+    gen_libinit,
+    gen_pkgconf,
+    gen_modinit_hpp,
+    casters_pickle_file,
+    header2dats,
+    dat2cpps,
+    dat2tmplcpps,
+    dat2tmplhpps,
+    dat2trampolines,
+):
 
-    build_file_buffer.write_trim(f"""   
+    build_file_buffer.write_trim(
+        f"""   
 {lib_name}_extension()
-""")
+"""
+    )
 
     configs = {}
 
     for header2dat in header2dats:
         assert len(header2dat.args) == 1
         config = header2dat.args[0]
-        configs[config.class_name] = HeaderGenInfo(class_name = config.class_name, yml_file = config.yml_file, header_input = config.header_input)
+        configs[config.class_name] = HeaderGenInfo(
+            class_name=config.class_name,
+            yml_file=config.yml_file,
+            header_input=config.header_input,
+        )
 
     for dat2tmplcpp in dat2tmplcpps:
         class_name = dat2tmplcpp.args[0].args[0].class_name
@@ -591,31 +609,50 @@ def write_library(generated_info_buffer, build_file_buffer, lib_name, publish_ca
 
     for dat2trampoline in dat2trampolines:
         class_name = dat2trampoline.args[0].args[0].class_name
-        configs[class_name].trampolines.append((dat2trampoline.args[-2], dat2trampoline.args[-1].name))
+        configs[class_name].trampolines.append(
+            (dat2trampoline.args[-2], dat2trampoline.args[-1].name)
+        )
 
-
-
-
-    generated_info_buffer.writeln(f"""def {lib_name}_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):""")
+    generated_info_buffer.writeln(
+        f"""def {lib_name}_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):"""
+    )
 
     with generated_info_buffer.indent(4):
-    
+
         generated_info_buffer.writeln(f"{lib_name.upper()}_HEADER_GEN = [")
         with generated_info_buffer.indent(4):
             for class_name, config in configs.items():
                 newline_indent = "\n                    "
                 trimed_header = str(config.header_input)
-                trimed_header = trimed_header[trimed_header.find("include") + 7:]
+                trimed_header = trimed_header[trimed_header.find("include") + 7 :]
                 # print()
-                header_templates = newline_indent + newline_indent.join(f'("{x[0]}", "{x[1]}"),' for x in config.hdr_tmpls) + newline_indent if config.hdr_tmpls else ""
-                trampolines = newline_indent + newline_indent.join(f'("{x[0]}", "{x[1]}"),' for x in config.trampolines) + newline_indent[:-4] if config.trampolines else ""
-                generated_info_buffer.write_trim(f"""struct(
+                header_templates = (
+                    newline_indent
+                    + newline_indent.join(
+                        f'("{x[0]}", "{x[1]}"),' for x in config.hdr_tmpls
+                    )
+                    + newline_indent
+                    if config.hdr_tmpls
+                    else ""
+                )
+                trampolines = (
+                    newline_indent
+                    + newline_indent.join(
+                        f'("{x[0]}", "{x[1]}"),' for x in config.trampolines
+                    )
+                    + newline_indent[:-4]
+                    if config.trampolines
+                    else ""
+                )
+                generated_info_buffer.write_trim(
+                    f"""struct(
                 class_name = "{config.class_name}",
                 yml_file = "{config.yml_file.path}",
                 header_file = DEFAULT_INCLUDE_ROOT + "{trimed_header}",
                 tmpl_class_names = [{header_templates}],
                 trampolines = [{trampolines}],
-            ),""")
+            ),"""
+                )
         generated_info_buffer.writeln(f"]")
 
         write_resolve_casters(generated_info_buffer, lib_name, resolve_casters_item)
@@ -625,8 +662,9 @@ def write_library(generated_info_buffer, build_file_buffer, lib_name, publish_ca
         # print(gen_libinit)
         # print(gen_pkgconf)
         # print(gen_modinit_hpp)
-        gen_lib_init_files = f','.join(f'"{x}"' for x in gen_libinit.args[1:])
-        generated_info_buffer.write_trim(f"""
+        gen_lib_init_files = f",".join(f'"{x}"' for x in gen_libinit.args[1:])
+        generated_info_buffer.write_trim(
+            f"""
             gen_libinit(
                 name = "{lib_name}.gen_lib_init",
                 output_file = "{gen_libinit.args[0].name}",
@@ -667,9 +705,7 @@ def write_library(generated_info_buffer, build_file_buffer, lib_name, publish_ca
                 ],
             )
             """
-                )
-
-
+        )
 
 
 def write_resolve_casters(generated_file_buffer, lib_name, item):
@@ -683,19 +719,26 @@ def write_resolve_casters(generated_file_buffer, lib_name, item):
         # print(cf)
         if isinstance(cf, pathlib.Path):
             cf = str(cf)
-            if cf == "/home/pjreiniger/git/robotpy/mostrobotpy/.venv/lib/python3.10/site-packages/wpiutil/wpiutil-casters.pybind11.json":
+            if (
+                cf
+                == "/home/pjreiniger/git/robotpy/mostrobotpy/.venv/lib/python3.10/site-packages/wpiutil/wpiutil-casters.pybind11.json"
+            ):
                 cf = "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"
-            elif cf == "/home/pjreiniger/git/robotpy/mostrobotpy/.venv/lib/python3.10/site-packages/wpimath/wpimath-casters.pybind11.json":
+            elif (
+                cf
+                == "/home/pjreiniger/git/robotpy/mostrobotpy/.venv/lib/python3.10/site-packages/wpimath/wpimath-casters.pybind11.json"
+            ):
                 cf = "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"
         elif isinstance(cf, BuildTargetOutput):
             cf = cf.target.args[-2].name
-            # cf = 
+            # cf =
         else:
             print("UNKNOWN CASTER FILE", type(cf))
-                
+
         caster_files.append(cf)
-        
-    generated_file_buffer.write_trim(f"""
+
+    generated_file_buffer.write_trim(
+        f"""
         resolve_casters(
             name = "{lib_name}.resolve_casters",
             caster_files = {caster_files},
@@ -710,30 +753,45 @@ def write_resolve_casters(generated_file_buffer, lib_name, item):
 def write_extension_module(buffer, item, write_deps):
 
     depends = []
+
     def calculate_deps(dependency):
         for d in dependency:
             if isinstance(d, LocalDependency):
                 calculate_deps(d.depends)
             elif isinstance(d, str):
                 if d == "wpiutil":
-                    depends.append("//subprojects/robotpy-wpiutil:wpiutil_pybind_library")
+                    depends.append(
+                        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library"
+                    )
                 elif d == "wpinet":
                     depends.append("//subprojects/robotpy-wpinet:wpinet_pybind_library")
                 elif d == "wpimath":
-                    depends.append("//subprojects/robotpy-wpimath:wpimath_pybind_library")
+                    depends.append(
+                        "//subprojects/robotpy-wpimath:wpimath_pybind_library"
+                    )
                 elif d == "wpihal":
                     depends.append("//subprojects/robotpy-hal:hal_pybind_library")
                 elif d == "ntcore":
                     depends.append("//subprojects/pyntcore:ntcore_pybind_library")
                 elif d == "wpilib":
                     depends.append("//subprojects/robotpy-wpilib:wpilib_pybind_library")
-                elif d == "wpimath_geometry" or d == "wpimath_filter" or d == "wpimath_controls":
-                    depends.append("//subprojects/robotpy-wpimath:wpimath_pybind_library")
+                elif (
+                    d == "wpimath_geometry"
+                    or d == "wpimath_filter"
+                    or d == "wpimath_controls"
+                ):
+                    depends.append(
+                        "//subprojects/robotpy-wpimath:wpimath_pybind_library"
+                    )
                 elif "wpimath" in d:
-                    depends.append("//subprojects/robotpy-wpimath:wpimath_pybind_library")
+                    depends.append(
+                        "//subprojects/robotpy-wpimath:wpimath_pybind_library"
+                    )
                 elif d.startswith("robotpy-native-"):
                     lib = d[15:]
-                    depends.append(f"@bzlmodrio-allwpilib//libraries/cpp/{lib}:shared",)
+                    depends.append(
+                        f"@bzlmodrio-allwpilib//libraries/cpp/{lib}:shared",
+                    )
                 elif d == "semiwrap":
                     continue
                 else:
@@ -743,13 +801,13 @@ def write_extension_module(buffer, item, write_deps):
                 print(d)
                 raise
 
-
     # print(item.depends)
     calculate_deps(item.depends)
     # print("----", depends)
 
     if write_deps:
-        buffer.write_trim(f'''
+        buffer.write_trim(
+            f"""
         create_pybind_library(
             name = "{item.name}",
             generated_srcs = [":{item.name}.generated_srcs"],
@@ -762,9 +820,11 @@ def write_extension_module(buffer, item, write_deps):
                 ":gen_modinit_hpp0",
             ],
         )
-        ''')
+        """
+        )
     else:
-        buffer.write_trim(f'''
+        buffer.write_trim(
+            f"""
         create_pybind_library(
             name = "{item.name}",
             entry_point = entry_point,
@@ -780,7 +840,9 @@ def write_extension_module(buffer, item, write_deps):
             extra_srcs = extra_srcs,
             includes = includes,
         )
-        ''')
+        """
+        )
+
 
 def render_build_file(project_dir):
     plans = makeplan(project_dir)
@@ -803,19 +865,23 @@ def render_build_file(project_dir):
     extension_modules = []
 
     build_file_buffer = RenderBuffer()
-    build_file_buffer.write_trim('''load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library", "copy_native_file")
+    build_file_buffer.write_trim(
+        """load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library", "copy_native_file")
 load("//bazel_scripts:semiwrap_helpers.bzl", "dat_to_cc", "dat_to_tmpl_hpp", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "make_pyi", "dat_to_trampoline", "gen_pkgconf", "header_to_dat", "publish_casters", "publish_casters",  "resolve_casters", "dat_to_tmpl_cpp", "run_header_gen")
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library", "pybind_python_library")
 
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
 
 DEFAULT_INCLUDE_ROOT = "/home/pjreiniger/git/robotpy/mostrobotpy/.venv/lib/python3.10/site-packages/native/wpiutil/include"
-''')
+"""
+    )
 
     generated_info_buffer = RenderBuffer()
-    generated_info_buffer.write_trim("""load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
+    generated_info_buffer.write_trim(
+        """load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-""")
+"""
+    )
 
     print("----")
 
@@ -824,7 +890,7 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
             print(item.command)
         else:
             print(type(item))
-        
+
         if isinstance(item, BuildTarget):
             if item.command == "dat2trampoline":
                 dat2trampolines.append(item)
@@ -840,13 +906,15 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
             elif item.command == "dat2tmplhpp":
                 dat2tmplhpps.append(item)
             elif item.command == "publish-casters":
-                build_file_buffer.write_trim("""
+                build_file_buffer.write_trim(
+                    """
                     publish_library_casters(
                         typecasters_srcs = glob([
                             "wpiutil/src/type_casters/**",
                             "wpiutil/src/wpistruct/**",
                         ]),
-                    )""")
+                    )"""
+                )
                 if publish_casters is not None:
                     raise
                 publish_casters = item
@@ -867,7 +935,8 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
                     raise
                 gen_modinit_hpp = item
             elif item.command == "make-pyi":
-                build_file_buffer.write_trim(f"""
+                build_file_buffer.write_trim(
+                    f"""
                     make_pyi(
                         name = "make_pyi{lib_counter}",
                     )
@@ -881,12 +950,27 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
             pass
         elif isinstance(item, ExtensionModule):
             extension_modules.append(item.name)
-            write_library(generated_info_buffer, build_file_buffer, item.name, publish_casters, resolve_casters, gen_libinit, gen_pkgconf, gen_modinit_hpp, None, header2dats, dat2cpps, dat2tmplcpps, dat2tmplhpps, dat2trampolines)
-            
+            write_library(
+                generated_info_buffer,
+                build_file_buffer,
+                item.name,
+                publish_casters,
+                resolve_casters,
+                gen_libinit,
+                gen_pkgconf,
+                gen_modinit_hpp,
+                None,
+                header2dats,
+                dat2cpps,
+                dat2tmplcpps,
+                dat2tmplhpps,
+                dat2trampolines,
+            )
+
             with generated_info_buffer.indent(4):
-                write_extension_module(generated_info_buffer, item, write_deps = False)
-                
-            write_extension_module(build_file_buffer, item, write_deps = True)
+                write_extension_module(generated_info_buffer, item, write_deps=False)
+
+            write_extension_module(build_file_buffer, item, write_deps=True)
 
             casters_pickle_file = None
             header2dats = []
@@ -904,14 +988,17 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
             print(type(item))
 
     for em in extension_modules:
-        build_file_buffer.write_trim(f"""
+        build_file_buffer.write_trim(
+            f"""
     copy_extension_library(
         name = "copy_{em}",
         extension = "_{em}",
         output_directory = "wpiutil/",
-    )""")
+    )"""
+        )
 
-    build_file_buffer.write_trim("""
+    build_file_buffer.write_trim(
+        """
 pybind_python_library(
     name = "wpiutil",
     srcs = glob(["wpiutil/**/*.py"]),
@@ -921,10 +1008,12 @@ pybind_python_library(
     imports = ["."],
     visibility = ["//visibility:public"],
 )
-""")
+"""
+    )
 
     if publish_casters:
-        generated_info_buffer.write_trim(f"""
+        generated_info_buffer.write_trim(
+            f"""
             def publish_library_casters(typecasters_srcs):
                 publish_casters(
                     name = "publish_casters",
@@ -939,53 +1028,83 @@ pybind_python_library(
         )
         generated_info_buffer.writeln()
 
-
-    build_file_buffer.write_trim(f"""
+    build_file_buffer.write_trim(
+        f"""
         filegroup(
             name = "generated_files",
             srcs = [
-        """)
+        """
+    )
     for em in extension_modules:
         build_file_buffer.writeln(f'"{em}.generated_files",')
-        
-    build_file_buffer.write_trim(f"""
+
+    build_file_buffer.write_trim(
+        f"""
         ],
         visibility = ["//visibility:public"],
     )
-    """)
-        
+    """
+    )
 
     # with open(project_dir / "BUILD.bazel", 'w') as f:
     #     f.write(build_file_buffer.getvalue())
 
     print(project_dir)
-    with open(project_dir / "generated_build_info.bzl", 'w') as f:
+    with open(project_dir / "generated_build_info.bzl", "w") as f:
         f.write(generated_info_buffer.getvalue())
 
 
 def main():
     project_files = [
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/pyntcore/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/pyproject.toml"),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/pyntcore/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/pyproject.toml"
+        ),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ds-socket/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-gui/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ws/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-romi/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/tests/cpp/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/tests/cpp/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-xrp/pyproject.toml"),
-        
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ds-socket/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-gui/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ws/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-romi/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/tests/cpp/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/tests/cpp/pyproject.toml"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-xrp/pyproject.toml"
+        ),
     ]
 
     for project_file in project_files:
         print(f"Running for {project_file}")
         render_build_file(project_file.parent)
+
 
 if __name__ == "__main__":
     main()

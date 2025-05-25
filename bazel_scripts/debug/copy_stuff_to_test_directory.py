@@ -1,7 +1,7 @@
-
 import os
 import pathlib
 import shutil
+
 
 def main():
     projects = [
@@ -32,14 +32,17 @@ def main():
                     resolved_project_name = "wpilib"
 
                 if "dat_to_trampoline_hdr" in root:
-                    dst_file = pathlib.Path(f"/home/pjreiniger/git/robotpy/temp_gen_results/{resolved_project_name.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/trampolines/{f}")
+                    dst_file = pathlib.Path(
+                        f"/home/pjreiniger/git/robotpy/temp_gen_results/{resolved_project_name.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/trampolines/{f}"
+                    )
                 else:
-                    dst_file = pathlib.Path(f"/home/pjreiniger/git/robotpy/temp_gen_results/{resolved_project_name.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/{f}")
+                    dst_file = pathlib.Path(
+                        f"/home/pjreiniger/git/robotpy/temp_gen_results/{resolved_project_name.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/{f}"
+                    )
                 dst_file.parent.mkdir(parents=True, exist_ok=True)
                 # os.chmod(dst_file, 0o777)
                 shutil.copy(full_file, dst_file)
                 os.chmod(dst_file, 0o644)
-
 
 
 if __name__ == "__main__":

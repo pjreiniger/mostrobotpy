@@ -1,5 +1,6 @@
 import pathlib
 
+
 def render_build_file(project_dir):
     print(project_dir.name)
     if "robotpy-native-" in str(project_dir):
@@ -7,8 +8,9 @@ def render_build_file(project_dir):
 
     print(lib_name)
 
-    with open(project_dir / "BUILD.bazel", 'w') as f:
-        f.write(f"""load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+    with open(project_dir / "BUILD.bazel", "w") as f:
+        f.write(
+            f"""load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
 load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
 load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
 
@@ -35,18 +37,33 @@ pybind_python_library(
     visibility = ["//visibility:public"],
 )
 
-""")
+"""
+        )
 
 
 def main():
     project_files = [
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpiutil"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpinet"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpilib"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpihal"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-romi"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-ntcore"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-apriltag"),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpiutil"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpinet"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpilib"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-wpihal"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-romi"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-ntcore"
+        ),
+        pathlib.Path(
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-native-apriltag"
+        ),
     ]
 
     for project_file in project_files:

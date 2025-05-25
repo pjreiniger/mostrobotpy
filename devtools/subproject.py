@@ -95,6 +95,7 @@ class Subproject:
         # TODO: eventually it would be nice to use build isolation
 
         running_build = True
+
         def __pjs_copy_files():
             magic_dir = None
             while running_build and not magic_dir:
@@ -103,32 +104,54 @@ class Subproject:
                         magic_dir = "/tmp/" + ddd
                         break
 
-
                 time.sleep(0.01)
-            
+
             print("-" * 80)
             print("Got the magic dir", magic_dir)
             print("-" * 80)
 
-            ignored_files = set([".gitignore", "BUILD.bazel", "build.ninja", "build.ninja~", "generated_build_info.bzl", "README.md", "compile_commands.json", "PKG-INFO", "pyproject.toml", "hatch-meson-native-file.ini"])
+            ignored_files = set(
+                [
+                    ".gitignore",
+                    "BUILD.bazel",
+                    "build.ninja",
+                    "build.ninja~",
+                    "generated_build_info.bzl",
+                    "README.md",
+                    "compile_commands.json",
+                    "PKG-INFO",
+                    "pyproject.toml",
+                    "hatch-meson-native-file.ini",
+                ]
+            )
 
             while running_build:
                 debug_print = "-" * 80
                 debug_print += "ran loop"
                 time.sleep(0.01)
-                
+
                 for root, dirs, files in os.walk(magic_dir):
                     for file in files:
                         source_file = os.path.join(root, file)
-                        if file.endswith(".o") or file.endswith(".so") or file.endswith(".a") or file.endswith(".dat") or file.endswith(".d") or file.endswith(".pkl") or file.endswith(".yml"):
+                        if (
+                            file.endswith(".o")
+                            or file.endswith(".so")
+                            or file.endswith(".a")
+                            or file.endswith(".dat")
+                            or file.endswith(".d")
+                            or file.endswith(".pkl")
+                            or file.endswith(".yml")
+                        ):
                             continue
                         elif file in ignored_files:
                             continue
                         # if file.endswith(".hpp") or file.endswith(".cpp") or file.endswith(".h") or file == "meson.build":
                         else:
-                            dst_file = pathlib.Path("/tmp/temp_gen_results" + source_file[len(magic_dir):])
+                            dst_file = pathlib.Path(
+                                "/tmp/temp_gen_results" + source_file[len(magic_dir) :]
+                            )
                             dst_file.parent.mkdir(parents=True, exist_ok=True)
-                            
+
                             try:
                                 shutil.copy(source_file, dst_file)
                             except Exception as e:
@@ -143,7 +166,6 @@ class Subproject:
 
                 # break
 
-                
         ttttt = threading.Thread(target=__pjs_copy_files)
         ttttt.start()
 
