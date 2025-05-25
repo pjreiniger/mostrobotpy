@@ -6,14 +6,25 @@ bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
 
-local_path_override(
+# local_path_override(
+#     module_name = "pybind11_bazel",
+#     path = "/home/pjreiniger/git/robotpy/pybind11_bazel",
+# )
+
+archive_override(
     module_name = "pybind11_bazel",
-    path = "/home/pjreiniger/git/robotpy/pybind11_bazel",
+    strip_prefix = "pybind11_bazel-2b6082a4d9d163a52299718113fa41e4b7978db5",
+    urls = ["https://github.com/pybind/pybind11_bazel/archive/2b6082a4d9d163a52299718113fa41e4b7978db5.tar.gz"],
+    patch_strip = 1,
+    patches = [
+        "//:0001-Patch-to-robotpy-version.patch",
+    ]
 )
 
-local_path_override(
+archive_override(
     module_name = "bzlmodrio-allwpilib",
-    path = "/home/pjreiniger/git/bzlmodRio/monorepo/libraries/bzlmodRio-allwpilib",
+    strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
+    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
 )
 
 python = use_extension(
