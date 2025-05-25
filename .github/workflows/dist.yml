@@ -4,10 +4,6 @@ name: dist
 on:
   pull_request:
   push:
-    branches:
-    - main
-    tags:
-    - '*'
   workflow_dispatch:
 
 concurrency:
@@ -207,6 +203,11 @@ jobs:
       with:
         name: "pypi-meson-${{ runner.os }}-${{ runner.arch }}-${{ matrix.python_version }}"
         path: dist
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: "meson-intermediates-${{ runner.os }}-${{ runner.arch }}-${{ matrix.python_version }}"
+        path: /tmp/temp_gen_results
 
   #
   # Build roboRIO/raspbian wheels

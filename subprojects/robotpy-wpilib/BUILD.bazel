@@ -1,0 +1,250 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers"
+
+wpilib_event_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/event/event.cpp"],
+    extension_name = "_event",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_interfaces_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/interfaces/interfaces.cpp"],
+    extension_name = "_interfaces",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/src/main.cpp"],
+    extra_hdrs = glob([
+        "wpilib/src/rpy/*.h",
+        "wpilib/src/rpy/*.inc",
+    ]),
+    extra_srcs = glob(
+        ["wpilib/src/**/*.cpp"],
+        exclude = ["wpilib/src/main.cpp"],
+    ),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = [
+        "wpilib",
+        "wpilib/src",
+    ],
+    other_deps = [
+        ":wpilib_counter_pybind_library",
+        ":wpilib_interfaces_pybind_library",
+        "//subprojects/pyntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_counter_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/counter/counter.cpp"],
+    extension_name = "_counter",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        "//subprojects/pyntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_drive_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/drive/drive.cpp"],
+    extension_name = "_drive",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":wpilib_pybind_library",
+        "//subprojects/pyntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_shuffleboard_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/shuffleboard/shuffleboard.cpp"],
+    extension_name = "_shuffleboard",
+    extra_hdrs = glob(["wpilib/shuffleboard/*.h"]),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = ["wpilib/shuffleboard"],
+    other_deps = [
+        "//subprojects/pyntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-cscore:cscore_pybind_library",
+        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+wpilib_simulation_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpilib/simulation/simulation.cpp"],
+    extension_name = "_simulation",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        "//subprojects/pyntcore:ntcore_pybind_library",
+        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+    ],
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_event",
+    extension = "_event",
+    output_directory = "wpilib/event/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_interfaces",
+    extension = "_interfaces",
+    output_directory = "wpilib/interfaces/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib",
+    extension = "_wpilib",
+    output_directory = "wpilib/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_counter",
+    extension = "_counter",
+    output_directory = "wpilib/counter/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_drive",
+    extension = "_drive",
+    output_directory = "wpilib/drive/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_shuffleboard",
+    extension = "_shuffleboard",
+    output_directory = "wpilib/shuffleboard/",
+)
+
+copy_extension_library(
+    name = "copy_wpilib_simulation",
+    extension = "_simulation",
+    output_directory = "wpilib/simulation/",
+)
+
+pybind_python_library(
+    name = "wpilib",
+    srcs = glob(["wpilib/**/*.py"]),
+    data = [
+        ":copy_wpilib",
+        ":copy_wpilib_counter",
+        ":copy_wpilib_drive",
+        ":copy_wpilib_event",
+        ":copy_wpilib_interfaces",
+        ":copy_wpilib_shuffleboard",
+        ":copy_wpilib_simulation",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-native-wpilib:wpilib",
+        "//subprojects/robotpy-wpimath:wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "wpilib.generated_files",
+        "wpilib_counter.generated_files",
+        "wpilib_drive.generated_files",
+        "wpilib_event.generated_files",
+        "wpilib_interfaces.generated_files",
+        "wpilib_shuffleboard.generated_files",
+        "wpilib_simulation.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

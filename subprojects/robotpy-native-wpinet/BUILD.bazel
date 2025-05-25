@@ -1,0 +1,26 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+gen_libinit(
+    name = "gen_lib_init",
+    lib_name = "wpinet",
+    modules = ["native.wpiutil._init_robotpy_native_wpiutil"],
+    output_file = "native/wpinet/_init_robotpy_native_wpinet.py",
+)
+
+copy_native_file(
+    name = "wpinet",
+    base_path = "native/wpinet",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared_raw",
+)
+
+pybind_python_library(
+    name = "wpinet",
+    srcs = [":gen_lib_init"],
+    data = [
+        ":wpinet.copy_lib",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

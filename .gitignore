@@ -6,3 +6,8 @@
 
 rpy-include
 .venv/
+
+
+bazel-*
+.bazel_auth.rc
+user.bazelrc

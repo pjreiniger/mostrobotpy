@@ -1,0 +1,8 @@
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+pybind_python_library(
+    name = "halsim_ds_socket",
+    srcs = glob(["halsim_ds_socket/**/*.py"]),
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

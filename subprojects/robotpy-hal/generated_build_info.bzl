@@ -1,0 +1,600 @@
+load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+
+def hal_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+    HAL_SIMULATION_HEADER_GEN = [
+        struct(
+            class_name = "AccelerometerData",
+            yml_file = "semiwrap/simulation/AccelerometerData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AccelerometerData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AddressableLEDData",
+            yml_file = "semiwrap/simulation/AddressableLEDData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AddressableLEDData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogGyroData",
+            yml_file = "semiwrap/simulation/AnalogGyroData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AnalogGyroData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogInData",
+            yml_file = "semiwrap/simulation/AnalogInData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AnalogInData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogOutData",
+            yml_file = "semiwrap/simulation/AnalogOutData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AnalogOutData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogTriggerData",
+            yml_file = "semiwrap/simulation/AnalogTriggerData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/AnalogTriggerData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "CTREPCMData",
+            yml_file = "semiwrap/simulation/CTREPCMData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/CTREPCMData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DIOData",
+            yml_file = "semiwrap/simulation/DIOData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/DIOData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DigitalPWMData",
+            yml_file = "semiwrap/simulation/DigitalPWMData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/DigitalPWMData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DriverStationData",
+            yml_file = "semiwrap/simulation/DriverStationData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/DriverStationData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DutyCycleData",
+            yml_file = "semiwrap/simulation/DutyCycleData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/DutyCycleData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "EncoderData",
+            yml_file = "semiwrap/simulation/EncoderData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/EncoderData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "MockHooks",
+            yml_file = "semiwrap/simulation/MockHooks.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/MockHooks.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "NotifierData",
+            yml_file = "semiwrap/simulation/NotifierData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/NotifierData.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HALSIM_NotifierInfo", "__HALSIM_NotifierInfo.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "PWMData",
+            yml_file = "semiwrap/simulation/PWMData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/PWMData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "PowerDistributionData",
+            yml_file = "semiwrap/simulation/PowerDistributionData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/PowerDistributionData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "REVPHData",
+            yml_file = "semiwrap/simulation/REVPHData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/REVPHData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "RelayData",
+            yml_file = "semiwrap/simulation/RelayData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/RelayData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Reset",
+            yml_file = "semiwrap/simulation/Reset.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/Reset.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "RoboRioData",
+            yml_file = "semiwrap/simulation/RoboRioData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/RoboRioData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SPIAccelerometerData",
+            yml_file = "semiwrap/simulation/SPIAccelerometerData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/SPIAccelerometerData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SimDeviceData",
+            yml_file = "semiwrap/simulation/SimDeviceData.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/simulation/SimDeviceData.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+    ]
+    resolve_casters(
+        name = "hal_simulation.resolve_casters",
+        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        casters_pkl_file = "hal_simulation.casters.pkl",
+        dep_file = "hal_simulation.casters.d",
+    )
+
+    gen_libinit(
+        name = "hal_simulation.gen_lib_init",
+        output_file = "_init__simulation.py",
+        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
+    )
+
+    gen_pkgconf(
+        name = "hal_simulation.gen_pkgconf",
+        libinit_py = "hal.simulation._init__simulation",
+        module_pkg_name = "hal.simulation._simulation",
+        output_file = "hal_simulation.pc",
+        pkg_name = "hal_simulation",
+        project_file = "pyproject.toml",
+    )
+
+    gen_modinit_hpp(
+        name = "hal_simulation.gen_modinit_hpp",
+        input_dats = [x.class_name for x in HAL_SIMULATION_HEADER_GEN],
+        libname = "_simulation",
+        output_file = "semiwrap_init.hal.simulation._simulation.hpp",
+    )
+
+    run_header_gen(
+        name = "hal_simulation",
+        casters_pickle = "hal_simulation.casters.pkl",
+        header_gen_config = HAL_SIMULATION_HEADER_GEN,
+        include_root = DEFAULT_INCLUDE_ROOT,
+        deps = header_to_dat_deps,
+        generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+    )
+
+    native.filegroup(
+        name = "hal_simulation.generated_files",
+        srcs = [
+            "hal_simulation.gen_modinit_hpp.gen",
+            "hal_simulation.header_gen_files",
+            "hal_simulation.gen_pkgconf",
+            "hal_simulation.gen_lib_init",
+        ],
+    )
+    create_pybind_library(
+        name = "hal_simulation",
+        entry_point = entry_point,
+        extension_name = extension_name,
+        generated_srcs = [":hal_simulation.generated_srcs"],
+        semiwrap_header = [":hal_simulation.gen_modinit_hpp"],
+        deps = [
+            ":hal_simulation.tmpl_hdrs",
+            ":hal_simulation.trampoline_hdrs",
+        ] + other_deps,
+        extra_hdrs = extra_hdrs,
+        extra_srcs = extra_srcs,
+        includes = includes,
+    )
+
+def wpihal_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+    WPIHAL_HEADER_GEN = [
+        struct(
+            class_name = "Accelerometer",
+            yml_file = "semiwrap/Accelerometer.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Accelerometer.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AddressableLED",
+            yml_file = "semiwrap/AddressableLED.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AddressableLED.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AddressableLEDTypes",
+            yml_file = "semiwrap/AddressableLEDTypes.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AddressableLEDTypes.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HAL_AddressableLEDData", "__HAL_AddressableLEDData.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "AnalogAccumulator",
+            yml_file = "semiwrap/AnalogAccumulator.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AnalogAccumulator.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogGyro",
+            yml_file = "semiwrap/AnalogGyro.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AnalogGyro.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogInput",
+            yml_file = "semiwrap/AnalogInput.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AnalogInput.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogOutput",
+            yml_file = "semiwrap/AnalogOutput.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AnalogOutput.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "AnalogTrigger",
+            yml_file = "semiwrap/AnalogTrigger.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/AnalogTrigger.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "CAN",
+            yml_file = "semiwrap/CAN.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/CAN.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HAL_CANStreamMessage", "__HAL_CANStreamMessage.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "CANAPI",
+            yml_file = "semiwrap/CANAPI.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/CANAPI.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "CANAPITypes",
+            yml_file = "semiwrap/CANAPITypes.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/CANAPITypes.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "CTREPCM",
+            yml_file = "semiwrap/CTREPCM.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/CTREPCM.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Constants",
+            yml_file = "semiwrap/Constants.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Constants.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Counter",
+            yml_file = "semiwrap/Counter.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Counter.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DIO",
+            yml_file = "semiwrap/DIO.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/DIO.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DriverStation",
+            yml_file = "semiwrap/DriverStation.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/DriverStation.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "DriverStationTypes",
+            yml_file = "semiwrap/DriverStationTypes.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/DriverStationTypes.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HAL_ControlWord", "__HAL_ControlWord.hpp"),
+                ("HAL_JoystickAxes", "__HAL_JoystickAxes.hpp"),
+                ("HAL_JoystickPOVs", "__HAL_JoystickPOVs.hpp"),
+                ("HAL_JoystickButtons", "__HAL_JoystickButtons.hpp"),
+                ("HAL_JoystickDescriptor", "__HAL_JoystickDescriptor.hpp"),
+                ("HAL_MatchInfo", "__HAL_MatchInfo.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "DutyCycle",
+            yml_file = "semiwrap/DutyCycle.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/DutyCycle.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Encoder",
+            yml_file = "semiwrap/Encoder.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Encoder.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Extensions",
+            yml_file = "semiwrap/Extensions.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Extensions.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "FRCUsageReporting",
+            yml_file = "semiwrap/FRCUsageReporting.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/FRCUsageReporting.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "HALBase",
+            yml_file = "semiwrap/HALBase.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/HALBase.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "I2C",
+            yml_file = "semiwrap/I2C.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/I2C.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "I2CTypes",
+            yml_file = "semiwrap/I2CTypes.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/I2CTypes.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Interrupts",
+            yml_file = "semiwrap/Interrupts.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Interrupts.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "LEDs",
+            yml_file = "semiwrap/LEDs.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/LEDs.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Main",
+            yml_file = "semiwrap/Main.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Main.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Notifier",
+            yml_file = "semiwrap/Notifier.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Notifier.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "PWM",
+            yml_file = "semiwrap/PWM.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/PWM.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Ports",
+            yml_file = "semiwrap/Ports.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Ports.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "Power",
+            yml_file = "semiwrap/Power.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Power.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "PowerDistribution",
+            yml_file = "semiwrap/PowerDistribution.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/PowerDistribution.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HAL_PowerDistributionVersion", "__HAL_PowerDistributionVersion.hpp"),
+                ("HAL_PowerDistributionFaults", "__HAL_PowerDistributionFaults.hpp"),
+                ("HAL_PowerDistributionStickyFaults", "__HAL_PowerDistributionStickyFaults.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "REVPH",
+            yml_file = "semiwrap/REVPH.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/REVPH.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("HAL_REVPHVersion", "__HAL_REVPHVersion.hpp"),
+                ("HAL_REVPHCompressorConfig", "__HAL_REVPHCompressorConfig.hpp"),
+                ("HAL_REVPHFaults", "__HAL_REVPHFaults.hpp"),
+                ("HAL_REVPHStickyFaults", "__HAL_REVPHStickyFaults.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "Relay",
+            yml_file = "semiwrap/Relay.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Relay.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SPI",
+            yml_file = "semiwrap/SPI.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/SPI.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SPITypes",
+            yml_file = "semiwrap/SPITypes.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/SPITypes.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SerialPort",
+            yml_file = "semiwrap/SerialPort.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/SerialPort.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "SimDevice",
+            yml_file = "semiwrap/SimDevice.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/SimDevice.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("hal::SimValue", "hal__SimValue.hpp"),
+                ("hal::SimInt", "hal__SimInt.hpp"),
+                ("hal::SimLong", "hal__SimLong.hpp"),
+                ("hal::SimDouble", "hal__SimDouble.hpp"),
+                ("hal::SimEnum", "hal__SimEnum.hpp"),
+                ("hal::SimBoolean", "hal__SimBoolean.hpp"),
+                ("hal::SimDevice", "hal__SimDevice.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "Threads",
+            yml_file = "semiwrap/Threads.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/Threads.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "HandlesInternal",
+            yml_file = "semiwrap/HandlesInternal.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/hal/handles/HandlesInternal.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+    ]
+    resolve_casters(
+        name = "wpihal.resolve_casters",
+        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        casters_pkl_file = "wpihal.casters.pkl",
+        dep_file = "wpihal.casters.d",
+    )
+
+    gen_libinit(
+        name = "wpihal.gen_lib_init",
+        output_file = "_init__wpiHal.py",
+        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
+    )
+
+    gen_pkgconf(
+        name = "wpihal.gen_pkgconf",
+        libinit_py = "hal._init__wpiHal",
+        module_pkg_name = "hal._wpiHal",
+        output_file = "wpihal.pc",
+        pkg_name = "wpihal",
+        project_file = "pyproject.toml",
+    )
+
+    gen_modinit_hpp(
+        name = "wpihal.gen_modinit_hpp",
+        input_dats = [x.class_name for x in WPIHAL_HEADER_GEN],
+        libname = "_wpiHal",
+        output_file = "semiwrap_init.hal._wpiHal.hpp",
+    )
+
+    run_header_gen(
+        name = "wpihal",
+        casters_pickle = "wpihal.casters.pkl",
+        header_gen_config = WPIHAL_HEADER_GEN,
+        include_root = DEFAULT_INCLUDE_ROOT,
+        deps = header_to_dat_deps,
+        generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+    )
+
+    native.filegroup(
+        name = "wpihal.generated_files",
+        srcs = [
+            "wpihal.gen_modinit_hpp.gen",
+            "wpihal.header_gen_files",
+            "wpihal.gen_pkgconf",
+            "wpihal.gen_lib_init",
+        ],
+    )
+    create_pybind_library(
+        name = "wpiHal",
+        entry_point = entry_point,
+        extension_name = extension_name,
+        generated_srcs = [":wpihal.generated_srcs"],
+        semiwrap_header = [":wpihal.gen_modinit_hpp"],
+        deps = [
+            ":wpihal.tmpl_hdrs",
+            ":wpihal.trampoline_hdrs",
+        ] + other_deps,
+        extra_hdrs = extra_hdrs,
+        extra_srcs = extra_srcs,
+        includes = includes,
+    )

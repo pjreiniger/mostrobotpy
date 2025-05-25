@@ -1,0 +1,50 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers"
+
+wpinet_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpinet/src/main.cpp"],
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared",
+    ],
+)
+
+make_pyi(
+    name = "make_pyi1",
+)
+
+copy_extension_library(
+    name = "copy_wpinet",
+    extension = "_wpinet",
+    output_directory = "wpinet/",
+)
+
+pybind_python_library(
+    name = "wpinet",
+    srcs = glob(["wpinet/**/*.py"]),
+    data = [
+        ":copy_wpinet",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-native-wpinet:wpinet",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "wpinet.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

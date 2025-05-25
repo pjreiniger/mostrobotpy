@@ -1,0 +1,29 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+gen_libinit(
+    name = "gen_lib_init",
+    lib_name = "apriltag",
+    modules = [
+        "native.wpiutil._init_robotpy_native_wpiutil",
+        "native.wpimath._init_robotpy_native_wpimath",
+    ],
+    output_file = "native/apriltag/_init_robotpy_native_apriltag.py",
+)
+
+copy_native_file(
+    name = "apriltag",
+    base_path = "native/apriltag",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
+)
+
+pybind_python_library(
+    name = "apriltag",
+    srcs = [":gen_lib_init"],
+    data = [
+        ":apriltag.copy_lib",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

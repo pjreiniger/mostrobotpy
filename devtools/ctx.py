@@ -33,6 +33,14 @@ class Context:
             if self.is_roborio and not cfg.roborio:
                 continue
 
+            if project == "robotpy-cscore":
+                continue
+            if project == "robotpy-wpilib":
+                continue
+            # if project != "robotpy-wpiutil":
+                # continue
+            
+
             subprojects.append(Subproject(cfg, self.subprojects_path / project))
 
         # Create a sorted dictionary of subprojects ordered by build order
@@ -46,6 +54,12 @@ class Context:
             subprojects[i].name: subprojects[i]
             for i in toposort.toposort_flatten(ti, sort=False)
         }
+
+
+        for x in self.subprojects:
+            print(x)
+
+        # raise
 
     def git_commit(self, msg: str, *relpath: str):
         subprocess.run(

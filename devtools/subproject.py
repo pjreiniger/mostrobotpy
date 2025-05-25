@@ -3,6 +3,9 @@ import shutil
 import sys
 import tempfile
 import typing as T
+import time
+import threading
+import os
 
 from packaging.requirements import Requirement
 import tomli
@@ -91,7 +94,61 @@ class Subproject:
 
         # TODO: eventually it would be nice to use build isolation
 
+        running_build = True
+        def __pjs_copy_files():
+            magic_dir = None
+            while running_build and not magic_dir:
+                for ddd in os.listdir("/tmp"):
+                    if "build-via-sdist" in ddd:
+                        magic_dir = "/tmp/" + ddd
+                        break
+
+
+                time.sleep(0.01)
+            
+            print("-" * 80)
+            print("Got the magic dir", magic_dir)
+            print("-" * 80)
+
+            ignored_files = set([".gitignore", "BUILD.bazel", "build.ninja", "build.ninja~", "generated_build_info.bzl", "README.md", "compile_commands.json", "PKG-INFO", "pyproject.toml", "hatch-meson-native-file.ini"])
+
+            while running_build:
+                debug_print = "-" * 80
+                debug_print += "ran loop"
+                time.sleep(0.01)
+                
+                for root, dirs, files in os.walk(magic_dir):
+                    for file in files:
+                        source_file = os.path.join(root, file)
+                        if file.endswith(".o") or file.endswith(".so") or file.endswith(".a") or file.endswith(".dat") or file.endswith(".d") or file.endswith(".pkl") or file.endswith(".yml"):
+                            continue
+                        elif file in ignored_files:
+                            continue
+                        # if file.endswith(".hpp") or file.endswith(".cpp") or file.endswith(".h") or file == "meson.build":
+                        else:
+                            dst_file = pathlib.Path("/tmp/temp_gen_results" + source_file[len(magic_dir):])
+                            dst_file.parent.mkdir(parents=True, exist_ok=True)
+                            
+                            try:
+                                shutil.copy(source_file, dst_file)
+                            except Exception as e:
+                                print(f"Failed to copy {source_file} - {e}")
+
+                            # debug_print += f"{source_file} -> {dst_file}\n"
+                        # el
+                        # else:
+                        #     print(f"Should this be copied? {source_file}", )
+                # debug_print += "-" * 80
+                # print(debug_print)
+
+                # break
+
+                
+        ttttt = threading.Thread(target=__pjs_copy_files)
+        ttttt.start()
+
         with tempfile.TemporaryDirectory() as td:
+            print(f"-------------------------------{td}")
             # I wonder if we should use hatch build instead?
             run_cmd(
                 sys.executable,
@@ -119,6 +176,11 @@ class Subproject:
                 str(other_wheel_path),
                 str(dst_whl),
             )
+
+        running_build = False
+        ttttt.join()
+        print("Post thread")
+        # input("Waiting for advancement")
 
     _adjust_wheel_tags = {
         # pypi only accepts manylinux wheels, and we know we're compatible

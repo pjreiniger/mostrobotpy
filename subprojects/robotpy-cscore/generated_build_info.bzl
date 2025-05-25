@@ -1,0 +1,129 @@
+load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+
+def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+    CSCORE_HEADER_GEN = [
+        struct(
+            class_name = "cscore_cpp",
+            yml_file = "semiwrap/cscore_cpp.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_cpp.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("cs::UsbCameraInfo", "cs__UsbCameraInfo.hpp"),
+                ("cs::VideoMode", "cs__VideoMode.hpp"),
+                ("cs::RawEvent", "cs__RawEvent.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "cscore_oo",
+            yml_file = "semiwrap/cscore_oo.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_oo.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("cs::VideoProperty", "cs__VideoProperty.hpp"),
+                ("cs::VideoSource", "cs__VideoSource.hpp"),
+                ("cs::VideoCamera", "cs__VideoCamera.hpp"),
+                ("cs::UsbCamera", "cs__UsbCamera.hpp"),
+                ("cs::HttpCamera", "cs__HttpCamera.hpp"),
+                ("cs::AxisCamera", "cs__AxisCamera.hpp"),
+                ("cs::ImageSource", "cs__ImageSource.hpp"),
+                ("cs::VideoSink", "cs__VideoSink.hpp"),
+                ("cs::MjpegServer", "cs__MjpegServer.hpp"),
+                ("cs::ImageSink", "cs__ImageSink.hpp"),
+                ("cs::VideoEvent", "cs__VideoEvent.hpp"),
+                ("cs::VideoListener", "cs__VideoListener.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "cscore_cv",
+            yml_file = "semiwrap/cscore_cv.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_cv.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("cs::CvSource", "cs__CvSource.hpp"),
+                ("cs::CvSink", "cs__CvSink.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "cscore_runloop",
+            yml_file = "semiwrap/cscore_runloop.yml",
+            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_runloop.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+        struct(
+            class_name = "CameraServer",
+            yml_file = "semiwrap/CameraServer.yml",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers/cameraserver/CameraServer.h",
+            tmpl_class_names = [],
+            trampolines = [],
+        ),
+    ]
+
+    resolve_casters(
+        name = "cscore.resolve_casters",
+        caster_files = [
+            "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json",
+        ],
+        casters_pkl_file = "cscore.casters.pkl",
+        dep_file = "cscore.casters.d",
+    )
+
+    gen_libinit(
+        name = "cscore.gen_lib_init",
+        modules = ["wpiutil._init__wpiutil", "wpinet._init__wpinet", "ntcore._init__ntcore"],
+        output_file = "_init__cscore.py",
+    )
+
+    gen_pkgconf(
+        name = "cscore.gen_pkgconf",
+        libinit_py = "cscore._init__cscore",
+        module_pkg_name = "cscore._cscore",
+        output_file = "cscore.pc",
+        pkg_name = "cscore",
+        project_file = "pyproject.toml",
+    )
+
+    gen_modinit_hpp(
+        name = "cscore.gen_modinit_hpp",
+        input_dats = [x.class_name for x in CSCORE_HEADER_GEN],
+        libname = "_cscore",
+        output_file = "semiwrap_init.cscore._cscore.hpp",
+    )
+
+    run_header_gen(
+        name = "cscore",
+        casters_pickle = "cscore.casters.pkl",
+        header_gen_config = CSCORE_HEADER_GEN,
+        include_root = DEFAULT_INCLUDE_ROOT,
+        deps = header_to_dat_deps,
+        generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+    )
+
+    native.filegroup(
+        name = "cscore.generated_files",
+        srcs = [
+            "cscore.gen_modinit_hpp.gen",
+            "cscore.header_gen_files",
+            "cscore.gen_pkgconf",
+            "cscore.gen_lib_init",
+        ],
+    )
+    create_pybind_library(
+        name = "cscore",
+        entry_point = entry_point,
+        extension_name = extension_name,
+        generated_srcs = [":cscore.generated_srcs"],
+        semiwrap_header = [":cscore.gen_modinit_hpp"],
+        deps = [
+            ":cscore.tmpl_hdrs",
+            ":cscore.trampoline_hdrs",
+        ] + other_deps,
+        extra_hdrs = extra_hdrs,
+        extra_srcs = extra_srcs,
+        includes = includes,
+    )

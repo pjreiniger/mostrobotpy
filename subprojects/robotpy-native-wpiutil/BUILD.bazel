@@ -1,0 +1,26 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+gen_libinit(
+    name = "gen_lib_init",
+    lib_name = "wpiutil",
+    modules = [],
+    output_file = "native/wpiutil/_init_robotpy_native_wpiutil.py",
+)
+
+copy_native_file(
+    name = "wpiutil",
+    base_path = "native/wpiutil",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
+)
+
+pybind_python_library(
+    name = "wpiutil",
+    srcs = [":gen_lib_init"],
+    data = [
+        ":wpiutil.copy_lib",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

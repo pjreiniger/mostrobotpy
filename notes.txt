@@ -1,0 +1,22 @@
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/cscore.meson.build
+
+
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/hal.meson.build
+
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/wpinet.meson.build
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/wpimath.meson.build
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/wpiutil.meson.build
+
+
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/ > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/apriltag.meson.build
+
+python3 -m semiwrap.render_meson /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/tests/cpp > /home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpiutil/temp/wpiutil_test.meson.build
+
+
+
+bazel test \
+    //subprojects/robotpy-wpiutil:wpiutil.header_gen_files \
+    //subprojects/robotpy-wpinet:wpinet.header_gen_files \
+    //subprojects/pyntcore:ntcore.header_gen_files \
+    //subprojects/robotpy-wpimath:wpimath.header_gen_files \
+    //subprojects/robotpy-hal:wpihal.header_gen_files \ \

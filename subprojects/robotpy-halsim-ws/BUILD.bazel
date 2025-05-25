@@ -1,0 +1,8 @@
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+pybind_python_library(
+    name = "wpiutil",
+    srcs = glob(["wpiutil/**/*.py"]),
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

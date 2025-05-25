@@ -1,0 +1,26 @@
+try-import %workspace%/.bazel_auth.rc
+try-import %workspace%/user.bazelrc
+
+test --test_output=errors
+test --test_verbose_timeout_warnings
+
+common --registry=https://raw.githubusercontent.com/pjreiniger/bazel-central-registry/bzlmodrio/
+
+
+build   --copt=-std=c++20
+
+
+build:build_buddy --bes_results_url=https://app.buildbuddy.io/invocation/
+build:build_buddy --bes_backend=grpcs://remote.buildbuddy.io
+build:build_buddy --remote_cache=grpcs://remote.buildbuddy.io
+build:build_buddy --remote_timeout=3600
+
+# Additional suggestions from buildbuddy for speed
+build:build_buddy --experimental_remote_cache_compression
+build:build_buddy --experimental_remote_cache_compression_threshold=100
+build:build_buddy --noslim_profile
+build:build_buddy --experimental_profile_include_target_label
+build:build_buddy --experimental_profile_include_primary_output
+build:build_buddy --nolegacy_important_outputs
+
+common:build_buddy_readonly --noremote_upload_local_results

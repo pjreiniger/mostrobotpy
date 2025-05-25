@@ -1,0 +1,33 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library", "pybind_python_library")
+
+DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/include"
+
+create_pybind_library(
+    name = "module",
+    entry_point = ["wpiutil_test/module.cpp"],
+    extension_name = "module",
+    extra_srcs = glob(
+        ["wpiutil_test/*.cpp"],
+        exclude = ["wpiutil_test/module.cpp"],
+    ),
+    deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+    ],
+)
+
+copy_extension_library(
+    name = "copy_wpiutil",
+    extension = "module",
+    output_directory = "wpiutil_test/",
+)
+
+pybind_python_library(
+    name = "wpiutil_test",
+    srcs = glob(["wpiutil_test/*.py"]),
+    data = [
+        ":copy_wpiutil",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

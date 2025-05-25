@@ -1,0 +1,83 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers"
+
+hal_simulation_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["hal/simulation/main.cpp"],
+    extension_name = "_simulation",
+    extra_hdrs = glob(["hal/simulation/*.h"]),
+    extra_srcs = glob(
+        ["hal/simulation/*.cpp"],
+        exclude = ["hal/simulation/main.cpp"],
+    ),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = ["hal/simulation"],
+    other_deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:shared",
+    ],
+)
+
+wpihal_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["hal/src/hal.cpp"],
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/hal:shared",
+    ],
+)
+
+make_pyi(
+    name = "make_pyi2",
+)
+
+make_pyi(
+    name = "make_pyi2",
+)
+
+copy_extension_library(
+    name = "copy_hal_simulation",
+    extension = "_simulation",
+    output_directory = "hal/simulation/",
+)
+
+copy_extension_library(
+    name = "copy_wpihal",
+    extension = "_wpiHal",
+    output_directory = "hal/",
+)
+
+pybind_python_library(
+    name = "hal",
+    srcs = glob(["hal/**/*.py"]),
+    data = [
+        ":copy_hal_simulation",
+        ":copy_wpihal",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-native-wpihal:hal",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "hal_simulation.generated_files",
+        "wpihal.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

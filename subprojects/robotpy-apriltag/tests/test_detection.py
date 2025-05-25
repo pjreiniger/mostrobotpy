@@ -18,6 +18,7 @@ def test_point():
 
 def _load_grayscale_image(fname):
     full_path = pathlib.Path(__file__).parent / fname
+    # full_path = "subprojects/robotpy-apriltag/tests/" + fname
     img = cv2.imread(str(full_path))
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

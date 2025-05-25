@@ -1,0 +1,29 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+gen_libinit(
+    name = "gen_lib_init",
+    lib_name = "ntcore",
+    modules = [
+        "native.wpinet._init_robotpy_native_wpinet",
+        "native.wpiutil._init_robotpy_native_wpiutil",
+    ],
+    output_file = "native/ntcore/_init_robotpy_native_ntcore.py",
+)
+
+copy_native_file(
+    name = "ntcore",
+    base_path = "native/ntcore",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared_raw",
+)
+
+pybind_python_library(
+    name = "ntcore",
+    srcs = [":gen_lib_init"],
+    data = [
+        ":ntcore.copy_lib",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)

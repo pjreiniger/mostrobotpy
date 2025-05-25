@@ -1,0 +1,63 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "publish_library_casters", "wpiutil_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers"
+
+publish_library_casters(
+    typecasters_srcs = glob([
+        "wpiutil/src/type_casters/**",
+        "wpiutil/src/wpistruct/**",
+    ]),
+)
+
+wpiutil_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpiutil/src/main.cpp"],
+    extra_hdrs = glob([
+        "wpiutil/src/type_casters/*.h",
+        "wpiutil/src/wpistruct/*.h",
+    ]),
+    extra_srcs = glob(
+        ["wpiutil/src/**/*.cpp"],
+        exclude = ["wpiutil/src/main.cpp"],
+    ),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = [
+        "wpiutil/src/type_casters",
+        "wpiutil/src/wpistruct",
+    ],
+    other_deps = ["@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared"],
+)
+
+make_pyi(
+    name = "make_pyi1",
+)
+
+copy_extension_library(
+    name = "copy_wpiutil",
+    extension = "_wpiutil",
+    output_directory = "wpiutil/",
+)
+
+pybind_python_library(
+    name = "wpiutil",
+    srcs = glob(["wpiutil/**/*.py"]),
+    data = [
+        ":copy_wpiutil",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = ["//subprojects/robotpy-native-wpiutil:wpiutil"],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "wpiutil.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

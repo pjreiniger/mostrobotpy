@@ -1,0 +1,53 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-xrp:generated_build_info.bzl", "xrp_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers"
+
+xrp_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["xrp/src/main.cpp"],
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:header_files",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared",
+    ],
+)
+
+make_pyi(
+    name = "make_pyi1",
+)
+
+copy_extension_library(
+    name = "copy_xrp",
+    extension = "_xrp",
+    output_directory = "xrp/",
+)
+
+pybind_python_library(
+    name = "xrp",
+    srcs = glob(["xrp/**/*.py"]),
+    data = [
+        ":copy_xrp",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-native-xrp:xrp",
+        "//subprojects/robotpy-wpilib:wpilib",
+    ],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "xrp.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,230 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
+load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
+
+DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers"
+
+publish_library_casters(
+    typecasters_srcs = glob([
+        "wpimath/src/type_casters/**",
+        "wpimath/src/wpistruct/**",
+        "wpimath/_impl/src/**",
+    ]),
+)
+
+wpimath_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/src/wpimath.cpp"],
+    extra_hdrs = glob(["wpimath/_impl/src/**/*.h"]),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = [
+        "wpimath/_impl/src",
+        "wpimath/_impl/src/type_casters",
+    ],
+    other_deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_filter_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/filter/filter.cpp"],
+    extension_name = "_filter",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":_wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_geometry_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/geometry/geometry.cpp"],
+    extension_name = "_geometry",
+    extra_hdrs = glob(["wpimath/geometry/include/rpy/*"]),
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    includes = ["wpimath/geometry/include"],
+    other_deps = [
+        ":_wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_interpolation_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/interpolation/interpolation.cpp"],
+    extension_name = "_interpolation",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":_wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_kinematics_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/kinematics/kinematics.cpp"],
+    extension_name = "_kinematics",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":_wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_spline_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/spline/spline.cpp"],
+    extension_name = "_spline",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":_wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+wpimath_controls_extension(
+    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
+    entry_point = ["wpimath/_controls/controls.cpp"],
+    extension_name = "_controls",
+    header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    ],
+    other_deps = [
+        ":_wpimath",
+        ":wpimath_geometry_pybind_library",
+        ":wpimath_pybind_library",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
+    ],
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+make_pyi(
+    name = "make_pyi7",
+)
+
+copy_extension_library(
+    name = "copy_wpimath",
+    extension = "_wpimath",
+    output_directory = "wpimath/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_filter",
+    extension = "_filter",
+    output_directory = "wpimath/filter/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_geometry",
+    extension = "_geometry",
+    output_directory = "wpimath/geometry/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_interpolation",
+    extension = "_interpolation",
+    output_directory = "wpimath/interpolation/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_kinematics",
+    extension = "_kinematics",
+    output_directory = "wpimath/kinematics/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_spline",
+    extension = "_spline",
+    output_directory = "wpimath/spline/",
+)
+
+copy_extension_library(
+    name = "copy_wpimath_controls",
+    extension = "_controls",
+    output_directory = "wpimath/_controls/",
+)
+
+pybind_python_library(
+    name = "wpimath",
+    srcs = glob(["wpimath/**/*.py"]),
+    data = [
+        ":copy_wpimath",
+        ":copy_wpimath_controls",
+        ":copy_wpimath_filter",
+        ":copy_wpimath_geometry",
+        ":copy_wpimath_interpolation",
+        ":copy_wpimath_kinematics",
+        ":copy_wpimath_spline",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-native-wpimath:wpimath",
+        "//subprojects/robotpy-wpiutil:wpiutil",
+    ],
+)
+
+filegroup(
+    name = "generated_files",
+    srcs = [
+        "wpimath.generated_files",
+        "wpimath_controls.generated_files",
+        "wpimath_filter.generated_files",
+        "wpimath_geometry.generated_files",
+        "wpimath_interpolation.generated_files",
+        "wpimath_kinematics.generated_files",
+        "wpimath_spline.generated_files",
+    ],
+    visibility = ["//visibility:public"],
+)

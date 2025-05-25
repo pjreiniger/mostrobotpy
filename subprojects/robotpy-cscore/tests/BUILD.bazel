@@ -1,0 +1,22 @@
+load("//:python_rules.bzl", "wpilib_py_test")
+
+wpilib_py_test(
+    "cscore_tests",
+    data = glob([
+        "*.jpg",
+        "*.png",
+    ]),
+    extra_sources = ["conftest.py"],
+    tests = glob(
+        ["**/*.py"],
+        exclude = [
+            "conftest.py",
+            "run_tests.py",
+        ],
+    ),
+    deps = [
+        "//subprojects/robotpy-cscore:cscore",
+        # "//wpiutil/src/test/python/cpp:wpiutil_test",
+        # "//subprojects/robotpy-wpimath/tests/cpp:wpimath_test",
+    ],
+)
