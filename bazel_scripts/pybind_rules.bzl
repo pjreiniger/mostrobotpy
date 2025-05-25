@@ -20,6 +20,8 @@ def create_pybind_library(
         copts = copts + select({
             "@bazel_tools//src/conditions:darwin": [
                 "-Wno-deprecated-declarations",
+                "-Wno-overloaded-virtual",
+                "-Wno-pessimizing-move",
             ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-attributes",
