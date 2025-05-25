@@ -39,7 +39,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "ntcore",
-    srcs = glob(["ntcore/**/*.py"]),
+    srcs = glob(["ntcore/**/*.py"]) + ["ntcore/_init__ntcore.py"],
     data = [
         ":copy_ntcore",
     ],

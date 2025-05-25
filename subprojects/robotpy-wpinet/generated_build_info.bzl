@@ -31,7 +31,7 @@ def wpinet_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
 
     gen_libinit(
         name = "wpinet.gen_lib_init",
-        output_file = "_init__wpinet.py",
+        output_file = "wpinet/_init__wpinet.py",
         modules = ["native.wpinet._init_robotpy_native_wpinet", "wpiutil._init__wpiutil"],
     )
 

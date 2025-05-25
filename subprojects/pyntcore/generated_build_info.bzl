@@ -326,7 +326,7 @@ def ntcore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
 
     gen_libinit(
         name = "ntcore.gen_lib_init",
-        output_file = "_init__ntcore.py",
+        output_file = "ntcore/_init__ntcore.py",
         modules = ["native.ntcore._init_robotpy_native_ntcore", "wpiutil._init__wpiutil", "wpinet._init__wpinet"],
     )
 

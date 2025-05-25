@@ -72,7 +72,7 @@ def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
     gen_libinit(
         name = "cscore.gen_lib_init",
         modules = ["wpiutil._init__wpiutil", "wpinet._init__wpinet", "ntcore._init__ntcore"],
-        output_file = "_init__cscore.py",
+        output_file = "cscore/_init__cscore.py",
     )
 
     gen_pkgconf(

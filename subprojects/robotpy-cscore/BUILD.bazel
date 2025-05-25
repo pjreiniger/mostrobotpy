@@ -46,7 +46,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "cscore",
-    srcs = glob(["cscore/**/*.py"]),
+    srcs = glob(["cscore/**/*.py"]) + ["cscore/_init__cscore.py"],
     data = [
         ":copy_cscore",
         # ":cscore.copy_lib",

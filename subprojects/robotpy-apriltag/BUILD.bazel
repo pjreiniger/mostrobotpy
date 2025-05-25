@@ -32,7 +32,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "apriltag",
-    srcs = glob(["robotpy_apriltag/**/*.py"]),
+    srcs = glob(["robotpy_apriltag/**/*.py"]) + ["robotpy_apriltag/_init__apriltag.py"],
     data = [
         ":copy_apriltag",
     ],

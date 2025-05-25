@@ -214,7 +214,15 @@ copy_extension_library(
 
 pybind_python_library(
     name = "wpilib",
-    srcs = glob(["wpilib/**/*.py"]),
+    srcs = glob(["wpilib/**/*.py"]) + [
+        "wpilib/_init__wpilib.py",
+        "wpilib/counter/_init__counter.py",
+        "wpilib/drive/_init__drive.py",
+        "wpilib/event/_init__event.py",
+        "wpilib/interfaces/_init__interfaces.py",
+        "wpilib/shuffleboard/_init__shuffleboard.py",
+        "wpilib/simulation/_init__simulation.py",
+    ],
     data = [
         ":copy_wpilib",
         ":copy_wpilib_counter",

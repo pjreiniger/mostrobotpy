@@ -60,7 +60,10 @@ copy_extension_library(
 
 pybind_python_library(
     name = "hal",
-    srcs = glob(["hal/**/*.py"]),
+    srcs = glob(["hal/**/*.py"]) + [
+        "hal/_init__wpiHal.py",
+        "hal/simulation/_init__simulation.py",
+    ],
     data = [
         ":copy_hal_simulation",
         ":copy_wpihal",

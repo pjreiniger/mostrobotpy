@@ -40,7 +40,7 @@ def wpilib_event_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
 
     gen_libinit(
         name = "wpilib_event.gen_lib_init",
-        output_file = "_init__event.py",
+        output_file = "wpilib/event/_init__event.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpimath.filter._init__filter"],
     )
 
@@ -131,7 +131,7 @@ def wpilib_interfaces_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
 
     gen_libinit(
         name = "wpilib_interfaces.gen_lib_init",
-        output_file = "_init__interfaces.py",
+        output_file = "wpilib/interfaces/_init__interfaces.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib.event._init__event", "wpimath.geometry._init__geometry"],
     )
 
@@ -1127,7 +1127,7 @@ def wpilib_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
 
     gen_libinit(
         name = "wpilib.gen_lib_init",
-        output_file = "_init__wpilib.py",
+        output_file = "wpilib/_init__wpilib.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "hal._init__wpiHal", "wpiutil._init__wpiutil", "ntcore._init__ntcore", "wpimath._init__wpimath", "wpimath.geometry._init__geometry", "wpimath._controls._init__controls", "wpilib.interfaces._init__interfaces", "wpilib.event._init__event"],
     )
 
@@ -1229,7 +1229,7 @@ def wpilib_counter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
 
     gen_libinit(
         name = "wpilib_counter.gen_lib_init",
-        output_file = "_init__counter.py",
+        output_file = "wpilib/counter/_init__counter.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib._init__wpilib"],
     )
 
@@ -1322,7 +1322,7 @@ def wpilib_drive_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
 
     gen_libinit(
         name = "wpilib_drive.gen_lib_init",
-        output_file = "_init__drive.py",
+        output_file = "wpilib/drive/_init__drive.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib._init__wpilib"],
     )
 
@@ -1587,7 +1587,7 @@ def wpilib_shuffleboard_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT,
 
     gen_libinit(
         name = "wpilib_shuffleboard.gen_lib_init",
-        output_file = "_init__shuffleboard.py",
+        output_file = "wpilib/shuffleboard/_init__shuffleboard.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib._init__wpilib", "wpilib.interfaces._init__interfaces"],
     )
 
@@ -2087,7 +2087,7 @@ def wpilib_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
 
     gen_libinit(
         name = "wpilib_simulation.gen_lib_init",
-        output_file = "_init__simulation.py",
+        output_file = "wpilib/simulation/_init__simulation.py",
         modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib._init__wpilib", "wpimath._controls._init__controls", "wpimath.geometry._init__geometry", "wpimath.kinematics._init__kinematics"],
     )
 

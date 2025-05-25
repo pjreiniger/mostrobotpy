@@ -169,7 +169,7 @@ def hal_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
 
     gen_libinit(
         name = "hal_simulation.gen_lib_init",
-        output_file = "_init__simulation.py",
+        output_file = "hal/simulation/_init__simulation.py",
         modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
     )
 
@@ -544,7 +544,7 @@ def wpihal_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
 
     gen_libinit(
         name = "wpihal.gen_lib_init",
-        output_file = "_init__wpiHal.py",
+        output_file = "hal/_init__wpiHal.py",
         modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
     )
 

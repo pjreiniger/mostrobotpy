@@ -22,7 +22,7 @@ def wpimath_test_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
 
     gen_libinit(
         name = "wpimath_test.gen_lib_init",
-        output_file = "_init__wpimath_test.py",
+        output_file = "wpimath_test/_init__wpimath_test.py",
         modules = ["wpimath._init__wpimath"],
     )
 

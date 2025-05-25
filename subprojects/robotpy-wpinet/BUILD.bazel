@@ -29,7 +29,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "wpinet",
-    srcs = glob(["wpinet/**/*.py"]),
+    srcs = glob(["wpinet/**/*.py"]) + ["wpinet/_init__wpinet.py"],
     data = [
         ":copy_wpinet",
     ],

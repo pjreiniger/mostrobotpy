@@ -27,7 +27,7 @@ def wpimath_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_d
 
     gen_libinit(
         name = "wpimath.gen_lib_init",
-        output_file = "_init__wpimath.py",
+        output_file = "wpimath/_init__wpimath.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpiutil._init__wpiutil"],
     )
 
@@ -136,7 +136,7 @@ def wpimath_filter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
 
     gen_libinit(
         name = "wpimath_filter.gen_lib_init",
-        output_file = "_init__filter.py",
+        output_file = "wpimath/filter/_init__filter.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath._init__wpimath"],
     )
 
@@ -338,7 +338,7 @@ def wpimath_geometry_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
 
     gen_libinit(
         name = "wpimath_geometry.gen_lib_init",
-        output_file = "_init__geometry.py",
+        output_file = "wpimath/geometry/_init__geometry.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath._init__wpimath"],
     )
 
@@ -422,7 +422,7 @@ def wpimath_interpolation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROO
 
     gen_libinit(
         name = "wpimath_interpolation.gen_lib_init",
-        output_file = "_init__interpolation.py",
+        output_file = "wpimath/interpolation/_init__interpolation.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath.geometry._init__geometry"],
     )
 
@@ -696,7 +696,7 @@ def wpimath_kinematics_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, 
 
     gen_libinit(
         name = "wpimath_kinematics.gen_lib_init",
-        output_file = "_init__kinematics.py",
+        output_file = "wpimath/kinematics/_init__kinematics.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath.geometry._init__geometry"],
     )
 
@@ -812,7 +812,7 @@ def wpimath_spline_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
 
     gen_libinit(
         name = "wpimath_spline.gen_lib_init",
-        output_file = "_init__spline.py",
+        output_file = "wpimath/spline/_init__spline.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath.geometry._init__geometry"],
     )
 
@@ -1421,7 +1421,7 @@ def wpimath_controls_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
 
     gen_libinit(
         name = "wpimath_controls.gen_lib_init",
-        output_file = "_init__controls.py",
+        output_file = "wpimath/_controls/_init__controls.py",
         modules = ["native.wpimath._init_robotpy_native_wpimath", "wpimath._init__wpimath", "wpimath.geometry._init__geometry", "wpimath.kinematics._init__kinematics", "wpimath.spline._init__spline"],
     )
 

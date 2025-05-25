@@ -197,7 +197,15 @@ copy_extension_library(
 
 pybind_python_library(
     name = "wpimath",
-    srcs = glob(["wpimath/**/*.py"]),
+    srcs = glob(["wpimath/**/*.py"]) + [
+        "wpimath/_controls/_init__controls.py",
+        "wpimath/_init__wpimath.py",
+        "wpimath/filter/_init__filter.py",
+        "wpimath/geometry/_init__geometry.py",
+        "wpimath/interpolation/_init__interpolation.py",
+        "wpimath/kinematics/_init__kinematics.py",
+        "wpimath/spline/_init__spline.py",
+    ],
     data = [
         ":copy_wpimath",
         ":copy_wpimath_controls",

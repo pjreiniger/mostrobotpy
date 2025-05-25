@@ -79,7 +79,7 @@ def apriltag_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_
 
     gen_libinit(
         name = "apriltag.gen_lib_init",
-        output_file = "_init__apriltag.py",
+        output_file = "robotpy_apriltag/_init__apriltag.py",
         modules = ["native.apriltag._init_robotpy_native_apriltag", "wpiutil._init__wpiutil", "wpimath._init__wpimath"],
     )
 

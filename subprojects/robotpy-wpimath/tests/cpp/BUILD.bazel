@@ -26,7 +26,7 @@ copy_extension_library(
 
 pybind_python_library(
     name = "wpimath_test",
-    srcs = glob(["wpimath_test/**/*.py"]),
+    srcs = glob(["wpimath_test/**/*.py"]) + ["wpimath_test/_init__wpimath_test.py"],
     data = [
         ":copy_wpimath_test",
     ],
