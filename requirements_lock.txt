@@ -8,10 +8,6 @@ cxxheaderparser[pcpp]==1.5.0 \
     --hash=sha256:0b9600f817d7378794a0f5df10972fd85f73ba9d3ea0090a5b6b5c12be3b1f01 \
     --hash=sha256:2a93fc81c62d2e4de3e92a697336557debe13db44bfef0f2d4fa81501cd1f36f
     # via semiwrap
-distro==1.9.0 \
-    --hash=sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed \
-    --hash=sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2
-    # via semiwrap
 exceptiongroup==1.3.0 \
     --hash=sha256:4d111e6e0c13d0644cad6ddaa7ed0261a0b36971f6d23e7ec9b4b9097da78a10 \
     --hash=sha256:b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88
@@ -114,8 +110,9 @@ pyyaml==6.0.2 \
     --hash=sha256:f753120cb8181e736c57ef7636e83f31b9c0d1722c516f7e86cf15b7aa57ff12 \
     --hash=sha256:ff3824dc5261f50c9b0dfb3be22b4567a6f938ccce4587b38952d85fd9e9afe4
     # via semiwrap
-semiwrap==0.1.0 \
-    --hash=sha256:1c15ae585118b94c6c917df742631463c76da6ef54d1b5179e128c55155cd18a
+semiwrap==0.1.2 \
+    --hash=sha256:0d3421ba43f6f974da5d0e5d2e792812a3b3e4f2273e61e876dd91d571cd246d \
+    --hash=sha256:1db5a27c36196e18c45c6672f056c7953b17d1d23d9e262607f3c00a15ec4d2e
     # via -r requirements.txt
 sphinxify==0.12 \
     --hash=sha256:3ec299e78babac7d3457f47bf263411b48e10b9c8add18d7159fa0327cc4a061 \
