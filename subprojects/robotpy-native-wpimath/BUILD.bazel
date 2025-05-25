@@ -21,6 +21,9 @@ pybind_python_library(
     data = [
         ":wpimath.copy_lib",
     ],
+    deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared",
+    ],
     imports = ["."],
     visibility = ["//visibility:public"],
 )

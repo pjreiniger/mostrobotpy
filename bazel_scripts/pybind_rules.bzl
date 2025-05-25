@@ -50,6 +50,13 @@ def create_pybind_library(
         target_compatible_with = select({
             "//conditions:default": [],
         }),
+        copts = copts + select({
+            "@bazel_tools//src/conditions:darwin": [
+            ],
+            "@bazel_tools//src/conditions:linux_x86_64": [
+                "-Wno-unused-parameter",
+            ],
+        }),
     )
 
 def pybind_python_library(
