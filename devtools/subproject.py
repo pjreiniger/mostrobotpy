@@ -97,6 +97,8 @@ class Subproject:
         running_build = True
 
         def __pjs_copy_files():
+            # DUMP_DIR = "/home/pjreiniger/git/robotpy/temp_gen_results"
+            DUMP_DIR = "/tmp/temp_gen_results"
             magic_dir = None
             while running_build and not magic_dir:
                 for ddd in os.listdir("/tmp"):
@@ -148,7 +150,7 @@ class Subproject:
                         # if file.endswith(".hpp") or file.endswith(".cpp") or file.endswith(".h") or file == "meson.build":
                         else:
                             dst_file = pathlib.Path(
-                                "/tmp/temp_gen_results" + source_file[len(magic_dir) :]
+                                f"{DUMP_DIR}/" + source_file[len(magic_dir) :]
                             )
                             dst_file.parent.mkdir(parents=True, exist_ok=True)
 
