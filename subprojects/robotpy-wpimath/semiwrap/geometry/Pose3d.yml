@@ -37,6 +37,7 @@ classes:
       operator*:
       operator/:
       RotateBy:
+      RotateAround:
       TransformBy:
       RelativeTo:
       Exp:

@@ -4,6 +4,7 @@ classes:
     methods:
       XRPGyro:
       GetAngle:
+      GetRotation2d:
       GetRate:
       GetRateX:
       GetRateY:

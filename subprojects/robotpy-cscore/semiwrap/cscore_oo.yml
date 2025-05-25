@@ -5,6 +5,8 @@ classes:
       Kind:
     methods:
       VideoProperty:
+        overloads:
+          "":
       GetName:
       GetKind:
       IsBoolean:
@@ -30,6 +32,8 @@ classes:
       ConnectionStrategy:
     methods:
       VideoSource:
+        overloads:
+          "":
       GetHandle:
       operator==:
       GetKind:
@@ -145,6 +149,8 @@ classes:
       Kind:
     methods:
       VideoSink:
+        overloads:
+          "":
       GetHandle:
       operator==:
       GetKind:

@@ -34,6 +34,9 @@ classes:
           std::string_view, const VideoMode&:
           std::string_view, VideoMode::PixelFormat, int, int, int:
       PutFrame:
+        overloads:
+          cv::Mat&:
+          cv::Mat&, VideoMode::PixelFormat, bool:
   cs::CvSink:
     doc: A sink for user code to accept video frames as OpenCV images.
     force_no_trampoline: true
@@ -43,8 +46,12 @@ classes:
           "":
             ignore: true
           std::string_view:
+          std::string_view, VideoMode::PixelFormat:
           std::string_view, std::function<void (uint64_t time)>:
             ignore: true
+      GrabFrameDirect:
+      GrabFrameNoTimeoutDirect:
+      GrabFrameDirectLastTime:
       GrabFrame:
         cpp_code: |
           [](cs::CvSink &self, cv::Mat& image, double timeout) -> std::tuple<uint64_t, cv::Mat> {

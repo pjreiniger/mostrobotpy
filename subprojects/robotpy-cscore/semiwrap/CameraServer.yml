@@ -41,6 +41,8 @@ classes:
           "":
           const cs::VideoSource&:
           std::string_view:
+          const cs::VideoSource&, cs::VideoMode::PixelFormat:
+          std::string_view, cs::VideoMode::PixelFormat:
       PutVideo:
       AddServer:
         overloads:

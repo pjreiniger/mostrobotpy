@@ -25,6 +25,7 @@ classes:
       ToVector:
       Norm:
       RotateBy:
+      RotateAround:
       ToTranslation2d:
       operator+:
       operator-:

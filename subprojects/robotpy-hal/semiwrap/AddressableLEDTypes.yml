@@ -2,7 +2,8 @@
 
 strip_prefixes:
 - HAL_
-
+enums:
+  HAL_AddressableLEDColorOrder:
 classes:
   HAL_AddressableLEDData:
     attributes:
@@ -11,3 +12,6 @@ classes:
       r:
       padding:
         ignore: true
+functions:
+  format_as:
+    ignore: true

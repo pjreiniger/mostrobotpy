@@ -49,3 +49,4 @@ functions:
   HAL_SimPeriodicBefore:
   HAL_SimPeriodicAfter:
   HAL_GetLastError:
+  HAL_GetCommsDisableCount:
