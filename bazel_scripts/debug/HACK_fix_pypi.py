@@ -16,3 +16,6 @@ with open(
     "w",
 ) as f:
     f.write(contents)
+
+with open("subprojects/robotpy-hal/hal/version.py", 'w') as f:
+    f.write('version = __version__ = "2025.3.2.2"')
