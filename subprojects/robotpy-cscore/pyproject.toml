@@ -88,7 +88,7 @@ includes = [
 
 [tool.semiwrap.extension_modules."cscore._cscore".headers]
 # cameraserver
-# CameraServer = "cameraserver/CameraServer.h"
+CameraServer = "cameraserver/CameraServer.h"
 
 # cscore
 cscore_cpp = "cscore_cpp.h"
