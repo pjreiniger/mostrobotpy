@@ -43,5 +43,6 @@ pip.parse(
     hub_name = "allwpilib_pip_deps",
     python_version = "3.10",
     requirements_lock = "//:requirements_lock.txt",
+    requirements_windows = "//:requirements_windows.txt",
 )
 use_repo(pip, "allwpilib_pip_deps")

@@ -179,7 +179,7 @@ def dat_to_trampoline(name, class_names):
 
         native.genrule(
             name = name + "." + output_file,
-            outs = [DAT_TO_TRAMPOLINE_HDR_DIR + output_file],
+            outs = [DAT_TO_TRAMPOLINE_HDR_DIR + "trampolines/" + output_file],
             cmd = cmd,
             tools = ["//bazel_scripts:wrapper"] + [HEADER_DAT_DIR + dat_file],
         )
@@ -258,7 +258,7 @@ def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps =
                 name = name + ".dat2trampoline",
                 class_names = [(header_gen.class_name + ".dat", trampoline_symbol, trampoline_header)],
             )
-            trampoline_hdrs.append(DAT_TO_TRAMPOLINE_HDR_DIR + trampoline_header)
+            trampoline_hdrs.append(DAT_TO_TRAMPOLINE_HDR_DIR + "trampolines/" + trampoline_header)
     cc_library(
         name = name + ".tmpl_hdrs",
         hdrs = tmpl_hdrs,
@@ -267,7 +267,6 @@ def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps =
     cc_library(
         name = name + ".trampoline_hdrs",
         hdrs = trampoline_hdrs,
-        include_prefix = "trampolines",
         strip_include_prefix = DAT_TO_TRAMPOLINE_HDR_DIR,
     )
 

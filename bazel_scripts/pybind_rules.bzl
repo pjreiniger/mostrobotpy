@@ -23,6 +23,8 @@ def create_pybind_library(
                 "-Wno-overloaded-virtual",
                 "-Wno-pessimizing-move",
             ],
+            "@bazel_tools//src/conditions:windows": [
+            ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-attributes",
                 "-Wno-unused-value",
@@ -54,6 +56,8 @@ def create_pybind_library(
         }),
         copts = copts + select({
             "@bazel_tools//src/conditions:darwin": [
+            ],
+            "@bazel_tools//src/conditions:windows": [
             ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-unused-parameter",

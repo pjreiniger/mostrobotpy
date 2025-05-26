@@ -96,6 +96,8 @@ def main():
 
     if is_macos:
         lib_name = f"lib{lib_name}.dylib"
+    elif is_windows:
+        lib_name = f"{lib_name}.dll"
     else:
         lib_name = f"lib{lib_name}.so"
 
