@@ -19,7 +19,7 @@ copy_native_file(
 )
 
 pybind_python_library(
-    name = "ntcore",
+    name = "robotpy-native-ntcore",
     srcs = [":gen_lib_init"],
     data = [
         ":ntcore.copy_lib",

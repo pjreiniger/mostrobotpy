@@ -16,7 +16,7 @@ copy_native_file(
 )
 
 pybind_python_library(
-    name = "xrp",
+    name = "robotpy-native-xrp",
     srcs = [":gen_lib_init"],
     data = [
         ":xrpVendordep.copy_lib",

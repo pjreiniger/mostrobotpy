@@ -14,8 +14,8 @@ wpilib_event_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
-    other_deps = [
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+    deps = [
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
     ],
 )
@@ -29,8 +29,10 @@ wpilib_interfaces_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
-    other_deps = [
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+    deps = [
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
     ],
 )
@@ -55,11 +57,14 @@ wpilib_extension(
         "wpilib",
         "wpilib/src",
     ],
-    other_deps = [
-        ":wpilib_counter_pybind_library",
-        ":wpilib_interfaces_pybind_library",
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
@@ -75,9 +80,15 @@ wpilib_counter_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
@@ -93,10 +104,15 @@ wpilib_drive_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
-    other_deps = [
-        ":wpilib_pybind_library",
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
@@ -114,10 +130,15 @@ wpilib_shuffleboard_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     includes = ["wpilib/shuffleboard"],
-    other_deps = [
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-cscore:cscore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
@@ -133,9 +154,16 @@ wpilib_simulation_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
+        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_kinematics_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",

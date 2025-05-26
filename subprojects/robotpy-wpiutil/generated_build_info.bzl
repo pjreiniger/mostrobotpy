@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def wpiutil_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
         struct(
             class_name = "DataLog",
@@ -179,10 +179,10 @@ def wpiutil_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_d
         extension_name = extension_name,
         generated_srcs = [":wpiutil.generated_srcs"],
         semiwrap_header = [":wpiutil.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpiutil.tmpl_hdrs",
             ":wpiutil.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

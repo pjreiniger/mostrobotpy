@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def xrp_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     XRP_HEADER_GEN = [
         struct(
             class_name = "XRPGyro",
@@ -94,8 +94,13 @@ def xrp_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_d
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrp_xrp-cpp_headers",
         ],
     )
 
@@ -114,10 +119,10 @@ def xrp_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_d
         extension_name = extension_name,
         generated_srcs = [":xrp.generated_srcs"],
         semiwrap_header = [":xrp.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":xrp.tmpl_hdrs",
             ":xrp.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

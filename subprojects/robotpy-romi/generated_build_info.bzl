@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def romi_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def romi_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     ROMI_HEADER_GEN = [
         struct(
             class_name = "OnBoardIO",
@@ -67,8 +67,13 @@ def romi_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romi_romi-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilib_wpilib-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
         ],
     )
 
@@ -87,10 +92,10 @@ def romi_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_
         extension_name = extension_name,
         generated_srcs = [":romi.generated_srcs"],
         semiwrap_header = [":romi.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":romi.tmpl_hdrs",
             ":romi.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

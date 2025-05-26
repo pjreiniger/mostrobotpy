@@ -6,7 +6,8 @@ load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ex
 halsim_gui_ext_extension(
     DEFAULT_INCLUDE_ROOT = "",
     entry_point = ["halsim_gui/_ext/main.cpp"],
-    other_deps = [
+    header_to_dat_deps = [],
+    deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
@@ -21,17 +22,20 @@ make_pyi(
 copy_extension_library(
     name = "copy_halsim_gui_ext",
     extension = "_halsim_gui_ext",
-    output_directory = "wpiutil/",
+    output_directory = "halsim_gui/_ext/",
 )
 
 pybind_python_library(
     name = "wpiutil",
     srcs = glob(["wpiutil/**/*.py"]),
-    data = [
-        # ":copy_wpiutil",
-    ],
+    data = [":copy_halsim_gui_ext"],
     imports = ["."],
     visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/pyntcore:ntcore",
+        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-wpimath:wpimath",
+    ],
 )
 
 filegroup(

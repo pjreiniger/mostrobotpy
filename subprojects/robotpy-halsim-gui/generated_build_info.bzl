@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def halsim_gui_ext_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def halsim_gui_ext_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HALSIM_GUI_EXT_HEADER_GEN = [
     ]
     resolve_casters(
@@ -13,7 +13,7 @@ def halsim_gui_ext_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, exte
 
     gen_libinit(
         name = "halsim_gui_ext.gen_lib_init",
-        output_file = "_init__halsim_gui_ext.py",
+        output_file = "halsim_gui/_ext/_init__halsim_gui_ext.py",
         modules = ["hal._init__wpiHal", "wpimath._init__wpimath", "ntcore._init__ntcore"],
     )
 
@@ -38,6 +38,9 @@ def halsim_gui_ext_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, exte
         casters_pickle = "halsim_gui_ext.casters.pkl",
         header_gen_config = HALSIM_GUI_EXT_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
+        deps = header_to_dat_deps,
+        generation_includes = [
+        ],
     )
 
     native.filegroup(
@@ -55,10 +58,10 @@ def halsim_gui_ext_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, exte
         extension_name = extension_name,
         # generated_srcs = [":halsim_gui_ext.generated_srcs"],
         semiwrap_header = [":halsim_gui_ext.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":halsim_gui_ext.tmpl_hdrs",
             ":halsim_gui_ext.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def wpilib_event_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_EVENT_HEADER_GEN = [
         struct(
             class_name = "BooleanEvent",
@@ -66,6 +66,15 @@ def wpilib_event_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
         header_gen_config = WPILIB_EVENT_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
+        generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+        generation_defines = [],
     )
 
     native.filegroup(
@@ -83,16 +92,16 @@ def wpilib_event_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
         extension_name = extension_name,
         generated_srcs = [":wpilib_event.generated_srcs"],
         semiwrap_header = [":wpilib_event.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_event.tmpl_hdrs",
             ":wpilib_event.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpilib_interfaces_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_INTERFACES_HEADER_GEN = [
         struct(
             class_name = "CounterBase",
@@ -158,9 +167,15 @@ def wpilib_interfaces_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib/wpilib/event",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
+        generation_defines = [],
     )
 
     native.filegroup(
@@ -178,16 +193,16 @@ def wpilib_interfaces_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
         extension_name = extension_name,
         generated_srcs = [":wpilib_interfaces.generated_srcs"],
         semiwrap_header = [":wpilib_interfaces.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_interfaces.tmpl_hdrs",
             ":wpilib_interfaces.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpilib_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMU",
@@ -1154,9 +1169,17 @@ def wpilib_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "subprojects/robotpy-wpilib/wpilib/event",
+            "subprojects/robotpy-wpilib/wpilib/interfaces",
+            "subprojects/robotpy-wpilib/wpilib/src",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
+        generation_defines = ["DYNAMIC_CAMERA_SERVER 1"],
     )
 
     native.filegroup(
@@ -1174,16 +1197,17 @@ def wpilib_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         extension_name = extension_name,
         generated_srcs = [":wpilib.generated_srcs"],
         semiwrap_header = [":wpilib.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib.tmpl_hdrs",
             ":wpilib.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+        local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
-def wpilib_counter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
             class_name = "EdgeConfiguration",
@@ -1255,6 +1279,19 @@ def wpilib_counter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         header_gen_config = WPILIB_COUNTER_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
+        generation_includes = [
+            "subprojects/robotpy-wpilib/wpilib",
+            "subprojects/robotpy-wpilib/wpilib/event",
+            "subprojects/robotpy-wpilib/wpilib/interfaces",
+            "subprojects/robotpy-wpilib/wpilib/src",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+        generation_defines = [],
     )
 
     native.filegroup(
@@ -1272,16 +1309,16 @@ def wpilib_counter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         extension_name = extension_name,
         generated_srcs = [":wpilib_counter.generated_srcs"],
         semiwrap_header = [":wpilib_counter.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_counter.tmpl_hdrs",
             ":wpilib_counter.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpilib_drive_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
             class_name = "DifferentialDrive",
@@ -1349,9 +1386,18 @@ def wpilib_drive_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "subprojects/robotpy-wpilib/wpilib",
+            "subprojects/robotpy-wpilib/wpilib/event",
+            "subprojects/robotpy-wpilib/wpilib/interfaces",
+            "subprojects/robotpy-wpilib/wpilib/src",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
+        generation_defines = [],
     )
 
     native.filegroup(
@@ -1369,16 +1415,16 @@ def wpilib_drive_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
         extension_name = extension_name,
         generated_srcs = [":wpilib_drive.generated_srcs"],
         semiwrap_header = [":wpilib_drive.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_drive.tmpl_hdrs",
             ":wpilib_drive.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpilib_shuffleboard_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SHUFFLEBOARD_HEADER_GEN = [
         struct(
             class_name = "BuiltInLayouts",
@@ -1614,9 +1660,18 @@ def wpilib_shuffleboard_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "subprojects/robotpy-wpilib/wpilib",
+            "subprojects/robotpy-wpilib/wpilib/event",
+            "subprojects/robotpy-wpilib/wpilib/interfaces",
+            "subprojects/robotpy-wpilib/wpilib/src",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
+        generation_defines = ["DYNAMIC_CAMERA_SERVER 1"],
     )
 
     native.filegroup(
@@ -1634,16 +1689,17 @@ def wpilib_shuffleboard_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT,
         extension_name = extension_name,
         generated_srcs = [":wpilib_shuffleboard.generated_srcs"],
         semiwrap_header = [":wpilib_shuffleboard.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_shuffleboard.tmpl_hdrs",
             ":wpilib_shuffleboard.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+        local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
-def wpilib_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SIMULATION_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMUSim",
@@ -2113,6 +2169,19 @@ def wpilib_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
         header_gen_config = WPILIB_SIMULATION_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
+        generation_includes = [
+            "subprojects/robotpy-wpilib/wpilib",
+            "subprojects/robotpy-wpilib/wpilib/event",
+            "subprojects/robotpy-wpilib/wpilib/interfaces",
+            "subprojects/robotpy-wpilib/wpilib/src",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
+        generation_defines = [],
     )
 
     native.filegroup(
@@ -2130,10 +2199,10 @@ def wpilib_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, h
         extension_name = extension_name,
         generated_srcs = [":wpilib_simulation.generated_srcs"],
         semiwrap_header = [":wpilib_simulation.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpilib_simulation.tmpl_hdrs",
             ":wpilib_simulation.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

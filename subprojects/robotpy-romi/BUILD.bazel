@@ -13,9 +13,9 @@ romi_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:shared",
     ],
 )
@@ -33,14 +33,13 @@ copy_extension_library(
 pybind_python_library(
     name = "romi",
     srcs = glob(["romi/**/*.py"]) + ["romi/_init__romi.py"],
-    data = [
-        ":copy_romi",
-    ],
+    data = [":copy_romi"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-romi:romi",
+        "//subprojects/robotpy-native-romi",
         "//subprojects/robotpy-wpilib:wpilib",
+        "//subprojects/robotpy-wpimath:wpimath",
     ],
 )
 

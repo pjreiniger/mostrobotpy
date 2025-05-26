@@ -13,9 +13,9 @@ xrp_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared",
     ],
 )
@@ -33,14 +33,13 @@ copy_extension_library(
 pybind_python_library(
     name = "xrp",
     srcs = glob(["xrp/**/*.py"]) + ["xrp/_init__xrp.py"],
-    data = [
-        ":copy_xrp",
-    ],
+    data = [":copy_xrp"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-xrp:xrp",
+        "//subprojects/robotpy-native-xrp",
         "//subprojects/robotpy-wpilib:wpilib",
+        "//subprojects/robotpy-wpimath:wpimath",
     ],
 )
 

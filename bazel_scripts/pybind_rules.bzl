@@ -11,7 +11,8 @@ def create_pybind_library(
         deps = [],
         semiwrap_header = [],
         copts = [],
-        includes = []):
+        includes = [],
+        local_defines = []):
     # srcs = [DAT_TO_CC_DIR + src + ".cpp" for src in dat_to_cc_srcs]
     pybind_library(
         name = "{}_pybind_library".format(name),
@@ -22,8 +23,6 @@ def create_pybind_library(
                 "-Wno-deprecated-declarations",
                 "-Wno-overloaded-virtual",
                 "-Wno-pessimizing-move",
-            ],
-            "@bazel_tools//src/conditions:windows": [
             ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-attributes",
@@ -36,12 +35,15 @@ def create_pybind_library(
                 "-Wno-unused-variable",
                 "-Wno-pessimizing-move",
             ],
+            "@bazel_tools//src/conditions:windows": [
+            ],
         }),
         deps = deps + [
             "//bazel_scripts/semiwrap_headers",
         ],
         includes = includes,
         visibility = ["//visibility:public"],
+        local_defines = local_defines,
     )
 
     extension_name = extension_name or "_{}".format(name)
@@ -56,10 +58,10 @@ def create_pybind_library(
         copts = copts + select({
             "@bazel_tools//src/conditions:darwin": [
             ],
-            "@bazel_tools//src/conditions:windows": [
-            ],
             "@bazel_tools//src/conditions:linux_x86_64": [
                 "-Wno-unused-parameter",
+            ],
+            "@bazel_tools//src/conditions:windows": [
             ],
         }),
     )

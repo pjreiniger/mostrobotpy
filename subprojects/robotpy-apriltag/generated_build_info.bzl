@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def apriltag_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def apriltag_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     APRILTAG_HEADER_GEN = [
         struct(
             class_name = "AprilTag",
@@ -106,6 +106,7 @@ def apriltag_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
@@ -126,10 +127,10 @@ def apriltag_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_
         extension_name = extension_name,
         generated_srcs = [":apriltag.generated_srcs"],
         semiwrap_header = [":apriltag.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":apriltag.tmpl_hdrs",
             ":apriltag.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

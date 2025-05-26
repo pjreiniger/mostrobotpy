@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def wpinet_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpinet_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
         struct(
             class_name = "PortForwarder",
@@ -57,6 +57,10 @@ def wpinet_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         header_gen_config = WPINET_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
+        generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
     )
 
     native.filegroup(
@@ -74,10 +78,10 @@ def wpinet_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         extension_name = extension_name,
         generated_srcs = [":wpinet.generated_srcs"],
         semiwrap_header = [":wpinet.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpinet.tmpl_hdrs",
             ":wpinet.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

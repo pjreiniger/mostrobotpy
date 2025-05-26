@@ -16,7 +16,7 @@ copy_native_file(
 )
 
 pybind_python_library(
-    name = "hal",
+    name = "robotpy-native-wpihal",
     srcs = [":gen_lib_init"],
     data = [
         ":wpiHal.copy_lib",

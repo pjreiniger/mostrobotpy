@@ -11,7 +11,7 @@ wpinet_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared",
     ],
@@ -30,13 +30,11 @@ copy_extension_library(
 pybind_python_library(
     name = "wpinet",
     srcs = glob(["wpinet/**/*.py"]) + ["wpinet/_init__wpinet.py"],
-    data = [
-        ":copy_wpinet",
-    ],
+    data = [":copy_wpinet"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-wpinet:wpinet",
+        "//subprojects/robotpy-native-wpinet",
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],
 )

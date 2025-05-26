@@ -19,7 +19,7 @@ copy_native_file(
 )
 
 pybind_python_library(
-    name = "apriltag",
+    name = "robotpy-native-apriltag",
     srcs = [":gen_lib_init"],
     data = [
         ":apriltag.copy_lib",

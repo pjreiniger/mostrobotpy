@@ -13,7 +13,7 @@ apriltag_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/apriltag:header_files",
     ],
-    other_deps = [
+    deps = [
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared",
@@ -33,13 +33,11 @@ copy_extension_library(
 pybind_python_library(
     name = "apriltag",
     srcs = glob(["robotpy_apriltag/**/*.py"]) + ["robotpy_apriltag/_init__apriltag.py"],
-    data = [
-        ":copy_apriltag",
-    ],
+    data = [":copy_apriltag"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-apriltag:apriltag",
+        "//subprojects/robotpy-native-apriltag",
         "//subprojects/robotpy-wpimath:wpimath",
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],

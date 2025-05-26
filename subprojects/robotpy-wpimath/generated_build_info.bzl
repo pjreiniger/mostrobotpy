@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def wpimath_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_HEADER_GEN = [
         struct(
             class_name = "ComputerVisionUtil",
@@ -54,6 +54,9 @@ def wpimath_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_d
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -73,16 +76,16 @@ def wpimath_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_d
         extension_name = extension_name,
         generated_srcs = [":wpimath.generated_srcs"],
         semiwrap_header = [":wpimath.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath.tmpl_hdrs",
             ":wpimath.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_filter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_filter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_FILTER_HEADER_GEN = [
         struct(
             class_name = "Debouncer",
@@ -163,6 +166,10 @@ def wpimath_filter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -182,16 +189,16 @@ def wpimath_filter_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         extension_name = extension_name,
         generated_srcs = [":wpimath_filter.generated_srcs"],
         semiwrap_header = [":wpimath_filter.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_filter.tmpl_hdrs",
             ":wpimath_filter.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_geometry_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_geometry_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_GEOMETRY_HEADER_GEN = [
         struct(
             class_name = "CoordinateAxis",
@@ -365,6 +372,11 @@ def wpimath_geometry_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "subprojects/robotpy-wpimath/wpimath/geometry/include",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -384,16 +396,16 @@ def wpimath_geometry_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
         extension_name = extension_name,
         generated_srcs = [":wpimath_geometry.generated_srcs"],
         semiwrap_header = [":wpimath_geometry.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_geometry.tmpl_hdrs",
             ":wpimath_geometry.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_interpolation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_interpolation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_INTERPOLATION_HEADER_GEN = [
         struct(
             class_name = "TimeInterpolatableBuffer",
@@ -449,6 +461,12 @@ def wpimath_interpolation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROO
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "subprojects/robotpy-wpimath/wpimath/geometry",
+            "subprojects/robotpy-wpimath/wpimath/geometry/include",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -468,16 +486,16 @@ def wpimath_interpolation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROO
         extension_name = extension_name,
         generated_srcs = [":wpimath_interpolation.generated_srcs"],
         semiwrap_header = [":wpimath_interpolation.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_interpolation.tmpl_hdrs",
             ":wpimath_interpolation.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_kinematics_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_kinematics_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_KINEMATICS_HEADER_GEN = [
         struct(
             class_name = "ChassisSpeeds",
@@ -723,6 +741,12 @@ def wpimath_kinematics_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, 
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "subprojects/robotpy-wpimath/wpimath/geometry",
+            "subprojects/robotpy-wpimath/wpimath/geometry/include",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -742,16 +766,16 @@ def wpimath_kinematics_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, 
         extension_name = extension_name,
         generated_srcs = [":wpimath_kinematics.generated_srcs"],
         semiwrap_header = [":wpimath_kinematics.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_kinematics.tmpl_hdrs",
             ":wpimath_kinematics.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_spline_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_spline_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
             class_name = "CubicHermiteSpline",
@@ -839,6 +863,12 @@ def wpimath_spline_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "subprojects/robotpy-wpimath/wpimath/geometry",
+            "subprojects/robotpy-wpimath/wpimath/geometry/include",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -858,16 +888,16 @@ def wpimath_spline_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         extension_name = extension_name,
         generated_srcs = [":wpimath_spline.generated_srcs"],
         semiwrap_header = [":wpimath_spline.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_spline.tmpl_hdrs",
             ":wpimath_spline.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpimath_controls_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_controls_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_CONTROLS_HEADER_GEN = [
         struct(
             class_name = "ArmFeedforward",
@@ -1444,14 +1474,20 @@ def wpimath_controls_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
     run_header_gen(
         name = "wpimath_controls",
         casters_pickle = "wpimath_controls.casters.pkl",
-        generation_includes = [
-            DEFAULT_INCLUDE_ROOT + "",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
-        ],
         header_gen_config = WPIMATH_CONTROLS_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
+        generation_includes = [
+            "subprojects/robotpy-wpimath/wpimath",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src",
+            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
+            "subprojects/robotpy-wpimath/wpimath/geometry",
+            "subprojects/robotpy-wpimath/wpimath/geometry/include",
+            "subprojects/robotpy-wpimath/wpimath/kinematics",
+            "subprojects/robotpy-wpimath/wpimath/spline",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+        ],
     )
 
     native.filegroup(
@@ -1469,10 +1505,10 @@ def wpimath_controls_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, he
         extension_name = extension_name,
         generated_srcs = [":wpimath_controls.generated_srcs"],
         semiwrap_header = [":wpimath_controls.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpimath_controls.tmpl_hdrs",
             ":wpimath_controls.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def hal_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def hal_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [
         struct(
             class_name = "AccelerometerData",
@@ -196,6 +196,7 @@ def hal_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -215,16 +216,16 @@ def hal_simulation_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, head
         extension_name = extension_name,
         generated_srcs = [":hal_simulation.generated_srcs"],
         semiwrap_header = [":hal_simulation.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":hal_simulation.tmpl_hdrs",
             ":hal_simulation.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
     )
 
-def wpihal_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpihal_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIHAL_HEADER_GEN = [
         struct(
             class_name = "Accelerometer",
@@ -571,6 +572,7 @@ def wpihal_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -590,10 +592,10 @@ def wpihal_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         extension_name = extension_name,
         generated_srcs = [":wpihal.generated_srcs"],
         semiwrap_header = [":wpihal.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":wpihal.tmpl_hdrs",
             ":wpihal.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,

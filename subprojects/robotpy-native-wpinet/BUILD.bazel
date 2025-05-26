@@ -16,7 +16,7 @@ copy_native_file(
 )
 
 pybind_python_library(
-    name = "wpinet",
+    name = "robotpy-native-wpinet",
     srcs = [":gen_lib_init"],
     data = [
         ":wpinet.copy_lib",

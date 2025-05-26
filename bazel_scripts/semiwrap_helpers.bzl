@@ -99,6 +99,7 @@ def header_to_dat(
         include_root,
         class_names = [],
         generation_includes = [],
+        extra_defines = [],
         deps = []):
     for class_name, yml_file, header_location in class_names:
         # print(class_name)
@@ -111,6 +112,8 @@ def header_to_dat(
         # TODO TEMP
         for inc in generation_includes:
             cmd += " -I " + inc
+        for d in extra_defines:
+            cmd += " -D '" + d + "'"
         cmd += " " + header_location
 
         cmd += " " + include_root
@@ -212,7 +215,7 @@ def gen_modinit_hpp(
 def make_pyi(name):
     cmd = "$(locations //bazel_scripts:wrapper) semiwrap.cmd.make_pyi "
 
-def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps = [], generation_includes = []):
+def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps = [], generation_includes = [], generation_defines = []):
     for header_gen in header_gen_config:
         header_to_dat(
             name = name + ".header_to_dat",
@@ -225,6 +228,7 @@ def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps =
             )],
             deps = deps,
             generation_includes = generation_includes,
+            extra_defines = generation_defines,
         )
 
     generated_cc_files = []

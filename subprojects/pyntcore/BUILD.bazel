@@ -20,7 +20,7 @@ ntcore_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
     ],
     includes = ["ntcore"],
-    other_deps = [
+    deps = [
         "//subprojects/robotpy-wpinet:wpinet_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared",
@@ -40,13 +40,11 @@ copy_extension_library(
 pybind_python_library(
     name = "ntcore",
     srcs = glob(["ntcore/**/*.py"]) + ["ntcore/_init__ntcore.py"],
-    data = [
-        ":copy_ntcore",
-    ],
+    data = [":copy_ntcore"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-ntcore:ntcore",
+        "//subprojects/robotpy-native-ntcore",
         "//subprojects/robotpy-wpinet:wpinet",
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],
