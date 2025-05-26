@@ -31,7 +31,6 @@ def copy_meson_projects():
                 full_file = pathlib.Path(os.path.join(root, f))
                 print(full_file)
 
-
                 if "dat_to_trampoline_hdr" in root:
                     dst_file = pathlib.Path(
                         f"/home/pjreiniger/git/robotpy/temp_gen_results/{resolved_project_name.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/trampolines/{f}"
@@ -44,7 +43,7 @@ def copy_meson_projects():
                 # os.chmod(dst_file, 0o777)
                 shutil.copy(full_file, dst_file)
                 os.chmod(dst_file, 0o644)
-                
+
         for root, dirs, files in os.walk(f"bazel-bin/subprojects/{project}/"):
             ignored_dirs = []
             for d in dirs:
@@ -57,7 +56,7 @@ def copy_meson_projects():
                 full_file = os.path.join(root, f)
                 if f.startswith("_init__") and f.endswith(".py"):
                     print("Got one", full_file)
-                    
+
                     dst_file = pathlib.Path(
                         f"/home/pjreiniger/git/robotpy/temp_gen_results/{project.replace('-', '_')}-2025.3.2.2/build/cp310/semiwrap/{f}"
                     )
@@ -66,7 +65,7 @@ def copy_meson_projects():
 
 
 def copy_other_projects():
-    
+
     projects = [
         "robotpy-native-apriltag",
         "robotpy-native-datalog",
@@ -79,9 +78,9 @@ def copy_other_projects():
         "robotpy-native-wpiutil",
         "robotpy-native-xrp",
     ]
-    
+
     for project in projects:
-        
+
         for root, dirs, files in os.walk(f"bazel-bin/subprojects/{project}/"):
             ignored_dirs = []
             for d in dirs:
@@ -101,12 +100,15 @@ def copy_other_projects():
                     shutil.copy(full_file, dst_file)
                     os.chmod(dst_file, 0o644)
 
+
 # robotpy_native_wpimath-2025.3.2/src/native/wpimath/_init_robotpy_native_wpimath.py
 # robotpy_native_wpimath-2025.3.2/src/native/robotpy-native-wpimath/_init_robotpy_native_wpimath.py
+
 
 def main():
     copy_meson_projects()
     copy_other_projects()
+
 
 if __name__ == "__main__":
     main()

@@ -6,8 +6,8 @@ import shutil
 DUMP_DIR = "__genresults"
 
 
-def copy_directory_stuff(magic_dir):
-    
+def copy_directory_stuff(magic_dir, overwrite_existing=True):
+
     ignored_files = set(
         [
             ".gitignore",
@@ -25,7 +25,11 @@ def copy_directory_stuff(magic_dir):
             ".ninja_logs",
         ]
     )
-    
+
+    print("----------------------------------------------")
+    print(f"Copying files from {magic_dir}")
+    print("----------------------------------------------")
+
     for root, dirs, files in os.walk(magic_dir):
         for file in files:
             source_file = os.path.join(root, file)
@@ -51,12 +55,16 @@ def copy_directory_stuff(magic_dir):
                 continue
             # if file.endswith(".hpp") or file.endswith(".cpp") or file.endswith(".h") or file == "meson.build":
             else:
-                dst_file = pathlib.Path(
-                    f"{DUMP_DIR}/" + source_file[len(magic_dir) :]
-                )
+                dst_file = pathlib.Path(f"{DUMP_DIR}/" + source_file[len(magic_dir) :])
                 dst_file.parent.mkdir(parents=True, exist_ok=True)
 
                 try:
-                    shutil.copy(source_file, dst_file)
+                    if not dst_file.exists():
+                        shutil.copy(source_file, dst_file)
+                    elif dst_file.exists() and overwrite_existing:
+                        shutil.copy(source_file, dst_file)
                 except Exception as e:
                     print(f"Failed to copy {source_file} - {e}")
+
+    print(".... Done")
+    print("----------------------------------------------")

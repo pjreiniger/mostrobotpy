@@ -1,19 +1,14 @@
 import pathlib
-import platform
 import shutil
 import sys
 import tempfile
 import typing as T
-import time
-import threading
-import os
 
 from packaging.requirements import Requirement
 import tomli
 
 from .config import SubprojectConfig
 from .util import run_cmd, run_pip
-from .HACK_pj_copy_intermediates import copy_directory_stuff
 
 
 class Subproject:
@@ -96,87 +91,34 @@ class Subproject:
 
         # TODO: eventually it would be nice to use build isolation
 
-        running_build = True
-
-        def __pjs_copy_files():
-            search_base = tempfile.gettempdir()
-
-            print("-" * 80)
-            print(f"Running search on {search_base} and copying results to {DUMP_DIR}")
-            print("-" * 80)
-            magic_dir = None
-            while running_build and not magic_dir:
-                for ddd in os.listdir(search_base):
-                    if "build-via-sdist" in ddd:
-                        magic_dir = search_base + "/" + ddd
-                        break
-
-                time.sleep(0.01)
-
-            print("-" * 80)
-            print("Got the magic dir", magic_dir)
-            print("-" * 80)
-            
-        while running_build:
-            debug_print = "-" * 80
-            debug_print += "ran loop"
-            time.sleep(0.01)
-
-            copy_directory_stuff(magic_dir)
-
-        platform_sys = platform.system()
-        is_windows = platform_sys == "Windows"
-
-        if not is_windows:
-            ttttt = threading.Thread(target=__pjs_copy_files)
-            ttttt.start()
-
         with tempfile.TemporaryDirectory() as td:
-            print(f"-------------------------------{td}")
-            try:
-                # I wonder if we should use hatch build instead?
-                run_cmd(
-                    sys.executable,
-                    "-m",
-                    "build",
-                    "--no-isolation",
-                    "--outdir",
-                    td,
-                    *config_args,
-                    cwd=self.path,
-                )
+            # I wonder if we should use hatch build instead?
+            run_cmd(
+                sys.executable,
+                "-m",
+                "build",
+                "--no-isolation",
+                "--outdir",
+                td,
+                *config_args,
+                cwd=self.path,
+            )
 
-                tdp = pathlib.Path(td)
-                twhl = list(tdp.glob("*.whl"))[0]
-                dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
-                shutil.move(twhl, dst_whl)
-            except:
-                running_build = False
-                ttttt.join()
-                raise
+            tdp = pathlib.Path(td)
+            twhl = list(tdp.glob("*.whl"))[0]
+            dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
+            shutil.move(twhl, dst_whl)
 
         if install:
             # Install the wheel
-            try:
-                run_pip(
-                    "install",
-                    "--find-links",
-                    str(wheel_path),
-                    "--find-links",
-                    str(other_wheel_path),
-                    str(dst_whl),
-                )
-            except:
-                running_build = False
-                ttttt.join()
-                raise
-
-        running_build = False
-
-        if not is_windows:
-            ttttt.join()
-            print("Post thread")
-        # input("Waiting for advancement")
+            run_pip(
+                "install",
+                "--find-links",
+                str(wheel_path),
+                "--find-links",
+                str(other_wheel_path),
+                str(dst_whl),
+            )
 
     _adjust_wheel_tags = {
         # pypi only accepts manylinux wheels, and we know we're compatible

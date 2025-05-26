@@ -7,6 +7,7 @@ platform_sys = platform.system()
 is_windows = platform_sys == "Windows"
 is_macos = platform_sys == "Darwin"
 
+
 # TODO: this belongs in a separate script/api that can be used from multiple tools
 def _write_libinit_py(
     libs: T.List[pathlib.Path],
@@ -85,7 +86,7 @@ def _write_libinit_py(
         contents += ["", "__lib = __load_library()", ""]
 
     content = ("\n".join(contents)) + "\n"
-    
+
     with open(init_py, "w") as f:
         f.write(content)
 
