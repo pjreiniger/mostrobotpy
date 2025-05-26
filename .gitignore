@@ -11,3 +11,5 @@ rpy-include
 bazel-*
 .bazel_auth.rc
 user.bazelrc
+
+__genresults

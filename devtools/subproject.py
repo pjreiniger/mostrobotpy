@@ -1,4 +1,5 @@
 import pathlib
+import platform
 import shutil
 import sys
 import tempfile
@@ -12,6 +13,7 @@ import tomli
 
 from .config import SubprojectConfig
 from .util import run_cmd, run_pip
+from .HACK_pj_copy_intermediates import copy_directory_stuff
 
 
 class Subproject:
@@ -97,8 +99,6 @@ class Subproject:
         running_build = True
 
         def __pjs_copy_files():
-            # DUMP_DIR = "/home/pjreiniger/git/robotpy/temp_gen_results"
-            DUMP_DIR = "__genresults"
             search_base = tempfile.gettempdir()
 
             print("-" * 80)
@@ -116,76 +116,20 @@ class Subproject:
             print("-" * 80)
             print("Got the magic dir", magic_dir)
             print("-" * 80)
+            
+        while running_build:
+            debug_print = "-" * 80
+            debug_print += "ran loop"
+            time.sleep(0.01)
 
-            ignored_files = set(
-                [
-                    ".gitignore",
-                    "BUILD.bazel",
-                    "build.ninja",
-                    "build.ninja~",
-                    "generated_build_info.bzl",
-                    "README.md",
-                    "compile_commands.json",
-                    "PKG-INFO",
-                    "pyproject.toml",
-                    "hatch-meson-native-file.ini",
-                    "meson.lock",
-                    ".ninja_deps",
-                    ".ninja_logs",
-                ]
-            )
+            copy_directory_stuff(magic_dir)
 
-            while running_build:
-                debug_print = "-" * 80
-                debug_print += "ran loop"
-                time.sleep(0.01)
+        platform_sys = platform.system()
+        is_windows = platform_sys == "Windows"
 
-                for root, dirs, files in os.walk(magic_dir):
-                    for file in files:
-                        source_file = os.path.join(root, file)
-                        if (
-                            file.endswith(".o")
-                            or file.endswith(".so")
-                            or file.endswith(".a")
-                            or file.endswith(".dylib")
-                            or file.endswith(".exe")
-                            or file.endswith(".dat")
-                            or file.endswith(".d")
-                            or file.endswith(".pkl")
-                            or file.endswith(".yml")
-                            or file.endswith(".exe")
-                            or file.endswith(".pyc")
-                            or file.endswith("Zone.Identifier")
-                            or "meson-info" in root
-                            or "meson-logs" in root
-                            or "meson-private" in root
-                        ):
-                            continue
-                        elif file in ignored_files:
-                            continue
-                        # if file.endswith(".hpp") or file.endswith(".cpp") or file.endswith(".h") or file == "meson.build":
-                        else:
-                            dst_file = pathlib.Path(
-                                f"{DUMP_DIR}/" + source_file[len(magic_dir) :]
-                            )
-                            dst_file.parent.mkdir(parents=True, exist_ok=True)
-
-                            try:
-                                shutil.copy(source_file, dst_file)
-                            except Exception as e:
-                                print(f"Failed to copy {source_file} - {e}")
-
-                            # debug_print += f"{source_file} -> {dst_file}\n"
-                        # el
-                        # else:
-                        #     print(f"Should this be copied? {source_file}", )
-                # debug_print += "-" * 80
-                # print(debug_print)
-
-                # break
-
-        ttttt = threading.Thread(target=__pjs_copy_files)
-        ttttt.start()
+        if not is_windows:
+            ttttt = threading.Thread(target=__pjs_copy_files)
+            ttttt.start()
 
         with tempfile.TemporaryDirectory() as td:
             print(f"-------------------------------{td}")
@@ -228,8 +172,10 @@ class Subproject:
                 raise
 
         running_build = False
-        ttttt.join()
-        print("Post thread")
+
+        if not is_windows:
+            ttttt.join()
+            print("Post thread")
         # input("Waiting for advancement")
 
     _adjust_wheel_tags = {

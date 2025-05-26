@@ -4,6 +4,7 @@
 
 import pathlib
 import sys
+import tempfile
 import typing as T
 
 import click
@@ -11,6 +12,18 @@ from packaging.requirements import Requirement
 
 from .ctx import Context
 from .update_pyproject import ProjectUpdater
+import os
+import shutil
+from .HACK_pj_copy_intermediates import copy_directory_stuff
+
+
+def copy_the_files():
+    ttttddddd = tempfile.gettempdir()
+    
+    for x in os.listdir(ttttddddd):
+        if "build-via-sdist" in x:
+            copy_directory_stuff(os.path.join(ttttddddd, x))
+    
 
 
 @click.group()
@@ -105,3 +118,7 @@ def build_meson_wheels(ctx: Context, no_test: bool, cross: T.Optional[str]):
             )
             if not no_test:
                 project.test(install_requirements=True)
+
+        print(f"Copying lingering files after {project}")
+        copy_the_files()
+        print("--Done")

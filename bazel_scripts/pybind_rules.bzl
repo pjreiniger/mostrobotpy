@@ -49,7 +49,6 @@ def create_pybind_library(
         name = extension_name,
         srcs = entry_point,
         deps = [":{}_pybind_library".format(name)] + semiwrap_header,
-        defines = ["RPYBUILD_MODULE_NAME={}".format(extension_name)],
         visibility = ["//visibility:private"],
         target_compatible_with = select({
             "//conditions:default": [],
