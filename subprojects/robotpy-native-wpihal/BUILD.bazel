@@ -1,26 +1,10 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
-gen_libinit(
-    name = "gen_lib_init",
-    lib_name = "wpiHal",
-    modules = ["native.wpiutil._init_robotpy_native_wpiutil"],
-    output_file = "native/wpihal/_init_robotpy_native_wpihal.py",
-)
-
-copy_native_file(
+create_native_library(
     name = "wpiHal",
-    base_path = "native/wpihal/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/hal:shared_raw",
-)
-
-pybind_python_library(
-    name = "robotpy-native-wpihal",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":wpiHal.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
+    lib_name = "wpihal",
+    package_name = "robotpy-native-wpihal",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/hal:shared_raw",
+    module_dependencies = ["native.wpiutil._init_robotpy_native_wpiutil"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-wpihal"],
 )

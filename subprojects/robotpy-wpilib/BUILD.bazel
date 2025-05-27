@@ -302,7 +302,7 @@ pybind_python_library(
     deps = [
         "//subprojects/pyntcore:ntcore",
         "//subprojects/robotpy-hal:hal",
-        "//subprojects/robotpy-native-wpilib:wpilib",
+        "//subprojects/robotpy-native-wpilib",
         "//subprojects/robotpy-wpimath:wpimath",
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],

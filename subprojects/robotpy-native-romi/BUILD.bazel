@@ -1,26 +1,10 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
-gen_libinit(
-    name = "gen_lib_init",
-    lib_name = "romiVendordep",
-    modules = ["native.wpilib._init_robotpy_native_wpilib"],
-    output_file = "native/romi/_init_robotpy_native_romi.py",
-)
-
-copy_native_file(
-    name = "romiVendordep",
-    base_path = "native/romi/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:shared_raw",
-)
-
-pybind_python_library(
-    name = "robotpy-native-romi",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":romiVendordep.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
+create_native_library(
+    name = "romi",
+    lib_name = "romi",
+    package_name = "robotpy-native-romi",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:shared_raw",
+    module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-romi"],
 )

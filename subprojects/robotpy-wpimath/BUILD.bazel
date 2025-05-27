@@ -237,7 +237,7 @@ pybind_python_library(
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "//subprojects/robotpy-native-wpimath:wpimath",
+        "//subprojects/robotpy-native-wpimath",
         "//subprojects/robotpy-wpiutil:wpiutil",
     ],
 )

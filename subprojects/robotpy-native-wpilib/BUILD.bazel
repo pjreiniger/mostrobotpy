@@ -1,32 +1,16 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
-gen_libinit(
-    name = "gen_lib_init",
-    lib_name = "wpilibc",
-    modules = [
+create_native_library(
+    name = "wpilib",
+    lib_name = "wpilib",
+    package_name = "robotpy-native-wpilib",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
+    module_dependencies = [
         "native.wpiutil._init_robotpy_native_wpiutil",
         "native.wpinet._init_robotpy_native_wpinet",
         "native.ntcore._init_robotpy_native_ntcore",
         "native.wpimath._init_robotpy_native_wpimath",
         "native.wpihal._init_robotpy_native_wpihal",
     ],
-    output_file = "native/wpilib/_init_robotpy_native_wpilib.py",
-)
-
-copy_native_file(
-    name = "wpilibc",
-    base_path = "native/wpilib/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
-)
-
-pybind_python_library(
-    name = "wpilib",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":wpilibc.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-wpilib"],
 )

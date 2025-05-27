@@ -1,29 +1,10 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
-gen_libinit(
-    name = "gen_lib_init",
+create_native_library(
+    name = "wpimath",
     lib_name = "wpimath",
-    modules = ["native.wpiutil._init_robotpy_native_wpiutil"],
-    output_file = "native/wpimath/_init_robotpy_native_wpimath.py",
-)
-
-copy_native_file(
-    name = "wpimath",
-    base_path = "native/wpimath/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared_raw",
-)
-
-pybind_python_library(
-    name = "wpimath",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":wpimath.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared",
-    ],
+    package_name = "robotpy-native-wpimath",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared_raw",
+    module_dependencies = ["native.wpiutil._init_robotpy_native_wpiutil"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
 )

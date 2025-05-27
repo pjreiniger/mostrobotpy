@@ -1,26 +1,36 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+# load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
+# load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
+# load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
 
-gen_libinit(
-    name = "gen_lib_init",
-    lib_name = "xrpVendordep",
-    modules = ["native.wpilib._init_robotpy_native_wpilib"],
-    output_file = "native/xrp/_init_robotpy_native_xrp.py",
-)
+# gen_libinit(
+#     name = "gen_lib_init",
+#     lib_name = "xrpVendordep",
+#     modules = ["native.wpilib._init_robotpy_native_wpilib"],
+#     output_file = "native/xrp/_init_robotpy_native_xrp.py",
+# )
 
-copy_native_file(
-    name = "xrpVendordep",
-    base_path = "native/xrp/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
-)
+# copy_native_file(
+#     name = "xrpVendordep",
+#     base_path = "native/xrp/",
+#     library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
+# )
 
-pybind_python_library(
-    name = "robotpy-native-xrp",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":xrpVendordep.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
+# pybind_python_library(
+#     name = "robotpy-native-xrp",
+#     srcs = [":gen_lib_init"],
+#     data = [
+#         ":xrpVendordep.copy_lib",
+#     ],
+#     imports = ["."],
+#     visibility = ["//visibility:public"],
+# )
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
+
+create_native_library(
+    name = "xrp",
+    lib_name = "xrp",
+    package_name = "robotpy-native-xrp",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
+    module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-xrp"],
 )
