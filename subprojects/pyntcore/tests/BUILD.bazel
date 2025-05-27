@@ -11,6 +11,6 @@ wpilib_py_test(
         ],
     ),
     deps = [
-        "//subprojects/pyntcore:ntcore",
+        "//subprojects/pyntcore:import",
     ],
 )

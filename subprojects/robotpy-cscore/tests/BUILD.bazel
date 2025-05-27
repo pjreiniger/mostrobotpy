@@ -17,6 +17,6 @@ wpilib_py_test(
     ),
     deps = [
         requirement("numpy"),
-        "//subprojects/robotpy-cscore:cscore",
+        "//subprojects/robotpy-cscore:import",
     ],
 )

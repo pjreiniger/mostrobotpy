@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension")
 
@@ -30,17 +30,19 @@ copy_extension_library(
     output_directory = "robotpy_apriltag/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "apriltag",
+    package_name = "robotpy-apriltag",
     srcs = glob(["robotpy_apriltag/**/*.py"]) + ["robotpy_apriltag/_init__apriltag.py"],
     data = [":copy_apriltag"],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-apriltag",
-        "//subprojects/robotpy-wpimath:wpimath",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-apriltag:import",
+        "//subprojects/robotpy-wpimath:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-apriltag"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

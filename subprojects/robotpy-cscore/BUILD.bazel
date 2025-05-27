@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension")
 
@@ -44,19 +44,21 @@ copy_extension_library(
     output_directory = "cscore/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "cscore",
+    package_name = "robotpy-cscore",
     srcs = glob(["cscore/**/*.py"]) + ["cscore/_init__cscore.py"],
     data = [
         ":copy_cscore",
         # ":cscore.copy_lib",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/pyntcore:ntcore",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/pyntcore:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-cscore"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

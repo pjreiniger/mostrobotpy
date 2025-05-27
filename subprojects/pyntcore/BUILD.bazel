@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/pyntcore:generated_build_info.bzl", "ntcore_extension")
 
@@ -39,17 +39,19 @@ copy_extension_library(
     output_directory = "ntcore/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "ntcore",
+    package_name = "pyntcore",
     srcs = glob(["ntcore/**/*.py"]) + ["ntcore/_init__ntcore.py"],
     data = [":copy_ntcore"],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-ntcore",
-        "//subprojects/robotpy-wpinet:wpinet",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-ntcore:import",
+        "//subprojects/robotpy-wpinet:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/pyntcore"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

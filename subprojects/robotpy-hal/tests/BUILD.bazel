@@ -11,6 +11,6 @@ wpilib_py_test(
         ],
     ),
     deps = [
-        "//subprojects/robotpy-hal:hal",
+        "//subprojects/robotpy-hal:import",
     ],
 )

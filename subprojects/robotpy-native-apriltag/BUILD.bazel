@@ -9,5 +9,5 @@ create_native_library(
         "native.wpimath._init_robotpy_native_wpimath",
     ],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
-    strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
+    strip_pkg_prefix = ["subprojects/robotpy-native-apriltag"],
 )
