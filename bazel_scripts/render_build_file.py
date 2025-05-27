@@ -605,7 +605,7 @@ def main():
     project_files = [
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/pyntcore/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-apriltag/pyproject.toml"),
-        # # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/pyproject.toml"),
+        # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-cscore/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-hal/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ds-socket/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-gui/pyproject.toml"),

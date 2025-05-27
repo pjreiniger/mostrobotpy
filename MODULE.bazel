@@ -1,6 +1,7 @@
 bazel_dep(name = "rules_python", version = "1.0.0")
 bazel_dep(name = "pybind11_bazel", version = "2.13.6")
 bazel_dep(name = "bzlmodrio-allwpilib", version = "2025.3.2.bcr1")
+bazel_dep(name = "bzlmodrio-opencv", version = "2025.4.10.0-3.bcr2")
 bazel_dep(name = "rules_cc", version = "0.0.16")
 bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
