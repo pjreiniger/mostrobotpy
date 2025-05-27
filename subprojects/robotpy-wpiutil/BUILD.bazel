@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "publish_library_casters", "wpiutil_extension")
 
@@ -43,13 +43,15 @@ copy_extension_library(
     output_directory = "wpiutil/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "wpiutil",
+    package_name = "robotpy-wpiutil",
     srcs = glob(["wpiutil/**/*.py"]) + ["wpiutil/_init__wpiutil.py"],
     data = [":copy_wpiutil"],
     imports = ["."],
+    robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
+    strip_path_prefixes = ["subprojects/robotpy-wpiutil"],
     visibility = ["//visibility:public"],
-    deps = ["//subprojects/robotpy-native-wpiutil"],
 )
 
 filegroup(

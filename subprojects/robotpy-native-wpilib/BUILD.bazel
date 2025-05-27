@@ -2,9 +2,8 @@ load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
 create_native_library(
     name = "wpilib",
-    lib_name = "wpilib",
     package_name = "robotpy-native-wpilib",
-    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
+    lib_name = "wpilib",
     module_dependencies = [
         "native.wpiutil._init_robotpy_native_wpiutil",
         "native.wpinet._init_robotpy_native_wpinet",
@@ -12,5 +11,6 @@ create_native_library(
         "native.wpimath._init_robotpy_native_wpimath",
         "native.wpihal._init_robotpy_native_wpihal",
     ],
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpilib"],
 )

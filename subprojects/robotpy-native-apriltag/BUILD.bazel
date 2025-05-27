@@ -2,12 +2,12 @@ load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
 create_native_library(
     name = "apriltag",
-    lib_name = "apriltag",
     package_name = "robotpy-native-apriltag",
-    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
+    lib_name = "apriltag",
     module_dependencies = [
         "native.wpiutil._init_robotpy_native_wpiutil",
         "native.wpimath._init_robotpy_native_wpimath",
     ],
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
 )

@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension")
 
@@ -28,16 +28,18 @@ copy_extension_library(
     output_directory = "wpinet/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "wpinet",
+    package_name = "robotpy-wpinet",
     srcs = glob(["wpinet/**/*.py"]) + ["wpinet/_init__wpinet.py"],
     data = [":copy_wpinet"],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-wpinet",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-wpinet:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-wpinet"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

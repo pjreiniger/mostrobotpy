@@ -11,8 +11,7 @@ wpilib_py_test(
         ],
     ),
     deps = [
-        "//subprojects/robotpy-wpimath:wpimath",
-        # "//wpiutil/src/test/python/cpp:wpiutil_test",
+        "//subprojects/robotpy-wpimath:import",
         "//subprojects/robotpy-wpimath/tests/cpp:wpimath_test",
     ],
 )

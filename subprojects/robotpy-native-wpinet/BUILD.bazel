@@ -2,9 +2,9 @@ load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
 create_native_library(
     name = "wpinet",
-    lib_name = "wpinet",
     package_name = "robotpy-native-wpinet",
-    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared_raw",
+    lib_name = "wpinet",
     module_dependencies = ["native.wpiutil._init_robotpy_native_wpiutil"],
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpinet"],
 )
