@@ -1,5 +1,5 @@
 with open(
-    "bazel-mostrobotpy/external/rules_python~~pip~allwpilib_pip_deps_310_semiwrap/site-packages/semiwrap/pyproject.py",
+    "bazel-mostrobotpy/external/rules_python~~pip~mostrobotpy_pip_deps_310_semiwrap/site-packages/semiwrap/pyproject.py",
     "r",
 ) as f:
     contents = f.read()
@@ -12,7 +12,7 @@ contents = contents.replace(
 )
 
 with open(
-    "bazel-mostrobotpy/external/rules_python~~pip~allwpilib_pip_deps_310_semiwrap/site-packages/semiwrap/pyproject.py",
+    "bazel-mostrobotpy/external/rules_python~~pip~mostrobotpy_pip_deps_310_semiwrap/site-packages/semiwrap/pyproject.py",
     "w",
 ) as f:
     f.write(contents)

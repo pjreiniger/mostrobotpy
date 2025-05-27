@@ -8,20 +8,10 @@ cxxheaderparser[pcpp]==1.5.0 \
     --hash=sha256:0b9600f817d7378794a0f5df10972fd85f73ba9d3ea0090a5b6b5c12be3b1f01 \
     --hash=sha256:2a93fc81c62d2e4de3e92a697336557debe13db44bfef0f2d4fa81501cd1f36f
     # via semiwrap
-exceptiongroup==1.3.0 \
-    --hash=sha256:4d111e6e0c13d0644cad6ddaa7ed0261a0b36971f6d23e7ec9b4b9097da78a10 \
-    --hash=sha256:b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88
-    # via pytest
-iniconfig==2.1.0 \
-    --hash=sha256:3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7 \
-    --hash=sha256:9deba5723312380e77435581c6bf4935c94cbfab9b1ed33ef8d238ea168eb760
-    # via pytest
 packaging==25.0 \
     --hash=sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484 \
     --hash=sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f
-    # via
-    #   pytest
-    #   semiwrap
+    # via semiwrap
 pcpp==1.30 \
     --hash=sha256:05fe08292b6da57f385001c891a87f40d6aa7f46787b03e8ba326d20a3297c6e \
     --hash=sha256:5af9fbce55f136d7931ae915fae03c34030a3b36c496e72d9636cedc8e2543a1
@@ -43,18 +33,10 @@ pkgconf==2.4.3.post1 \
     --hash=sha256:defe70c329df7d7992b64a105e78d97f154727b595271fd97a70f3ce33b05478 \
     --hash=sha256:ec31ce85eab01f7a41d2c86a43827556fe8238f7c5b51ccca42bfd01762d84ca
     # via semiwrap
-pluggy==1.6.0 \
-    --hash=sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3 \
-    --hash=sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746
-    # via pytest
 pybind11-stubgen==2.5.4 \
     --hash=sha256:8625f25da48cf96eea24ba7cae673b5f49b45847b6ef01eead60c4eb762fe5c5 \
     --hash=sha256:b6bd44a6d4ba55cef80bd8af92f1f8195b1c6bb0f7bd2f6d785c9530ce6bcae9
     # via semiwrap
-pytest==8.3.5 \
-    --hash=sha256:c69214aa47deac29fad6c2a4f590b9c4a9fdb16a403176fe154b79c0b4d4d820 \
-    --hash=sha256:f4efe70cc14e511565ac476b57c279e12a855b11f48f212af1080ef2263d3845
-    # via -r requirements.txt
 pyyaml==6.0.2 \
     --hash=sha256:01179a4a8559ab5de078078f37e5c1a30d76bb88519906844fd7bdea1b7729ff \
     --hash=sha256:0833f8694549e586547b576dcfaba4a6b55b9e96098b36cdc7ebefe667dfed48 \
@@ -151,9 +133,7 @@ tomli==2.2.1 \
     --hash=sha256:e85e99945e688e32d5a35c1ff38ed0b3f41f43fad8df0bdf79f72b2ba7bc5272 \
     --hash=sha256:ece47d672db52ac607a3d9599a9d48dcb2f2f735c6c2d1f34130085bb12b112a \
     --hash=sha256:f4039b9cbc3048b2416cc57ab3bda989a6fcf9b36cf8937f01a6e731b64f80d7
-    # via
-    #   pytest
-    #   semiwrap
+    # via semiwrap
 tomli-w==1.2.0 \
     --hash=sha256:188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90 \
     --hash=sha256:2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021
@@ -165,9 +145,7 @@ toposort==1.10 \
 typing-extensions==4.13.2 \
     --hash=sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c \
     --hash=sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef
-    # via
-    #   exceptiongroup
-    #   semiwrap
+    # via semiwrap
 validobj==1.3 \
     --hash=sha256:0ddb2e73693763e2014620327486f9e458fcf1d016ce286a146111dc8493e298 \
     --hash=sha256:b5a6f79f76064dc1a4e3b2239bf40ea1c4f4ce8d742c9a78784174f784c9cb38

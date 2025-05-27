@@ -40,9 +40,17 @@ python.toolchain(
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-    hub_name = "allwpilib_pip_deps",
+    hub_name = "mostrobotpy_pip_deps",
     python_version = "3.10",
     requirements_lock = "//:requirements_lock.txt",
-    requirements_windows = "//:requirements_windows.txt",
+    # requirements_windows = "//:requirements_windows.txt",
 )
-use_repo(pip, "allwpilib_pip_deps")
+use_repo(pip, "mostrobotpy_pip_deps")
+
+pip.parse(
+    hub_name = "mostrobotpy_tests_pip_deps",
+    python_version = "3.10",
+    requirements_lock = "//:testing_requirements_lock.txt",
+    # requirements_windows = "//:testing_requirements_windows.txt",
+)
+use_repo(pip, "mostrobotpy_tests_pip_deps")

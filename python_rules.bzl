@@ -1,4 +1,4 @@
-load("@allwpilib_pip_deps//:requirements.bzl", "requirement")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary")
 load("@rules_python_pytest//python_pytest:defs.bzl", "py_pytest_test")
 
