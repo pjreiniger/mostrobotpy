@@ -11,7 +11,7 @@ gen_libinit(
 
 copy_native_file(
     name = "wpiutil",
-    base_path = "native/wpiutil",
+    base_path = "native/wpiutil/",
     library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
 )
 

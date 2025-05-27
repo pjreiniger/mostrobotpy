@@ -17,7 +17,7 @@ gen_libinit(
 
 copy_native_file(
     name = "wpilibc",
-    base_path = "native/wpilib",
+    base_path = "native/wpilib/",
     library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
 )
 

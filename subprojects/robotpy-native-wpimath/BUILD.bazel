@@ -11,7 +11,7 @@ gen_libinit(
 
 copy_native_file(
     name = "wpimath",
-    base_path = "native/wpimath",
+    base_path = "native/wpimath/",
     library = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared_raw",
 )
 

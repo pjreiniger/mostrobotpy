@@ -4,7 +4,7 @@ def copy_native_file(name, library, base_path):
     copy_file(
         name = name + ".win_copy_lib",
         src = library,
-        out = "{}/lib/{}.dll".format(base_path, name),
+        out = "{}lib/{}.dll".format(base_path, name),
         tags = ["manual"],
         visibility = ["//visibility:public"],
     )
@@ -12,7 +12,7 @@ def copy_native_file(name, library, base_path):
     copy_file(
         name = name + ".osx_copy_lib",
         src = library,
-        out = "{}/lib/lib{}.dylib".format(base_path, name),
+        out = "{}lib/lib{}.dylib".format(base_path, name),
         tags = ["manual"],
         visibility = ["//visibility:public"],
     )
@@ -20,7 +20,7 @@ def copy_native_file(name, library, base_path):
     copy_file(
         name = name + ".linux_copy_lib",
         src = library,
-        out = "{}/lib/lib{}.so".format(base_path, name),
+        out = "{}lib/lib{}.so".format(base_path, name),
         tags = ["manual"],
         visibility = ["//visibility:public"],
     )

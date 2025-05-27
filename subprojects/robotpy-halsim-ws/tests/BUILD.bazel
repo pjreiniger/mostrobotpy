@@ -1,0 +1,16 @@
+load("//:python_rules.bzl", "wpilib_py_test")
+
+wpilib_py_test(
+    "halsim_ws_tests",
+    extra_sources = ["conftest.py"],
+    tests = glob(
+        ["**/*.py"],
+        exclude = [
+            "conftest.py",
+            "run_tests.py",
+        ],
+    ),
+    deps = [
+        "//subprojects/robotpy-halsim-ws:halsim-ws",
+    ],
+)

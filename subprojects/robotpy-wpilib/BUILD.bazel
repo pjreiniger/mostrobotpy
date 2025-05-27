@@ -145,6 +145,10 @@ wpilib_shuffleboard_extension(
     entry_point = ["wpilib/shuffleboard/shuffleboard.cpp"],
     extension_name = "_shuffleboard",
     extra_hdrs = glob(["wpilib/shuffleboard/*.h"]),
+    extra_srcs = glob(
+        ["wpilib/shuffleboard/*.cpp"],
+        exclude = ["wpilib/shuffleboard/shuffleboard.cpp"],
+    ),
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",

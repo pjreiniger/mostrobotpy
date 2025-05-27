@@ -216,7 +216,11 @@ def make_pyi(name):
     cmd = "$(locations //bazel_scripts:wrapper) semiwrap.cmd.make_pyi "
 
 def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps = [], generation_includes = [], generation_defines = []):
+    temp_yml_files = []
+
     for header_gen in header_gen_config:
+        temp_yml_files.append(header_gen.yml_file)
+
         header_to_dat(
             name = name + ".header_to_dat",
             casters_pickle = casters_pickle,
@@ -230,6 +234,11 @@ def run_header_gen(name, include_root, casters_pickle, header_gen_config, deps =
             generation_includes = generation_includes,
             extra_defines = generation_defines,
         )
+
+    native.filegroup(
+        name = name + ".yml_files",
+        srcs = temp_yml_files,
+    )
 
     generated_cc_files = []
     for header_gen in header_gen_config:

@@ -11,7 +11,7 @@ gen_libinit(
 
 copy_native_file(
     name = "wpiHal",
-    base_path = "native/wpihal",
+    base_path = "native/wpihal/",
     library = "@bzlmodrio-allwpilib//libraries/cpp/hal:shared_raw",
 )
 

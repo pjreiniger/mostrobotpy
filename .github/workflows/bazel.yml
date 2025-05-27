@@ -22,7 +22,7 @@ jobs:
         with: { python-version: '3.10' }
 
       - name: Build allowing failure
-        run: bazel test //... -k --config=build_buddy || true
+        run: bazel test //... --config=build_buddy || true
 
       - name: Hack modify semiwrap
         run: python3 -m bazel_scripts.debug.HACK_fix_pypi

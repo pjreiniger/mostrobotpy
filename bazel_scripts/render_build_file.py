@@ -14,7 +14,7 @@ from semiwrap.makeplan import (
     ExtensionModuleConfig,
     PlanError,
     Depfile,
-    makeplan
+    makeplan,
 )
 import typing as T
 from semiwrap.autowrap.buffer import RenderBuffer
@@ -29,7 +29,6 @@ import os
 import toposort
 
 
-
 @dataclasses.dataclass(frozen=True)
 class HeaderGenInfo:
     class_name: str
@@ -37,7 +36,6 @@ class HeaderGenInfo:
     header_input: str
     hdr_tmpls: T.List[T.Tuple[str, str]] = dataclasses.field(default_factory=list)
     trampolines: T.List[T.Tuple[str, str]] = dataclasses.field(default_factory=list)
-
 
 
 @dataclasses.dataclass(frozen=True)
@@ -51,7 +49,6 @@ class Dat2HeaderConfig:
     dep_file: Depfile
     include_directories: T.List[T.Union[str, pathlib.Path]]
     extra_defines: T.List[str]
-
 
     @staticmethod
     def from_item(item):
@@ -91,13 +88,14 @@ class Dat2HeaderConfig:
             class_name=item.args[arg_idx + 0],
             yml_file=item.args[arg_idx + 1],
             header_input=item.args[arg_idx + 2],
-            header_root = item.args[arg_idx + 3],
-            all_type_casters = "",
-            output_file = item.args[arg_idx+5],
-            dep_file = item.args[arg_idx+6],
-            include_directories = include_directories,
-            extra_defines = extra_defines,
+            header_root=item.args[arg_idx + 3],
+            all_type_casters="",
+            output_file=item.args[arg_idx + 5],
+            dep_file=item.args[arg_idx + 6],
+            include_directories=include_directories,
+            extra_defines=extra_defines,
         )
+
 
 def amalgamate_includes(dat2hdrs: T.List[Dat2HeaderConfig]):
     include_directories = set()
@@ -112,7 +110,7 @@ def amalgamate_includes(dat2hdrs: T.List[Dat2HeaderConfig]):
             if "python3.10" in str(inc):
                 continue
             include_directories.add(str(inc))
-    
+
     return sorted(str(x) for x in include_directories)
 
 
@@ -122,9 +120,10 @@ def amalgamate_defines(dat2hdrs: T.List[Dat2HeaderConfig]):
         config = Dat2HeaderConfig.from_item(dat2hdr)
         for define in config.extra_defines:
             extra_defines.add(str(define))
-    
+
     print(extra_defines)
     return sorted(str(x) for x in extra_defines)
+
 
 def write_library(
     generated_info_buffer,
@@ -229,7 +228,9 @@ def write_library(
 
         all_includes = amalgamate_includes(header2dats)
         all_defines = amalgamate_defines(header2dats)
-        generation_includes = ",\n                    ".join(f'"{x}"' for x in all_includes)
+        generation_includes = ",\n                    ".join(
+            f'"{x}"' for x in all_includes
+        )
 
         generated_info_buffer.write_trim(
             f"""
@@ -371,7 +372,7 @@ def em_deps_to_extension_deps(dependencies):
     output = []
     for dep in dependencies:
         if "native" in dep:
-            lib_name = dep[len("robotpy-native-"):]
+            lib_name = dep[len("robotpy-native-") :]
             output.append(f"@bzlmodrio-allwpilib//libraries/cpp/{lib_name}:shared")
         else:
             output.append(f"//subprojects/robotpy-{dep}:{dep}_pybind_library")
@@ -424,7 +425,8 @@ DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_
     generated_info_buffer.write_trim(
         """load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-""")
+"""
+    )
 
     for item in plans:
         # if isinstance(item, BuildTarget):
@@ -543,7 +545,8 @@ load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "
         deps.update(calculate_extension_dependencies(em))
     deps = em_deps_to_python_deps(deps)
 
-    build_file_buffer.write_trim(f"""
+    build_file_buffer.write_trim(
+        f"""
 pybind_python_library(
     name = "wpiutil",
     srcs = glob(["wpiutil/**/*.py"]),
@@ -590,7 +593,7 @@ pybind_python_library(
     """
     )
 
-    with open(project_dir / "BUILD.bazel", 'w') as f:
+    with open(project_dir / "BUILD.bazel", "w") as f:
         f.write(build_file_buffer.getvalue())
 
     print(project_dir)
@@ -608,7 +611,7 @@ def main():
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-gui/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-halsim-ws/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-romi/pyproject.toml"),
-        pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib/pyproject.toml"),
+        # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpilib/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpimath/tests/cpp/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/mostrobotpy/subprojects/robotpy-wpinet/pyproject.toml"),

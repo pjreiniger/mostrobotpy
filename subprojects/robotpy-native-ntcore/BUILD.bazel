@@ -14,7 +14,7 @@ gen_libinit(
 
 copy_native_file(
     name = "ntcore",
-    base_path = "native/ntcore",
+    base_path = "native/ntcore/",
     library = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared_raw",
 )
 

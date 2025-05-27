@@ -1,8 +1,21 @@
+load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
 load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+
+copy_native_file(
+    name = "halsim_ds_socket",
+    base_path = "halsim_ds_socket/",
+    library = "@bzlmodrio-allwpilib//libraries/cpp/halsim_ds_socket:shared_raw",
+)
 
 pybind_python_library(
     name = "halsim_ds_socket",
     srcs = glob(["halsim_ds_socket/**/*.py"]),
+    data = [
+        ":halsim_ds_socket.copy_lib",
+    ],
     imports = ["."],
     visibility = ["//visibility:public"],
+    deps = [
+        "//subprojects/robotpy-wpilib:wpilib",
+    ],
 )
