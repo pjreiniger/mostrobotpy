@@ -12,6 +12,9 @@ wpilib_event_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     deps = [
@@ -25,8 +28,11 @@ wpilib_interfaces_extension(
     entry_point = ["wpilib/interfaces/interfaces.cpp"],
     extension_name = "_interfaces",
     header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     deps = [
@@ -51,6 +57,9 @@ wpilib_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     includes = [
@@ -78,8 +87,14 @@ wpilib_counter_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpilib/src/rpy/*.h",
+        "wpilib/src/rpy/*.inc",
+    ]),
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
@@ -102,8 +117,14 @@ wpilib_drive_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpilib/src/rpy/*.h",
+        "wpilib/src/rpy/*.inc",
+    ]),
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",
@@ -127,8 +148,14 @@ wpilib_shuffleboard_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpilib/src/rpy/*.h",
+        "wpilib/src/rpy/*.inc",
+    ]),
     includes = ["wpilib/shuffleboard"],
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
@@ -152,8 +179,14 @@ wpilib_simulation_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpilib/src/rpy/*.h",
+        "wpilib/src/rpy/*.inc",
+    ]),
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpiHal_pybind_library",

@@ -196,7 +196,7 @@ def hal_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
@@ -572,7 +572,7 @@ def wpihal_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpihal_wpihal-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )

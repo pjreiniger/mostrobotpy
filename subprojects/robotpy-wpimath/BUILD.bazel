@@ -20,7 +20,7 @@ wpimath_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob(["wpimath/_impl/src/**/*.h"]),
     includes = [
         "wpimath/_impl/src",
         "wpimath/_impl/src/type_casters",
@@ -38,7 +38,7 @@ wpimath_filter_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob(["wpimath/_impl/src/**/*.h"]),
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
@@ -54,7 +54,10 @@ wpimath_geometry_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpimath/geometry/include/**/*.h",
+        "wpimath/_impl/src/**/*.h",
+    ]),
     includes = ["wpimath/geometry/include"],
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
@@ -70,7 +73,10 @@ wpimath_interpolation_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpimath/geometry/include/**/*.h",
+        "wpimath/_impl/src/**/*.h",
+    ]),
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
@@ -86,7 +92,10 @@ wpimath_kinematics_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpimath/geometry/include/**/*.h",
+        "wpimath/_impl/src/**/*.h",
+    ]),
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
@@ -102,7 +111,10 @@ wpimath_spline_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpimath/geometry/include/**/*.h",
+        "wpimath/_impl/src/**/*.h",
+    ]),
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
@@ -118,7 +130,10 @@ wpimath_controls_extension(
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
+    ] + glob([
+        "wpimath/geometry/include/**/*.h",
+        "wpimath/_impl/src/**/*.h",
+    ]),
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_kinematics_pybind_library",

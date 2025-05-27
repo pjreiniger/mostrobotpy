@@ -1483,8 +1483,6 @@ def wpimath_controls_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_t
             "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
             "subprojects/robotpy-wpimath/wpimath/geometry",
             "subprojects/robotpy-wpimath/wpimath/geometry/include",
-            "subprojects/robotpy-wpimath/wpimath/kinematics",
-            "subprojects/robotpy-wpimath/wpimath/spline",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],

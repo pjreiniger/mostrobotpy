@@ -10,6 +10,7 @@ wpinet_extension(
     entry_point = ["wpinet/src/main.cpp"],
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     deps = [
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",

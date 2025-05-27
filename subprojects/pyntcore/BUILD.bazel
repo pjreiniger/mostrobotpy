@@ -17,6 +17,8 @@ ntcore_extension(
         exclude = ["ntcore/src/ntcore.cpp"],
     ),
     header_to_dat_deps = [
+        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
     ],
     includes = ["ntcore"],
