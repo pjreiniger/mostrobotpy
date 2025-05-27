@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "xrp_extension")
 
@@ -34,17 +34,19 @@ copy_extension_library(
     output_directory = "xrp/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "xrp",
+    package_name = "robotpy-xrp",
     srcs = glob(["xrp/**/*.py"]) + ["xrp/_init__xrp.py"],
     data = [":copy_xrp"],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-xrp",
-        "//subprojects/robotpy-wpilib:wpilib",
-        "//subprojects/robotpy-wpimath:wpimath",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-xrp:import",
+        "//subprojects/robotpy-wpilib:import",
+        "//subprojects/robotpy-wpimath:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-xrp"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

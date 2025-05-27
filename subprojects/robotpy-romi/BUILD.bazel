@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-romi:generated_build_info.bzl", "romi_extension")
 
@@ -34,17 +34,19 @@ copy_extension_library(
     output_directory = "romi/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "romi",
+    package_name = "robotpy-tomi",
     srcs = glob(["romi/**/*.py"]) + ["romi/_init__romi.py"],
     data = [":copy_romi"],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-romi",
-        "//subprojects/robotpy-wpilib:wpilib",
-        "//subprojects/robotpy-wpimath:wpimath",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-romi:import",
+        "//subprojects/robotpy-wpilib:import",
+        "//subprojects/robotpy-wpimath:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-romi"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

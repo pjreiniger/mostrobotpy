@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 
 copy_native_file(
     name = "halsim_ws_server",
@@ -13,17 +13,19 @@ copy_native_file(
     library = "@bzlmodrio-allwpilib//libraries/cpp/halsim_ws_client:shared_raw",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "halsim-ws",
+    package_name = "robotpy-halsim-ws",
     srcs = glob(["halsim_ws/**/*.py"]),
     data = [
         "halsim_ws_client.copy_lib",
         "halsim_ws_server.copy_lib",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-hal:hal",
-        "//subprojects/robotpy-wpinet:wpinet",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-hal:import",
+        "//subprojects/robotpy-wpinet:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-halsim-ws"],
+    visibility = ["//visibility:public"],
 )

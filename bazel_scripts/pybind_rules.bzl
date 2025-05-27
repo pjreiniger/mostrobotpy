@@ -69,14 +69,6 @@ def create_pybind_library(
         }),
     )
 
-def pybind_python_library(
-        name,
-        **kwargs):
-    py_library(
-        name = name,
-        **kwargs
-    )
-
 def robotpy_library(
         name,
         package_name,

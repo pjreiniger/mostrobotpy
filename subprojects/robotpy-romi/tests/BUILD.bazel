@@ -11,8 +11,6 @@ wpilib_py_test(
         ],
     ),
     deps = [
-        "//subprojects/robotpy-romi:romi",
-        # "//wpiutil/src/test/python/cpp:wpiutil_test",
-        # "//subprojects/robotpy-wpiutil/tests/cpp:wpiutil_test",
+        "//subprojects/robotpy-romi:import",
     ],
 )

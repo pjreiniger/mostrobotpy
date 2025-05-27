@@ -11,6 +11,6 @@ wpilib_py_test(
         ],
     ),
     deps = [
-        "//subprojects/robotpy-halsim-gui:halsim-gui",
+        "//subprojects/robotpy-halsim-gui:import",
     ],
 )
