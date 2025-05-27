@@ -19,7 +19,6 @@ def create_native_library(
         modules = module_dependencies,
         output_file = "native/{}/_init_{}.py".format(lib_name, package_name.replace("-", "_")),
     )
-    print("native/{}/_init_{}.py".format(lib_name, package_name))
 
     copy_native_file(
         name = lib_name,

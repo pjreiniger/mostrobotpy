@@ -92,7 +92,6 @@ def _write_libinit_py(
 
 
 def main():
-    print(sys.argv)
     lib_name = sys.argv[1]
 
     if is_macos:
