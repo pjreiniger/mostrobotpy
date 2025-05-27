@@ -46,7 +46,6 @@ pip.parse(
     requirements_windows = "//:requirements_windows.txt",
 )
 use_repo(pip, "mostrobotpy_pip_deps")
-
 pip.parse(
     hub_name = "mostrobotpy_tests_pip_deps",
     python_version = "3.10",

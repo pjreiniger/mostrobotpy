@@ -1,3 +1,4 @@
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:python_rules.bzl", "wpilib_py_test")
 
 wpilib_py_test(
@@ -15,8 +16,7 @@ wpilib_py_test(
         ],
     ),
     deps = [
+        requirement("numpy"),
         "//subprojects/robotpy-cscore:cscore",
-        # "//wpiutil/src/test/python/cpp:wpiutil_test",
-        # "//subprojects/robotpy-wpimath/tests/cpp:wpimath_test",
     ],
 )
