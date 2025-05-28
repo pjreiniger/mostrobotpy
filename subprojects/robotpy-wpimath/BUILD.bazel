@@ -7,8 +7,6 @@ DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_
 
 publish_library_casters(
     typecasters_srcs = glob([
-        "wpimath/src/type_casters/**",
-        "wpimath/src/wpistruct/**",
         "wpimath/_impl/src/**",
     ]),
 )

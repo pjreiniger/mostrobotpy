@@ -20,3 +20,6 @@ bazel test \
     //subprojects/pyntcore:ntcore.header_gen_files \
     //subprojects/robotpy-wpimath:wpimath.header_gen_files \
     //subprojects/robotpy-hal:wpihal.header_gen_files \ \
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x86\dumpbin.exe"  /dependents C:\Users\PJ\git\robotpy\mostrobotpy\.venv\Lib\site-packages\wpilib\_wpilib.cp310-win_amd64.pyd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x86\dumpbin.exe"  /dependents bazel-bin\subprojects\robotpy-native-wpilib\native\wpilib\lib\wpilib.dll

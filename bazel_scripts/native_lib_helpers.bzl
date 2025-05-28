@@ -12,6 +12,7 @@ def create_native_library(
         shared_library,
         module_dependencies,
         strip_pkg_prefix,
+        deps = [],
         visibility = ["//visibility:public"]):
     gen_libinit(
         name = "{}.gen_lib_init".format(name),
@@ -28,6 +29,7 @@ def create_native_library(
     py_library(
         name = package_name,
         srcs = ["{}.gen_lib_init".format(name)],
+        deps = deps,
         data = [":{}.copy_lib".format(lib_name)],
         imports = ["."],
         visibility = visibility,
@@ -42,8 +44,8 @@ def create_native_library(
         name = "{}-wheel".format(package_name),
         distribution = package_name,
         platform = select({
-            "@bazel_tools//src/conditions:darwin": "win_amd64",
-            "@bazel_tools//src/conditions:windows": "macosx_11_0_x86_64",
+            "@bazel_tools//src/conditions:darwin": "macosx_11_0_x86_64",
+            "@bazel_tools//src/conditions:windows": "win_amd64",
             "//conditions:default": "manylinux_2_35_x86_64",
         }),
         python_tag = "py3",
@@ -54,7 +56,17 @@ def create_native_library(
     )
 
     pycross_wheel_library(
-        name = "import",
+        name = "_import",
         wheel = "{}-wheel".format(package_name),
+        visibility = visibility,
+        tags = ["manual"],
+    )
+
+    native.alias(
+        name = "import",
+        actual = select({
+            "@bazel_tools//src/conditions:windows": package_name,
+            "//conditions:default": "_import",
+        }),
         visibility = visibility,
     )

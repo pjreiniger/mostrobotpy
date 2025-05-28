@@ -172,6 +172,7 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
             "wpiutil.gen_pkgconf",
             "wpiutil.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpiutil",
