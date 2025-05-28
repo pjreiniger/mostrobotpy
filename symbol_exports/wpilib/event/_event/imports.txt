@@ -1,76 +1,76 @@
 KERNEL32.dll
-	ReleaseSRWLockExclusive
-	DisableThreadLibraryCalls
-	GetSystemTimeAsFileTime
-	GetCurrentThreadId
-	GetCurrentProcessId
-	QueryPerformanceCounter
-	TerminateProcess
-	GetCurrentProcess
-	IsProcessorFeaturePresent
-	SetUnhandledExceptionFilter
-	UnhandledExceptionFilter
-	IsDebuggerPresent
-	RtlVirtualUnwind
-	RtlLookupFunctionEntry
-	RtlCaptureContext
 	AcquireSRWLockExclusive
-	SleepConditionVariableSRW
+	DisableThreadLibraryCalls
+	GetCurrentProcess
+	GetCurrentProcessId
+	GetCurrentThreadId
+	GetSystemTimeAsFileTime
 	InitializeSListHead
+	IsDebuggerPresent
+	IsProcessorFeaturePresent
+	QueryPerformanceCounter
+	ReleaseSRWLockExclusive
+	RtlCaptureContext
+	RtlLookupFunctionEntry
+	RtlVirtualUnwind
+	SetUnhandledExceptionFilter
+	SleepConditionVariableSRW
+	TerminateProcess
+	UnhandledExceptionFilter
 	WakeAllConditionVariable
 MSVCP140.dll
-	?__ExceptionPtrCreate@@YAXPEAX@Z
-	?__ExceptionPtrDestroy@@YAXPEAX@Z
-	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
-	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
-	?__ExceptionPtrCompare@@YA_NPEBX0@Z
-	?__ExceptionPtrToBool@@YA_NPEBX@Z
-	?__ExceptionPtrCurrentException@@YAXPEAX@Z
-	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?_Xbad_function_call@std@@YAXXZ
 	?_Xlength_error@std@@YAXPEBD@Z
 	?_Xout_of_range@std@@YAXPEBD@Z
-	?_Xbad_function_call@std@@YAXXZ
+	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
+	?__ExceptionPtrCompare@@YA_NPEBX0@Z
+	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
+	?__ExceptionPtrCreate@@YAXPEAX@Z
+	?__ExceptionPtrCurrentException@@YAXPEAX@Z
+	?__ExceptionPtrDestroy@@YAXPEAX@Z
+	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?__ExceptionPtrToBool@@YA_NPEBX@Z
 VCRUNTIME140.dll
-	memcpy
-	memset
-	memchr
+	_CxxThrowException
+	__C_specific_handler
 	__RTDynamicCast
 	__current_exception
-	_CxxThrowException
-	__std_type_info_name
-	__std_type_info_hash
-	__std_type_info_compare
-	__std_exception_destroy
-	__std_exception_copy
-	strchr
-	__std_terminate
-	_purecall
-	memmove
 	__current_exception_context
-	__C_specific_handler
+	__std_exception_copy
+	__std_exception_destroy
+	__std_terminate
+	__std_type_info_compare
 	__std_type_info_destroy_list
+	__std_type_info_hash
+	__std_type_info_name
+	_purecall
+	memchr
 	memcmp
+	memcpy
+	memmove
+	memset
+	strchr
 VCRUNTIME140_1.dll
 	__CxxFrameHandler4
 api-ms-win-crt-heap-l1-1-0.dll
-	free
 	_aligned_free
-	_callnewh
-	malloc
 	_aligned_malloc
+	_callnewh
+	free
+	malloc
 api-ms-win-crt-math-l1-1-0.dll
 	ceilf
 api-ms-win-crt-runtime-l1-1-0.dll
-	_initialize_onexit_table
-	_initterm_e
-	_initterm
 	_cexit
+	_configure_narrow_argv
 	_crt_atexit
 	_execute_onexit_table
-	_register_onexit_function
-	_invalid_parameter_noinfo_noreturn
 	_initialize_narrow_environment
-	_configure_narrow_argv
+	_initialize_onexit_table
+	_initterm
+	_initterm_e
+	_invalid_parameter_noinfo_noreturn
+	_register_onexit_function
 	_seh_filter_dll
 	terminate
 api-ms-win-crt-string-l1-1-0.dll
@@ -80,142 +80,142 @@ api-ms-win-crt-string-l1-1-0.dll
 ntcore.dll
 	?Release@nt@@YAXI@Z
 python310.dll
-	PyObject_CallFunctionObjArgs
-	PyObject_SetItem
-	PySequence_Tuple
-	PyObject_IsInstance
+	PyBaseObject_Type
 	PyBuffer_IsContiguous
 	PyBuffer_Release
-	PyWeakref_NewRef
-	PyObject_CallObject
-	PyErr_Occurred
+	PyByteArray_AsString
+	PyByteArray_Size
+	PyByteArray_Type
+	PyBytes_AsString
+	PyBytes_AsStringAndSize
+	PyBytes_FromString
+	PyBytes_Size
+	PyCFunction_Type
+	PyCMethod_New
+	PyCallable_Check
+	PyCapsule_GetContext
+	PyCapsule_GetName
+	PyCapsule_GetPointer
+	PyCapsule_New
+	PyCapsule_SetContext
+	PyCapsule_SetPointer
+	PyCapsule_Type
+	PyDict_Copy
+	PyDict_DelItemString
+	PyDict_GetItemWithError
+	PyDict_New
+	PyDict_Next
+	PyDict_Size
+	PyDict_Type
 	PyErr_Clear
 	PyErr_Fetch
-	PyErr_Restore
-	PyErr_NormalizeException
-	PyException_SetTraceback
-	PyException_SetCause
-	PyErr_SetString
 	PyErr_Format
+	PyErr_NormalizeException
+	PyErr_Occurred
+	PyErr_Restore
+	PyErr_SetString
 	PyErr_WriteUnraisable
-	PyThread_tss_create
-	PyThread_tss_set
-	PyThread_tss_get
-	PyEval_SaveThread
-	PyEval_RestoreThread
 	PyEval_AcquireThread
-	PyFrame_GetBack
-	PyCMethod_New
-	PyBaseObject_Type
-	_Py_NoneStruct
-	_Py_NotImplementedStruct
-	PyByteArray_Type
-	_Py_FalseStruct
-	_Py_TrueStruct
-	PyFloat_Type
-	PyDict_Type
-	PyCFunction_Type
-	PyModule_Type
-	PyMethod_Type
-	PyInstanceMethod_Type
-	PyCapsule_Type
-	PyProperty_Type
+	PyEval_RestoreThread
+	PyEval_SaveThread
 	PyExc_BufferError
+	PyExc_ImportError
 	PyExc_IndexError
 	PyExc_MemoryError
 	PyExc_OverflowError
 	PyExc_RuntimeError
 	PyExc_SystemError
 	PyExc_TypeError
-	_PyThreadState_UncheckedGet
-	PyList_Append
-	PyModule_Create2
-	Py_GetVersion
-	PyExc_ImportError
-	PyThreadState_DeleteCurrent
-	PyObject_GenericGetDict
-	PyDict_DelItemString
-	PyDict_Copy
-	PyDict_Size
-	PyDict_Next
-	PyDict_GetItemWithError
-	PyDict_New
-	PyList_GetItem
-	PyList_Size
-	PyList_New
-	PyTuple_SetItem
-	PyTuple_GetItem
-	PyTuple_Size
-	PyTuple_New
+	PyExc_ValueError
+	PyException_SetCause
+	PyException_SetContext
+	PyException_SetTraceback
 	PyFloat_AsDouble
+	PyFloat_Type
+	PyFrame_GetBack
+	PyFrame_GetCode
+	PyFrame_GetLineNumber
+	PyGILState_Ensure
+	PyGILState_GetThisThreadState
+	PyGILState_Release
+	PyInstanceMethod_New
+	PyInstanceMethod_Type
+	PyInterpreterState_Get
+	PyInterpreterState_GetDict
+	PyList_Append
+	PyList_GetItem
+	PyList_New
+	PyList_Size
+	PyMem_Calloc
+	PyMem_Free
+	PyMethod_Type
+	PyModule_Create2
+	PyModule_Type
+	PyObject_CallFunctionObjArgs
+	PyObject_CallObject
+	PyObject_ClearWeakRefs
+	PyObject_GC_UnTrack
+	PyObject_GenericGetDict
+	PyObject_GenericSetDict
+	PyObject_GetAttr
+	PyObject_GetAttrString
+	PyObject_HasAttrString
+	PyObject_IsInstance
+	PyObject_Malloc
+	PyObject_Repr
+	PyObject_SetAttr
+	PyObject_SetAttrString
+	PyObject_SetItem
+	PyObject_Str
+	PyProperty_Type
+	PySequence_Tuple
+	PyThreadState_Clear
+	PyThreadState_DeleteCurrent
+	PyThreadState_Get
+	PyThreadState_New
+	PyThread_tss_create
+	PyThread_tss_get
+	PyThread_tss_set
+	PyTuple_GetItem
+	PyTuple_New
+	PyTuple_SetItem
+	PyTuple_Size
+	PyType_IsSubtype
+	PyType_Ready
+	PyType_Type
+	PyUnicode_AsEncodedString
 	PyUnicode_AsUTF8AndSize
 	PyUnicode_AsUTF8String
 	PyUnicode_DecodeUTF8
-	PyUnicode_AsEncodedString
 	PyUnicode_FromFormat
 	PyUnicode_FromString
-	PyBytes_AsStringAndSize
-	PyBytes_AsString
-	PyBytes_Size
-	PyBytes_FromString
-	PyByteArray_AsString
-	PyByteArray_Size
-	PyObject_GC_UnTrack
-	PyObject_Malloc
+	PyWeakref_NewRef
+	Py_GetVersion
 	_PyObject_GetDictPtr
+	_PyThreadState_UncheckedGet
 	_PyType_Lookup
 	_Py_Dealloc
-	PyObject_ClearWeakRefs
-	PyCallable_Check
-	PyObject_GenericSetDict
-	PyObject_SetAttr
-	PyObject_GetAttr
-	PyObject_HasAttrString
-	PyGILState_GetThisThreadState
-	PyGILState_Release
-	PyObject_SetAttrString
-	PyObject_GetAttrString
-	PyObject_Str
-	PyGILState_Ensure
-	PyThreadState_Get
-	PyThreadState_Clear
-	PyObject_Repr
-	PyType_Ready
-	PyType_IsSubtype
-	PyThreadState_New
-	PyInterpreterState_GetDict
-	PyInterpreterState_Get
-	PyFrame_GetCode
-	PyFrame_GetLineNumber
-	PyCapsule_SetContext
-	PyCapsule_SetPointer
-	PyCapsule_GetContext
-	PyCapsule_GetName
-	PyCapsule_GetPointer
-	PyCapsule_New
-	PyMem_Free
-	PyExc_ValueError
-	PyInstanceMethod_New
-	PyType_Type
-	PyMem_Calloc
-	PyException_SetContext
+	_Py_FalseStruct
+	_Py_NoneStruct
+	_Py_NotImplementedStruct
+	_Py_TrueStruct
 wpilibc.dll
-	?GetAsBoolean@BooleanEvent@frc@@QEBA_NXZ
-	??BBooleanEvent@frc@@QEAA?AV?$function@$$A6A_NXZ@std@@XZ
-	?IfHigh@BooleanEvent@frc@@QEAAXV?$function@$$A6AXXZ@std@@@Z
-	?Rising@BooleanEvent@frc@@QEAA?AV12@XZ
-	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@VNetworkTableInstance@nt@@V?$basic_string_view@DU?$char_traits@D@std@@@std@@2@Z
+	??0BooleanEvent@frc@@QEAA@PEAVEventLoop@1@V?$function@$$A6A_NXZ@std@@@Z
+	??0EventLoop@frc@@QEAA@XZ
 	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@1@Z
 	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@V?$shared_ptr@VNetworkTable@nt@@@std@@V?$basic_string_view@DU?$char_traits@D@std@@@4@@Z
 	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@VBooleanSubscriber@nt@@@Z
 	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@VBooleanTopic@nt@@@Z
-	?Clear@EventLoop@frc@@QEAAXXZ
-	?Poll@EventLoop@frc@@QEAAXXZ
+	??0NetworkBooleanEvent@frc@@QEAA@PEAVEventLoop@1@VNetworkTableInstance@nt@@V?$basic_string_view@DU?$char_traits@D@std@@@std@@2@Z
+	??BBooleanEvent@frc@@QEAA?AV?$function@$$A6A_NXZ@std@@XZ
 	?Bind@EventLoop@frc@@QEAAXV?$unique_function@$$A6AXXZ@wpi@@@Z
-	??0EventLoop@frc@@QEAA@XZ
+	?Clear@EventLoop@frc@@QEAAXXZ
 	?Debounce@BooleanEvent@frc@@QEAA?AV12@V?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@W4DebounceType@Debouncer@2@@Z
 	?Falling@BooleanEvent@frc@@QEAA?AV12@XZ
-	??0BooleanEvent@frc@@QEAA@PEAVEventLoop@1@V?$function@$$A6A_NXZ@std@@@Z
+	?GetAsBoolean@BooleanEvent@frc@@QEBA_NXZ
+	?IfHigh@BooleanEvent@frc@@QEAAXV?$function@$$A6AXXZ@std@@@Z
+	?Poll@EventLoop@frc@@QEAAXXZ
+	?Rising@BooleanEvent@frc@@QEAA?AV12@XZ
 wpiutil.dll
-	?deallocate_buffer@wpi@@YAXPEAX_K1@Z
 	?allocate_buffer@wpi@@YAPEAX_K0@Z
+	?deallocate_buffer@wpi@@YAXPEAX_K1@Z

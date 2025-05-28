@@ -1,151 +1,127 @@
 KERNEL32.dll
-	SetUnhandledExceptionFilter
-	DisableThreadLibraryCalls
-	GetSystemTimeAsFileTime
-	GetCurrentThreadId
-	GetCurrentProcessId
-	QueryPerformanceCounter
-	TerminateProcess
-	GetCurrentProcess
-	IsProcessorFeaturePresent
-	ReleaseSRWLockExclusive
-	UnhandledExceptionFilter
-	IsDebuggerPresent
-	RtlVirtualUnwind
-	RtlLookupFunctionEntry
-	RtlCaptureContext
-	InitializeSListHead
-	SleepConditionVariableSRW
-	WakeAllConditionVariable
 	AcquireSRWLockExclusive
+	DisableThreadLibraryCalls
+	GetCurrentProcess
+	GetCurrentProcessId
+	GetCurrentThreadId
+	GetSystemTimeAsFileTime
+	InitializeSListHead
+	IsDebuggerPresent
+	IsProcessorFeaturePresent
+	QueryPerformanceCounter
+	ReleaseSRWLockExclusive
+	RtlCaptureContext
+	RtlLookupFunctionEntry
+	RtlVirtualUnwind
+	SetUnhandledExceptionFilter
+	SleepConditionVariableSRW
+	TerminateProcess
+	UnhandledExceptionFilter
+	WakeAllConditionVariable
 MSVCP140.dll
-	?__ExceptionPtrDestroy@@YAXPEAX@Z
-	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
-	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
-	?__ExceptionPtrCompare@@YA_NPEBX0@Z
-	?__ExceptionPtrToBool@@YA_NPEBX@Z
-	?__ExceptionPtrCurrentException@@YAXPEAX@Z
-	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?_Xbad_function_call@std@@YAXXZ
 	?_Xlength_error@std@@YAXPEBD@Z
 	?_Xout_of_range@std@@YAXPEBD@Z
-	?_Xbad_function_call@std@@YAXXZ
+	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
+	?__ExceptionPtrCompare@@YA_NPEBX0@Z
+	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
 	?__ExceptionPtrCreate@@YAXPEAX@Z
+	?__ExceptionPtrCurrentException@@YAXPEAX@Z
+	?__ExceptionPtrDestroy@@YAXPEAX@Z
+	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?__ExceptionPtrToBool@@YA_NPEBX@Z
 VCRUNTIME140.dll
-	__std_type_info_hash
-	_purecall
-	__std_terminate
-	strchr
+	_CxxThrowException
+	__C_specific_handler
+	__RTCastToVoid
+	__RTDynamicCast
+	__RTtypeid
+	__current_exception
+	__current_exception_context
 	__std_exception_copy
 	__std_exception_destroy
-	__std_type_info_destroy_list
-	__C_specific_handler
-	__current_exception_context
-	__current_exception
-	__RTCastToVoid
-	__RTtypeid
-	memset
-	memmove
-	memcpy
-	memcmp
-	memchr
-	__RTDynamicCast
+	__std_terminate
 	__std_type_info_compare
-	_CxxThrowException
+	__std_type_info_destroy_list
+	__std_type_info_hash
 	__std_type_info_name
+	_purecall
+	memchr
+	memcmp
+	memcpy
+	memmove
+	memset
+	strchr
 VCRUNTIME140_1.dll
 	__CxxFrameHandler4
 api-ms-win-crt-heap-l1-1-0.dll
 	_aligned_free
+	_aligned_malloc
 	_callnewh
 	free
-	_aligned_malloc
 	malloc
 api-ms-win-crt-math-l1-1-0.dll
 	ceilf
 api-ms-win-crt-runtime-l1-1-0.dll
-	_crt_atexit
 	_cexit
+	_configure_narrow_argv
+	_crt_atexit
+	_execute_onexit_table
+	_initialize_narrow_environment
+	_initialize_onexit_table
 	_initterm
 	_initterm_e
-	_execute_onexit_table
-	_seh_filter_dll
-	_configure_narrow_argv
-	_register_onexit_function
-	terminate
 	_invalid_parameter_noinfo_noreturn
-	_initialize_onexit_table
-	_initialize_narrow_environment
+	_register_onexit_function
+	_seh_filter_dll
+	terminate
 api-ms-win-crt-string-l1-1-0.dll
-	strcmp
 	_strdup
+	strcmp
 	strncmp
 python310.dll
-	PyCapsule_GetName
-	PyCapsule_GetContext
-	PyCapsule_SetPointer
-	PyCapsule_SetContext
-	PyFrame_GetLineNumber
-	PyFrame_GetCode
-	PyInterpreterState_Get
-	PyInterpreterState_GetDict
-	PyThreadState_New
-	PyThreadState_Clear
-	PyThreadState_Get
-	PyGILState_Ensure
-	PyGILState_Release
-	PyGILState_GetThisThreadState
-	_PyThreadState_UncheckedGet
-	PyThreadState_DeleteCurrent
-	PyObject_CallObject
-	PyObject_CallFunctionObjArgs
-	PyObject_GetItem
-	PyObject_SetItem
-	PyNumber_Check
-	PyNumber_Invert
-	PyNumber_And
-	PyDict_DelItemString
-	PyNumber_Or
-	PyIndex_Check
-	PyNumber_Long
-	PySequence_Tuple
-	PyObject_IsInstance
+	PyBaseObject_Type
 	PyBuffer_IsContiguous
 	PyBuffer_Release
-	PyWeakref_NewRef
-	PyErr_SetString
-	PyErr_Occurred
+	PyByteArray_AsString
+	PyByteArray_Size
+	PyByteArray_Type
+	PyBytes_AsString
+	PyBytes_AsStringAndSize
+	PyBytes_FromString
+	PyBytes_Size
+	PyCFunction_Type
+	PyCMethod_New
+	PyCallable_Check
+	PyCapsule_GetContext
+	PyCapsule_GetName
+	PyCapsule_GetPointer
+	PyCapsule_New
+	PyCapsule_SetContext
+	PyCapsule_SetPointer
+	PyCapsule_Type
+	PyDict_Contains
+	PyDict_Copy
+	PyDict_DelItemString
+	PyDict_GetItemWithError
+	PyDict_New
+	PyDict_Next
+	PyDict_Size
+	PyDict_Type
 	PyErr_Clear
 	PyErr_Fetch
-	PyErr_Restore
-	PyErr_NormalizeException
-	PyException_SetTraceback
-	PyException_SetCause
-	PyException_SetContext
 	PyErr_Format
+	PyErr_NormalizeException
+	PyErr_Occurred
+	PyErr_Restore
+	PyErr_SetString
 	PyErr_WriteUnraisable
-	PyThread_tss_create
-	PyThread_tss_set
-	PyThread_tss_get
-	PyEval_SaveThread
-	PyEval_RestoreThread
 	PyEval_AcquireThread
-	PyFrame_GetBack
-	PyType_Type
-	PyBaseObject_Type
-	_Py_NoneStruct
-	_Py_NotImplementedStruct
-	PyByteArray_Type
-	_Py_FalseStruct
-	_Py_TrueStruct
-	PyFloat_Type
-	PyDict_Type
-	PyCFunction_Type
-	PyModule_Type
-	PyMethod_Type
-	PyInstanceMethod_Type
-	PyCapsule_Type
-	PyCapsule_GetPointer
+	PyEval_GetLocals
+	PyEval_RestoreThread
+	PyEval_SaveThread
 	PyExc_BufferError
+	PyExc_ImportError
 	PyExc_IndexError
 	PyExc_MemoryError
 	PyExc_OverflowError
@@ -153,99 +129,123 @@ python310.dll
 	PyExc_SystemError
 	PyExc_TypeError
 	PyExc_ValueError
-	PyList_Append
-	PyThreadState_GetFrame
-	PyEval_GetLocals
-	PyFloat_FromDouble
+	PyException_SetCause
+	PyException_SetContext
+	PyException_SetTraceback
 	PyFloat_AsDouble
-	PyModule_Create2
-	Py_GetVersion
-	PyExc_ImportError
-	PyDict_Contains
-	PyDict_Copy
-	PyDict_Size
-	PyDict_Next
-	PyDict_GetItemWithError
-	PyDict_New
+	PyFloat_FromDouble
+	PyFloat_Type
+	PyFrame_GetBack
+	PyFrame_GetCode
+	PyFrame_GetLineNumber
+	PyGILState_Ensure
+	PyGILState_GetThisThreadState
+	PyGILState_Release
+	PyIndex_Check
+	PyInstanceMethod_New
+	PyInstanceMethod_Type
+	PyInterpreterState_Get
+	PyInterpreterState_GetDict
+	PyList_Append
 	PyList_GetItem
-	PyList_Size
 	PyList_New
-	PyTuple_SetItem
-	PyTuple_GetItem
-	PyTuple_Size
-	PyTuple_New
+	PyList_Size
 	PyLong_AsLong
-	PyLong_FromSsize_t
 	PyLong_FromLong
+	PyLong_FromSsize_t
+	PyMem_Calloc
+	PyMem_Free
+	PyMethod_Type
+	PyModule_Create2
+	PyModule_Type
+	PyNumber_And
+	PyNumber_Check
+	PyNumber_Invert
+	PyNumber_Long
+	PyNumber_Or
+	PyNumber_Xor
+	PyObject_CallFunctionObjArgs
+	PyObject_CallObject
+	PyObject_ClearWeakRefs
+	PyObject_GC_UnTrack
+	PyObject_GenericGetDict
+	PyObject_GenericSetDict
+	PyObject_GetAttr
+	PyObject_GetAttrString
+	PyObject_GetItem
+	PyObject_HasAttrString
+	PyObject_IsInstance
+	PyObject_Malloc
+	PyObject_Repr
+	PyObject_RichCompareBool
+	PyObject_SetAttr
+	PyObject_SetAttrString
+	PyObject_SetItem
+	PyObject_Str
+	PyProperty_Type
+	PySequence_Tuple
+	PyThreadState_Clear
+	PyThreadState_DeleteCurrent
+	PyThreadState_Get
+	PyThreadState_GetFrame
+	PyThreadState_New
+	PyThread_tss_create
+	PyThread_tss_get
+	PyThread_tss_set
+	PyTuple_GetItem
+	PyTuple_New
+	PyTuple_SetItem
+	PyTuple_Size
+	PyType_IsSubtype
+	PyType_Ready
+	PyType_Type
+	PyUnicode_AsEncodedString
 	PyUnicode_AsUTF8AndSize
 	PyUnicode_AsUTF8String
 	PyUnicode_DecodeUTF8
-	PyUnicode_AsEncodedString
 	PyUnicode_FromFormat
 	PyUnicode_FromString
-	PyBytes_AsStringAndSize
-	PyBytes_AsString
-	PyBytes_Size
-	PyBytes_FromString
-	PyByteArray_AsString
-	PyByteArray_Size
-	PyObject_GC_UnTrack
-	PyObject_Malloc
+	PyWeakref_NewRef
+	Py_GetVersion
 	_PyObject_GetDictPtr
+	_PyThreadState_UncheckedGet
 	_PyType_Lookup
 	_Py_Dealloc
-	PyObject_ClearWeakRefs
-	PyCallable_Check
-	PyObject_GenericSetDict
-	PyObject_SetAttr
-	PyObject_GetAttr
-	PyObject_HasAttrString
-	PyObject_SetAttrString
-	PyObject_GetAttrString
-	PyCapsule_New
-	PyObject_RichCompareBool
-	PyObject_Str
-	PyInstanceMethod_New
-	PyObject_Repr
-	PyCMethod_New
-	PyType_Ready
-	PyType_IsSubtype
-	PyMem_Free
-	PyMem_Calloc
-	PyProperty_Type
-	PyObject_GenericGetDict
-	PyNumber_Xor
+	_Py_FalseStruct
+	_Py_NoneStruct
+	_Py_NotImplementedStruct
+	_Py_TrueStruct
 wpiHal.dll
 	HAL_FreeCounter
 wpilibc.dll
-	?GetCount@ExternalDirectionCounter@frc@@QEBAHXZ
+	??0ExternalDirectionCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
 	??0ExternalDirectionCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
-	?SetReverseDirection@ExternalDirectionCounter@frc@@QEAAX_N@Z
-	?InitSendable@UpDownCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetDownEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
-	?SetUpEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
-	?Reset@UpDownCounter@frc@@QEAAXXZ
-	?SetReverseDirection@UpDownCounter@frc@@QEAAX_N@Z
-	?GetCount@UpDownCounter@frc@@QEBAHXZ
-	??0UpDownCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
+	??0Tachometer@frc@@QEAA@AEAVDigitalSource@1@@Z
+	??0Tachometer@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@@Z
 	??0UpDownCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
-	?InitSendable@Tachometer@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetUpdateWhenEmpty@Tachometer@frc@@QEAAX_N@Z
-	?SetMaxPeriod@Tachometer@frc@@QEAAXV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@@Z
-	?SetSamplesToAverage@Tachometer@frc@@QEAAXH@Z
-	?GetSamplesToAverage@Tachometer@frc@@QEBAHXZ
-	?GetStopped@Tachometer@frc@@QEBA_NXZ
+	??0UpDownCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
+	?GetCount@ExternalDirectionCounter@frc@@QEBAHXZ
+	?GetCount@UpDownCounter@frc@@QEBAHXZ
+	?GetEdgesPerRevolution@Tachometer@frc@@QEBAHXZ
+	?GetFrequency@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
+	?GetPeriod@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
 	?GetRevolutionsPerMinute@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$0DM@@std@@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
 	?GetRevolutionsPerSecond@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
-	?SetEdgesPerRevolution@Tachometer@frc@@QEAAXH@Z
-	?GetEdgesPerRevolution@Tachometer@frc@@QEBAHXZ
-	?GetPeriod@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
-	?GetFrequency@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
-	??0Tachometer@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@@Z
-	??0Tachometer@frc@@QEAA@AEAVDigitalSource@1@@Z
+	?GetSamplesToAverage@Tachometer@frc@@QEBAHXZ
+	?GetStopped@Tachometer@frc@@QEBA_NXZ
 	?InitSendable@ExternalDirectionCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetEdgeConfiguration@ExternalDirectionCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?InitSendable@Tachometer@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
+	?InitSendable@UpDownCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
 	?Reset@ExternalDirectionCounter@frc@@QEAAXXZ
-	??0ExternalDirectionCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
+	?Reset@UpDownCounter@frc@@QEAAXXZ
+	?SetDownEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?SetEdgeConfiguration@ExternalDirectionCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?SetEdgesPerRevolution@Tachometer@frc@@QEAAXH@Z
+	?SetMaxPeriod@Tachometer@frc@@QEAAXV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@@Z
+	?SetReverseDirection@ExternalDirectionCounter@frc@@QEAAX_N@Z
+	?SetReverseDirection@UpDownCounter@frc@@QEAAX_N@Z
+	?SetSamplesToAverage@Tachometer@frc@@QEAAXH@Z
+	?SetUpEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?SetUpdateWhenEmpty@Tachometer@frc@@QEAAX_N@Z
 wpiutil.dll
 	?Remove@SendableRegistry@wpi@@SA_NPEAVSendable@2@@Z
