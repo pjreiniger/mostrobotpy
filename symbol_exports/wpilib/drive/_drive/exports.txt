@@ -1,1 +1,1 @@
-0x1800342e0 PyInit__drive 1
+PyInit__drive 1

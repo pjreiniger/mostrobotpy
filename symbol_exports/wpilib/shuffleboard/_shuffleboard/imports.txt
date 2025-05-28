@@ -1,314 +1,314 @@
 wpilibc.dll
-	0x180099760 ??1ComplexWidget@frc@@UEAA@XZ
-	0x180099768 ?GetLayoutName@LayoutType@frc@@QEBA?AV?$basic_string_view@DU?$char_traits@D@std@@@std@@XZ
-	0x180099770 ?Update@Shuffleboard@frc@@SAXXZ
-	0x180099778 ?GetTab@Shuffleboard@frc@@SAAEAVShuffleboardTab@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x180099780 ?SelectTab@Shuffleboard@frc@@SAXH@Z
-	0x180099788 ?GetEntry@SimpleWidget@frc@@QEAAPEAVGenericEntry@nt@@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x180099790 ?GetEntry@SimpleWidget@frc@@QEAAPEAVGenericEntry@nt@@XZ
-	0x180099798 ??0SimpleWidget@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x1800997a0 ?GetWidgetName@WidgetType@frc@@QEBA?AV?$basic_string_view@DU?$char_traits@D@std@@@std@@XZ
-	0x1800997a8 ?GetStringForWidgetType@detail@frc@@YAPEBDW4BuiltInWidgets@2@@Z
-	0x1800997b0 ?GetRoot@ShuffleboardTab@frc@@QEAAAEAVShuffleboardRoot@2@XZ
-	0x1800997b8 ??0ShuffleboardTab@frc@@QEAA@AEAVShuffleboardRoot@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x1800997c0 ??0ShuffleboardLayout@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@1@Z
-	0x1800997c8 ??1ShuffleboardInstance@detail@frc@@UEAA@XZ
-	0x1800997d0 ??0ShuffleboardInstance@detail@frc@@QEAA@VNetworkTableInstance@nt@@@Z
-	0x1800997d8 ?MakeErrorV@frc@@YA?AVRuntimeError@1@HPEBDH0V?$basic_string_view@D@v11@fmt@@V?$basic_format_args@Vcontext@v11@fmt@@@45@@Z
-	0x1800997e0 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@$0?0@5@@Z
-	0x1800997e8 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_J$0?0@5@@Z
-	0x1800997f0 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBM$0?0@5@@Z
-	0x1800997f8 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBN$0?0@5@@Z
-	0x180099800 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_N$0?0@5@@Z
-	0x180099808 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
-	0x180099810 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@H@Z
-	0x180099818 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@M@Z
-	0x180099820 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@N@Z
-	0x180099828 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@_N@Z
-	0x180099830 ?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVValue@nt@@@Z
-	0x180099838 ?AddRaw@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@EV?$allocator@E@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0V?$function@$$A6A?AV?$vector@EV?$allocator@E@std@@@std@@XZ@5@@Z
-	0x180099840 ?AddRaw@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@EV?$allocator@E@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@EV?$allocator@E@std@@@std@@XZ@5@@Z
-	0x180099848 ?AddBooleanArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@HV?$allocator@H@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@HV?$allocator@H@std@@@std@@XZ@5@@Z
-	0x180099850 ?AddIntegerArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@_JV?$allocator@_J@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@_JV?$allocator@_J@std@@@std@@XZ@5@@Z
-	0x180099858 ?AddFloatArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@MV?$allocator@M@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@MV?$allocator@M@std@@@std@@XZ@5@@Z
-	0x180099860 ?AddDoubleArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@NV?$allocator@N@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@NV?$allocator@N@std@@@std@@XZ@5@@Z
-	0x180099868 ?AddNumberArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@NV?$allocator@N@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@NV?$allocator@N@std@@@std@@XZ@5@@Z
-	0x180099870 ?AddStringArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@XZ@5@@Z
-	0x180099878 ?AddBoolean@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@_N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A_NXZ@5@@Z
-	0x180099880 ?AddInteger@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@_J@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A_JXZ@5@@Z
-	0x180099888 ?AddFloat@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@M@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6AMXZ@5@@Z
-	0x180099890 ?AddDouble@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6ANXZ@5@@Z
-	0x180099898 ?AddNumber@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6ANXZ@5@@Z
-	0x1800998a0 ?AddString@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ@5@@Z
-	0x1800998a8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@$0?0@5@@Z
-	0x1800998b0 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_J$0?0@5@@Z
-	0x1800998b8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBM$0?0@5@@Z
-	0x1800998c0 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBN$0?0@5@@Z
-	0x1800998c8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_N$0?0@5@@Z
-	0x1800998d0 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
-	0x1800998d8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@H@Z
-	0x1800998e0 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@M@Z
-	0x1800998e8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@N@Z
-	0x1800998f0 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@_N@Z
-	0x1800998f8 ?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVValue@nt@@@Z
-	0x180099900 ?Add@ShuffleboardContainer@frc@@QEAAAEAVComplexWidget@2@AEAVSendable@wpi@@@Z
-	0x180099908 ?Add@ShuffleboardContainer@frc@@QEAAAEAVComplexWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEAVSendable@wpi@@@Z
-	0x180099910 ?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x180099918 ?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
-	0x180099920 ?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVLayoutType@2@@Z
-	0x180099928 ?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@W4BuiltInLayouts@2@@Z
-	0x180099930 ?GetComponents@ShuffleboardContainer@frc@@QEBAAEBV?$vector@V?$unique_ptr@VShuffleboardComponentBase@frc@@U?$default_delete@VShuffleboardComponentBase@frc@@@std@@@std@@V?$allocator@V?$unique_ptr@VShuffleboardComponentBase@frc@@U?$default_delete@VShuffleboardComponentBase@frc@@@std@@@std@@@2@@std@@XZ
-	0x180099938 ?GetType@ShuffleboardComponentBase@frc@@QEBAAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ
-	0x180099940 ?GetParent@ShuffleboardComponentBase@frc@@QEAAAEAVShuffleboardContainer@2@XZ
-	0x180099948 ?BuildMetadata@ShuffleboardComponentBase@frc@@QEAAXV?$shared_ptr@VNetworkTable@nt@@@std@@@Z
-	0x180099950 ?SetType@ShuffleboardComponentBase@frc@@QEAAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x180099958 ?AddEventMarker@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@W4ShuffleboardEventImportance@2@@Z
-	0x180099960 ?AddEventMarker@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@0W4ShuffleboardEventImportance@2@@Z
-	0x180099968 ?ClearRecordingFileNameFormat@Shuffleboard@frc@@SAXXZ
-	0x180099970 ?SetRecordingFileNameFormat@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x180099978 ?StopRecording@Shuffleboard@frc@@SAXXZ
-	0x180099980 ?StartRecording@Shuffleboard@frc@@SAXXZ
-	0x180099988 ?DisableActuatorWidgets@Shuffleboard@frc@@SAXXZ
-	0x180099990 ?EnableActuatorWidgets@Shuffleboard@frc@@SAXXZ
-	0x180099998 ?SelectTab@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
-	0x1800999a0 ??0ComplexWidget@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEAVSendable@wpi@@@Z
+	??1ComplexWidget@frc@@UEAA@XZ
+	?GetLayoutName@LayoutType@frc@@QEBA?AV?$basic_string_view@DU?$char_traits@D@std@@@std@@XZ
+	?Update@Shuffleboard@frc@@SAXXZ
+	?GetTab@Shuffleboard@frc@@SAAEAVShuffleboardTab@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?SelectTab@Shuffleboard@frc@@SAXH@Z
+	?GetEntry@SimpleWidget@frc@@QEAAPEAVGenericEntry@nt@@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?GetEntry@SimpleWidget@frc@@QEAAPEAVGenericEntry@nt@@XZ
+	??0SimpleWidget@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?GetWidgetName@WidgetType@frc@@QEBA?AV?$basic_string_view@DU?$char_traits@D@std@@@std@@XZ
+	?GetStringForWidgetType@detail@frc@@YAPEBDW4BuiltInWidgets@2@@Z
+	?GetRoot@ShuffleboardTab@frc@@QEAAAEAVShuffleboardRoot@2@XZ
+	??0ShuffleboardTab@frc@@QEAA@AEAVShuffleboardRoot@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	??0ShuffleboardLayout@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@1@Z
+	??1ShuffleboardInstance@detail@frc@@UEAA@XZ
+	??0ShuffleboardInstance@detail@frc@@QEAA@VNetworkTableInstance@nt@@@Z
+	?MakeErrorV@frc@@YA?AVRuntimeError@1@HPEBDH0V?$basic_string_view@D@v11@fmt@@V?$basic_format_args@Vcontext@v11@fmt@@@45@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@$0?0@5@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_J$0?0@5@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBM$0?0@5@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBN$0?0@5@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_N$0?0@5@@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@H@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@M@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@N@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@_N@Z
+	?AddPersistent@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVValue@nt@@@Z
+	?AddRaw@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@EV?$allocator@E@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0V?$function@$$A6A?AV?$vector@EV?$allocator@E@std@@@std@@XZ@5@@Z
+	?AddRaw@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@EV?$allocator@E@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@EV?$allocator@E@std@@@std@@XZ@5@@Z
+	?AddBooleanArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@HV?$allocator@H@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@HV?$allocator@H@std@@@std@@XZ@5@@Z
+	?AddIntegerArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@_JV?$allocator@_J@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@_JV?$allocator@_J@std@@@std@@XZ@5@@Z
+	?AddFloatArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@MV?$allocator@M@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@MV?$allocator@M@std@@@std@@XZ@5@@Z
+	?AddDoubleArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@NV?$allocator@N@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@NV?$allocator@N@std@@@std@@XZ@5@@Z
+	?AddNumberArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@NV?$allocator@N@std@@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@NV?$allocator@N@std@@@std@@XZ@5@@Z
+	?AddStringArray@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@XZ@5@@Z
+	?AddBoolean@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@_N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A_NXZ@5@@Z
+	?AddInteger@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@_J@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A_JXZ@5@@Z
+	?AddFloat@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@M@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6AMXZ@5@@Z
+	?AddDouble@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6ANXZ@5@@Z
+	?AddNumber@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@N@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6ANXZ@5@@Z
+	?AddString@ShuffleboardContainer@frc@@QEAAAEAV?$SuppliedValueWidget@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$function@$$A6A?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@$0?0@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_J$0?0@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBM$0?0@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CBN$0?0@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@V?$span@$$CB_N$0?0@5@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@H@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@M@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@N@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@_N@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVSimpleWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVValue@nt@@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVComplexWidget@2@AEAVSendable@wpi@@@Z
+	?Add@ShuffleboardContainer@frc@@QEAAAEAVComplexWidget@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEAVSendable@wpi@@@Z
+	?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@0@Z
+	?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEBVLayoutType@2@@Z
+	?GetLayout@ShuffleboardContainer@frc@@QEAAAEAVShuffleboardLayout@2@V?$basic_string_view@DU?$char_traits@D@std@@@std@@W4BuiltInLayouts@2@@Z
+	?GetComponents@ShuffleboardContainer@frc@@QEBAAEBV?$vector@V?$unique_ptr@VShuffleboardComponentBase@frc@@U?$default_delete@VShuffleboardComponentBase@frc@@@std@@@std@@V?$allocator@V?$unique_ptr@VShuffleboardComponentBase@frc@@U?$default_delete@VShuffleboardComponentBase@frc@@@std@@@std@@@2@@std@@XZ
+	?GetType@ShuffleboardComponentBase@frc@@QEBAAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ
+	?GetParent@ShuffleboardComponentBase@frc@@QEAAAEAVShuffleboardContainer@2@XZ
+	?BuildMetadata@ShuffleboardComponentBase@frc@@QEAAXV?$shared_ptr@VNetworkTable@nt@@@std@@@Z
+	?SetType@ShuffleboardComponentBase@frc@@QEAAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?AddEventMarker@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@W4ShuffleboardEventImportance@2@@Z
+	?AddEventMarker@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@0W4ShuffleboardEventImportance@2@@Z
+	?ClearRecordingFileNameFormat@Shuffleboard@frc@@SAXXZ
+	?SetRecordingFileNameFormat@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	?StopRecording@Shuffleboard@frc@@SAXXZ
+	?StartRecording@Shuffleboard@frc@@SAXXZ
+	?DisableActuatorWidgets@Shuffleboard@frc@@SAXXZ
+	?EnableActuatorWidgets@Shuffleboard@frc@@SAXXZ
+	?SelectTab@Shuffleboard@frc@@SAXV?$basic_string_view@DU?$char_traits@D@std@@@std@@@Z
+	??0ComplexWidget@frc@@QEAA@AEAVShuffleboardContainer@1@V?$basic_string_view@DU?$char_traits@D@std@@@std@@AEAVSendable@wpi@@@Z
 ntcore.dll
-	0x180099288 ?Release@nt@@YAXI@Z
+	?Release@nt@@YAXI@Z
 wpiutil.dll
-	0x1800999b0 ?GetName@SendableRegistry@wpi@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBVSendable@2@@Z
-	0x1800999b8 ?grow_pod@SmallVectorBase@wpi@@IEAAXPEAX_K1@Z
-	0x1800999c0 ?mallocForGrow@SmallVectorBase@wpi@@IEAAPEAXPEAX_K1AEA_K@Z
+	?GetName@SendableRegistry@wpi@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBVSendable@2@@Z
+	?grow_pod@SmallVectorBase@wpi@@IEAAXPEAX_K1@Z
+	?mallocForGrow@SmallVectorBase@wpi@@IEAAPEAXPEAX_K1AEA_K@Z
 python310.dll
-	0x180099298 PyObject_RichCompareBool
-	0x1800992a0 PyObject_GetAttrString
-	0x1800992a8 PyObject_SetAttrString
-	0x1800992b0 PyObject_HasAttrString
-	0x1800992b8 PyObject_GetAttr
-	0x1800992c0 PyObject_SetAttr
-	0x1800992c8 PyObject_GenericSetDict
-	0x1800992d0 PyCallable_Check
-	0x1800992d8 PyObject_ClearWeakRefs
-	0x1800992e0 _Py_Dealloc
-	0x1800992e8 _PyType_Lookup
-	0x1800992f0 _PyObject_GetDictPtr
-	0x1800992f8 PyObject_Malloc
-	0x180099300 PyObject_GC_UnTrack
-	0x180099308 PyByteArray_Size
-	0x180099310 PyByteArray_AsString
-	0x180099318 PyBytes_FromString
-	0x180099320 PyBytes_Size
-	0x180099328 PyBytes_AsString
-	0x180099330 PyBytes_AsStringAndSize
-	0x180099338 PyUnicode_FromString
-	0x180099340 PyUnicode_FromFormat
-	0x180099348 PyUnicode_AsEncodedString
-	0x180099350 PyUnicode_DecodeUTF8
-	0x180099358 PyUnicode_AsUTF8String
-	0x180099360 PyUnicode_AsUTF8AndSize
-	0x180099368 PyLong_FromLong
-	0x180099370 PyLong_FromSsize_t
-	0x180099378 PyLong_AsLong
-	0x180099380 PyLong_AsUnsignedLong
-	0x180099388 PyTuple_New
-	0x180099390 PyTuple_Size
-	0x180099398 PyTuple_GetItem
-	0x1800993a0 PyObject_Str
-	0x1800993a8 PyList_New
-	0x1800993b0 PyList_Size
-	0x1800993b8 PyList_GetItem
-	0x1800993c0 PyDict_New
-	0x1800993c8 PyDict_GetItemWithError
-	0x1800993d0 PyDict_Next
-	0x1800993d8 PyDict_Size
-	0x1800993e0 PyDict_Copy
-	0x1800993e8 PyDict_Contains
-	0x1800993f0 PyDict_DelItemString
-	0x1800993f8 PyObject_GenericGetDict
-	0x180099400 PyCMethod_New
-	0x180099408 PyInstanceMethod_New
-	0x180099410 PyCapsule_New
-	0x180099418 PyCapsule_GetPointer
-	0x180099420 PyObject_Repr
-	0x180099428 PyCapsule_GetContext
-	0x180099430 PyCapsule_SetPointer
-	0x180099438 PyCapsule_SetContext
-	0x180099440 PyFrame_GetLineNumber
-	0x180099448 PyFrame_GetCode
-	0x180099450 PyInterpreterState_Get
-	0x180099458 PyInterpreterState_GetDict
-	0x180099460 PyThreadState_New
-	0x180099468 PyThreadState_Clear
-	0x180099470 PyThreadState_Get
-	0x180099478 PyGILState_Ensure
-	0x180099480 PyGILState_Release
-	0x180099488 PyGILState_GetThisThreadState
-	0x180099490 _PyThreadState_UncheckedGet
-	0x180099498 PyThreadState_DeleteCurrent
-	0x1800994a0 PyObject_CallObject
-	0x1800994a8 PyObject_CallFunctionObjArgs
-	0x1800994b0 PyObject_GetItem
-	0x1800994b8 PyObject_SetItem
-	0x1800994c0 PyNumber_Check
-	0x1800994c8 PyNumber_Invert
-	0x1800994d0 PyNumber_And
-	0x1800994d8 PyType_Ready
-	0x1800994e0 PyNumber_Or
-	0x1800994e8 PyIndex_Check
-	0x1800994f0 PyNumber_Long
-	0x1800994f8 PySequence_Tuple
-	0x180099500 PyObject_IsInstance
-	0x180099508 PyBuffer_IsContiguous
-	0x180099510 PyBuffer_Release
-	0x180099518 PyWeakref_NewRef
-	0x180099520 PyErr_SetString
-	0x180099528 PyErr_Occurred
-	0x180099530 PyErr_Clear
-	0x180099538 PyErr_Fetch
-	0x180099540 PyErr_Restore
-	0x180099548 PyErr_NormalizeException
-	0x180099550 PyException_SetTraceback
-	0x180099558 PyException_SetCause
-	0x180099560 PyException_SetContext
-	0x180099568 PyErr_Format
-	0x180099570 PyErr_WriteUnraisable
-	0x180099578 PyThread_tss_create
-	0x180099580 PyThread_tss_set
-	0x180099588 PyThread_tss_get
-	0x180099590 PyEval_SaveThread
-	0x180099598 PyEval_RestoreThread
-	0x1800995a0 PyEval_AcquireThread
-	0x1800995a8 PyFrame_GetBack
-	0x1800995b0 PyType_Type
-	0x1800995b8 PyBaseObject_Type
-	0x1800995c0 _Py_NoneStruct
-	0x1800995c8 _Py_NotImplementedStruct
-	0x1800995d0 PyByteArray_Type
-	0x1800995d8 _Py_FalseStruct
-	0x1800995e0 _Py_TrueStruct
-	0x1800995e8 PyFloat_Type
-	0x1800995f0 PyDict_Type
-	0x1800995f8 PyCFunction_Type
-	0x180099600 PyModule_Type
-	0x180099608 PyMethod_Type
-	0x180099610 PyInstanceMethod_Type
-	0x180099618 PyCapsule_Type
-	0x180099620 PyProperty_Type
-	0x180099628 PyExc_BufferError
-	0x180099630 PyExc_IndexError
-	0x180099638 PyExc_MemoryError
-	0x180099640 PyExc_OverflowError
-	0x180099648 PyExc_RuntimeError
-	0x180099650 PyExc_SystemError
-	0x180099658 PyExc_TypeError
-	0x180099660 PyExc_ValueError
-	0x180099668 PyList_Append
-	0x180099670 PyStaticMethod_New
-	0x180099678 PyStaticMethod_Type
-	0x180099680 PyMapping_Check
-	0x180099688 PyMapping_Items
-	0x180099690 PyUnicode_FromStringAndSize
-	0x180099698 PyLong_AsLongLong
-	0x1800996a0 PyFloat_AsDouble
-	0x1800996a8 PyObject_GetIter
-	0x1800996b0 PyIter_Next
-	0x1800996b8 PyNumber_Float
-	0x1800996c0 PySequence_Check
-	0x1800996c8 PySequence_Size
-	0x1800996d0 PySequence_GetItem
-	0x1800996d8 PySet_Type
-	0x1800996e0 PyFrozenSet_Type
-	0x1800996e8 PyGen_Type
-	0x1800996f0 PyModule_AddObject
-	0x1800996f8 PyThreadState_GetFrame
-	0x180099700 PyEval_GetLocals
-	0x180099708 PyModule_Create2
-	0x180099710 Py_GetVersion
-	0x180099718 PyExc_ImportError
-	0x180099720 PyDict_Clear
-	0x180099728 PyType_IsSubtype
-	0x180099730 PyMem_Free
-	0x180099738 PyMem_Calloc
-	0x180099740 PyNumber_Xor
-	0x180099748 PyCapsule_GetName
-	0x180099750 PyTuple_SetItem
+	PyObject_RichCompareBool
+	PyObject_GetAttrString
+	PyObject_SetAttrString
+	PyObject_HasAttrString
+	PyObject_GetAttr
+	PyObject_SetAttr
+	PyObject_GenericSetDict
+	PyCallable_Check
+	PyObject_ClearWeakRefs
+	_Py_Dealloc
+	_PyType_Lookup
+	_PyObject_GetDictPtr
+	PyObject_Malloc
+	PyObject_GC_UnTrack
+	PyByteArray_Size
+	PyByteArray_AsString
+	PyBytes_FromString
+	PyBytes_Size
+	PyBytes_AsString
+	PyBytes_AsStringAndSize
+	PyUnicode_FromString
+	PyUnicode_FromFormat
+	PyUnicode_AsEncodedString
+	PyUnicode_DecodeUTF8
+	PyUnicode_AsUTF8String
+	PyUnicode_AsUTF8AndSize
+	PyLong_FromLong
+	PyLong_FromSsize_t
+	PyLong_AsLong
+	PyLong_AsUnsignedLong
+	PyTuple_New
+	PyTuple_Size
+	PyTuple_GetItem
+	PyObject_Str
+	PyList_New
+	PyList_Size
+	PyList_GetItem
+	PyDict_New
+	PyDict_GetItemWithError
+	PyDict_Next
+	PyDict_Size
+	PyDict_Copy
+	PyDict_Contains
+	PyDict_DelItemString
+	PyObject_GenericGetDict
+	PyCMethod_New
+	PyInstanceMethod_New
+	PyCapsule_New
+	PyCapsule_GetPointer
+	PyObject_Repr
+	PyCapsule_GetContext
+	PyCapsule_SetPointer
+	PyCapsule_SetContext
+	PyFrame_GetLineNumber
+	PyFrame_GetCode
+	PyInterpreterState_Get
+	PyInterpreterState_GetDict
+	PyThreadState_New
+	PyThreadState_Clear
+	PyThreadState_Get
+	PyGILState_Ensure
+	PyGILState_Release
+	PyGILState_GetThisThreadState
+	_PyThreadState_UncheckedGet
+	PyThreadState_DeleteCurrent
+	PyObject_CallObject
+	PyObject_CallFunctionObjArgs
+	PyObject_GetItem
+	PyObject_SetItem
+	PyNumber_Check
+	PyNumber_Invert
+	PyNumber_And
+	PyType_Ready
+	PyNumber_Or
+	PyIndex_Check
+	PyNumber_Long
+	PySequence_Tuple
+	PyObject_IsInstance
+	PyBuffer_IsContiguous
+	PyBuffer_Release
+	PyWeakref_NewRef
+	PyErr_SetString
+	PyErr_Occurred
+	PyErr_Clear
+	PyErr_Fetch
+	PyErr_Restore
+	PyErr_NormalizeException
+	PyException_SetTraceback
+	PyException_SetCause
+	PyException_SetContext
+	PyErr_Format
+	PyErr_WriteUnraisable
+	PyThread_tss_create
+	PyThread_tss_set
+	PyThread_tss_get
+	PyEval_SaveThread
+	PyEval_RestoreThread
+	PyEval_AcquireThread
+	PyFrame_GetBack
+	PyType_Type
+	PyBaseObject_Type
+	_Py_NoneStruct
+	_Py_NotImplementedStruct
+	PyByteArray_Type
+	_Py_FalseStruct
+	_Py_TrueStruct
+	PyFloat_Type
+	PyDict_Type
+	PyCFunction_Type
+	PyModule_Type
+	PyMethod_Type
+	PyInstanceMethod_Type
+	PyCapsule_Type
+	PyProperty_Type
+	PyExc_BufferError
+	PyExc_IndexError
+	PyExc_MemoryError
+	PyExc_OverflowError
+	PyExc_RuntimeError
+	PyExc_SystemError
+	PyExc_TypeError
+	PyExc_ValueError
+	PyList_Append
+	PyStaticMethod_New
+	PyStaticMethod_Type
+	PyMapping_Check
+	PyMapping_Items
+	PyUnicode_FromStringAndSize
+	PyLong_AsLongLong
+	PyFloat_AsDouble
+	PyObject_GetIter
+	PyIter_Next
+	PyNumber_Float
+	PySequence_Check
+	PySequence_Size
+	PySequence_GetItem
+	PySet_Type
+	PyFrozenSet_Type
+	PyGen_Type
+	PyModule_AddObject
+	PyThreadState_GetFrame
+	PyEval_GetLocals
+	PyModule_Create2
+	Py_GetVersion
+	PyExc_ImportError
+	PyDict_Clear
+	PyType_IsSubtype
+	PyMem_Free
+	PyMem_Calloc
+	PyNumber_Xor
+	PyCapsule_GetName
+	PyTuple_SetItem
 MSVCP140.dll
-	0x1800990a0 ?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
-	0x1800990a8 ?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
-	0x1800990b0 ?__ExceptionPtrDestroy@@YAXPEAX@Z
-	0x1800990b8 ?__ExceptionPtrCreate@@YAXPEAX@Z
-	0x1800990c0 ?__ExceptionPtrToBool@@YA_NPEBX@Z
-	0x1800990c8 ?__ExceptionPtrCompare@@YA_NPEBX0@Z
-	0x1800990d0 ?__ExceptionPtrCurrentException@@YAXPEAX@Z
-	0x1800990d8 ?__ExceptionPtrRethrow@@YAXPEBX@Z
-	0x1800990e0 ?_Xlength_error@std@@YAXPEBD@Z
-	0x1800990e8 ?_Xout_of_range@std@@YAXPEBD@Z
-	0x1800990f0 ?_Xbad_function_call@std@@YAXXZ
+	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
+	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
+	?__ExceptionPtrDestroy@@YAXPEAX@Z
+	?__ExceptionPtrCreate@@YAXPEAX@Z
+	?__ExceptionPtrToBool@@YA_NPEBX@Z
+	?__ExceptionPtrCompare@@YA_NPEBX0@Z
+	?__ExceptionPtrCurrentException@@YAXPEAX@Z
+	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?_Xlength_error@std@@YAXPEBD@Z
+	?_Xout_of_range@std@@YAXPEBD@Z
+	?_Xbad_function_call@std@@YAXXZ
 VCRUNTIME140.dll
-	0x180099100 _purecall
-	0x180099108 __std_terminate
-	0x180099110 strchr
-	0x180099118 __std_exception_copy
-	0x180099120 __std_exception_destroy
-	0x180099128 __std_type_info_compare
-	0x180099130 __std_type_info_hash
-	0x180099138 __std_type_info_name
-	0x180099140 _CxxThrowException
-	0x180099148 __RTDynamicCast
-	0x180099150 memchr
-	0x180099158 memcmp
-	0x180099160 memcpy
-	0x180099168 memmove
-	0x180099170 memset
-	0x180099178 __RTtypeid
-	0x180099180 __std_type_info_destroy_list
-	0x180099188 __C_specific_handler
-	0x180099190 __current_exception_context
-	0x180099198 __current_exception
-	0x1800991a0 __RTCastToVoid
+	_purecall
+	__std_terminate
+	strchr
+	__std_exception_copy
+	__std_exception_destroy
+	__std_type_info_compare
+	__std_type_info_hash
+	__std_type_info_name
+	_CxxThrowException
+	__RTDynamicCast
+	memchr
+	memcmp
+	memcpy
+	memmove
+	memset
+	__RTtypeid
+	__std_type_info_destroy_list
+	__C_specific_handler
+	__current_exception_context
+	__current_exception
+	__RTCastToVoid
 VCRUNTIME140_1.dll
-	0x1800991b0 __CxxFrameHandler4
+	__CxxFrameHandler4
 api-ms-win-crt-runtime-l1-1-0.dll
-	0x180099200 _invalid_parameter_noinfo_noreturn
-	0x180099208 _seh_filter_dll
-	0x180099210 _configure_narrow_argv
-	0x180099218 _initialize_narrow_environment
-	0x180099220 _initialize_onexit_table
-	0x180099228 terminate
-	0x180099230 _register_onexit_function
-	0x180099238 _execute_onexit_table
-	0x180099240 _initterm_e
-	0x180099248 _initterm
-	0x180099250 _crt_atexit
-	0x180099258 _cexit
+	_invalid_parameter_noinfo_noreturn
+	_seh_filter_dll
+	_configure_narrow_argv
+	_initialize_narrow_environment
+	_initialize_onexit_table
+	terminate
+	_register_onexit_function
+	_execute_onexit_table
+	_initterm_e
+	_initterm
+	_crt_atexit
+	_cexit
 api-ms-win-crt-string-l1-1-0.dll
-	0x180099268 _strdup
-	0x180099270 strcmp
-	0x180099278 strncmp
+	_strdup
+	strcmp
+	strncmp
 api-ms-win-crt-heap-l1-1-0.dll
-	0x1800991c0 free
-	0x1800991c8 _callnewh
-	0x1800991d0 _aligned_free
-	0x1800991d8 malloc
-	0x1800991e0 _aligned_malloc
+	free
+	_callnewh
+	_aligned_free
+	malloc
+	_aligned_malloc
 api-ms-win-crt-math-l1-1-0.dll
-	0x1800991f0 ceilf
+	ceilf
 KERNEL32.dll
-	0x180099000 SetUnhandledExceptionFilter
-	0x180099008 DisableThreadLibraryCalls
-	0x180099010 GetSystemTimeAsFileTime
-	0x180099018 GetCurrentThreadId
-	0x180099020 GetCurrentProcessId
-	0x180099028 QueryPerformanceCounter
-	0x180099030 TerminateProcess
-	0x180099038 GetCurrentProcess
-	0x180099040 IsProcessorFeaturePresent
-	0x180099048 ReleaseSRWLockExclusive
-	0x180099050 UnhandledExceptionFilter
-	0x180099058 IsDebuggerPresent
-	0x180099060 RtlVirtualUnwind
-	0x180099068 RtlLookupFunctionEntry
-	0x180099070 RtlCaptureContext
-	0x180099078 InitializeSListHead
-	0x180099080 SleepConditionVariableSRW
-	0x180099088 WakeAllConditionVariable
-	0x180099090 AcquireSRWLockExclusive
+	SetUnhandledExceptionFilter
+	DisableThreadLibraryCalls
+	GetSystemTimeAsFileTime
+	GetCurrentThreadId
+	GetCurrentProcessId
+	QueryPerformanceCounter
+	TerminateProcess
+	GetCurrentProcess
+	IsProcessorFeaturePresent
+	ReleaseSRWLockExclusive
+	UnhandledExceptionFilter
+	IsDebuggerPresent
+	RtlVirtualUnwind
+	RtlLookupFunctionEntry
+	RtlCaptureContext
+	InitializeSListHead
+	SleepConditionVariableSRW
+	WakeAllConditionVariable
+	AcquireSRWLockExclusive
