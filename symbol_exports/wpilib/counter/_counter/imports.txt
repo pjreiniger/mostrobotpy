@@ -1,37 +1,84 @@
-wpilibc.dll
-	?GetCount@ExternalDirectionCounter@frc@@QEBAHXZ
-	??0ExternalDirectionCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
-	?SetReverseDirection@ExternalDirectionCounter@frc@@QEAAX_N@Z
-	?InitSendable@UpDownCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetDownEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
-	?SetUpEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
-	?Reset@UpDownCounter@frc@@QEAAXXZ
-	?SetReverseDirection@UpDownCounter@frc@@QEAAX_N@Z
-	?GetCount@UpDownCounter@frc@@QEBAHXZ
-	??0UpDownCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
-	??0UpDownCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
-	?InitSendable@Tachometer@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetUpdateWhenEmpty@Tachometer@frc@@QEAAX_N@Z
-	?SetMaxPeriod@Tachometer@frc@@QEAAXV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@@Z
-	?SetSamplesToAverage@Tachometer@frc@@QEAAXH@Z
-	?GetSamplesToAverage@Tachometer@frc@@QEBAHXZ
-	?GetStopped@Tachometer@frc@@QEBA_NXZ
-	?GetRevolutionsPerMinute@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$0DM@@std@@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
-	?GetRevolutionsPerSecond@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
-	?SetEdgesPerRevolution@Tachometer@frc@@QEAAXH@Z
-	?GetEdgesPerRevolution@Tachometer@frc@@QEBAHXZ
-	?GetPeriod@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
-	?GetFrequency@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
-	??0Tachometer@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@@Z
-	??0Tachometer@frc@@QEAA@AEAVDigitalSource@1@@Z
-	?InitSendable@ExternalDirectionCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
-	?SetEdgeConfiguration@ExternalDirectionCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
-	?Reset@ExternalDirectionCounter@frc@@QEAAXXZ
-	??0ExternalDirectionCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
-wpiHal.dll
-	HAL_FreeCounter
-wpiutil.dll
-	?Remove@SendableRegistry@wpi@@SA_NPEAVSendable@2@@Z
+KERNEL32.dll
+	SetUnhandledExceptionFilter
+	DisableThreadLibraryCalls
+	GetSystemTimeAsFileTime
+	GetCurrentThreadId
+	GetCurrentProcessId
+	QueryPerformanceCounter
+	TerminateProcess
+	GetCurrentProcess
+	IsProcessorFeaturePresent
+	ReleaseSRWLockExclusive
+	UnhandledExceptionFilter
+	IsDebuggerPresent
+	RtlVirtualUnwind
+	RtlLookupFunctionEntry
+	RtlCaptureContext
+	InitializeSListHead
+	SleepConditionVariableSRW
+	WakeAllConditionVariable
+	AcquireSRWLockExclusive
+MSVCP140.dll
+	?__ExceptionPtrDestroy@@YAXPEAX@Z
+	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
+	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
+	?__ExceptionPtrCompare@@YA_NPEBX0@Z
+	?__ExceptionPtrToBool@@YA_NPEBX@Z
+	?__ExceptionPtrCurrentException@@YAXPEAX@Z
+	?__ExceptionPtrRethrow@@YAXPEBX@Z
+	?_Xlength_error@std@@YAXPEBD@Z
+	?_Xout_of_range@std@@YAXPEBD@Z
+	?_Xbad_function_call@std@@YAXXZ
+	?__ExceptionPtrCreate@@YAXPEAX@Z
+VCRUNTIME140.dll
+	__std_type_info_hash
+	_purecall
+	__std_terminate
+	strchr
+	__std_exception_copy
+	__std_exception_destroy
+	__std_type_info_destroy_list
+	__C_specific_handler
+	__current_exception_context
+	__current_exception
+	__RTCastToVoid
+	__RTtypeid
+	memset
+	memmove
+	memcpy
+	memcmp
+	memchr
+	__RTDynamicCast
+	__std_type_info_compare
+	_CxxThrowException
+	__std_type_info_name
+VCRUNTIME140_1.dll
+	__CxxFrameHandler4
+api-ms-win-crt-heap-l1-1-0.dll
+	_aligned_free
+	_callnewh
+	free
+	_aligned_malloc
+	malloc
+api-ms-win-crt-math-l1-1-0.dll
+	ceilf
+api-ms-win-crt-runtime-l1-1-0.dll
+	_crt_atexit
+	_cexit
+	_initterm
+	_initterm_e
+	_execute_onexit_table
+	_seh_filter_dll
+	_configure_narrow_argv
+	_register_onexit_function
+	terminate
+	_invalid_parameter_noinfo_noreturn
+	_initialize_onexit_table
+	_initialize_narrow_environment
+api-ms-win-crt-string-l1-1-0.dll
+	strcmp
+	_strdup
+	strncmp
 python310.dll
 	PyCapsule_GetName
 	PyCapsule_GetContext
@@ -168,84 +215,37 @@ python310.dll
 	PyProperty_Type
 	PyObject_GenericGetDict
 	PyNumber_Xor
-MSVCP140.dll
-	?__ExceptionPtrDestroy@@YAXPEAX@Z
-	?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
-	?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
-	?__ExceptionPtrCompare@@YA_NPEBX0@Z
-	?__ExceptionPtrToBool@@YA_NPEBX@Z
-	?__ExceptionPtrCurrentException@@YAXPEAX@Z
-	?__ExceptionPtrRethrow@@YAXPEBX@Z
-	?_Xlength_error@std@@YAXPEBD@Z
-	?_Xout_of_range@std@@YAXPEBD@Z
-	?_Xbad_function_call@std@@YAXXZ
-	?__ExceptionPtrCreate@@YAXPEAX@Z
-VCRUNTIME140.dll
-	__std_type_info_hash
-	_purecall
-	__std_terminate
-	strchr
-	__std_exception_copy
-	__std_exception_destroy
-	__std_type_info_destroy_list
-	__C_specific_handler
-	__current_exception_context
-	__current_exception
-	__RTCastToVoid
-	__RTtypeid
-	memset
-	memmove
-	memcpy
-	memcmp
-	memchr
-	__RTDynamicCast
-	__std_type_info_compare
-	_CxxThrowException
-	__std_type_info_name
-VCRUNTIME140_1.dll
-	__CxxFrameHandler4
-api-ms-win-crt-runtime-l1-1-0.dll
-	_crt_atexit
-	_cexit
-	_initterm
-	_initterm_e
-	_execute_onexit_table
-	_seh_filter_dll
-	_configure_narrow_argv
-	_register_onexit_function
-	terminate
-	_invalid_parameter_noinfo_noreturn
-	_initialize_onexit_table
-	_initialize_narrow_environment
-api-ms-win-crt-string-l1-1-0.dll
-	strcmp
-	_strdup
-	strncmp
-api-ms-win-crt-heap-l1-1-0.dll
-	_aligned_free
-	_callnewh
-	free
-	_aligned_malloc
-	malloc
-api-ms-win-crt-math-l1-1-0.dll
-	ceilf
-KERNEL32.dll
-	SetUnhandledExceptionFilter
-	DisableThreadLibraryCalls
-	GetSystemTimeAsFileTime
-	GetCurrentThreadId
-	GetCurrentProcessId
-	QueryPerformanceCounter
-	TerminateProcess
-	GetCurrentProcess
-	IsProcessorFeaturePresent
-	ReleaseSRWLockExclusive
-	UnhandledExceptionFilter
-	IsDebuggerPresent
-	RtlVirtualUnwind
-	RtlLookupFunctionEntry
-	RtlCaptureContext
-	InitializeSListHead
-	SleepConditionVariableSRW
-	WakeAllConditionVariable
-	AcquireSRWLockExclusive
+wpiHal.dll
+	HAL_FreeCounter
+wpilibc.dll
+	?GetCount@ExternalDirectionCounter@frc@@QEBAHXZ
+	??0ExternalDirectionCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
+	?SetReverseDirection@ExternalDirectionCounter@frc@@QEAAX_N@Z
+	?InitSendable@UpDownCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
+	?SetDownEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?SetUpEdgeConfiguration@UpDownCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?Reset@UpDownCounter@frc@@QEAAXXZ
+	?SetReverseDirection@UpDownCounter@frc@@QEAAX_N@Z
+	?GetCount@UpDownCounter@frc@@QEBAHXZ
+	??0UpDownCounter@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@0@Z
+	??0UpDownCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
+	?InitSendable@Tachometer@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
+	?SetUpdateWhenEmpty@Tachometer@frc@@QEAAX_N@Z
+	?SetMaxPeriod@Tachometer@frc@@QEAAXV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@@Z
+	?SetSamplesToAverage@Tachometer@frc@@QEAAXH@Z
+	?GetSamplesToAverage@Tachometer@frc@@QEBAHXZ
+	?GetStopped@Tachometer@frc@@QEBA_NXZ
+	?GetRevolutionsPerMinute@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$0DM@@std@@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
+	?GetRevolutionsPerSecond@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$01$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@@units@@U?$ratio@$00$00@2@U?$ratio@$0A@$00@2@@units@@NUlinear_scale@2@@units@@XZ
+	?SetEdgesPerRevolution@Tachometer@frc@@QEAAXH@Z
+	?GetEdgesPerRevolution@Tachometer@frc@@QEBAHXZ
+	?GetPeriod@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$00$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
+	?GetFrequency@Tachometer@frc@@QEBA?AV?$unit_t@U?$unit@U?$ratio@$00$00@std@@U?$base_unit@U?$ratio@$0A@$00@std@@U12@U?$ratio@$0?0$00@2@U12@U12@U12@U12@U12@U12@@units@@U?$ratio@$0A@$00@2@U52@@units@@NUlinear_scale@2@@units@@XZ
+	??0Tachometer@frc@@QEAA@V?$shared_ptr@VDigitalSource@frc@@@std@@@Z
+	??0Tachometer@frc@@QEAA@AEAVDigitalSource@1@@Z
+	?InitSendable@ExternalDirectionCounter@frc@@MEAAXAEAVSendableBuilder@wpi@@@Z
+	?SetEdgeConfiguration@ExternalDirectionCounter@frc@@QEAAXW4EdgeConfiguration@2@@Z
+	?Reset@ExternalDirectionCounter@frc@@QEAAXXZ
+	??0ExternalDirectionCounter@frc@@QEAA@AEAVDigitalSource@1@0@Z
+wpiutil.dll
+	?Remove@SendableRegistry@wpi@@SA_NPEAVSendable@2@@Z
