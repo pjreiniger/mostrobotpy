@@ -16,7 +16,7 @@ bazel_dep(name = "rules_semiwrap", version = "")
 
 archive_override(
     module_name = "rules_semiwrap",
-    integrity = "sha256-kSGEIiDeEWEIxTRNYbI+p4RaDwqKlKRGu21YCE8nSGg="
+    integrity = "sha256-kSGEIiDeEWEIxTRNYbI+p4RaDwqKlKRGu21YCE8nSGg=",
     strip_prefix = "rules_semiwrap-448b0690d241ce71157db979835ab6f1477fc016",
     urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/448b0690d241ce71157db979835ab6f1477fc016.tar.gz"],
 )
