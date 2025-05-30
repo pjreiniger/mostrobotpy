@@ -4,7 +4,7 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 compile_pip_requirements(
     name = "requirements",
     extra_args = ["--allow-unsafe"],
-    # requirements_windows = ":requirements_windows.txt",
+    requirements_windows = ":requirements_windows.txt",
     python_version = "3.12",
     requirements_in = "//:requirements.txt",
     requirements_txt = ":requirements_lock.txt",
@@ -15,7 +15,7 @@ compile_pip_requirements(
 compile_pip_requirements(
     name = "testing_requirements",
     extra_args = ["--allow-unsafe"],
-    # requirements_windows = ":testing_requirements_windows.txt",
+    requirements_windows = ":testing_requirements_windows.txt",
     python_version = "3.12",
     requirements_in = "//:testing_requirements.txt",
     requirements_txt = ":testing_requirements_lock.txt",

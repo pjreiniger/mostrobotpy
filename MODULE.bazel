@@ -99,13 +99,13 @@ pip.parse(
     hub_name = "mostrobotpy_pip_deps",
     python_version = "3.12",
     requirements_lock = "//requirement_locks/3.11:requirements_lock.txt",
-    # requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
+    requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
 )
 pip.parse(
     hub_name = "mostrobotpy_pip_deps",
     python_version = "3.13",
     requirements_lock = "//requirement_locks/3.11:requirements_lock.txt",
-    # requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
+    requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
 )
 use_repo(pip, "mostrobotpy_pip_deps")
 
@@ -132,12 +132,12 @@ pip.parse(
     hub_name = "mostrobotpy_tests_pip_deps",
     python_version = "3.12",
     requirements_lock = "//requirement_locks/3.11:testing_requirements_lock.txt",
-    # requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
+    requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
 )
 pip.parse(
     hub_name = "mostrobotpy_tests_pip_deps",
     python_version = "3.13",
     requirements_lock = "//requirement_locks/3.11:testing_requirements_lock.txt",
-    # requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
+    requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
 )
 use_repo(pip, "mostrobotpy_tests_pip_deps")
