@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
@@ -277,8 +277,9 @@ copy_extension_library(
     output_directory = "wpilib/simulation/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "wpilib",
+    package_name = "robotpy-wpilib",
     srcs = glob(["wpilib/**/*.py"]) + [
         "wpilib/_init__wpilib.py",
         "wpilib/counter/_init__counter.py",
@@ -298,14 +299,15 @@ pybind_python_library(
         ":copy_wpilib_simulation",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/pyntcore:ntcore",
-        "//subprojects/robotpy-hal:hal",
-        "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpimath:wpimath",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/pyntcore:import",
+        "//subprojects/robotpy-hal:import",
+        "//subprojects/robotpy-native-wpilib:import",
+        "//subprojects/robotpy-wpimath:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-wpilib"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

@@ -1,5 +1,6 @@
+load("@rules_python//python:defs.bzl", "py_library")
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
 
 DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/include"
 
@@ -22,7 +23,7 @@ copy_extension_library(
     output_directory = "wpiutil_test/",
 )
 
-pybind_python_library(
+py_library(
     name = "wpiutil_test",
     srcs = glob(["wpiutil_test/*.py"]),
     data = [

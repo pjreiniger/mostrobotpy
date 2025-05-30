@@ -1,7 +1,7 @@
 load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     CSCORE_HEADER_GEN = [
         struct(
             class_name = "cscore_cpp",
@@ -56,23 +56,22 @@ def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
             yml_file = "semiwrap/CameraServer.yml",
             header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers/cameraserver/CameraServer.h",
             tmpl_class_names = [],
-            trampolines = [],
+            trampolines = [
+                ("frc::CameraServer", "frc__CameraServer.hpp"),
+            ],
         ),
     ]
-
     resolve_casters(
         name = "cscore.resolve_casters",
-        caster_files = [
-            "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json",
-        ],
+        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "cscore-casters.pybind11.json"],
         casters_pkl_file = "cscore.casters.pkl",
         dep_file = "cscore.casters.d",
     )
 
     gen_libinit(
         name = "cscore.gen_lib_init",
-        modules = ["wpiutil._init__wpiutil", "wpinet._init__wpinet", "ntcore._init__ntcore"],
         output_file = "cscore/_init__cscore.py",
+        modules = ["wpiutil._init__wpiutil", "wpinet._init__wpinet", "ntcore._init__ntcore"],
     )
 
     gen_pkgconf(
@@ -100,7 +99,10 @@ def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
+            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "external/bzlmodrio-opencv~~setup_bzlmodrio_opencv_cpp_dependencies~bazelrio_edu_wpi_first_thirdparty_frc_opencv_opencv-cpp_headers",
         ],
     )
 
@@ -119,11 +121,21 @@ def cscore_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_da
         extension_name = extension_name,
         generated_srcs = [":cscore.generated_srcs"],
         semiwrap_header = [":cscore.gen_modinit_hpp"],
-        deps = [
+        deps = deps + [
             ":cscore.tmpl_hdrs",
             ":cscore.trampoline_hdrs",
-        ] + other_deps,
+        ],
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+def publish_library_casters(typecasters_srcs):
+    publish_casters(
+        name = "publish_casters",
+        caster_name = "cscore-casters",
+        output_json = "cscore-casters.pybind11.json",
+        output_pc = "cscore-casters.pc",
+        project_config = "pyproject.toml",
+        typecasters_srcs = typecasters_srcs,
     )

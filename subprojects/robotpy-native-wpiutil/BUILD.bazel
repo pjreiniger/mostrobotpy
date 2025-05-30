@@ -1,26 +1,10 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:hatch_nativelib_helpers.bzl", "gen_libinit")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
 
-gen_libinit(
-    name = "gen_lib_init",
-    lib_name = "wpiutil",
-    modules = [],
-    output_file = "native/wpiutil/_init_robotpy_native_wpiutil.py",
-)
-
-copy_native_file(
+create_native_library(
     name = "wpiutil",
-    base_path = "native/wpiutil/",
-    library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
-)
-
-pybind_python_library(
-    name = "robotpy-native-wpiutil",
-    srcs = [":gen_lib_init"],
-    data = [
-        ":wpiutil.copy_lib",
-    ],
-    imports = ["."],
-    visibility = ["//visibility:public"],
+    package_name = "robotpy-native-wpiutil",
+    lib_name = "wpiutil",
+    module_dependencies = [],
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
+    strip_pkg_prefix = ["subprojects/robotpy-native-wpiutil"],
 )

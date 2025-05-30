@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
 
@@ -58,8 +58,9 @@ copy_extension_library(
     output_directory = "hal/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "hal",
+    package_name = "robotpy-hal",
     srcs = glob(["hal/**/*.py"]) + [
         "hal/_init__wpiHal.py",
         "hal/simulation/_init__simulation.py",
@@ -69,11 +70,12 @@ pybind_python_library(
         ":copy_wpihal",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-wpihal",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-wpihal:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-hal"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

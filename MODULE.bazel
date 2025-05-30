@@ -1,9 +1,11 @@
-bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "rules_python", version = "1.0.0")
 bazel_dep(name = "pybind11_bazel", version = "2.13.6")
 bazel_dep(name = "bzlmodrio-allwpilib", version = "2025.3.2.bcr1")
-bazel_dep(name = "rules_cc", version = "0.0.15")
+bazel_dep(name = "bzlmodrio-opencv", version = "2025.4.10.0-3.bcr2")
+bazel_dep(name = "rules_cc", version = "0.0.16")
 bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
+bazel_dep(name = "rules_pycross", version = "0.7.1")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
 
 # local_path_override(
@@ -13,6 +15,7 @@ bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_
 
 archive_override(
     module_name = "pybind11_bazel",
+    integrity = "sha256-iwRj1wuX2pDS6t6DqiCfhIXisv4y+7CvxSJtZoSAzGw=",
     patch_strip = 1,
     patches = [
         "//:0001-Patch-to-robotpy-version.patch",
@@ -23,6 +26,7 @@ archive_override(
 
 archive_override(
     module_name = "bzlmodrio-allwpilib",
+    integrity = "sha256-xGfPnmwkmynzIe6hjOpkTsiSkblt4bqS7DRTXjB+dDA=",
     strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
     urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
 )

@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library", "copy_native_file")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ext_extension")
 
@@ -31,20 +31,22 @@ copy_native_file(
     library = "@bzlmodrio-allwpilib//libraries/cpp/halsim_gui:shared_raw",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "halsim-gui",
+    package_name = "robotpy-halsim-gui",
     srcs = glob(["halsim_gui/**/*.py"]),
     data = [
         ":copy_halsim_gui_ext",
         ":halsim_gui.copy_lib",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/pyntcore:ntcore",
-        "//subprojects/robotpy-hal:hal",
-        "//subprojects/robotpy-wpimath:wpimath",
+    robotpy_wheel_deps = [
+        "//subprojects/pyntcore:import",
+        "//subprojects/robotpy-hal:import",
+        "//subprojects/robotpy-wpimath:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-halsim-gui"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

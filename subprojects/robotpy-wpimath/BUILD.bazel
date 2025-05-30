@@ -1,5 +1,5 @@
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
+load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
@@ -214,8 +214,9 @@ copy_extension_library(
     output_directory = "wpimath/_controls/",
 )
 
-pybind_python_library(
+robotpy_library(
     name = "wpimath",
+    package_name = "robotpy-wpimath",
     srcs = glob(["wpimath/**/*.py"]) + [
         "wpimath/_controls/_init__controls.py",
         "wpimath/_init__wpimath.py",
@@ -235,11 +236,12 @@ pybind_python_library(
         ":copy_wpimath_spline",
     ],
     imports = ["."],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//subprojects/robotpy-native-wpimath:wpimath",
-        "//subprojects/robotpy-wpiutil:wpiutil",
+    robotpy_wheel_deps = [
+        "//subprojects/robotpy-native-wpimath:import",
+        "//subprojects/robotpy-wpiutil:import",
     ],
+    strip_path_prefixes = ["subprojects/robotpy-wpimath"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(

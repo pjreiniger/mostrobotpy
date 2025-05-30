@@ -17,6 +17,6 @@ wpilib_py_test(
     ),
     deps = [
         requirement("opencv-python"),
-        "//subprojects/robotpy-apriltag:apriltag",
+        "//subprojects/robotpy-apriltag:import",
     ],
 )

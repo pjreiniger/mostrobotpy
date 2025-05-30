@@ -1,5 +1,5 @@
+load("@rules_python//python:defs.bzl", "py_library")
 load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "pybind_python_library")
 load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
 load("//subprojects/robotpy-wpimath/tests/cpp:generated_build_info.bzl", "wpimath_test_extension")
 
@@ -24,7 +24,7 @@ copy_extension_library(
     output_directory = "wpimath_test/",
 )
 
-pybind_python_library(
+py_library(
     name = "wpimath_test",
     srcs = glob(["wpimath_test/**/*.py"]) + ["wpimath_test/_init__wpimath_test.py"],
     data = [
