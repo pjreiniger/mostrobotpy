@@ -1,4 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("//bazel_scripts:version.bzl", "VERSION")
 
 create_native_library(
     name = "xrp",
@@ -7,4 +8,5 @@ create_native_library(
     module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-xrp"],
+    version = VERSION,
 )

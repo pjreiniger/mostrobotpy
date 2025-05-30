@@ -1,4 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "copy_native_file", "robotpy_library")
+load("//bazel_scripts:version.bzl", "VERSION")
 
 copy_native_file(
     name = "halsim_ws_server",
