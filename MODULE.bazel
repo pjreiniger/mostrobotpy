@@ -1,9 +1,9 @@
-bazel_dep(name = "rules_python", version = "1.0.0")
+bazel_dep(name = "rules_python", version = "1.4.1")
 bazel_dep(name = "pybind11_bazel", version = "2.13.6")
 bazel_dep(name = "bzlmodrio-allwpilib", version = "2025.3.2.bcr1")
 bazel_dep(name = "bzlmodrio-opencv", version = "2025.4.10.0-3.bcr2")
 bazel_dep(name = "rules_cc", version = "0.0.16")
-bazel_dep(name = "platforms", version = "0.0.10")
+bazel_dep(name = "platforms", version = "0.0.11")
 bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
 bazel_dep(name = "rules_pycross", version = "0.7.1")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
@@ -36,24 +36,95 @@ python = use_extension(
     "python",
     dev_dependency = True,
 )
+python.defaults(
+    # The environment variable takes precedence if set.
+    python_version = "3.13",
+    python_version_env = "BAZEL_PYTHON_VERSION",
+)
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.9",
+)
 python.toolchain(
     ignore_root_user_error = True,
-    is_default = True,
     python_version = "3.10",
 )
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.11",
+)
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.12",
+)
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.13",
+)
 
+# Base requirements
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
     hub_name = "mostrobotpy_pip_deps",
+    python_version = "3.9",
+    requirements_lock = "//requirement_locks/3.9:requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.9:requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_pip_deps",
     python_version = "3.10",
-    requirements_lock = "//:requirements_lock.txt",
-    requirements_windows = "//:requirements_windows.txt",
+    requirements_lock = "//requirement_locks/3.10:requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.10:requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_pip_deps",
+    python_version = "3.11",
+    requirements_lock = "//requirement_locks/3.11:requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_pip_deps",
+    python_version = "3.12",
+    requirements_lock = "//requirement_locks/3.11:requirements_lock.txt",
+    # requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_pip_deps",
+    python_version = "3.13",
+    requirements_lock = "//requirement_locks/3.11:requirements_lock.txt",
+    # requirements_windows = "//requirement_locks/3.11:requirements_windows.txt",
 )
 use_repo(pip, "mostrobotpy_pip_deps")
+
+# Testing requirements
+pip.parse(
+    hub_name = "mostrobotpy_tests_pip_deps",
+    python_version = "3.9",
+    requirements_lock = "//requirement_locks/3.9:testing_requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.9:testing_requirements_windows.txt",
+)
 pip.parse(
     hub_name = "mostrobotpy_tests_pip_deps",
     python_version = "3.10",
-    requirements_lock = "//:testing_requirements_lock.txt",
-    requirements_windows = "//:testing_requirements_windows.txt",
+    requirements_lock = "//requirement_locks/3.10:testing_requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.10:testing_requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_tests_pip_deps",
+    python_version = "3.11",
+    requirements_lock = "//requirement_locks/3.11:testing_requirements_lock.txt",
+    requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_tests_pip_deps",
+    python_version = "3.12",
+    requirements_lock = "//requirement_locks/3.11:testing_requirements_lock.txt",
+    # requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
+)
+pip.parse(
+    hub_name = "mostrobotpy_tests_pip_deps",
+    python_version = "3.13",
+    requirements_lock = "//requirement_locks/3.11:testing_requirements_lock.txt",
+    # requirements_windows = "//requirement_locks/3.11:testing_requirements_windows.txt",
 )
 use_repo(pip, "mostrobotpy_tests_pip_deps")
