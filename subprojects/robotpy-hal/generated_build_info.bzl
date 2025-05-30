@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//:defs.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def hal_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [

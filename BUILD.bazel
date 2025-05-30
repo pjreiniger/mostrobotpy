@@ -1,4 +1,7 @@
-exports_files(["testing_requirements.txt", "requirements.txt"])
+exports_files([
+    "testing_requirements.txt",
+    "requirements.txt",
+])
 
 filegroup(
     name = "generated_files",

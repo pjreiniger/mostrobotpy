@@ -1,6 +1,6 @@
 import os
 
-PYPROJECT_FILE_TMPL = "bazel-mostrobotpy/external/rules_python~~pip~mostrobotpy_pip_deps_{}_semiwrap/site-packages/semiwrap/pyproject.py"
+PYPROJECT_FILE_TMPL = "bazel-mostrobotpy/external/rules_python~~pip~rules_semiwrap_pip_deps_{}_semiwrap/site-packages/semiwrap/pyproject.py"
 
 if os.path.exists(PYPROJECT_FILE_TMPL.format("39")):
     PYPROJECT_FILE = PYPROJECT_FILE_TMPL.format("39")

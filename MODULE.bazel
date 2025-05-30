@@ -9,9 +9,16 @@ bazel_dep(name = "rules_pycross", version = "0.7.1")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
 bazel_dep(name = "rules_semiwrap", version = "")
 
-local_path_override(
+# local_path_override(
+#     module_name = "rules_semiwrap",
+#     path = "../rules_semiwrap",
+# )
+
+archive_override(
     module_name = "rules_semiwrap",
-    path = "../rules_semiwrap",
+    integrity = "sha256-j7NC2qItxGtqvK6H2NoW7x+ASUPbITt4p8gX86w+/dQ=",
+    strip_prefix = "rules_semiwrap-47f246656492a3bc4ebc6f460631e79a90c79061",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/47f246656492a3bc4ebc6f460631e79a90c79061.tar.gz"],
 )
 
 # local_path_override(
@@ -44,7 +51,7 @@ python = use_extension(
 )
 python.defaults(
     # The environment variable takes precedence if set.
-    python_version = "3.10",
+    python_version = "3.11",
     python_version_env = "BAZEL_PYTHON_VERSION",
 )
 python.toolchain(

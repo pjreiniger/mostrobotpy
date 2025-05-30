@@ -1,6 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_library")
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 
 DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/include"
 

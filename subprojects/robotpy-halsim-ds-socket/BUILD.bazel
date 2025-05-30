@@ -1,5 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "copy_native_file")
-load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_native_file", "robotpy_library")
 
 copy_native_file(
     name = "halsim_ds_socket",
@@ -19,5 +18,6 @@ robotpy_library(
         "//subprojects/robotpy-wpilib:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-halsim-ds-socket"],
+    version = VERSION,
     visibility = ["//visibility:public"],
 )

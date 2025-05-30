@@ -1,5 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "copy_native_file")
-load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_native_file", "robotpy_library")
 
 copy_native_file(
     name = "halsim_ws_server",
@@ -27,5 +26,6 @@ robotpy_library(
         "//subprojects/robotpy-wpinet:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-halsim-ws"],
+    version = VERSION,
     visibility = ["//visibility:public"],
 )

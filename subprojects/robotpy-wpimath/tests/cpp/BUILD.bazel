@@ -1,6 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_library")
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi")
 load("//subprojects/robotpy-wpimath/tests/cpp:generated_build_info.bzl", "wpimath_test_extension")
 
 DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpimath/tests/cpp/wpimath_test/include"

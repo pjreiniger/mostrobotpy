@@ -1,6 +1,5 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "copy_native_file")
-load("@rules_semiwrap//:defs.bzl", "robotpy_library")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "copy_native_file", "make_pyi", "robotpy_library")
+load("//bazel_scripts:version.bzl", "VERSION")
 load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ext_extension")
 
 halsim_gui_ext_extension(
@@ -46,6 +45,7 @@ robotpy_library(
         "//subprojects/robotpy-wpimath:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-halsim-gui"],
+    version = VERSION,
     visibility = ["//visibility:public"],
 )
 

@@ -1,6 +1,5 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
-load("@rules_semiwrap//:defs.bzl", "robotpy_library")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("//bazel_scripts:version.bzl", "VERSION")
 load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers"
@@ -239,6 +238,7 @@ robotpy_library(
         "//subprojects/robotpy-wpiutil:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-wpimath"],
+    version = VERSION,
     visibility = ["//visibility:public"],
 )
 
