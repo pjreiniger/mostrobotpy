@@ -2,6 +2,7 @@ import pathlib
 import shutil
 import sys
 import tempfile
+import threading
 import typing as T
 
 from packaging.requirements import Requirement
@@ -9,6 +10,7 @@ import tomli
 
 from .config import SubprojectConfig
 from .util import run_cmd, run_pip
+from .HACK_pj_copy_intermediates import StupidThread
 
 
 class Subproject:
@@ -88,37 +90,59 @@ class Subproject:
         wheel_path.mkdir(parents=True, exist_ok=True)
 
         config_args = [f"--config-setting={setting}" for setting in config_settings]
+        print(config_args)
 
         # TODO: eventually it would be nice to use build isolation
+        pathlib.Path("pjbuild").mkdir(parents=True, exist_ok=True)
+
+        copy_thread_holder = StupidThread()
+        ttttt = threading.Thread(target=copy_thread_holder.loop_copy_files)
+        ttttt.start()
 
         with tempfile.TemporaryDirectory() as td:
-            # I wonder if we should use hatch build instead?
-            run_cmd(
-                sys.executable,
-                "-m",
-                "build",
-                "--no-isolation",
-                "--outdir",
-                td,
-                *config_args,
-                cwd=self.path,
-            )
+            try:
+                # I wonder if we should use hatch build instead?
+                run_cmd(
+                    sys.executable,
+                    "-m",
+                    "build",
+                    # "-Cbuild-dir=pjbuild",
+                    "--no-isolation",
+                    "--outdir",
+                    td,
+                    *config_args,
+                    cwd=self.path,
+                )
 
-            tdp = pathlib.Path(td)
-            twhl = list(tdp.glob("*.whl"))[0]
-            dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
-            shutil.move(twhl, dst_whl)
+                tdp = pathlib.Path(td)
+                twhl = list(tdp.glob("*.whl"))[0]
+                dst_whl = wheel_path / self._fix_wheel_name(twhl.name)
+                shutil.move(twhl, dst_whl)
+            except:
+                copy_thread_holder.running_build = False
+                ttttt.join()
+                raise
 
         if install:
             # Install the wheel
-            run_pip(
-                "install",
-                "--find-links",
-                str(wheel_path),
-                "--find-links",
-                str(other_wheel_path),
-                str(dst_whl),
-            )
+            try:
+                run_pip(
+                    "install",
+                    "--find-links",
+                    str(wheel_path),
+                    "--find-links",
+                    str(other_wheel_path),
+                    str(dst_whl),
+                )
+            except:
+                copy_thread_holder.running_build = False
+                ttttt.join()
+                raise
+
+        copy_thread_holder.running_build = False
+
+        ttttt.join()
+        print("Post thread")
 
     _adjust_wheel_tags = {
         # pypi only accepts manylinux wheels, and we know we're compatible

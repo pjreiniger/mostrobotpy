@@ -3,10 +3,6 @@ load("//:python_rules.bzl", "wpilib_py_test")
 
 wpilib_py_test(
     "cscore_tests",
-    data = glob([
-        "*.jpg",
-        "*.png",
-    ]),
     extra_sources = ["conftest.py"],
     tests = glob(
         ["**/*.py"],

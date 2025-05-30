@@ -8,6 +8,9 @@ common --registry=https://raw.githubusercontent.com/pjreiniger/bazel-central-reg
 
 common --enable_platform_specific_config
 
+build --incompatible_disallow_empty_glob=1 # Bazel 8 prep
+build -c opt
+
 build:linux   --copt=-std=c++20
 build:macos   --copt=-std=c++20
 
