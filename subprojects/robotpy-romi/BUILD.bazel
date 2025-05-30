@@ -1,6 +1,6 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
+load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//subprojects/robotpy-romi:generated_build_info.bzl", "romi_extension")
 
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers"

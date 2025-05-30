@@ -1,7 +1,8 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
+load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "publish_library_casters", "wpiutil_extension")
+load("//bazel_scripts:version.bzl", "VERSION")
 
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers"
 
@@ -49,6 +50,7 @@ robotpy_library(
     srcs = glob(["wpiutil/**/*.py"]) + ["wpiutil/_init__wpiutil.py"],
     data = [":copy_wpiutil"],
     imports = ["."],
+    version = VERSION,
     robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
     strip_path_prefixes = ["subprojects/robotpy-wpiutil"],
     visibility = ["//visibility:public"],

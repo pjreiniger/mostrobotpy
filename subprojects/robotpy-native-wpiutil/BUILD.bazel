@@ -1,4 +1,4 @@
-load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
+load("@rules_semiwrap//:defs.bzl", "create_native_library")
 
 create_native_library(
     name = "wpiutil",
@@ -7,4 +7,5 @@ create_native_library(
     module_dependencies = [],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpiutil"],
+    version = "0.0.0",
 )

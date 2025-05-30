@@ -1,5 +1,5 @@
-load("//bazel_scripts:pybind_rules.bzl", "create_pybind_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def wpimath_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_HEADER_GEN = [

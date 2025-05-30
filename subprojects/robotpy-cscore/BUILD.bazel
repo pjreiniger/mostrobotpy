@@ -1,6 +1,6 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library")
-load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
+load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "publish_library_casters")
 
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers"

@@ -1,5 +1,5 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_native_file")
-load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_native_file")
+load("@rules_semiwrap//:defs.bzl", "robotpy_library")
 
 copy_native_file(
     name = "halsim_ws_server",

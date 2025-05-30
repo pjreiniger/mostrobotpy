@@ -1,6 +1,6 @@
-load("//bazel_scripts:copy_native_file.bzl", "copy_extension_library", "copy_native_file")
-load("//bazel_scripts:pybind_rules.bzl", "robotpy_library")
-load("//bazel_scripts:semiwrap_helpers.bzl", "make_pyi")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "copy_native_file")
+load("@rules_semiwrap//:defs.bzl", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ext_extension")
 
 halsim_gui_ext_extension(

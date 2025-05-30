@@ -1,4 +1,4 @@
-load("//bazel_scripts:native_lib_helpers.bzl", "create_native_library")
+load("@rules_semiwrap//:defs.bzl", "create_native_library")
 
 create_native_library(
     name = "wpimath",
