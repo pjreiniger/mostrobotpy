@@ -610,7 +610,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "Notifier",
             yml_file = "semiwrap/Notifier.yml",
-            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src",
             header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
             tmpl_class_names = [],
             trampolines = [

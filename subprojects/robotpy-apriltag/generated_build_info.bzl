@@ -79,7 +79,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
     ]
     resolve_casters(
         name = "apriltag.resolve_casters",
-        caster_files = [],
+        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"],
         casters_pkl_file = "apriltag.casters.pkl",
         dep_file = "apriltag.casters.d",
     )
@@ -87,7 +87,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
     gen_libinit(
         name = "apriltag.gen_lib_init",
         output_file = "robotpy_apriltag/_init__apriltag.py",
-        modules = [],
+        modules = ["native.apriltag._init_robotpy_native_apriltag", "wpiutil._init__wpiutil", "wpimath._init__wpimath"],
     )
 
     gen_pkgconf(
