@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def wpimath_test_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_TEST_HEADER_GEN = [
         struct(
             class_name = "module",
             yml_file = "semiwrap/module.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/module.h",
+            header_root = "subprojects/robotpy-wpimath/tests/cpp/wpimath_test/include",
+            header_file = "subprojects/robotpy-wpimath/tests/cpp/wpimath_test/include/module.h",
             tmpl_class_names = [],
             trampolines = [
                 ("SomeClass", "__SomeClass.hpp"),
@@ -46,7 +47,6 @@ def wpimath_test_extension(entry_point, other_deps, DEFAULT_INCLUDE_ROOT, header
         name = "wpimath_test",
         casters_pickle = "wpimath_test.casters.pkl",
         header_gen_config = WPIMATH_TEST_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
     )
 

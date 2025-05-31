@@ -1,12 +1,23 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     CSCORE_HEADER_GEN = [
+        struct(
+            class_name = "CameraServer",
+            yml_file = "semiwrap/CameraServer.yml",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers/cameraserver/CameraServer.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("frc::CameraServer", "frc__CameraServer.hpp"),
+            ],
+        ),
         struct(
             class_name = "cscore_cpp",
             yml_file = "semiwrap/cscore_cpp.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_cpp.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers/cscore_cpp.h",
             tmpl_class_names = [],
             trampolines = [
                 ("cs::UsbCameraInfo", "cs__UsbCameraInfo.hpp"),
@@ -17,7 +28,8 @@ def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "cscore_oo",
             yml_file = "semiwrap/cscore_oo.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_oo.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers/cscore_oo.h",
             tmpl_class_names = [],
             trampolines = [
                 ("cs::VideoProperty", "cs__VideoProperty.hpp"),
@@ -37,7 +49,8 @@ def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "cscore_cv",
             yml_file = "semiwrap/cscore_cv.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_cv.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers/cscore_cv.h",
             tmpl_class_names = [],
             trampolines = [
                 ("cs::CvSource", "cs__CvSource.hpp"),
@@ -47,18 +60,10 @@ def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "cscore_runloop",
             yml_file = "semiwrap/cscore_runloop.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/cscore_runloop.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers/cscore_runloop.h",
             tmpl_class_names = [],
             trampolines = [],
-        ),
-        struct(
-            class_name = "CameraServer",
-            yml_file = "semiwrap/CameraServer.yml",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers/cameraserver/CameraServer.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::CameraServer", "frc__CameraServer.hpp"),
-            ],
         ),
     ]
     resolve_casters(
@@ -94,7 +99,6 @@ def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         name = "cscore",
         casters_pickle = "cscore.casters.pkl",
         header_gen_config = CSCORE_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",
@@ -114,6 +118,7 @@ def cscore_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
             "cscore.gen_pkgconf",
             "cscore.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "cscore",

@@ -2,10 +2,7 @@ load("@rules_python//python:defs.bzl", "py_library")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi")
 load("//subprojects/robotpy-wpimath/tests/cpp:generated_build_info.bzl", "wpimath_test_extension")
 
-DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpimath/tests/cpp/wpimath_test/include"
-
 wpimath_test_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath_test/src/module.cpp"],
     extra_hdrs = glob(["wpimath_test/include/*.h"]),
     header_to_dat_deps = glob(["wpimath_test/include/*.h"]),

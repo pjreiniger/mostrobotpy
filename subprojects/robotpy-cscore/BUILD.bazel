@@ -2,14 +2,11 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "publish_library_casters")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers"
-
 publish_library_casters(
     typecasters_srcs = ["cscore/cvnp/cvnp.h"],
 )
 
 cscore_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["cscore/src/main.cpp"],
     extra_hdrs = glob(["cscore/cvnp/*.h"]),
     extra_srcs = glob(

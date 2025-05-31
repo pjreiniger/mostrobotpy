@@ -1,5 +1,5 @@
-load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
+load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
 
 robotpy_py_test(
     "wpinet_tests",
@@ -13,6 +13,6 @@ robotpy_py_test(
     ),
     deps = [
         "//subprojects/robotpy-wpinet:import",
-        requirement("pytest")
+        requirement("pytest"),
     ],
 )

@@ -1,13 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
         struct(
             class_name = "PortForwarder",
             yml_file = "semiwrap/PortForwarder.yml",
-            header_root = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include",
-            header_file = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include/wpinet/PortForwarder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers/wpinet/PortForwarder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::PortForwarder", "wpi__PortForwarder.hpp"),
@@ -16,8 +16,8 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "WebServer",
             yml_file = "semiwrap/WebServer.yml",
-            header_root = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include",
-            header_file = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include/wpinet/WebServer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers/wpinet/WebServer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::WebServer", "wpi__WebServer.hpp"),

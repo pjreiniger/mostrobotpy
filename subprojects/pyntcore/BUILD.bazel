@@ -5,7 +5,6 @@ load("//subprojects/pyntcore:generated_build_info.bzl", "ntcore_extension")
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers"
 
 ntcore_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["ntcore/src/ntcore.cpp"],
     extra_hdrs = glob([
         "ntcore/src/*.h",

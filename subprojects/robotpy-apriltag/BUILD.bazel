@@ -2,10 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers"
-
 apriltag_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["robotpy_apriltag/src/main.cpp"],
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",

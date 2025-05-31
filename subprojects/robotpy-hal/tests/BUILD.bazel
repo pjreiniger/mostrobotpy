@@ -1,6 +1,7 @@
-load("//:python_rules.bzl", "wpilib_py_test")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
+load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
 
-wpilib_py_test(
+robotpy_py_test(
     "hal_tests",
     extra_sources = ["conftest.py"],
     tests = glob(
@@ -12,5 +13,6 @@ wpilib_py_test(
     ),
     deps = [
         "//subprojects/robotpy-hal:import",
+        requirement("pytest"),
     ],
 )

@@ -1,7 +1,7 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
-load("//:python_rules.bzl", "wpilib_py_test")
+load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
 
-wpilib_py_test(
+robotpy_py_test(
     "apriltag_tests",
     data = glob([
         "*.jpg",
@@ -17,6 +17,7 @@ wpilib_py_test(
     ),
     deps = [
         requirement("opencv-python"),
+        requirement("pytest"),
         "//subprojects/robotpy-apriltag:import",
     ],
 )

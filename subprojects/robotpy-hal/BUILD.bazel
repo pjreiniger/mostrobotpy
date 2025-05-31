@@ -2,10 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers"
-
 hal_simulation_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["hal/simulation/main.cpp"],
     extension_name = "_simulation",
     extra_hdrs = glob(["hal/simulation/*.h"]),
@@ -25,7 +22,6 @@ hal_simulation_extension(
 )
 
 wpihal_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["hal/src/hal.cpp"],
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",

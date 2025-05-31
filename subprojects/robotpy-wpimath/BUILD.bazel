@@ -2,8 +2,6 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers"
-
 publish_library_casters(
     typecasters_srcs = glob([
         "wpimath/_impl/src/**",
@@ -11,7 +9,6 @@ publish_library_casters(
 )
 
 wpimath_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/src/wpimath.cpp"],
     extra_hdrs = glob(["wpimath/_impl/src/**/*.h"]),
     header_to_dat_deps = [
@@ -29,7 +26,6 @@ wpimath_extension(
 )
 
 wpimath_filter_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/filter/filter.cpp"],
     extension_name = "_filter",
     header_to_dat_deps = [
@@ -44,7 +40,6 @@ wpimath_filter_extension(
 )
 
 wpimath_geometry_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/geometry/geometry.cpp"],
     extension_name = "_geometry",
     extra_hdrs = glob(["wpimath/geometry/include/rpy/*"]),
@@ -64,7 +59,6 @@ wpimath_geometry_extension(
 )
 
 wpimath_interpolation_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/interpolation/interpolation.cpp"],
     extension_name = "_interpolation",
     header_to_dat_deps = [
@@ -83,7 +77,6 @@ wpimath_interpolation_extension(
 )
 
 wpimath_kinematics_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/kinematics/kinematics.cpp"],
     extension_name = "_kinematics",
     header_to_dat_deps = [
@@ -102,7 +95,6 @@ wpimath_kinematics_extension(
 )
 
 wpimath_spline_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/spline/spline.cpp"],
     extension_name = "_spline",
     header_to_dat_deps = [
@@ -121,7 +113,6 @@ wpimath_spline_extension(
 )
 
 wpimath_controls_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpimath/_controls/controls.cpp"],
     extension_name = "_controls",
     header_to_dat_deps = [
