@@ -551,8 +551,8 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "Filesystem",
             yml_file = "semiwrap/Filesystem.yml",
-            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h/rpy/Filesystem.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -610,8 +610,8 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "Notifier",
             yml_file = "semiwrap/Notifier.yml",
-            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h/rpy/Notifier.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyNotifier", "frc__PyNotifier.hpp"),
@@ -969,8 +969,8 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "MotorControllerGroup",
             yml_file = "semiwrap/MotorControllerGroup.yml",
-            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h/rpy/MotorControllerGroup.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyMotorControllerGroup", "frc__PyMotorControllerGroup.hpp"),
@@ -1273,7 +1273,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "wpilib",
         casters_pickle = "wpilib.casters.pkl",
         header_gen_config = WPILIB_HEADER_GEN,
-        deps = header_to_dat_deps,
+        deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib/src",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
