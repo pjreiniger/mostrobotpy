@@ -2,10 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "xrp_extension")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers"
-
 xrp_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["xrp/src/main.cpp"],
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",

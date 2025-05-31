@@ -3,7 +3,6 @@ load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ext_extension")
 
 halsim_gui_ext_extension(
-    DEFAULT_INCLUDE_ROOT = "",
     entry_point = ["halsim_gui/_ext/main.cpp"],
     header_to_dat_deps = [],
     deps = [

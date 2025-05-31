@@ -97,7 +97,6 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         name = "xrp",
         casters_pickle = "xrp.casters.pkl",
         header_gen_config = XRP_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",

@@ -2,10 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotp
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers"
-
 wpilib_event_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/event/event.cpp"],
     extension_name = "_event",
     header_to_dat_deps = [
@@ -23,7 +20,6 @@ wpilib_event_extension(
 )
 
 wpilib_interfaces_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/interfaces/interfaces.cpp"],
     extension_name = "_interfaces",
     header_to_dat_deps = [
@@ -43,7 +39,6 @@ wpilib_interfaces_extension(
 )
 
 wpilib_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/src/main.cpp"],
     extra_hdrs = glob([
         "wpilib/src/rpy/*.h",
@@ -80,7 +75,6 @@ wpilib_extension(
 )
 
 wpilib_counter_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/counter/counter.cpp"],
     extension_name = "_counter",
     header_to_dat_deps = [
@@ -110,7 +104,6 @@ wpilib_counter_extension(
 )
 
 wpilib_drive_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/drive/drive.cpp"],
     extension_name = "_drive",
     header_to_dat_deps = [
@@ -140,7 +133,6 @@ wpilib_drive_extension(
 )
 
 wpilib_shuffleboard_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/shuffleboard/shuffleboard.cpp"],
     extension_name = "_shuffleboard",
     extra_hdrs = glob(["wpilib/shuffleboard/*.h"]),
@@ -176,7 +168,6 @@ wpilib_shuffleboard_extension(
 )
 
 wpilib_simulation_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpilib/simulation/simulation.cpp"],
     extension_name = "_simulation",
     header_to_dat_deps = [
