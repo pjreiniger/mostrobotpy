@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
-load("//bazel_scripts:version.bzl", "VERSION")
+load("//:version.bzl", "VERSION")
 
 create_native_library(
     name = "romi",
