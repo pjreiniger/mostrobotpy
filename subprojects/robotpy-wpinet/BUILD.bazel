@@ -5,7 +5,6 @@ load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension"
 DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers"
 
 wpinet_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpinet/src/main.cpp"],
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",

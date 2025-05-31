@@ -12,7 +12,6 @@ publish_library_casters(
 )
 
 wpiutil_extension(
-    DEFAULT_INCLUDE_ROOT = DEFAULT_INCLUDE_ROOT,
     entry_point = ["wpiutil/src/main.cpp"],
     extra_hdrs = glob([
         "wpiutil/src/type_casters/*.h",
@@ -26,6 +25,7 @@ wpiutil_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
     ],
     includes = [
+        "wpiutil/",
         "wpiutil/src/type_casters",
         "wpiutil/src/wpistruct",
     ],

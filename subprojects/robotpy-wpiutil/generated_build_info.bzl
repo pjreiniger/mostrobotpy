@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
         struct(
             class_name = "DataLog",
             yml_file = "semiwrap/DataLog.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/DataLog.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/DataLog.h",
             tmpl_class_names = [
                 ("DataLog_tmpl1", "StructLogEntry"),
                 ("DataLog_tmpl2", "StructArrayLogEntry"),
@@ -44,7 +45,8 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "DataLogReader",
             yml_file = "semiwrap/DataLogReader.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/DataLogReader.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/DataLogReader.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::StartRecordData", "wpi__log__StartRecordData.hpp"),
@@ -56,7 +58,8 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "DataLogBackgroundWriter",
             yml_file = "semiwrap/DataLogBackgroundWriter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/DataLogBackgroundWriter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/DataLogBackgroundWriter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::DataLogBackgroundWriter", "wpi__log__DataLogBackgroundWriter.hpp"),
@@ -65,7 +68,8 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "DataLogWriter",
             yml_file = "semiwrap/DataLogWriter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/DataLogWriter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/DataLogWriter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::DataLogWriter", "wpi__log__DataLogWriter.hpp"),
@@ -74,28 +78,32 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "StackTrace",
             yml_file = "semiwrap/StackTrace.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/StackTrace.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/StackTrace.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Synchronization",
             yml_file = "semiwrap/Synchronization.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/Synchronization.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/Synchronization.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "RawFrame",
             yml_file = "semiwrap/RawFrame.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/RawFrame.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/RawFrame.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Sendable",
             yml_file = "semiwrap/Sendable.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/sendable/Sendable.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/sendable/Sendable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::Sendable", "wpi__Sendable.hpp"),
@@ -104,7 +112,8 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "SendableBuilder",
             yml_file = "semiwrap/SendableBuilder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/sendable/SendableBuilder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/sendable/SendableBuilder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::SendableBuilder", "wpi__SendableBuilder.hpp"),
@@ -113,7 +122,8 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "SendableRegistry",
             yml_file = "semiwrap/SendableRegistry.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpi/sendable/SendableRegistry.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers/wpi/sendable/SendableRegistry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::SendableRegistry", "wpi__SendableRegistry.hpp"),
@@ -122,6 +132,7 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         struct(
             class_name = "WPyStruct",
             yml_file = "semiwrap/WPyStruct.yml",
+            header_root = "subprojects/robotpy-wpiutil/wpiutil",
             header_file = "subprojects/robotpy-wpiutil/wpiutil/src/wpistruct/wpystruct_fns.h",
             tmpl_class_names = [],
             trampolines = [],
@@ -160,7 +171,6 @@ def wpiutil_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_dep
         name = "wpiutil",
         casters_pickle = "wpiutil.casters.pkl",
         header_gen_config = WPIUTIL_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps + ["wpiutil/src/wpistruct/wpystruct_fns.h"],
     )
 

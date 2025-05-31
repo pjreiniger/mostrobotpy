@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def wpinet_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
         struct(
             class_name = "PortForwarder",
             yml_file = "semiwrap/PortForwarder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpinet/PortForwarder.h",
+            header_root = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include",
+            header_file = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include/wpinet/PortForwarder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::PortForwarder", "wpi__PortForwarder.hpp"),
@@ -15,7 +16,8 @@ def wpinet_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "WebServer",
             yml_file = "semiwrap/WebServer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/wpinet/WebServer.h",
+            header_root = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include",
+            header_file = "/home/pjreiniger/git/allwpilib/wpinet/src/main/native/include/wpinet/WebServer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::WebServer", "wpi__WebServer.hpp"),
@@ -55,7 +57,6 @@ def wpinet_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         name = "wpinet",
         casters_pickle = "wpinet.casters.pkl",
         header_gen_config = WPINET_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
@@ -71,6 +72,7 @@ def wpinet_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
             "wpinet.gen_pkgconf",
             "wpinet.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpinet",
