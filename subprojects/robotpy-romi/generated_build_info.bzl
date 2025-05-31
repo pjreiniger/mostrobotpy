@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def romi_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     ROMI_HEADER_GEN = [
         struct(
             class_name = "OnBoardIO",
             yml_file = "semiwrap/OnBoardIO.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/romi/OnBoardIO.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/OnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::OnBoardIO", "frc__OnBoardIO.hpp"),
@@ -15,7 +16,8 @@ def romi_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, 
         struct(
             class_name = "RomiGyro",
             yml_file = "semiwrap/RomiGyro.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/romi/RomiGyro.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/RomiGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiGyro", "frc__RomiGyro.hpp"),
@@ -24,7 +26,8 @@ def romi_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, 
         struct(
             class_name = "RomiMotor",
             yml_file = "semiwrap/RomiMotor.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/romi/RomiMotor.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/RomiMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiMotor", "frc__RomiMotor.hpp"),
@@ -85,6 +88,7 @@ def romi_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, 
             "romi.gen_pkgconf",
             "romi.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "romi",

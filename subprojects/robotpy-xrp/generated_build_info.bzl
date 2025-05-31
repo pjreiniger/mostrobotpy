@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     XRP_HEADER_GEN = [
         struct(
             class_name = "XRPGyro",
             yml_file = "semiwrap/XRPGyro.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPGyro.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPGyro", "frc__XRPGyro.hpp"),
@@ -15,7 +16,8 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
         struct(
             class_name = "XRPMotor",
             yml_file = "semiwrap/XRPMotor.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPMotor.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPMotor", "frc__XRPMotor.hpp"),
@@ -24,7 +26,8 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
         struct(
             class_name = "XRPOnBoardIO",
             yml_file = "semiwrap/XRPOnBoardIO.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPOnBoardIO.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPOnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPOnBoardIO", "frc__XRPOnBoardIO.hpp"),
@@ -33,7 +36,8 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
         struct(
             class_name = "XRPRangefinder",
             yml_file = "semiwrap/XRPRangefinder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPRangefinder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPRangefinder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPRangefinder", "frc__XRPRangefinder.hpp"),
@@ -42,7 +46,8 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
         struct(
             class_name = "XRPReflectanceSensor",
             yml_file = "semiwrap/XRPReflectanceSensor.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPReflectanceSensor.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPReflectanceSensor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPReflectanceSensor", "frc__XRPReflectanceSensor.hpp"),
@@ -51,7 +56,8 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
         struct(
             class_name = "XRPServo",
             yml_file = "semiwrap/XRPServo.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/xrp/XRPServo.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPServo.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPServo", "frc__XRPServo.hpp"),
@@ -112,6 +118,7 @@ def xrp_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, e
             "xrp.gen_pkgconf",
             "xrp.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "xrp",

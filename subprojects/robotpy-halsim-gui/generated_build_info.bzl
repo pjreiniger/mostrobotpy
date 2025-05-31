@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
-def halsim_gui_ext_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HALSIM_GUI_EXT_HEADER_GEN = [
     ]
     resolve_casters(
@@ -51,6 +51,7 @@ def halsim_gui_ext_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
             "halsim_gui_ext.gen_pkgconf",
             "halsim_gui_ext.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "halsim_gui_ext",

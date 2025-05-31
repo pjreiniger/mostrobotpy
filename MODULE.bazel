@@ -16,9 +16,9 @@ bazel_dep(name = "rules_semiwrap", version = "")
 
 archive_override(
     module_name = "rules_semiwrap",
-    integrity = "sha256-+h2w9D3QVZ6Mj5FHtoLHtl2nDBqVbNifu3HqIkyxFqA=",
-    strip_prefix = "rules_semiwrap-3f7c7aed087dcc0d55b9cce09be1fbf87a557972",
-    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/3f7c7aed087dcc0d55b9cce09be1fbf87a557972.tar.gz"],
+    integrity = "sha256-j56RPcd6gLOHSue06m8gjU6/KjeOub9Ik1YKzg588lY=",
+    strip_prefix = "rules_semiwrap-2dd7d18b464bcd00347f2a26781c665f835d9655",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/2dd7d18b464bcd00347f2a26781c665f835d9655.tar.gz"],
 )
 
 # local_path_override(

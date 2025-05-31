@@ -67,7 +67,6 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         name = "wpilib_event",
         casters_pickle = "wpilib_event.casters.pkl",
         header_gen_config = WPILIB_EVENT_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
@@ -171,7 +170,6 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         name = "wpilib_interfaces",
         casters_pickle = "wpilib_interfaces.casters.pkl",
         header_gen_config = WPILIB_INTERFACES_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
@@ -1275,7 +1273,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "wpilib",
         casters_pickle = "wpilib.casters.pkl",
         header_gen_config = WPILIB_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib/src",
@@ -1389,7 +1386,6 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpilib_counter",
         casters_pickle = "wpilib_counter.casters.pkl",
         header_gen_config = WPILIB_COUNTER_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib",
@@ -1497,7 +1493,6 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         name = "wpilib_drive",
         casters_pickle = "wpilib_drive.casters.pkl",
         header_gen_config = WPILIB_DRIVE_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib",
@@ -1788,7 +1783,6 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         name = "wpilib_shuffleboard",
         casters_pickle = "wpilib_shuffleboard.casters.pkl",
         header_gen_config = WPILIB_SHUFFLEBOARD_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib",
@@ -2344,7 +2338,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         name = "wpilib_simulation",
         casters_pickle = "wpilib_simulation.casters.pkl",
         header_gen_config = WPILIB_SIMULATION_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib",
