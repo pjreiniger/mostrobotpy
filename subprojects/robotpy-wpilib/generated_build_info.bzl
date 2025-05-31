@@ -1,12 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_EVENT_HEADER_GEN = [
         struct(
             class_name = "BooleanEvent",
             yml_file = "semiwrap/event/BooleanEvent.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/event/BooleanEvent.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/event/BooleanEvent.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::BooleanEvent", "frc__BooleanEvent.hpp"),
@@ -15,7 +16,8 @@ def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         struct(
             class_name = "EventLoop",
             yml_file = "semiwrap/event/EventLoop.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/event/EventLoop.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/event/EventLoop.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::EventLoop", "frc__EventLoop.hpp"),
@@ -24,7 +26,8 @@ def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         struct(
             class_name = "NetworkBooleanEvent",
             yml_file = "semiwrap/event/NetworkBooleanEvent.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/event/NetworkBooleanEvent.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/event/NetworkBooleanEvent.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::NetworkBooleanEvent", "frc__NetworkBooleanEvent.hpp"),
@@ -85,6 +88,7 @@ def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
             "wpilib_event.gen_pkgconf",
             "wpilib_event.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_event",
@@ -101,12 +105,13 @@ def wpilib_event_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         includes = includes,
     )
 
-def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_INTERFACES_HEADER_GEN = [
         struct(
             class_name = "CounterBase",
             yml_file = "semiwrap/interfaces/CounterBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/CounterBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/CounterBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CounterBase", "frc__CounterBase.hpp"),
@@ -115,7 +120,8 @@ def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "GenericHID",
             yml_file = "semiwrap/interfaces/GenericHID.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/GenericHID.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/GenericHID.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::GenericHID", "frc__GenericHID.hpp"),
@@ -124,7 +130,8 @@ def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "MotorController",
             yml_file = "semiwrap/interfaces/MotorController.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/MotorController.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/MotorController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MotorController", "frc__MotorController.hpp"),
@@ -185,6 +192,7 @@ def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
             "wpilib_interfaces.gen_pkgconf",
             "wpilib_interfaces.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_interfaces",
@@ -201,12 +209,13 @@ def wpilib_interfaces_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         includes = includes,
     )
 
-def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMU",
             yml_file = "semiwrap/ADIS16448_IMU.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADIS16448_IMU.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADIS16448_IMU.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADIS16448_IMU", "frc__ADIS16448_IMU.hpp"),
@@ -215,7 +224,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "ADIS16470_IMU",
             yml_file = "semiwrap/ADIS16470_IMU.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADIS16470_IMU.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADIS16470_IMU.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADIS16470_IMU", "frc__ADIS16470_IMU.hpp"),
@@ -224,7 +234,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "ADXL345_I2C",
             yml_file = "semiwrap/ADXL345_I2C.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADXL345_I2C.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADXL345_I2C.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADXL345_I2C", "frc__ADXL345_I2C.hpp"),
@@ -234,7 +245,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "ADXL345_SPI",
             yml_file = "semiwrap/ADXL345_SPI.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADXL345_SPI.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADXL345_SPI.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADXL345_SPI", "frc__ADXL345_SPI.hpp"),
@@ -244,7 +256,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "ADXL362",
             yml_file = "semiwrap/ADXL362.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADXL362.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADXL362.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADXL362", "frc__ADXL362.hpp"),
@@ -254,7 +267,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "ADXRS450_Gyro",
             yml_file = "semiwrap/ADXRS450_Gyro.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/ADXRS450_Gyro.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/ADXRS450_Gyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ADXRS450_Gyro", "frc__ADXRS450_Gyro.hpp"),
@@ -263,7 +277,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AddressableLED",
             yml_file = "semiwrap/AddressableLED.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AddressableLED.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AddressableLED.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AddressableLED", "frc__AddressableLED.hpp"),
@@ -273,7 +288,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Alert",
             yml_file = "semiwrap/Alert.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Alert.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Alert.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Alert", "frc__Alert.hpp"),
@@ -282,7 +298,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogAccelerometer",
             yml_file = "semiwrap/AnalogAccelerometer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogAccelerometer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogAccelerometer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogAccelerometer", "frc__AnalogAccelerometer.hpp"),
@@ -291,7 +308,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogEncoder",
             yml_file = "semiwrap/AnalogEncoder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogEncoder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogEncoder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogEncoder", "frc__AnalogEncoder.hpp"),
@@ -300,7 +318,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogGyro",
             yml_file = "semiwrap/AnalogGyro.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogGyro.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogGyro", "frc__AnalogGyro.hpp"),
@@ -309,7 +328,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogInput",
             yml_file = "semiwrap/AnalogInput.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogInput.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogInput.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogInput", "frc__AnalogInput.hpp"),
@@ -318,7 +338,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogOutput",
             yml_file = "semiwrap/AnalogOutput.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogOutput.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogOutput.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogOutput", "frc__AnalogOutput.hpp"),
@@ -327,7 +348,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogPotentiometer",
             yml_file = "semiwrap/AnalogPotentiometer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogPotentiometer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogPotentiometer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogPotentiometer", "frc__AnalogPotentiometer.hpp"),
@@ -336,7 +358,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogTrigger",
             yml_file = "semiwrap/AnalogTrigger.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogTrigger.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogTrigger.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogTrigger", "frc__AnalogTrigger.hpp"),
@@ -345,7 +368,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogTriggerOutput",
             yml_file = "semiwrap/AnalogTriggerOutput.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogTriggerOutput.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogTriggerOutput.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AnalogTriggerOutput", "frc__AnalogTriggerOutput.hpp"),
@@ -354,14 +378,16 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "AnalogTriggerType",
             yml_file = "semiwrap/AnalogTriggerType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/AnalogTriggerType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/AnalogTriggerType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "BuiltInAccelerometer",
             yml_file = "semiwrap/BuiltInAccelerometer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/BuiltInAccelerometer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/BuiltInAccelerometer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::BuiltInAccelerometer", "frc__BuiltInAccelerometer.hpp"),
@@ -370,7 +396,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "CAN",
             yml_file = "semiwrap/CAN.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/CAN.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/CAN.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CANData", "frc__CANData.hpp"),
@@ -380,7 +407,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Compressor",
             yml_file = "semiwrap/Compressor.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Compressor.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Compressor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Compressor", "frc__Compressor.hpp"),
@@ -389,14 +417,16 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "CompressorConfigType",
             yml_file = "semiwrap/CompressorConfigType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/CompressorConfigType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/CompressorConfigType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Counter",
             yml_file = "semiwrap/Counter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Counter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Counter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Counter", "frc__Counter.hpp"),
@@ -405,7 +435,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DataLogManager",
             yml_file = "semiwrap/DataLogManager.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DataLogManager.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DataLogManager.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DataLogManager", "frc__DataLogManager.hpp"),
@@ -414,7 +445,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DSControlWord",
             yml_file = "semiwrap/DSControlWord.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DSControlWord.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DSControlWord.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DSControlWord", "frc__DSControlWord.hpp"),
@@ -423,7 +455,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DigitalGlitchFilter",
             yml_file = "semiwrap/DigitalGlitchFilter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DigitalGlitchFilter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DigitalGlitchFilter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DigitalGlitchFilter", "frc__DigitalGlitchFilter.hpp"),
@@ -432,7 +465,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DigitalInput",
             yml_file = "semiwrap/DigitalInput.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DigitalInput.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DigitalInput.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DigitalInput", "frc__DigitalInput.hpp"),
@@ -441,7 +475,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DigitalOutput",
             yml_file = "semiwrap/DigitalOutput.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DigitalOutput.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DigitalOutput.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DigitalOutput", "frc__DigitalOutput.hpp"),
@@ -450,7 +485,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DigitalSource",
             yml_file = "semiwrap/DigitalSource.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DigitalSource.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DigitalSource.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DigitalSource", "frc__DigitalSource.hpp"),
@@ -459,7 +495,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DoubleSolenoid",
             yml_file = "semiwrap/DoubleSolenoid.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DoubleSolenoid.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DoubleSolenoid.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DoubleSolenoid", "frc__DoubleSolenoid.hpp"),
@@ -468,7 +505,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DriverStation",
             yml_file = "semiwrap/DriverStation.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DriverStation.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DriverStation.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DriverStation", "frc__DriverStation.hpp"),
@@ -477,7 +515,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DutyCycle",
             yml_file = "semiwrap/DutyCycle.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DutyCycle.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DutyCycle.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DutyCycle", "frc__DutyCycle.hpp"),
@@ -486,7 +525,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DutyCycleEncoder",
             yml_file = "semiwrap/DutyCycleEncoder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/DutyCycleEncoder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/DutyCycleEncoder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DutyCycleEncoder", "frc__DutyCycleEncoder.hpp"),
@@ -495,7 +535,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Encoder",
             yml_file = "semiwrap/Encoder.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Encoder.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Encoder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Encoder", "frc__Encoder.hpp"),
@@ -504,21 +545,24 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Errors",
             yml_file = "semiwrap/Errors.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Errors.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Errors.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Filesystem",
             yml_file = "semiwrap/Filesystem.yml",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h/rpy/Filesystem.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "I2C",
             yml_file = "semiwrap/I2C.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/I2C.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/I2C.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::I2C", "frc__I2C.hpp"),
@@ -527,7 +571,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "IterativeRobotBase",
             yml_file = "semiwrap/IterativeRobotBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/IterativeRobotBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/IterativeRobotBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::IterativeRobotBase", "frc__IterativeRobotBase.hpp"),
@@ -536,7 +581,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Joystick",
             yml_file = "semiwrap/Joystick.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Joystick.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Joystick.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Joystick", "frc__Joystick.hpp"),
@@ -545,7 +591,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "LEDPattern",
             yml_file = "semiwrap/LEDPattern.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/LEDPattern.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/LEDPattern.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LEDPattern", "frc__LEDPattern.hpp"),
@@ -555,7 +602,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "MotorSafety",
             yml_file = "semiwrap/MotorSafety.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/MotorSafety.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/MotorSafety.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MotorSafety", "frc__MotorSafety.hpp"),
@@ -564,7 +612,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Notifier",
             yml_file = "semiwrap/Notifier.yml",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h/rpy/Notifier.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyNotifier", "frc__PyNotifier.hpp"),
@@ -573,7 +622,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PS4Controller",
             yml_file = "semiwrap/PS4Controller.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PS4Controller.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PS4Controller.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PS4Controller", "frc__PS4Controller.hpp"),
@@ -584,7 +634,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PS5Controller",
             yml_file = "semiwrap/PS5Controller.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PS5Controller.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PS5Controller.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PS5Controller", "frc__PS5Controller.hpp"),
@@ -595,7 +646,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWM",
             yml_file = "semiwrap/PWM.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PWM.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PWM.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWM", "frc__PWM.hpp"),
@@ -604,7 +656,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PneumaticHub",
             yml_file = "semiwrap/PneumaticHub.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PneumaticHub.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PneumaticHub.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PneumaticHub", "frc__PneumaticHub.hpp"),
@@ -616,7 +669,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PneumaticsBase",
             yml_file = "semiwrap/PneumaticsBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PneumaticsBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PneumaticsBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PneumaticsBase", "frc__PneumaticsBase.hpp"),
@@ -625,7 +679,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PneumaticsControlModule",
             yml_file = "semiwrap/PneumaticsControlModule.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PneumaticsControlModule.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PneumaticsControlModule.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PneumaticsControlModule", "frc__PneumaticsControlModule.hpp"),
@@ -634,14 +689,16 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PneumaticsModuleType",
             yml_file = "semiwrap/PneumaticsModuleType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PneumaticsModuleType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PneumaticsModuleType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "PowerDistribution",
             yml_file = "semiwrap/PowerDistribution.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/PowerDistribution.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/PowerDistribution.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PowerDistribution", "frc__PowerDistribution.hpp"),
@@ -653,7 +710,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Preferences",
             yml_file = "semiwrap/Preferences.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Preferences.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Preferences.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Preferences", "frc__Preferences.hpp"),
@@ -662,7 +720,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Relay",
             yml_file = "semiwrap/Relay.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Relay.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Relay.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Relay", "frc__Relay.hpp"),
@@ -671,7 +730,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "RobotBase",
             yml_file = "semiwrap/RobotBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/RobotBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/RobotBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RobotBase", "frc__RobotBase.hpp"),
@@ -680,7 +740,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "RobotController",
             yml_file = "semiwrap/RobotController.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/RobotController.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/RobotController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CANStatus", "frc__CANStatus.hpp"),
@@ -690,7 +751,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "RobotState",
             yml_file = "semiwrap/RobotState.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/RobotState.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/RobotState.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RobotState", "frc__RobotState.hpp"),
@@ -699,14 +761,16 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "RuntimeType",
             yml_file = "semiwrap/RuntimeType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/RuntimeType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/RuntimeType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "SPI",
             yml_file = "semiwrap/SPI.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/SPI.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/SPI.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SPI", "frc__SPI.hpp"),
@@ -715,7 +779,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SensorUtil",
             yml_file = "semiwrap/SensorUtil.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/SensorUtil.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/SensorUtil.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SensorUtil", "frc__SensorUtil.hpp"),
@@ -724,7 +789,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SerialPort",
             yml_file = "semiwrap/SerialPort.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/SerialPort.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/SerialPort.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SerialPort", "frc__SerialPort.hpp"),
@@ -733,7 +799,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Servo",
             yml_file = "semiwrap/Servo.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Servo.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Servo.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Servo", "frc__Servo.hpp"),
@@ -742,7 +809,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SharpIR",
             yml_file = "semiwrap/SharpIR.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/SharpIR.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/SharpIR.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SharpIR", "frc__SharpIR.hpp"),
@@ -751,7 +819,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Solenoid",
             yml_file = "semiwrap/Solenoid.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Solenoid.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Solenoid.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Solenoid", "frc__Solenoid.hpp"),
@@ -760,7 +829,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "StadiaController",
             yml_file = "semiwrap/StadiaController.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/StadiaController.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/StadiaController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::StadiaController", "frc__StadiaController.hpp"),
@@ -771,7 +841,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SynchronousInterrupt",
             yml_file = "semiwrap/SynchronousInterrupt.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/SynchronousInterrupt.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/SynchronousInterrupt.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SynchronousInterrupt", "frc__SynchronousInterrupt.hpp"),
@@ -780,14 +851,16 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Threads",
             yml_file = "semiwrap/Threads.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Threads.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Threads.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "TimedRobot",
             yml_file = "semiwrap/TimedRobot.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/TimedRobot.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/TimedRobot.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TimedRobot", "frc__TimedRobot.hpp"),
@@ -796,7 +869,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Timer",
             yml_file = "semiwrap/Timer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Timer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Timer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Timer", "frc__Timer.hpp"),
@@ -805,7 +879,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "TimesliceRobot",
             yml_file = "semiwrap/TimesliceRobot.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/TimesliceRobot.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/TimesliceRobot.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TimesliceRobot", "frc__TimesliceRobot.hpp"),
@@ -814,7 +889,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Tracer",
             yml_file = "semiwrap/Tracer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Tracer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Tracer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Tracer", "frc__Tracer.hpp"),
@@ -823,7 +899,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Ultrasonic",
             yml_file = "semiwrap/Ultrasonic.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Ultrasonic.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Ultrasonic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Ultrasonic", "frc__Ultrasonic.hpp"),
@@ -832,7 +909,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Watchdog",
             yml_file = "semiwrap/Watchdog.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/Watchdog.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/Watchdog.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Watchdog", "frc__Watchdog.hpp"),
@@ -841,7 +919,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "XboxController",
             yml_file = "semiwrap/XboxController.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/XboxController.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/XboxController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XboxController", "frc__XboxController.hpp"),
@@ -852,7 +931,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DriverStationModeThread",
             yml_file = "semiwrap/DriverStationModeThread.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/internal/DriverStationModeThread.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/internal/DriverStationModeThread.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::internal::DriverStationModeThread", "frc__internal__DriverStationModeThread.hpp"),
@@ -861,7 +941,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "LiveWindow",
             yml_file = "semiwrap/LiveWindow.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/livewindow/LiveWindow.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/livewindow/LiveWindow.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LiveWindow", "frc__LiveWindow.hpp"),
@@ -870,7 +951,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "DMC60",
             yml_file = "semiwrap/DMC60.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/DMC60.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/DMC60.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DMC60", "frc__DMC60.hpp"),
@@ -879,7 +961,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Jaguar",
             yml_file = "semiwrap/Jaguar.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/Jaguar.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/Jaguar.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Jaguar", "frc__Jaguar.hpp"),
@@ -888,7 +971,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "MotorControllerGroup",
             yml_file = "semiwrap/MotorControllerGroup.yml",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h",
+            header_root = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h/rpy/MotorControllerGroup.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyMotorControllerGroup", "frc__PyMotorControllerGroup.hpp"),
@@ -897,7 +981,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "NidecBrushless",
             yml_file = "semiwrap/NidecBrushless.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/NidecBrushless.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/NidecBrushless.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::NidecBrushless", "frc__NidecBrushless.hpp"),
@@ -906,7 +991,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMMotorController",
             yml_file = "semiwrap/PWMMotorController.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMMotorController.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMMotorController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMMotorController", "frc__PWMMotorController.hpp"),
@@ -915,7 +1001,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMSparkFlex",
             yml_file = "semiwrap/PWMSparkFlex.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMSparkFlex.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMSparkFlex.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMSparkFlex", "frc__PWMSparkFlex.hpp"),
@@ -924,7 +1011,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMSparkMax",
             yml_file = "semiwrap/PWMSparkMax.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMSparkMax.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMSparkMax.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMSparkMax", "frc__PWMSparkMax.hpp"),
@@ -933,7 +1021,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMTalonFX",
             yml_file = "semiwrap/PWMTalonFX.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMTalonFX.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMTalonFX.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMTalonFX", "frc__PWMTalonFX.hpp"),
@@ -942,7 +1031,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMTalonSRX",
             yml_file = "semiwrap/PWMTalonSRX.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMTalonSRX.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMTalonSRX.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMTalonSRX", "frc__PWMTalonSRX.hpp"),
@@ -951,7 +1041,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMVenom",
             yml_file = "semiwrap/PWMVenom.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMVenom.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMVenom.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMVenom", "frc__PWMVenom.hpp"),
@@ -960,7 +1051,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "PWMVictorSPX",
             yml_file = "semiwrap/PWMVictorSPX.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/PWMVictorSPX.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/PWMVictorSPX.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PWMVictorSPX", "frc__PWMVictorSPX.hpp"),
@@ -969,7 +1061,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SD540",
             yml_file = "semiwrap/SD540.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/SD540.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/SD540.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SD540", "frc__SD540.hpp"),
@@ -978,7 +1071,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Spark",
             yml_file = "semiwrap/Spark.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/Spark.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/Spark.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Spark", "frc__Spark.hpp"),
@@ -987,7 +1081,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Talon",
             yml_file = "semiwrap/Talon.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/Talon.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/Talon.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Talon", "frc__Talon.hpp"),
@@ -996,7 +1091,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Victor",
             yml_file = "semiwrap/Victor.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/Victor.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/Victor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Victor", "frc__Victor.hpp"),
@@ -1005,7 +1101,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "VictorSP",
             yml_file = "semiwrap/VictorSP.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/motorcontrol/VictorSP.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/motorcontrol/VictorSP.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::VictorSP", "frc__VictorSP.hpp"),
@@ -1014,7 +1111,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Field2d",
             yml_file = "semiwrap/Field2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/Field2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/Field2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Field2d", "frc__Field2d.hpp"),
@@ -1023,7 +1121,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "FieldObject2d",
             yml_file = "semiwrap/FieldObject2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/FieldObject2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/FieldObject2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::FieldObject2d", "frc__FieldObject2d.hpp"),
@@ -1032,7 +1131,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Mechanism2d",
             yml_file = "semiwrap/Mechanism2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/Mechanism2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/Mechanism2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Mechanism2d", "frc__Mechanism2d.hpp"),
@@ -1041,7 +1141,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "MechanismLigament2d",
             yml_file = "semiwrap/MechanismLigament2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/MechanismLigament2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/MechanismLigament2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MechanismLigament2d", "frc__MechanismLigament2d.hpp"),
@@ -1050,7 +1151,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "MechanismObject2d",
             yml_file = "semiwrap/MechanismObject2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/MechanismObject2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/MechanismObject2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MechanismObject2d", "frc__MechanismObject2d.hpp"),
@@ -1059,7 +1161,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "MechanismRoot2d",
             yml_file = "semiwrap/MechanismRoot2d.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/MechanismRoot2d.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/MechanismRoot2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MechanismRoot2d", "frc__MechanismRoot2d.hpp"),
@@ -1068,7 +1171,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SendableBuilderImpl",
             yml_file = "semiwrap/SendableBuilderImpl.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/SendableBuilderImpl.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/SendableBuilderImpl.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SendableBuilderImpl", "frc__SendableBuilderImpl.hpp"),
@@ -1077,7 +1181,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SendableChooser",
             yml_file = "semiwrap/SendableChooser.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/SendableChooser.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/SendableChooser.h",
             tmpl_class_names = [
                 ("SendableChooser_tmpl1", "SendableChooser"),
             ],
@@ -1088,7 +1193,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SendableChooserBase",
             yml_file = "semiwrap/SendableChooserBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/SendableChooserBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/SendableChooserBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SendableChooserBase", "frc__SendableChooserBase.hpp"),
@@ -1097,7 +1203,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SmartDashboard",
             yml_file = "semiwrap/SmartDashboard.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/smartdashboard/SmartDashboard.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/smartdashboard/SmartDashboard.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SmartDashboard", "frc__SmartDashboard.hpp"),
@@ -1106,7 +1213,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "SysIdRoutineLog",
             yml_file = "semiwrap/SysIdRoutineLog.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/sysid/SysIdRoutineLog.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/sysid/SysIdRoutineLog.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sysid::SysIdRoutineLog", "frc__sysid__SysIdRoutineLog.hpp"),
@@ -1116,7 +1224,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Color",
             yml_file = "semiwrap/Color.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/util/Color.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/util/Color.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Color", "frc__Color.hpp"),
@@ -1125,7 +1234,8 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         struct(
             class_name = "Color8Bit",
             yml_file = "semiwrap/Color8Bit.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/util/Color8Bit.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/util/Color8Bit.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Color8Bit", "frc__Color8Bit.hpp"),
@@ -1166,7 +1276,7 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         casters_pickle = "wpilib.casters.pkl",
         header_gen_config = WPILIB_HEADER_GEN,
         include_root = DEFAULT_INCLUDE_ROOT,
-        deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
+        deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpilib/wpilib/src",
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
@@ -1187,6 +1297,7 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
             "wpilib.gen_pkgconf",
             "wpilib.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib",
@@ -1204,19 +1315,21 @@ def wpilib_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
-def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
             class_name = "EdgeConfiguration",
             yml_file = "semiwrap/counter/EdgeConfiguration.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/counter/EdgeConfiguration.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/counter/EdgeConfiguration.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "ExternalDirectionCounter",
             yml_file = "semiwrap/counter/ExternalDirectionCounter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/counter/ExternalDirectionCounter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/counter/ExternalDirectionCounter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ExternalDirectionCounter", "frc__ExternalDirectionCounter.hpp"),
@@ -1225,7 +1338,8 @@ def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
         struct(
             class_name = "Tachometer",
             yml_file = "semiwrap/counter/Tachometer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/counter/Tachometer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/counter/Tachometer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Tachometer", "frc__Tachometer.hpp"),
@@ -1234,7 +1348,8 @@ def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
         struct(
             class_name = "UpDownCounter",
             yml_file = "semiwrap/counter/UpDownCounter.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/counter/UpDownCounter.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/counter/UpDownCounter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::UpDownCounter", "frc__UpDownCounter.hpp"),
@@ -1297,6 +1412,7 @@ def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
             "wpilib_counter.gen_pkgconf",
             "wpilib_counter.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_counter",
@@ -1313,12 +1429,13 @@ def wpilib_counter_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_
         includes = includes,
     )
 
-def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
             class_name = "DifferentialDrive",
             yml_file = "semiwrap/drive/DifferentialDrive.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/drive/DifferentialDrive.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/drive/DifferentialDrive.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDrive", "frc__DifferentialDrive.hpp"),
@@ -1328,7 +1445,8 @@ def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         struct(
             class_name = "MecanumDrive",
             yml_file = "semiwrap/drive/MecanumDrive.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/drive/MecanumDrive.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/drive/MecanumDrive.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDrive", "frc__MecanumDrive.hpp"),
@@ -1338,7 +1456,8 @@ def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         struct(
             class_name = "RobotDriveBase",
             yml_file = "semiwrap/drive/RobotDriveBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/drive/RobotDriveBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/drive/RobotDriveBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RobotDriveBase", "frc__RobotDriveBase.hpp"),
@@ -1401,6 +1520,7 @@ def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
             "wpilib_drive.gen_pkgconf",
             "wpilib_drive.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_drive",
@@ -1417,26 +1537,29 @@ def wpilib_drive_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_da
         includes = includes,
     )
 
-def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SHUFFLEBOARD_HEADER_GEN = [
         struct(
             class_name = "BuiltInLayouts",
             yml_file = "semiwrap/shuffleboard/BuiltInLayouts.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/BuiltInLayouts.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/BuiltInLayouts.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "BuiltInWidgets",
             yml_file = "semiwrap/shuffleboard/BuiltInWidgets.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/BuiltInWidgets.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/BuiltInWidgets.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "ComplexWidget",
             yml_file = "semiwrap/shuffleboard/ComplexWidget.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ComplexWidget.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ComplexWidget.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ComplexWidget", "frc__ComplexWidget.hpp"),
@@ -1445,7 +1568,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "LayoutType",
             yml_file = "semiwrap/shuffleboard/LayoutType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/LayoutType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/LayoutType.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LayoutType", "frc__LayoutType.hpp"),
@@ -1454,7 +1578,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "Shuffleboard",
             yml_file = "semiwrap/shuffleboard/Shuffleboard.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/Shuffleboard.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/Shuffleboard.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Shuffleboard", "frc__Shuffleboard.hpp"),
@@ -1463,7 +1588,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardComponent",
             yml_file = "semiwrap/shuffleboard/ShuffleboardComponent.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardComponent.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardComponent.h",
             tmpl_class_names = [
                 ("ShuffleboardComponent_tmpl1", "_SimpleComponent"),
                 ("ShuffleboardComponent_tmpl2", "_ComplexComponent"),
@@ -1487,7 +1613,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardComponentBase",
             yml_file = "semiwrap/shuffleboard/ShuffleboardComponentBase.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardComponentBase.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardComponentBase.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardComponentBase", "frc__ShuffleboardComponentBase.hpp"),
@@ -1496,7 +1623,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardContainer",
             yml_file = "semiwrap/shuffleboard/ShuffleboardContainer.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardContainer.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardContainer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardContainer", "frc__ShuffleboardContainer.hpp"),
@@ -1505,14 +1633,16 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardEventImportance",
             yml_file = "semiwrap/shuffleboard/ShuffleboardEventImportance.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardEventImportance.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardEventImportance.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "ShuffleboardInstance",
             yml_file = "semiwrap/shuffleboard/ShuffleboardInstance.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardInstance.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardInstance.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::detail::ShuffleboardInstance", "frc__detail__ShuffleboardInstance.hpp"),
@@ -1521,7 +1651,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardLayout",
             yml_file = "semiwrap/shuffleboard/ShuffleboardLayout.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardLayout.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardLayout.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardLayout", "frc__ShuffleboardLayout.hpp"),
@@ -1530,7 +1661,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardRoot",
             yml_file = "semiwrap/shuffleboard/ShuffleboardRoot.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardRoot.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardRoot.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardRoot", "frc__ShuffleboardRoot.hpp"),
@@ -1539,7 +1671,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardTab",
             yml_file = "semiwrap/shuffleboard/ShuffleboardTab.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardTab.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardTab.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardTab", "frc__ShuffleboardTab.hpp"),
@@ -1548,7 +1681,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardValue",
             yml_file = "semiwrap/shuffleboard/ShuffleboardValue.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardValue.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardValue.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ShuffleboardValue", "frc__ShuffleboardValue.hpp"),
@@ -1557,7 +1691,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "ShuffleboardWidget",
             yml_file = "semiwrap/shuffleboard/ShuffleboardWidget.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/ShuffleboardWidget.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/ShuffleboardWidget.h",
             tmpl_class_names = [
                 ("ShuffleboardWidget_tmpl1", "_SimpleWidget"),
                 ("ShuffleboardWidget_tmpl2", "_ComplexWidget"),
@@ -1580,7 +1715,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "SimpleWidget",
             yml_file = "semiwrap/shuffleboard/SimpleWidget.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/SimpleWidget.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/SimpleWidget.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SimpleWidget", "frc__SimpleWidget.hpp"),
@@ -1589,7 +1725,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "SuppliedValueWidget",
             yml_file = "semiwrap/shuffleboard/SuppliedValueWidget.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/SuppliedValueWidget.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/SuppliedValueWidget.h",
             tmpl_class_names = [
                 ("SuppliedValueWidget_tmpl1", "SuppliedStringValueWidget"),
                 ("SuppliedValueWidget_tmpl2", "SuppliedDoubleValueWidget"),
@@ -1610,7 +1747,8 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         struct(
             class_name = "WidgetType",
             yml_file = "semiwrap/shuffleboard/WidgetType.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/shuffleboard/WidgetType.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/shuffleboard/WidgetType.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::WidgetType", "frc__WidgetType.hpp"),
@@ -1673,6 +1811,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
             "wpilib_shuffleboard.gen_pkgconf",
             "wpilib_shuffleboard.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_shuffleboard",
@@ -1690,12 +1829,13 @@ def wpilib_shuffleboard_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, heade
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
-def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SIMULATION_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMUSim",
             yml_file = "semiwrap/simulation/ADIS16448_IMUSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ADIS16448_IMUSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ADIS16448_IMUSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADIS16448_IMUSim", "frc__sim__ADIS16448_IMUSim.hpp"),
@@ -1704,7 +1844,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "ADIS16470_IMUSim",
             yml_file = "semiwrap/simulation/ADIS16470_IMUSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ADIS16470_IMUSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ADIS16470_IMUSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADIS16470_IMUSim", "frc__sim__ADIS16470_IMUSim.hpp"),
@@ -1713,7 +1854,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "ADXL345Sim",
             yml_file = "semiwrap/simulation/ADXL345Sim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ADXL345Sim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ADXL345Sim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADXL345Sim", "frc__sim__ADXL345Sim.hpp"),
@@ -1722,7 +1864,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "ADXL362Sim",
             yml_file = "semiwrap/simulation/ADXL362Sim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ADXL362Sim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ADXL362Sim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADXL362Sim", "frc__sim__ADXL362Sim.hpp"),
@@ -1731,7 +1874,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "ADXRS450_GyroSim",
             yml_file = "semiwrap/simulation/ADXRS450_GyroSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ADXRS450_GyroSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ADXRS450_GyroSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADXRS450_GyroSim", "frc__sim__ADXRS450_GyroSim.hpp"),
@@ -1740,7 +1884,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AddressableLEDSim",
             yml_file = "semiwrap/simulation/AddressableLEDSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AddressableLEDSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AddressableLEDSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AddressableLEDSim", "frc__sim__AddressableLEDSim.hpp"),
@@ -1749,7 +1894,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AnalogEncoderSim",
             yml_file = "semiwrap/simulation/AnalogEncoderSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AnalogEncoderSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AnalogEncoderSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AnalogEncoderSim", "frc__sim__AnalogEncoderSim.hpp"),
@@ -1758,7 +1904,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AnalogGyroSim",
             yml_file = "semiwrap/simulation/AnalogGyroSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AnalogGyroSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AnalogGyroSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AnalogGyroSim", "frc__sim__AnalogGyroSim.hpp"),
@@ -1767,7 +1914,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AnalogInputSim",
             yml_file = "semiwrap/simulation/AnalogInputSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AnalogInputSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AnalogInputSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AnalogInputSim", "frc__sim__AnalogInputSim.hpp"),
@@ -1776,7 +1924,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AnalogOutputSim",
             yml_file = "semiwrap/simulation/AnalogOutputSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AnalogOutputSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AnalogOutputSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AnalogOutputSim", "frc__sim__AnalogOutputSim.hpp"),
@@ -1785,7 +1934,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "AnalogTriggerSim",
             yml_file = "semiwrap/simulation/AnalogTriggerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/AnalogTriggerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/AnalogTriggerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::AnalogTriggerSim", "frc__sim__AnalogTriggerSim.hpp"),
@@ -1794,7 +1944,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "BatterySim",
             yml_file = "semiwrap/simulation/BatterySim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/BatterySim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/BatterySim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::BatterySim", "frc__sim__BatterySim.hpp"),
@@ -1803,7 +1954,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "BuiltInAccelerometerSim",
             yml_file = "semiwrap/simulation/BuiltInAccelerometerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/BuiltInAccelerometerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/BuiltInAccelerometerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::BuiltInAccelerometerSim", "frc__sim__BuiltInAccelerometerSim.hpp"),
@@ -1812,7 +1964,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "CTREPCMSim",
             yml_file = "semiwrap/simulation/CTREPCMSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/CTREPCMSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/CTREPCMSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::CTREPCMSim", "frc__sim__CTREPCMSim.hpp"),
@@ -1821,7 +1974,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "CallbackStore",
             yml_file = "semiwrap/simulation/CallbackStore.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/CallbackStore.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/CallbackStore.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::CallbackStore", "frc__sim__CallbackStore.hpp"),
@@ -1830,7 +1984,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DCMotorSim",
             yml_file = "semiwrap/simulation/DCMotorSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DCMotorSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DCMotorSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DCMotorSim", "frc__sim__DCMotorSim.hpp"),
@@ -1839,7 +1994,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DIOSim",
             yml_file = "semiwrap/simulation/DIOSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DIOSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DIOSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DIOSim", "frc__sim__DIOSim.hpp"),
@@ -1848,7 +2004,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DifferentialDrivetrainSim",
             yml_file = "semiwrap/simulation/DifferentialDrivetrainSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DifferentialDrivetrainSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DifferentialDrivetrainSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DifferentialDrivetrainSim", "frc__sim__DifferentialDrivetrainSim.hpp"),
@@ -1861,7 +2018,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DigitalPWMSim",
             yml_file = "semiwrap/simulation/DigitalPWMSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DigitalPWMSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DigitalPWMSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DigitalPWMSim", "frc__sim__DigitalPWMSim.hpp"),
@@ -1870,7 +2028,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DoubleSolenoidSim",
             yml_file = "semiwrap/simulation/DoubleSolenoidSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DoubleSolenoidSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DoubleSolenoidSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DoubleSolenoidSim", "frc__sim__DoubleSolenoidSim.hpp"),
@@ -1879,7 +2038,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DriverStationSim",
             yml_file = "semiwrap/simulation/DriverStationSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DriverStationSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DriverStationSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DriverStationSim", "frc__sim__DriverStationSim.hpp"),
@@ -1888,7 +2048,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DutyCycleEncoderSim",
             yml_file = "semiwrap/simulation/DutyCycleEncoderSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DutyCycleEncoderSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DutyCycleEncoderSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DutyCycleEncoderSim", "frc__sim__DutyCycleEncoderSim.hpp"),
@@ -1897,7 +2058,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "DutyCycleSim",
             yml_file = "semiwrap/simulation/DutyCycleSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/DutyCycleSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/DutyCycleSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::DutyCycleSim", "frc__sim__DutyCycleSim.hpp"),
@@ -1906,7 +2068,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "ElevatorSim",
             yml_file = "semiwrap/simulation/ElevatorSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/ElevatorSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/ElevatorSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ElevatorSim", "frc__sim__ElevatorSim.hpp"),
@@ -1915,7 +2078,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "EncoderSim",
             yml_file = "semiwrap/simulation/EncoderSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/EncoderSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/EncoderSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::EncoderSim", "frc__sim__EncoderSim.hpp"),
@@ -1924,7 +2088,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "FlywheelSim",
             yml_file = "semiwrap/simulation/FlywheelSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/FlywheelSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/FlywheelSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::FlywheelSim", "frc__sim__FlywheelSim.hpp"),
@@ -1933,7 +2098,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "GenericHIDSim",
             yml_file = "semiwrap/simulation/GenericHIDSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/GenericHIDSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/GenericHIDSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::GenericHIDSim", "frc__sim__GenericHIDSim.hpp"),
@@ -1942,7 +2108,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "JoystickSim",
             yml_file = "semiwrap/simulation/JoystickSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/JoystickSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/JoystickSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::JoystickSim", "frc__sim__JoystickSim.hpp"),
@@ -1951,7 +2118,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "LinearSystemSim",
             yml_file = "semiwrap/simulation/LinearSystemSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/LinearSystemSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/LinearSystemSim.h",
             tmpl_class_names = [
                 ("LinearSystemSim_tmpl1", "LinearSystemSim_1_1_1"),
                 ("LinearSystemSim_tmpl2", "LinearSystemSim_1_1_2"),
@@ -1967,7 +2135,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "PS4ControllerSim",
             yml_file = "semiwrap/simulation/PS4ControllerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/PS4ControllerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/PS4ControllerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::PS4ControllerSim", "frc__sim__PS4ControllerSim.hpp"),
@@ -1976,7 +2145,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "PS5ControllerSim",
             yml_file = "semiwrap/simulation/PS5ControllerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/PS5ControllerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/PS5ControllerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::PS5ControllerSim", "frc__sim__PS5ControllerSim.hpp"),
@@ -1985,7 +2155,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "PWMSim",
             yml_file = "semiwrap/simulation/PWMSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/PWMSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/PWMSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::PWMSim", "frc__sim__PWMSim.hpp"),
@@ -1994,7 +2165,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "PneumaticsBaseSim",
             yml_file = "semiwrap/simulation/PneumaticsBaseSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/PneumaticsBaseSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/PneumaticsBaseSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::PneumaticsBaseSim", "frc__sim__PneumaticsBaseSim.hpp"),
@@ -2003,7 +2175,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "PowerDistributionSim",
             yml_file = "semiwrap/simulation/PowerDistributionSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/PowerDistributionSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/PowerDistributionSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::PowerDistributionSim", "frc__sim__PowerDistributionSim.hpp"),
@@ -2012,7 +2185,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "REVPHSim",
             yml_file = "semiwrap/simulation/REVPHSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/REVPHSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/REVPHSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::REVPHSim", "frc__sim__REVPHSim.hpp"),
@@ -2021,7 +2195,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "RelaySim",
             yml_file = "semiwrap/simulation/RelaySim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/RelaySim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/RelaySim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::RelaySim", "frc__sim__RelaySim.hpp"),
@@ -2030,7 +2205,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "RoboRioSim",
             yml_file = "semiwrap/simulation/RoboRioSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/RoboRioSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/RoboRioSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::RoboRioSim", "frc__sim__RoboRioSim.hpp"),
@@ -2039,7 +2215,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SPIAccelerometerSim",
             yml_file = "semiwrap/simulation/SPIAccelerometerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SPIAccelerometerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SPIAccelerometerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SPIAccelerometerSim", "frc__sim__SPIAccelerometerSim.hpp"),
@@ -2048,7 +2225,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SendableChooserSim",
             yml_file = "semiwrap/simulation/SendableChooserSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SendableChooserSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SendableChooserSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SendableChooserSim", "frc__sim__SendableChooserSim.hpp"),
@@ -2057,7 +2235,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SharpIRSim",
             yml_file = "semiwrap/simulation/SharpIRSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SharpIRSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SharpIRSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SharpIRSim", "frc__SharpIRSim.hpp"),
@@ -2066,7 +2245,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SimDeviceSim",
             yml_file = "semiwrap/simulation/SimDeviceSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SimDeviceSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SimDeviceSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SimDeviceSim", "frc__sim__SimDeviceSim.hpp"),
@@ -2075,14 +2255,16 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SimHooks",
             yml_file = "semiwrap/simulation/SimHooks.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SimHooks.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SimHooks.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "SingleJointedArmSim",
             yml_file = "semiwrap/simulation/SingleJointedArmSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SingleJointedArmSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SingleJointedArmSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SingleJointedArmSim", "frc__sim__SingleJointedArmSim.hpp"),
@@ -2091,7 +2273,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "SolenoidSim",
             yml_file = "semiwrap/simulation/SolenoidSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/SolenoidSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/SolenoidSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SolenoidSim", "frc__sim__SolenoidSim.hpp"),
@@ -2100,7 +2283,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "StadiaControllerSim",
             yml_file = "semiwrap/simulation/StadiaControllerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/StadiaControllerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/StadiaControllerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::StadiaControllerSim", "frc__sim__StadiaControllerSim.hpp"),
@@ -2109,7 +2293,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "UltrasonicSim",
             yml_file = "semiwrap/simulation/UltrasonicSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/UltrasonicSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/UltrasonicSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::UltrasonicSim", "frc__sim__UltrasonicSim.hpp"),
@@ -2118,7 +2303,8 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
         struct(
             class_name = "XboxControllerSim",
             yml_file = "semiwrap/simulation/XboxControllerSim.yml",
-            header_file = DEFAULT_INCLUDE_ROOT + "/frc/simulation/XboxControllerSim.h",
+            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
+            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers/frc/simulation/XboxControllerSim.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::XboxControllerSim", "frc__sim__XboxControllerSim.hpp"),
@@ -2181,6 +2367,7 @@ def wpilib_simulation_extension(entry_point, deps, DEFAULT_INCLUDE_ROOT, header_
             "wpilib_simulation.gen_pkgconf",
             "wpilib_simulation.gen_lib_init",
         ],
+        tags = ["manual"],
     )
     create_pybind_library(
         name = "wpilib_simulation",

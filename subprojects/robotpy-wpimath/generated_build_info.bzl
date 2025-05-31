@@ -53,7 +53,6 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         name = "wpimath",
         casters_pickle = "wpimath.casters.pkl",
         header_gen_config = WPIMATH_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath/_impl/src",
@@ -170,7 +169,6 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpimath_filter",
         casters_pickle = "wpimath_filter.casters.pkl",
         header_gen_config = WPIMATH_FILTER_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -392,7 +390,6 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         name = "wpimath_geometry",
         casters_pickle = "wpimath_geometry.casters.pkl",
         header_gen_config = WPIMATH_GEOMETRY_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -483,7 +480,6 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         name = "wpimath_interpolation",
         casters_pickle = "wpimath_interpolation.casters.pkl",
         header_gen_config = WPIMATH_INTERPOLATION_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -520,6 +516,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_KINEMATICS_HEADER_GEN = [
         struct(
@@ -782,7 +779,6 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         name = "wpimath_kinematics",
         casters_pickle = "wpimath_kinematics.casters.pkl",
         header_gen_config = WPIMATH_KINEMATICS_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -819,6 +815,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
@@ -909,7 +906,6 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpimath_spline",
         casters_pickle = "wpimath_spline.casters.pkl",
         header_gen_config = WPIMATH_SPLINE_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -946,6 +942,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_CONTROLS_HEADER_GEN = [
         struct(
@@ -1573,7 +1570,6 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         name = "wpimath_controls",
         casters_pickle = "wpimath_controls.casters.pkl",
         header_gen_config = WPIMATH_CONTROLS_HEADER_GEN,
-        
         deps = header_to_dat_deps,
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
