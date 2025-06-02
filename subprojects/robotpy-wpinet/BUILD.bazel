@@ -1,8 +1,17 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension")
+load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 
-DEFAULT_INCLUDE_ROOT = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers"
+generate_build_info(
+    name = "wpinet",
+    local_libraries = [
+        "//subprojects/robotpy-native-wpiutil:import",
+        "//subprojects/robotpy-native-wpinet:import",
+    ],
+    yaml_files = glob(["semiwrap/*.yml"]),
+    pyproject_toml = ":pyproject.toml",
+)
 
 wpinet_extension(
     entry_point = ["wpinet/src/main.cpp"],

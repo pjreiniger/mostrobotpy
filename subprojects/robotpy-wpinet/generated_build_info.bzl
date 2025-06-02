@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
@@ -58,10 +58,9 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         casters_pickle = "wpinet.casters.pkl",
         header_gen_config = WPINET_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = "//subprojects/robotpy-native-wpinet:import",
+        header_to_dat_deps = ["//subprojects/robotpy-native-wpinet:import"],
         generation_includes = [
             "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-            # "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
 

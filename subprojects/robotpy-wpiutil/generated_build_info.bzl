@@ -172,7 +172,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         casters_pickle = "wpiutil.casters.pkl",
         header_gen_config = WPIUTIL_HEADER_GEN,
         deps = header_to_dat_deps + ["wpiutil/src/wpistruct/wpystruct_fns.h"],
-        header_to_dat_deps = "//subprojects/robotpy-native-wpiutil:import",
+        header_to_dat_deps = ["//subprojects/robotpy-native-wpiutil:import"],
         generation_includes = [
             "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
         ],
