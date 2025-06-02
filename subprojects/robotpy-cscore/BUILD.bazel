@@ -7,9 +7,9 @@ generate_build_info(
     name = "cscore",
     yaml_files = glob(["semiwrap/*.yml"]),
     local_libraries = [
-        # "//subprojects/robotpy-native-apriltag:import",
         "//subprojects/robotpy-native-wpiutil:import",
     ],
+    pkgcfgs = [],
     pyproject_toml = ":pyproject.toml",
 )
 

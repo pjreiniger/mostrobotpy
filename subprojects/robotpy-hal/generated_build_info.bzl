@@ -616,7 +616,7 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         libinit_py = "hal._init__wpiHal",
         module_pkg_name = "hal._wpiHal",
         output_file = "wpihal.pc",
-        pkg_name = "wpihal",
+        pkg_name = "hal",
         project_file = "pyproject.toml",
     )
 

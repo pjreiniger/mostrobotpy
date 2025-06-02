@@ -10,6 +10,7 @@ generate_build_info(
         "//subprojects/robotpy-native-wpilib:import",
         "//subprojects/robotpy-native-wpiutil:import",
     ],
+    pkgcfgs = [],
     pyproject_toml = ":pyproject.toml",
 )
 

@@ -8,6 +8,12 @@ generate_build_info(
     local_libraries = [
         "//subprojects/robotpy-native-wpiutil:import",
         "//subprojects/robotpy-native-wpimath:import",
+        "//subprojects/robotpy-wpiutil:import",
+    ],
+    pkgcfgs = [
+        "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
+        "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc",
+        "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
     yaml_files = glob(["semiwrap/**/*.yml"]),
     pyproject_toml = ":pyproject.toml",
