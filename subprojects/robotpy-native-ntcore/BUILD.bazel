@@ -5,6 +5,8 @@ create_native_library(
     name = "ntcore",
     package_name = "robotpy-native-ntcore",
     lib_name = "ntcore",
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers"],
     module_dependencies = [
         "native.wpinet._init_robotpy_native_wpinet",
         "native.wpiutil._init_robotpy_native_wpiutil",

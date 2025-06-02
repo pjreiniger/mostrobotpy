@@ -1,13 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     NTCORE_HEADER_GEN = [
         struct(
             class_name = "BooleanArrayTopic",
             yml_file = "semiwrap/BooleanArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/BooleanArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/BooleanArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::BooleanArraySubscriber", "nt__BooleanArraySubscriber.hpp"),
@@ -19,8 +19,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "BooleanTopic",
             yml_file = "semiwrap/BooleanTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/BooleanTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/BooleanTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::BooleanSubscriber", "nt__BooleanSubscriber.hpp"),
@@ -32,8 +32,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "DoubleArrayTopic",
             yml_file = "semiwrap/DoubleArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/DoubleArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/DoubleArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::DoubleArraySubscriber", "nt__DoubleArraySubscriber.hpp"),
@@ -45,8 +45,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "DoubleTopic",
             yml_file = "semiwrap/DoubleTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/DoubleTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/DoubleTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::DoubleSubscriber", "nt__DoubleSubscriber.hpp"),
@@ -58,8 +58,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "FloatArrayTopic",
             yml_file = "semiwrap/FloatArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/FloatArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/FloatArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::FloatArraySubscriber", "nt__FloatArraySubscriber.hpp"),
@@ -71,8 +71,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "FloatTopic",
             yml_file = "semiwrap/FloatTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/FloatTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/FloatTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::FloatSubscriber", "nt__FloatSubscriber.hpp"),
@@ -84,8 +84,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "GenericEntry",
             yml_file = "semiwrap/GenericEntry.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/GenericEntry.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/GenericEntry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::GenericSubscriber", "nt__GenericSubscriber.hpp"),
@@ -96,8 +96,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "IntegerArrayTopic",
             yml_file = "semiwrap/IntegerArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/IntegerArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/IntegerArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::IntegerArraySubscriber", "nt__IntegerArraySubscriber.hpp"),
@@ -109,8 +109,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "IntegerTopic",
             yml_file = "semiwrap/IntegerTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/IntegerTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/IntegerTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::IntegerSubscriber", "nt__IntegerSubscriber.hpp"),
@@ -122,8 +122,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "MultiSubscriber",
             yml_file = "semiwrap/MultiSubscriber.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/MultiSubscriber.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/MultiSubscriber.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::MultiSubscriber", "nt__MultiSubscriber.hpp"),
@@ -132,8 +132,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NTSendable",
             yml_file = "semiwrap/NTSendable.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NTSendable.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NTSendable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NTSendable", "nt__NTSendable.hpp"),
@@ -142,8 +142,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NTSendableBuilder",
             yml_file = "semiwrap/NTSendableBuilder.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NTSendableBuilder.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NTSendableBuilder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NTSendableBuilder", "nt__NTSendableBuilder.hpp"),
@@ -152,8 +152,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTable",
             yml_file = "semiwrap/NetworkTable.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTable.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTable", "nt__NetworkTable.hpp"),
@@ -162,8 +162,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableEntry",
             yml_file = "semiwrap/NetworkTableEntry.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTableEntry.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTableEntry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableEntry", "nt__NetworkTableEntry.hpp"),
@@ -172,8 +172,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableInstance",
             yml_file = "semiwrap/NetworkTableInstance.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTableInstance.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTableInstance.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableInstance", "nt__NetworkTableInstance.hpp"),
@@ -182,8 +182,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableListener",
             yml_file = "semiwrap/NetworkTableListener.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTableListener.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTableListener.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableListener", "nt__NetworkTableListener.hpp"),
@@ -193,16 +193,16 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableType",
             yml_file = "semiwrap/NetworkTableType.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTableType.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTableType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "NetworkTableValue",
             yml_file = "semiwrap/NetworkTableValue.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/NetworkTableValue.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/NetworkTableValue.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::Value", "nt__Value.hpp"),
@@ -211,8 +211,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "RawTopic",
             yml_file = "semiwrap/RawTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/RawTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/RawTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::RawSubscriber", "nt__RawSubscriber.hpp"),
@@ -224,8 +224,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StructTopic",
             yml_file = "semiwrap/StructTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/StructTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/StructTopic.h",
             tmpl_class_names = [
                 ("StructTopic_tmpl1", "StructSubscriber"),
                 ("StructTopic_tmpl2", "StructPublisher"),
@@ -242,8 +242,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StructArrayTopic",
             yml_file = "semiwrap/StructArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/StructArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/StructArrayTopic.h",
             tmpl_class_names = [
                 ("StructArrayTopic_tmpl1", "StructArraySubscriber"),
                 ("StructArrayTopic_tmpl2", "StructArrayPublisher"),
@@ -260,8 +260,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StringArrayTopic",
             yml_file = "semiwrap/StringArrayTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/StringArrayTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/StringArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::StringArraySubscriber", "nt__StringArraySubscriber.hpp"),
@@ -273,8 +273,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StringTopic",
             yml_file = "semiwrap/StringTopic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/StringTopic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/StringTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::StringSubscriber", "nt__StringSubscriber.hpp"),
@@ -286,8 +286,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "Topic",
             yml_file = "semiwrap/Topic.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/networktables/Topic.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/networktables/Topic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::Topic", "nt__Topic.hpp"),
@@ -298,8 +298,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "ntcore_cpp",
             yml_file = "semiwrap/ntcore_cpp.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/ntcore_cpp.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/ntcore_cpp.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::EventFlags", "nt__EventFlags.hpp"),
@@ -321,8 +321,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "ntcore_cpp_types",
             yml_file = "semiwrap/ntcore_cpp_types.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers/ntcore_cpp_types.h",
+            header_root = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            header_file = "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include/ntcore_cpp_types.h",
             tmpl_class_names = [
                 ("ntcore_cpp_types_tmpl1", "TimestampedBoolean"),
                 ("ntcore_cpp_types_tmpl2", "TimestampedInteger"),
@@ -377,10 +377,11 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         casters_pickle = "ntcore.casters.pkl",
         header_gen_config = NTCORE_HEADER_GEN,
         deps = header_to_dat_deps,
+        header_to_dat_deps = ["//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpiutil:import", "//subprojects/robotpy-native-wpinet:import"],
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
         ],
     )
 
