@@ -1,6 +1,17 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension")
+load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+
+generate_build_info(
+    name = "apriltag",
+    yaml_files = glob(["semiwrap/*.yml"]),
+    local_libraries = [
+        "//subprojects/robotpy-native-apriltag:import",
+        "//subprojects/robotpy-native-wpiutil:import",
+    ],
+    pyproject_toml = ":pyproject.toml",
+)
 
 apriltag_extension(
     entry_point = ["robotpy_apriltag/src/main.cpp"],

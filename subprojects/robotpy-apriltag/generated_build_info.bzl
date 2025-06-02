@@ -1,13 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     APRILTAG_HEADER_GEN = [
         struct(
             class_name = "AprilTag",
             yml_file = "semiwrap/AprilTag.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTag.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTag.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTag", "frc__AprilTag.hpp"),
@@ -16,8 +16,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagDetection",
             yml_file = "semiwrap/AprilTagDetection.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagDetection.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagDetection.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagDetection", "frc__AprilTagDetection.hpp"),
@@ -27,8 +27,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagDetector",
             yml_file = "semiwrap/AprilTagDetector.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagDetector.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagDetector.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagDetector", "frc__AprilTagDetector.hpp"),
@@ -40,8 +40,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagFieldLayout",
             yml_file = "semiwrap/AprilTagFieldLayout.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagFieldLayout.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagFieldLayout.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagFieldLayout", "frc__AprilTagFieldLayout.hpp"),
@@ -50,16 +50,16 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagFields",
             yml_file = "semiwrap/AprilTagFields.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagFields.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagFields.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "AprilTagPoseEstimate",
             yml_file = "semiwrap/AprilTagPoseEstimate.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagPoseEstimate.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagPoseEstimate.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagPoseEstimate", "frc__AprilTagPoseEstimate.hpp"),
@@ -68,8 +68,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagPoseEstimator",
             yml_file = "semiwrap/AprilTagPoseEstimator.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers/frc/apriltag/AprilTagPoseEstimator.h",
+            header_root = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            header_file = "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include/frc/apriltag/AprilTagPoseEstimator.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagPoseEstimator", "frc__AprilTagPoseEstimator.hpp"),
@@ -79,7 +79,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
     ]
     resolve_casters(
         name = "apriltag.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"],
+        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
         casters_pkl_file = "apriltag.casters.pkl",
         dep_file = "apriltag.casters.d",
     )
@@ -111,11 +111,10 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         casters_pickle = "apriltag.casters.pkl",
         header_gen_config = APRILTAG_HEADER_GEN,
         deps = header_to_dat_deps,
+        header_to_dat_deps = ["//subprojects/robotpy-native-apriltag:import", "//subprojects/robotpy-native-wpiutil:import"],
         generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "$(location //subprojects/robotpy-native-apriltag:import)/site-packages/native/apriltag/include",
+            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
         ],
     )
 

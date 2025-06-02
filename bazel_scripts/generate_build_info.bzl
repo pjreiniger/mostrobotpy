@@ -15,4 +15,5 @@ def generate_build_info(name, local_libraries, yaml_files, pyproject_toml):
         files = {
             "generated_build_info.bzl": "{}.gen_build_info".format(name),
         },
+        visibility = ["//visibility:public"],
     )
