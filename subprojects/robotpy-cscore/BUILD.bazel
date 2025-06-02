@@ -1,11 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "publish_library_casters")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "publish_library_casters")
 
 generate_build_info(
     name = "cscore",
-    yaml_files = glob(["semiwrap/*.yml"]),
+    header_packages = [
+        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:header_files",
+        "@bzlmodrio-allwpilib//libraries/cpp/cscore:header_files",
+    ],
     local_libraries = [
         "//subprojects/robotpy-native-wpiutil:import",
         "//subprojects/robotpy-native-wpinet:import",
@@ -22,11 +25,8 @@ generate_build_info(
         "$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc",
         "$(location //subprojects/pyntcore:import)/site-packages/ntcore/ntcore.pc",
     ],
-    header_packages = [  
-        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/cscore:header_files",
-    ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/*.yml"]),
 )
 
 publish_library_casters(

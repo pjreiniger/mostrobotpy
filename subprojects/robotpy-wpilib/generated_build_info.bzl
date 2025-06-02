@@ -1,9 +1,8 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
-
 
 def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_EVENT_HEADER_GEN = [
@@ -110,6 +109,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_INTERFACES_HEADER_GEN = [
         struct(
@@ -215,6 +215,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_HEADER_GEN = [
         struct(
@@ -1326,6 +1327,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         includes = includes,
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
+
 def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
@@ -1443,6 +1445,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
@@ -1554,6 +1557,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SHUFFLEBOARD_HEADER_GEN = [
         struct(
@@ -1850,6 +1854,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         includes = includes,
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
+
 def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_SIMULATION_HEADER_GEN = [
         struct(

@@ -1,11 +1,10 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-romi:generated_build_info.bzl", "romi_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-romi:generated_build_info.bzl", "romi_extension")
 
 generate_build_info(
     name = "romi",
-    yaml_files = glob(["semiwrap/**/*.yml"]),
     local_libraries = [
         "//subprojects/robotpy-native-wpimath:import",
         "//subprojects/robotpy-native-wpilib:import",
@@ -24,6 +23,7 @@ generate_build_info(
         "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/wpilib.pc",
     ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/**/*.yml"]),
 )
 
 romi_extension(

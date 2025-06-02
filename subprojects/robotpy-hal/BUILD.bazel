@@ -1,11 +1,10 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
 
 generate_build_info(
     name = "hal",
-    yaml_files = glob(["semiwrap/**/*.yml"]),
     local_libraries = [
         "//subprojects/robotpy-native-wpihal:import",
         "//subprojects/robotpy-native-wpiutil:import",
@@ -18,6 +17,7 @@ generate_build_info(
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/**/*.yml"]),
 )
 
 hal_simulation_extension(

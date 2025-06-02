@@ -1,11 +1,10 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
 generate_build_info(
     name = "wpilib",
-    yaml_files = glob(["semiwrap/**/*.yml"]),
     local_libraries = [
         "//subprojects/robotpy-native-ntcore:import",
         "//subprojects/robotpy-native-wpinet:import",
@@ -33,6 +32,7 @@ generate_build_info(
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/**/*.yml"]),
 )
 
 wpilib_event_extension(

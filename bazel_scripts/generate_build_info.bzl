@@ -1,6 +1,5 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 
-
 def generate_build_info(name, pkgcfgs, local_libraries, yaml_files, pyproject_toml, header_packages = []):
     cmd = "$(location @rules_semiwrap//rules_semiwrap/tools:generate_build_file) --project_file=$(location " + pyproject_toml + ") --output_file=$(OUTS)"
     if pkgcfgs:

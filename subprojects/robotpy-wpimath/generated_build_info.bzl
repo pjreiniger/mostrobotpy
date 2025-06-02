@@ -1,10 +1,8 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
-
 
 def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_HEADER_GEN = [
@@ -93,6 +91,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_FILTER_HEADER_GEN = [
         struct(
@@ -210,6 +209,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_GEOMETRY_HEADER_GEN = [
         struct(
@@ -431,6 +431,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_INTERPOLATION_HEADER_GEN = [
         struct(
@@ -520,6 +521,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_KINEMATICS_HEADER_GEN = [
         struct(
@@ -814,6 +816,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
@@ -936,6 +939,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
 def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_CONTROLS_HEADER_GEN = [
         struct(

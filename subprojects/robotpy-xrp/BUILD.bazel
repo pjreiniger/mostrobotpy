@@ -1,11 +1,10 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-xrp:generated_build_info.bzl", "xrp_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-xrp:generated_build_info.bzl", "xrp_extension")
 
 generate_build_info(
     name = "xrp",
-    yaml_files = glob(["semiwrap/**/*.yml"]),
     local_libraries = [
         "//subprojects/robotpy-native-wpimath:import",
         "//subprojects/robotpy-wpimath:import",
@@ -25,6 +24,7 @@ generate_build_info(
         "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/wpilib.pc",
     ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/**/*.yml"]),
 )
 
 xrp_extension(

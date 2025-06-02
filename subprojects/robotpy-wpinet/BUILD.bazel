@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "wpinet_extension")
 
 generate_build_info(
     name = "wpinet",
@@ -10,13 +10,13 @@ generate_build_info(
         "//subprojects/robotpy-native-wpinet:import",
         "//subprojects/robotpy-wpiutil:import",
     ],
-    yaml_files = glob(["semiwrap/*.yml"]),
     pkgcfgs = [
         "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
         "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/*.yml"]),
 )
 
 wpinet_extension(

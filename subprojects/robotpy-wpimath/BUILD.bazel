@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
-load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
 generate_build_info(
     name = "wpimath",
@@ -15,8 +15,8 @@ generate_build_info(
         "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc",
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
-    yaml_files = glob(["semiwrap/**/*.yml"]),
     pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/**/*.yml"]),
 )
 
 publish_library_casters(

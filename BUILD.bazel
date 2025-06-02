@@ -42,4 +42,3 @@ write_source_files(
     ],
     tags = ["pregeneration"],
 )
-

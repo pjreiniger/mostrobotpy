@@ -1,11 +1,8 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
-
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
-
-
 
 def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
