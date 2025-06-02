@@ -9,17 +9,17 @@ bazel_dep(name = "rules_pycross", version = "0.7.1")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
 bazel_dep(name = "rules_semiwrap", version = "")
 
-local_path_override(
-    module_name = "rules_semiwrap",
-    path = "../rules_semiwrap",
-)
-
-# archive_override(
+# local_path_override(
 #     module_name = "rules_semiwrap",
-#     integrity = "sha256-j56RPcd6gLOHSue06m8gjU6/KjeOub9Ik1YKzg588lY=",
-#     strip_prefix = "rules_semiwrap-2dd7d18b464bcd00347f2a26781c665f835d9655",
-#     urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/2dd7d18b464bcd00347f2a26781c665f835d9655.tar.gz"],
+#     path = "../rules_semiwrap",
 # )
+
+archive_override(
+    module_name = "rules_semiwrap",
+    integrity = "sha256-V5sOuKJJ20QohQIPCLL9+KjmPZlk5pmpuwemQ52LVpY=",
+    strip_prefix = "rules_semiwrap-604cffdaf0cc2b2a02ca54c0fbb775f610a263e3",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/604cffdaf0cc2b2a02ca54c0fbb775f610a263e3.tar.gz"],
+)
 
 # local_path_override(
 #     module_name = "pybind11_bazel",
