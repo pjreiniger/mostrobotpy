@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
+load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "move_extension_modules", "libinit_files", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
 generate_build_info(
     name = "wpimath",
@@ -177,69 +177,11 @@ make_pyi(
     name = "make_pyi7",
 )
 
-copy_extension_library(
-    name = "copy_wpimath",
-    extension = "_wpimath",
-    output_directory = "wpimath/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_filter",
-    extension = "_filter",
-    output_directory = "wpimath/filter/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_geometry",
-    extension = "_geometry",
-    output_directory = "wpimath/geometry/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_interpolation",
-    extension = "_interpolation",
-    output_directory = "wpimath/interpolation/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_kinematics",
-    extension = "_kinematics",
-    output_directory = "wpimath/kinematics/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_spline",
-    extension = "_spline",
-    output_directory = "wpimath/spline/",
-)
-
-copy_extension_library(
-    name = "copy_wpimath_controls",
-    extension = "_controls",
-    output_directory = "wpimath/_controls/",
-)
-
 robotpy_library(
     name = "wpimath",
     package_name = "robotpy-wpimath",
-    srcs = glob(["wpimath/**/*.py"]) + [
-        "wpimath/_controls/_init__controls.py",
-        "wpimath/_init__wpimath.py",
-        "wpimath/filter/_init__filter.py",
-        "wpimath/geometry/_init__geometry.py",
-        "wpimath/interpolation/_init__interpolation.py",
-        "wpimath/kinematics/_init__kinematics.py",
-        "wpimath/spline/_init__spline.py",
-    ],
-    data = [
-        ":copy_wpimath",
-        ":copy_wpimath_controls",
-        ":copy_wpimath_filter",
-        ":copy_wpimath_geometry",
-        ":copy_wpimath_interpolation",
-        ":copy_wpimath_kinematics",
-        ":copy_wpimath_spline",
-    ],
+    srcs = glob(["wpimath/**/*.py"]) + libinit_files(),
+    data = move_extension_modules(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-wpimath:import",

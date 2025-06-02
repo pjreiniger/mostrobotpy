@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -215,3 +216,19 @@ def publish_library_casters(typecasters_srcs):
         project_config = "pyproject.toml",
         typecasters_srcs = typecasters_srcs,
     )
+
+
+def move_extension_modules():
+    copy_extension_library(
+        name = "copy_wpiutil",
+        extension = "_wpiutil",
+        output_directory = "wpiutil/",
+    )
+
+    return [":copy_wpiutil"]
+
+
+def libinit_files():
+    return [
+        "wpiutil/_init__wpiutil.py",
+    ]

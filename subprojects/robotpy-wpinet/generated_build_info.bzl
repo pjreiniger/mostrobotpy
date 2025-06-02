@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -91,3 +92,17 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
+def move_extension_modules():
+    copy_extension_library(
+        name = "copy_wpinet",
+        extension = "_wpinet",
+        output_directory = "wpinet/",
+    )
+    return [":copy_wpinet"]
+
+
+def libinit_files():
+    return [
+        "wpinet/_init__wpinet.py",
+    ]

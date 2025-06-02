@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -1609,3 +1610,67 @@ def publish_library_casters(typecasters_srcs):
         project_config = "pyproject.toml",
         typecasters_srcs = typecasters_srcs,
     )
+
+def move_extension_modules():
+    copy_extension_library(
+        name = "copy_wpimath",
+        extension = "_wpimath",
+        output_directory = "wpimath/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_filter",
+        extension = "_filter",
+        output_directory = "wpimath/filter/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_geometry",
+        extension = "_geometry",
+        output_directory = "wpimath/geometry/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_interpolation",
+        extension = "_interpolation",
+        output_directory = "wpimath/interpolation/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_kinematics",
+        extension = "_kinematics",
+        output_directory = "wpimath/kinematics/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_spline",
+        extension = "_spline",
+        output_directory = "wpimath/spline/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpimath_controls",
+        extension = "_controls",
+        output_directory = "wpimath/_controls/",
+    )
+
+    return [
+        ":copy_wpimath",
+        ":copy_wpimath_controls",
+        ":copy_wpimath_filter",
+        ":copy_wpimath_geometry",
+        ":copy_wpimath_interpolation",
+        ":copy_wpimath_kinematics",
+        ":copy_wpimath_spline",
+    ]
+
+def libinit_files():
+    return [
+        "wpimath/_controls/_init__controls.py",
+        "wpimath/_init__wpimath.py",
+        "wpimath/filter/_init__filter.py",
+        "wpimath/geometry/_init__geometry.py",
+        "wpimath/interpolation/_init__interpolation.py",
+        "wpimath/kinematics/_init__kinematics.py",
+        "wpimath/spline/_init__spline.py",
+    ]
