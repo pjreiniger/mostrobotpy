@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "move_extension_modules", "libinit_files", "publish_library_casters", "wpiutil_extension")
+load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "get_generated_data_files", "libinit_files", "publish_library_casters", "wpiutil_extension")
 
 generate_build_info(
     name = "wpiutil",
@@ -50,7 +50,7 @@ robotpy_library(
     name = "wpiutil",
     package_name = "robotpy-wpiutil",
     srcs = glob(["wpiutil/**/*.py"]) + libinit_files(),
-    data = move_extension_modules(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
     strip_path_prefixes = ["subprojects/robotpy-wpiutil"],

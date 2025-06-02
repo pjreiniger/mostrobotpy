@@ -1,4 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def _local_include_root(project_import, include_subpackage):
@@ -39,7 +39,11 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
     ]
     resolve_casters(
         name = "wpilib_event.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_event.casters.pkl",
         dep_file = "wpilib_event.casters.d",
     )
@@ -145,7 +149,11 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
     ]
     resolve_casters(
         name = "wpilib_interfaces.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_interfaces.casters.pkl",
         dep_file = "wpilib_interfaces.casters.d",
     )
@@ -1251,7 +1259,11 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     ]
     resolve_casters(
         name = "wpilib.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib.casters.pkl",
         dep_file = "wpilib.casters.d",
     )
@@ -1371,7 +1383,11 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
     ]
     resolve_casters(
         name = "wpilib_counter.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_counter.casters.pkl",
         dep_file = "wpilib_counter.casters.d",
     )
@@ -1483,7 +1499,11 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
     ]
     resolve_casters(
         name = "wpilib_drive.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_drive.casters.pkl",
         dep_file = "wpilib_drive.casters.d",
     )
@@ -1778,7 +1798,11 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
     ]
     resolve_casters(
         name = "wpilib_shuffleboard.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_shuffleboard.casters.pkl",
         dep_file = "wpilib_shuffleboard.casters.d",
     )
@@ -2339,7 +2363,11 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
     ]
     resolve_casters(
         name = "wpilib_simulation.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpilib_simulation.casters.pkl",
         dep_file = "wpilib_simulation.casters.d",
     )
@@ -2409,3 +2437,84 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
+def get_generated_data_files():
+    copy_extension_library(
+        name = "copy_wpilib_event",
+        extension = "_event",
+        output_directory = "wpilib/event/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib_interfaces",
+        extension = "_interfaces",
+        output_directory = "wpilib/interfaces/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib",
+        extension = "_wpilib",
+        output_directory = "wpilib/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib_counter",
+        extension = "_counter",
+        output_directory = "wpilib/counter/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib_drive",
+        extension = "_drive",
+        output_directory = "wpilib/drive/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib_shuffleboard",
+        extension = "_shuffleboard",
+        output_directory = "wpilib/shuffleboard/",
+    )
+
+    copy_extension_library(
+        name = "copy_wpilib_simulation",
+        extension = "_simulation",
+        output_directory = "wpilib/simulation/",
+    )
+
+    native.filegroup(
+        name = "wpilib.generated_data_files",
+        srcs = [
+            "wpilib/wpilib.pc",
+            "wpilib/interfaces/wpilib_interfaces.pc",
+            "wpilib/event/wpilib_event.pc",
+            # "wpimath/geometry/wpimath_geometry.pc",
+            # "wpimath/filter/wpimath_filter.pc",
+            # "wpimath/kinematics/wpimath_kinematics.pc",
+            # "wpimath/spline/wpimath_spline.pc",
+            # "wpimath/controls/wpimath_controls.pc",
+            # "wpimath/wpimath-casters.pc",
+            # "wpimath/wpimath-casters.pybind11.json",
+        ],
+    )
+
+    return [
+        ":wpilib.generated_data_files",
+        ":copy_wpilib",
+        ":copy_wpilib_counter",
+        ":copy_wpilib_drive",
+        ":copy_wpilib_event",
+        ":copy_wpilib_interfaces",
+        ":copy_wpilib_shuffleboard",
+        ":copy_wpilib_simulation",
+    ]
+
+def libinit_files():
+    return [
+        "wpilib/_init__wpilib.py",
+        "wpilib/counter/_init__counter.py",
+        "wpilib/drive/_init__drive.py",
+        "wpilib/event/_init__event.py",
+        "wpilib/interfaces/_init__interfaces.py",
+        "wpilib/shuffleboard/_init__shuffleboard.py",
+        "wpilib/simulation/_init__simulation.py",
+    ]

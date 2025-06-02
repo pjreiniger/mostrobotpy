@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
+load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "get_generated_data_files", "libinit_files", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
 generate_build_info(
     name = "wpilib",
@@ -27,6 +27,11 @@ generate_build_info(
         "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc",
         "$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc",
         "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/geometry/wpimath_geometry.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/filter/wpimath_filter.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/controls/wpimath_controls.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/kinematics/wpimath_kinematics.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/spline/wpimath_spline.pc",
         "$(location //subprojects/robotpy-hal:import)/site-packages/hal/wpihal.pc",
         "$(location //subprojects/pyntcore:import)/site-packages/ntcore/ntcore.pc",
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
@@ -258,69 +263,11 @@ make_pyi(
     name = "make_pyi7",
 )
 
-copy_extension_library(
-    name = "copy_wpilib_event",
-    extension = "_event",
-    output_directory = "wpilib/event/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib_interfaces",
-    extension = "_interfaces",
-    output_directory = "wpilib/interfaces/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib",
-    extension = "_wpilib",
-    output_directory = "wpilib/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib_counter",
-    extension = "_counter",
-    output_directory = "wpilib/counter/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib_drive",
-    extension = "_drive",
-    output_directory = "wpilib/drive/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib_shuffleboard",
-    extension = "_shuffleboard",
-    output_directory = "wpilib/shuffleboard/",
-)
-
-copy_extension_library(
-    name = "copy_wpilib_simulation",
-    extension = "_simulation",
-    output_directory = "wpilib/simulation/",
-)
-
 robotpy_library(
     name = "wpilib",
     package_name = "robotpy-wpilib",
-    srcs = glob(["wpilib/**/*.py"]) + [
-        "wpilib/_init__wpilib.py",
-        "wpilib/counter/_init__counter.py",
-        "wpilib/drive/_init__drive.py",
-        "wpilib/event/_init__event.py",
-        "wpilib/interfaces/_init__interfaces.py",
-        "wpilib/shuffleboard/_init__shuffleboard.py",
-        "wpilib/simulation/_init__simulation.py",
-    ],
-    data = [
-        ":copy_wpilib",
-        ":copy_wpilib_counter",
-        ":copy_wpilib_drive",
-        ":copy_wpilib_event",
-        ":copy_wpilib_interfaces",
-        ":copy_wpilib_shuffleboard",
-        ":copy_wpilib_simulation",
-    ],
+    srcs = glob(["wpilib/**/*.py"]) + libinit_files(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/pyntcore:import",
@@ -345,5 +292,6 @@ filegroup(
         "wpilib_shuffleboard.generated_files",
         "wpilib_simulation.generated_files",
     ],
+    tags = ["manual"],
     visibility = ["//visibility:public"],
 )

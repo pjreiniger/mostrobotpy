@@ -1,4 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def _local_include_root(project_import, include_subpackage):
@@ -348,7 +348,10 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     ]
     resolve_casters(
         name = "ntcore.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
         casters_pkl_file = "ntcore.casters.pkl",
         dep_file = "ntcore.casters.d",
     )
@@ -417,3 +420,27 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
+def get_generated_data_files():
+    copy_extension_library(
+        name = "copy_ntcore",
+        extension = "_ntcore",
+        output_directory = "ntcore/",
+    )
+
+    native.filegroup(
+        name = "ntcore.generated_data_files",
+        srcs = [
+            "ntcore/ntcore.pc",
+        ],
+    )
+
+    return [
+        ":copy_ntcore",
+        ":ntcore.generated_data_files",
+    ]
+
+def libinit_files():
+    return [
+        "ntcore/_init__ntcore.py",
+    ]

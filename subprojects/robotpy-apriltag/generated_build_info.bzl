@@ -82,7 +82,12 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
     ]
     resolve_casters(
         name = "apriltag.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
+        # caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
         casters_pkl_file = "apriltag.casters.pkl",
         dep_file = "apriltag.casters.d",
     )

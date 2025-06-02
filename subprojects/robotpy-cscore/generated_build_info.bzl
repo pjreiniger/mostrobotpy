@@ -68,7 +68,11 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     ]
     resolve_casters(
         name = "cscore.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "cscore-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            ":cscore/cscore-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
         casters_pkl_file = "cscore.casters.pkl",
         dep_file = "cscore.casters.d",
     )
@@ -139,8 +143,8 @@ def publish_library_casters(typecasters_srcs):
     publish_casters(
         name = "publish_casters",
         caster_name = "cscore-casters",
-        output_json = "cscore-casters.pybind11.json",
-        output_pc = "cscore-casters.pc",
+        output_json = "cscore/cscore-casters.pybind11.json",
+        output_pc = "cscore/cscore-casters.pc",
         project_config = "pyproject.toml",
         typecasters_srcs = typecasters_srcs,
     )

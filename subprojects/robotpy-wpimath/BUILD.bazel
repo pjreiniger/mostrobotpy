@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "move_extension_modules", "libinit_files", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
+load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "get_generated_data_files", "libinit_files", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
 generate_build_info(
     name = "wpimath",
@@ -181,7 +181,7 @@ robotpy_library(
     name = "wpimath",
     package_name = "robotpy-wpimath",
     srcs = glob(["wpimath/**/*.py"]) + libinit_files(),
-    data = move_extension_modules(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-wpimath:import",

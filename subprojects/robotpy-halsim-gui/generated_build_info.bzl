@@ -6,7 +6,11 @@ def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_na
     ]
     resolve_casters(
         name = "halsim_gui_ext.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "halsim_gui_ext.casters.pkl",
         dep_file = "halsim_gui_ext.casters.d",
     )

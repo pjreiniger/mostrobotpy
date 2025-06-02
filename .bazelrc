@@ -12,12 +12,20 @@ build --incompatible_disallow_empty_glob=1 # Bazel 8 prep
 build -c opt
 
 build:linux   --copt=-std=c++20
+build:linux   --host_copt=-std=c++20
+
 build:macos   --copt=-std=c++20
+build:macos   --host_copt=-std=c++20
 
 build:windows --copt=/std:c++20
 build:windows --copt=/Zc:__cplusplus
 build:windows --copt=/Zc:preprocessor
 build:windows --copt=/utf-8
+
+build:windows --host_copt=/std:c++20
+build:windows --host_copt=/Zc:__cplusplus
+build:windows --host_copt=/Zc:preprocessor
+build:windows --host_copt=/utf-8
 
 
 build:build_buddy --bes_results_url=https://app.buildbuddy.io/invocation/

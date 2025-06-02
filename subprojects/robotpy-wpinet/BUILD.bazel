@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "move_extension_modules", "libinit_files", "wpinet_extension")
+load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "get_generated_data_files", "libinit_files", "wpinet_extension")
 
 generate_build_info(
     name = "wpinet",
@@ -35,12 +35,11 @@ make_pyi(
     name = "make_pyi1",
 )
 
-
 robotpy_library(
     name = "wpinet",
     package_name = "robotpy-wpinet",
     srcs = glob(["wpinet/**/*.py"]) + libinit_files(),
-    data = move_extension_modules(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-wpinet:import",

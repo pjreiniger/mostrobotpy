@@ -1,6 +1,5 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -137,14 +136,14 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
             class_name = "WPyStruct",
             yml_file = "semiwrap/WPyStruct.yml",
             header_root = "subprojects/robotpy-wpiutil/wpiutil",
-            header_file = "subprojects/robotpy-wpiutil/wpiutil/src/wpistruct/wpystruct_fns.h",
+            header_file = "subprojects/robotpy-wpiutil/wpiutil" + "/src/wpistruct/wpystruct_fns.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
     ]
     resolve_casters(
         name = "wpiutil.resolve_casters",
-        caster_files = ["wpiutil-casters.pybind11.json"],
+        caster_files = [":wpiutil/wpiutil-casters.pybind11.json"],
         casters_pkl_file = "wpiutil.casters.pkl",
         dep_file = "wpiutil.casters.d",
     )
@@ -211,22 +210,32 @@ def publish_library_casters(typecasters_srcs):
     publish_casters(
         name = "publish_casters",
         caster_name = "wpiutil-casters",
-        output_json = "wpiutil-casters.pybind11.json",
-        output_pc = "wpiutil-casters.pc",
+        output_json = "wpiutil/wpiutil-casters.pybind11.json",
+        output_pc = "wpiutil/wpiutil-casters.pc",
         project_config = "pyproject.toml",
         typecasters_srcs = typecasters_srcs,
     )
 
-
-def move_extension_modules():
+def get_generated_data_files():
     copy_extension_library(
         name = "copy_wpiutil",
         extension = "_wpiutil",
         output_directory = "wpiutil/",
     )
 
-    return [":copy_wpiutil"]
+    native.filegroup(
+        name = "wpiutil.generated_data_files",
+        srcs = [
+            "wpiutil/wpiutil.pc",
+            "wpiutil/wpiutil-casters.pc",
+            "wpiutil/wpiutil-casters.pybind11.json",
+        ],
+    )
 
+    return [
+        ":copy_wpiutil",
+        ":wpiutil.generated_data_files",
+    ]
 
 def libinit_files():
     return [

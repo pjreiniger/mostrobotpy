@@ -1,6 +1,5 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -30,7 +29,10 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     ]
     resolve_casters(
         name = "wpinet.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
         casters_pkl_file = "wpinet.casters.pkl",
         dep_file = "wpinet.casters.d",
     )
@@ -93,14 +95,23 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         includes = includes,
     )
 
-def move_extension_modules():
+def get_generated_data_files():
     copy_extension_library(
         name = "copy_wpinet",
         extension = "_wpinet",
         output_directory = "wpinet/",
     )
-    return [":copy_wpinet"]
 
+    native.filegroup(
+        name = "wpinet.generated_data_files",
+        srcs = [
+            "wpinet/wpinet.pc",
+        ],
+    )
+    return [
+        ":copy_wpinet",
+        "wpinet.generated_data_files",
+    ]
 
 def libinit_files():
     return [

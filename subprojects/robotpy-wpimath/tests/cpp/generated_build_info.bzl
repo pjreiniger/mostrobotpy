@@ -16,7 +16,11 @@ def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extensio
     ]
     resolve_casters(
         name = "wpimath_test.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "wpimath_test.casters.pkl",
         dep_file = "wpimath_test.casters.d",
     )

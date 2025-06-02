@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-hal:generated_build_info.bzl", "hal_simulation_extension", "wpihal_extension")
+load("//subprojects/robotpy-hal:generated_build_info.bzl", "get_generated_data_files", "hal_simulation_extension", "libinit_files", "wpihal_extension")
 
 generate_build_info(
     name = "hal",
@@ -59,29 +59,11 @@ make_pyi(
     name = "make_pyi2",
 )
 
-copy_extension_library(
-    name = "copy_hal_simulation",
-    extension = "_simulation",
-    output_directory = "hal/simulation/",
-)
-
-copy_extension_library(
-    name = "copy_wpihal",
-    extension = "_wpiHal",
-    output_directory = "hal/",
-)
-
 robotpy_library(
     name = "hal",
     package_name = "robotpy-hal",
-    srcs = glob(["hal/**/*.py"]) + [
-        "hal/_init__wpiHal.py",
-        "hal/simulation/_init__simulation.py",
-    ],
-    data = [
-        ":copy_hal_simulation",
-        ":copy_wpihal",
-    ],
+    srcs = glob(["hal/**/*.py"]) + libinit_files(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-wpihal:import",

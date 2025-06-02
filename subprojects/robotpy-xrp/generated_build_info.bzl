@@ -66,7 +66,11 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
     ]
     resolve_casters(
         name = "xrp.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
+        caster_files = [
+            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
+        ],
+        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
         casters_pkl_file = "xrp.casters.pkl",
         dep_file = "xrp.casters.d",
     )
