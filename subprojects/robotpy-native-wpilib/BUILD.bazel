@@ -5,6 +5,8 @@ create_native_library(
     name = "wpilib",
     package_name = "robotpy-native-wpilib",
     lib_name = "wpilib",
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers"],
     module_dependencies = [
         "native.wpiutil._init_robotpy_native_wpiutil",
         "native.wpinet._init_robotpy_native_wpinet",

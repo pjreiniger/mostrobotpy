@@ -6,8 +6,8 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "PortForwarder",
             yml_file = "semiwrap/PortForwarder.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers/wpinet/PortForwarder.h",
+            header_root = "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            header_file = "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include/wpinet/PortForwarder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::PortForwarder", "wpi__PortForwarder.hpp"),
@@ -16,8 +16,8 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "WebServer",
             yml_file = "semiwrap/WebServer.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers/wpinet/WebServer.h",
+            header_root = "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            header_file = "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include/wpinet/WebServer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::WebServer", "wpi__WebServer.hpp"),
@@ -58,9 +58,10 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         casters_pickle = "wpinet.casters.pkl",
         header_gen_config = WPINET_HEADER_GEN,
         deps = header_to_dat_deps,
+        header_to_dat_deps = "//subprojects/robotpy-native-wpinet:import",
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            # "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
         ],
     )
 

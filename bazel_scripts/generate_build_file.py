@@ -3,8 +3,11 @@ from semiwrap.autowrap.buffer import RenderBuffer
 from semiwrap.pyproject import PyProject
 from semiwrap.config.autowrap_yml import AutowrapConfigYaml
 from semiwrap.config.pyproject_toml import ExtensionModuleConfig, TypeCasterConfig
+from semiwrap.pkgconf_cache import PkgconfCache
 import pathlib
+import collections
 import typing as T
+import re
 
 import toposort
 
@@ -16,11 +19,51 @@ def _split_ns(name: str) -> T.Tuple[str, str]:
         name = name[idx + 2 :]
     return ns, name
 
+
+
+def resolve_dependency(dependencies):
+    resolved = set()
+    header_paths = set()
+    print("-----------------")
+    for d in dependencies:
+        print("---", d)
+        if "native" in d:
+            bazel_dep = f"//subprojects/{d}"
+            base_lib = re.search("robotpy-native-(.*)", d)[1]
+            print(base_lib)
+            header_paths.add(f"external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_{base_lib}_{base_lib}-cpp_headers")
+        elif "casters" in d:
+            continue
+        else:
+            bazel_dep = f"//subprojects/robotpy-{d}"
+            header_paths.add(f"external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_{d}_{d}-cpp_headers")
+        resolved.add(bazel_dep)
+
+    print(resolved)
+    print(header_paths)
+    print("-----------------")
+
+
+    if header_paths:
+        header_paths_str = "[\n            "
+        header_paths_str += ",\n            ".join(f'"{x}"' for x in sorted(header_paths))
+        header_paths_str += ",\n        ]"
+    else:
+        header_paths = "[]"
+
+
+    return resolved, header_paths_str
+
+
 class Generator:
     def __init__(self, project_file):
         self.output_buffer = RenderBuffer()
         self.project_root = project_file.parent
         self.pyproject = PyProject(project_file)
+        
+        self.local_caster_targets: T.Dict[str, BuildTargetOutput] = {}
+        
+        self.pkgcache = PkgconfCache()
 
         self.output_buffer.write_trim("""load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
@@ -98,8 +141,70 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
         return output
 
 
+    def _prepare_dependency_paths(
+        self, depends: T.List[str], extension: ExtensionModuleConfig
+    ):
+        search_path: T.List[pathlib.Path] = []
+        include_directories_uniq: T.Dict[pathlib.Path, bool] = {}
+        caster_json_file: T.List[T.Union[BuildTargetOutput, pathlib.Path]] = []
+        libinit_modules: T.List[str] = []
+
+        # Add semiwrap default type casters
+        # caster_json_file.append(self.semiwrap_type_caster_path)
+
+        for dep in depends:
+            entry = self.pkgcache.get(dep)
+            include_directories_uniq.update(
+                dict.fromkeys(entry.full_include_path, True)
+            )
+
+            # extend the search path if the dependency is in 'wraps'
+            if dep in extension.wraps:
+                search_path.extend(entry.include_path)
+
+            self._locate_type_caster_json(dep, caster_json_file)
+
+            if entry.libinit_py:
+                libinit_modules.append(entry.libinit_py)
+
+        return search_path, include_directories_uniq, caster_json_file, libinit_modules
+
+
+    def _locate_type_caster_json(
+        self,
+        depname: str,
+        caster_json_file,
+    ):
+        checked = set()
+        to_check = collections.deque([depname])
+        while to_check:
+            name = to_check.popleft()
+            checked.add(name)
+
+            entry = self.pkgcache.get(name)
+
+            if name in self.local_caster_targets:
+                caster_json_file.append(self.local_caster_targets[name])
+            else:
+                tc = entry.type_casters_path
+                if tc and tc not in caster_json_file:
+                    print("--ff--", tc)
+                    tc = str(tc).replace(
+                        "/home/pjreiniger/git/robotpy/robotpy_monorepo/rules_semiwrap/.venv/lib/python3.10/site-packages/wpiutil/wpiutil-casters.pybind11.json", 
+                        "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json")
+                    tc = str(tc).replace(
+                        "/home/pjreiniger/git/robotpy/robotpy_monorepo/rules_semiwrap/.venv/lib/python3.10/site-packages/wpimath/wpimath-casters.pybind11.json", 
+                        "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"
+                    )
+                    caster_json_file.append(tc)
+
+            for req in entry.requires:
+                if req not in checked:
+                    to_check.append(req)
+
     def _process_headers(
         self, 
+        package_name,
         extension: ExtensionModuleConfig, 
         yaml_path: pathlib.Path):
 
@@ -121,7 +226,7 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
             search_path.append(pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy/external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers"))
         elif "wpilib" in extension.name:
             search_path.append(pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy/external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers"))
-            search_path.append(pathlib.Path("subprojects/robotpy-wpilib/wpilib/src"))
+            search_path.append(pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpilib/wpilib/src"))
         elif "cscore" in extension.name:
             search_path.append(pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy/external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers"))
             search_path.append(pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy/external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cameraserver_cameraserver-cpp_headers"))
@@ -132,6 +237,8 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
         else:
             raise Exception(extension.name)
         # TODO
+
+        extra_hdrs = []
 
         with self.output_buffer.indent(4):
             self.output_buffer.writeln(f"{extension.name.upper()}_HEADER_GEN = [")
@@ -154,6 +261,9 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
                     h_input, h_root = self._locate_header(hdr, search_path)
                     if str(h_root).startswith("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy"):
                         header_root = str(h_root)[len("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/bazel-mostrobotpy/"):]
+                    elif str(h_root).startswith("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy"):
+                        header_root = str(h_root)[len("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/"):]
+                        extra_hdrs.append(package_name.split(".")[0] / h_input.relative_to(h_root))
                     else:
                         header_root = h_input
 
@@ -172,7 +282,30 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
             self.output_buffer.writeln("]")
             # self.output_buffer.writeln("\n")
 
-    def _write_extension_data(self, package_name: str, extension: ExtensionModuleConfig):
+        return extra_hdrs
+
+    def _write_extension_data(self, package_name: str, extension: ExtensionModuleConfig, extra_generation_hdrs):
+        depends = self.pyproject.get_extension_deps(extension)
+
+        extra_generation_hdrs_str = ""
+        if extra_generation_hdrs:
+            extra_generation_hdrs_str += "+ ["
+            extra_generation_hdrs_str += ",".join(f'"{x}"' for x in extra_generation_hdrs)
+            extra_generation_hdrs_str += "]"
+
+        # Search path for wrapping is dictated by package_path and wraps
+        search_path, include_directories_uniq, caster_json_file, libinit_modules = (
+            self._prepare_dependency_paths(depends, extension)
+        )
+
+        bazel_deps, bazel_header_paths = resolve_dependency(depends)
+        print(bazel_deps)
+        print(bazel_header_paths)
+
+        libinit_modules = "[" + ", ".join(f'"{x}"' for x in libinit_modules) + "]"
+        caster_json_file = "[" + ", ".join(f'"{x}"' for x in sorted(set(caster_json_file))) + "]"
+        # print(caster_json_file)
+
         with self.output_buffer.indent(4):
             package_path_elems = package_name.split(".")
             parent_package = ".".join(package_path_elems[:-1])
@@ -185,7 +318,7 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
             self.output_buffer.write_trim(f"""
     resolve_casters(
         name = "{extension.name}.resolve_casters",
-        caster_files = [],
+        caster_files = {caster_json_file},
         casters_pkl_file = "{extension.name}.casters.pkl",
         dep_file = "{extension.name}.casters.d",
     )
@@ -193,7 +326,7 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
     gen_libinit(
         name = "{extension.name}.gen_lib_init",
         output_file = "{package_path}/{libinit}.py",
-        modules = [],
+        modules = {libinit_modules},
     )
 
     gen_pkgconf(
@@ -216,14 +349,8 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
         name = "{extension.name}",
         casters_pickle = "{extension.name}.casters.pkl",
         header_gen_config = {extension.name.upper()}_HEADER_GEN,
-        include_root = DEFAULT_INCLUDE_ROOT,
-        deps = header_to_dat_deps,
-        generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
-        ],
+        deps = header_to_dat_deps{extra_generation_hdrs_str},
+        generation_includes = {bazel_header_paths},
     )
 
     native.filegroup(
@@ -252,11 +379,6 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
     )""")
 
     def _process_extension_module(self, extension: ExtensionModuleConfig):
-
-
-        print(type(extension))
-        print(extension.name)
-
         self.output_buffer.writeln(f"""def {extension.name}_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):""")
 
 
@@ -274,6 +396,16 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
         )
 
     def generate(self, output_file: pathlib.Path):
+        for name, caster_cfg in self.pyproject.project.export_type_casters.items():
+            dep = self.pkgcache.add_local(
+                name=name,
+                includes=[self.project_root / inc for inc in caster_cfg.includedir],
+                requires=caster_cfg.requires,
+            )
+
+            self.local_caster_targets[name] = f"{name}.pybind11.json"
+
+
         for package_name, extension in self._sorted_extension_modules():
             self._process_extension_module(extension)
             
@@ -281,8 +413,24 @@ load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libini
                 yaml_path = pathlib.Path("semiwrap")
             else:
                 yaml_path = pathlib.Path(pathlib.PurePosixPath(extension.yaml_path))
-            self._process_headers(extension, yaml_path)
-            self._write_extension_data(package_name, extension)
+            extra_generation_hdrs = self._process_headers(package_name, extension, yaml_path)
+            self._write_extension_data(package_name, extension, extra_generation_hdrs)
+
+        
+        for name, caster_cfg in self.pyproject.project.export_type_casters.items():            
+            self.output_buffer.writeln()
+            self.output_buffer.write_trim(f"""
+            def publish_library_casters(typecasters_srcs):
+                publish_casters(
+                    name = "publish_casters",
+                    caster_name = "{name}",
+                    output_json = "{name}.pybind11.json",
+                    output_pc = "{name}.pc",
+                    project_config = "pyproject.toml",
+                    typecasters_srcs = typecasters_srcs,
+                )
+            """)
+
         
         with open(output_file, 'w') as f:
             f.write(self.output_buffer.getvalue())
@@ -306,10 +454,10 @@ def main():
         # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-romi/pyproject.toml"),
         pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpilib/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpimath/pyproject.toml"),
-        # # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpimath/tests/cpp/pyproject.toml"),
+        # # # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpimath/tests/cpp/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpinet/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpiutil/pyproject.toml"),
-        # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpiutil/tests/cpp/pyproject.toml"),
+        # # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-wpiutil/tests/cpp/pyproject.toml"),
         # pathlib.Path("/home/pjreiniger/git/robotpy/robotpy_monorepo/mostrobotpy/subprojects/robotpy-xrp/pyproject.toml"),
     ]
 

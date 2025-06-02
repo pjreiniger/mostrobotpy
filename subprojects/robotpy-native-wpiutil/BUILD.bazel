@@ -6,6 +6,8 @@ create_native_library(
     package_name = "robotpy-native-wpiutil",
     lib_name = "wpiutil",
     module_dependencies = [],
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpiutil"],
     version = VERSION,
