@@ -5,6 +5,8 @@ create_native_library(
     name = "wpiHal",
     package_name = "robotpy-native-wpihal",
     lib_name = "wpihal",
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers"],
     module_dependencies = ["native.wpiutil._init_robotpy_native_wpiutil"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/hal:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpihal"],
