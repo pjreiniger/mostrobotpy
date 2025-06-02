@@ -1,13 +1,19 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
+
+def _local_include_root(project_import, include_subpackage):
+    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+
+
+
 def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
         struct(
             class_name = "DataLog",
             yml_file = "semiwrap/DataLog.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/DataLog.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/DataLog.h",
             tmpl_class_names = [
                 ("DataLog_tmpl1", "StructLogEntry"),
                 ("DataLog_tmpl2", "StructArrayLogEntry"),
@@ -45,8 +51,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "DataLogReader",
             yml_file = "semiwrap/DataLogReader.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/DataLogReader.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/DataLogReader.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::StartRecordData", "wpi__log__StartRecordData.hpp"),
@@ -58,8 +64,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "DataLogBackgroundWriter",
             yml_file = "semiwrap/DataLogBackgroundWriter.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/DataLogBackgroundWriter.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/DataLogBackgroundWriter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::DataLogBackgroundWriter", "wpi__log__DataLogBackgroundWriter.hpp"),
@@ -68,8 +74,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "DataLogWriter",
             yml_file = "semiwrap/DataLogWriter.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/DataLogWriter.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/DataLogWriter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::log::DataLogWriter", "wpi__log__DataLogWriter.hpp"),
@@ -78,32 +84,32 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "StackTrace",
             yml_file = "semiwrap/StackTrace.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/StackTrace.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/StackTrace.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Synchronization",
             yml_file = "semiwrap/Synchronization.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/Synchronization.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/Synchronization.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "RawFrame",
             yml_file = "semiwrap/RawFrame.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/RawFrame.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/RawFrame.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "Sendable",
             yml_file = "semiwrap/Sendable.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/sendable/Sendable.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/sendable/Sendable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::Sendable", "wpi__Sendable.hpp"),
@@ -112,8 +118,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "SendableBuilder",
             yml_file = "semiwrap/SendableBuilder.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/sendable/SendableBuilder.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/sendable/SendableBuilder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::SendableBuilder", "wpi__SendableBuilder.hpp"),
@@ -122,8 +128,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         struct(
             class_name = "SendableRegistry",
             yml_file = "semiwrap/SendableRegistry.yml",
-            header_root = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            header_file = "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include/wpi/sendable/SendableRegistry.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            header_file = _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil") + "/wpi/sendable/SendableRegistry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::SendableRegistry", "wpi__SendableRegistry.hpp"),
@@ -174,7 +180,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         deps = header_to_dat_deps + ["wpiutil/src/wpistruct/wpystruct_fns.h"],
         header_to_dat_deps = ["//subprojects/robotpy-native-wpiutil:import"],
         generation_includes = [
-            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
+            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 

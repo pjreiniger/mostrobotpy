@@ -7,10 +7,23 @@ generate_build_info(
     name = "xrp",
     yaml_files = glob(["semiwrap/**/*.yml"]),
     local_libraries = [
+        "//subprojects/robotpy-native-wpimath:import",
+        "//subprojects/robotpy-wpimath:import",
         "//subprojects/robotpy-native-wpilib:import",
         "//subprojects/robotpy-native-wpiutil:import",
+        "//subprojects/robotpy-native-xrp:import",
+        "//subprojects/robotpy-wpilib:import",
     ],
-    pkgcfgs = [],
+    pkgcfgs = [
+        "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc",
+        "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/robotpy-native-xrp.pc",
+        "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/robotpy-native-wpilib.pc",
+        "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
+        "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/geometry/wpimath_geometry.pc",
+        "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/wpilib.pc",
+    ],
     pyproject_toml = ":pyproject.toml",
 )
 
