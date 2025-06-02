@@ -1,13 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     XRP_HEADER_GEN = [
         struct(
             class_name = "XRPGyro",
             yml_file = "semiwrap/XRPGyro.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPGyro.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPGyro", "frc__XRPGyro.hpp"),
@@ -16,8 +16,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPMotor",
             yml_file = "semiwrap/XRPMotor.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPMotor.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPMotor", "frc__XRPMotor.hpp"),
@@ -26,8 +26,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPOnBoardIO",
             yml_file = "semiwrap/XRPOnBoardIO.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPOnBoardIO.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPOnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPOnBoardIO", "frc__XRPOnBoardIO.hpp"),
@@ -36,8 +36,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPRangefinder",
             yml_file = "semiwrap/XRPRangefinder.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPRangefinder.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPRangefinder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPRangefinder", "frc__XRPRangefinder.hpp"),
@@ -46,8 +46,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPReflectanceSensor",
             yml_file = "semiwrap/XRPReflectanceSensor.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPReflectanceSensor.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPReflectanceSensor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPReflectanceSensor", "frc__XRPReflectanceSensor.hpp"),
@@ -56,8 +56,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPServo",
             yml_file = "semiwrap/XRPServo.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers/frc/xrp/XRPServo.h",
+            header_root = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+            header_file = "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include/frc/xrp/XRPServo.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPServo", "frc__XRPServo.hpp"),
@@ -66,7 +66,7 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
     ]
     resolve_casters(
         name = "xrp.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"],
+        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
         casters_pkl_file = "xrp.casters.pkl",
         dep_file = "xrp.casters.d",
     )
@@ -98,14 +98,14 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         casters_pickle = "xrp.casters.pkl",
         header_gen_config = XRP_HEADER_GEN,
         deps = header_to_dat_deps,
+        header_to_dat_deps = ["//subprojects/robotpy-native-xrp:import", "//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers",
+            "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/include",
+            "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
+            "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
+            "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
         ],
     )
 

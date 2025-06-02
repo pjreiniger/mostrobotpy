@@ -5,6 +5,8 @@ create_native_library(
     name = "romi",
     package_name = "robotpy-native-romi",
     lib_name = "romi",
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers"],
     module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-romi"],

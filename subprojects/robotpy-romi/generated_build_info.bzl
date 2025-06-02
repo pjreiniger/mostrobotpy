@@ -1,13 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
-load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 
 def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     ROMI_HEADER_GEN = [
         struct(
             class_name = "OnBoardIO",
             yml_file = "semiwrap/OnBoardIO.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/OnBoardIO.h",
+            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
+            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/OnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::OnBoardIO", "frc__OnBoardIO.hpp"),
@@ -16,8 +16,8 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         struct(
             class_name = "RomiGyro",
             yml_file = "semiwrap/RomiGyro.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/RomiGyro.h",
+            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
+            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/RomiGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiGyro", "frc__RomiGyro.hpp"),
@@ -26,8 +26,8 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         struct(
             class_name = "RomiMotor",
             yml_file = "semiwrap/RomiMotor.yml",
-            header_root = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
-            header_file = "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers/frc/romi/RomiMotor.h",
+            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
+            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/RomiMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiMotor", "frc__RomiMotor.hpp"),
@@ -36,7 +36,7 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
     ]
     resolve_casters(
         name = "romi.resolve_casters",
-        caster_files = ["//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json", "//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json"],
+        caster_files = ["//subprojects/robotpy-wpimath:generated/publish_casters/wpimath-casters.pybind11.json", "//subprojects/robotpy-wpiutil:generated/publish_casters/wpiutil-casters.pybind11.json"],
         casters_pkl_file = "romi.casters.pkl",
         dep_file = "romi.casters.d",
     )
@@ -68,14 +68,14 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         casters_pickle = "romi.casters.pkl",
         header_gen_config = ROMI_HEADER_GEN,
         deps = header_to_dat_deps,
+        header_to_dat_deps = ["//subprojects/robotpy-native-romi:import", "//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
         generation_includes = [
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_romivendordep_romivendordep-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_hal_hal-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers",
-            "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpiutil_wpiutil-cpp_headers",
+            "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
+            "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/include",
+            "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
+            "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
+            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
+            "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
         ],
     )
 
