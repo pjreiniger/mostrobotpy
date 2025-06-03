@@ -61,13 +61,14 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         casters_pickle = "wpimath.casters.pkl",
         header_gen_config = WPIMATH_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
             "subprojects/robotpy-wpimath/wpimath/_impl/src",
             "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -183,13 +184,14 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         casters_pickle = "wpimath_filter.casters.pkl",
         header_gen_config = WPIMATH_FILTER_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
             "subprojects/robotpy-wpimath/wpimath/_impl/src",
             "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -409,13 +411,14 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         casters_pickle = "wpimath_geometry.casters.pkl",
         header_gen_config = WPIMATH_GEOMETRY_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
             "subprojects/robotpy-wpimath/wpimath/_impl/src",
             "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -503,13 +506,14 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         casters_pickle = "wpimath_interpolation.casters.pkl",
         header_gen_config = WPIMATH_INTERPOLATION_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
             "subprojects/robotpy-wpimath/wpimath/_impl/src",
             "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -805,10 +809,9 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         casters_pickle = "wpimath_kinematics.casters.pkl",
         header_gen_config = WPIMATH_KINEMATICS_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -932,10 +935,9 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         casters_pickle = "wpimath_spline.casters.pkl",
         header_gen_config = WPIMATH_SPLINE_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -1596,10 +1598,9 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         casters_pickle = "wpimath_controls.casters.pkl",
         header_gen_config = WPIMATH_CONTROLS_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 

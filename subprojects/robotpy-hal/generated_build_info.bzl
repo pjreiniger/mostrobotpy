@@ -222,10 +222,9 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         casters_pickle = "hal_simulation.casters.pkl",
         header_gen_config = HAL_SIMULATION_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpihal:import", "wpihal"),
-            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpihal:import", "wpihal"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -642,10 +641,9 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         casters_pickle = "wpihal.casters.pkl",
         header_gen_config = WPIHAL_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpihal:import", "wpihal"),
-            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpihal:import", "wpihal"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 

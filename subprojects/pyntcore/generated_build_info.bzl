@@ -346,6 +346,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
     ]
+
     resolve_casters(
         name = "ntcore.resolve_casters",
         caster_files = [
@@ -388,12 +389,6 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpiutil:import", "//subprojects/robotpy-native-wpinet:import"],
-        # generation_includes = [
-        #     _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-        #     _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-        #     _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
-        # ],
     )
 
     native.filegroup(
@@ -436,8 +431,8 @@ def get_generated_data_files():
     )
 
     return [
-        ":copy_ntcore",
         ":ntcore.generated_data_files",
+        ":copy_ntcore",
     ]
 
 def libinit_files():

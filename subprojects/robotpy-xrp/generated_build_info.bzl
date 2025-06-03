@@ -102,14 +102,13 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         casters_pickle = "xrp.casters.pkl",
         header_gen_config = XRP_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-xrp:import", "//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
-            "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/include",
-            "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
-            "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-            "$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/include",
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
+            ("//subprojects/robotpy-native-wpilib:import", "wpiutil"),
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
+            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            ("//subprojects/robotpy-native-xrp:import", "romi"),
         ],
     )
 

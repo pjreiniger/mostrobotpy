@@ -27,6 +27,7 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpinet.resolve_casters",
         caster_files = [
@@ -64,9 +65,9 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         casters_pickle = "wpinet.casters.pkl",
         header_gen_config = WPINET_HEADER_GEN,
         deps = header_to_dat_deps,
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpinet:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet"),
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -108,9 +109,10 @@ def get_generated_data_files():
             "wpinet/wpinet.pc",
         ],
     )
+
     return [
+        ":wpinet.generated_data_files",
         ":copy_wpinet",
-        "wpinet.generated_data_files",
     ]
 
 def libinit_files():

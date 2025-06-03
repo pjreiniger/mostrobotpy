@@ -141,6 +141,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
             trampolines = [],
         ),
     ]
+
     resolve_casters(
         name = "wpiutil.resolve_casters",
         caster_files = [":wpiutil/wpiutil-casters.pybind11.json"],
@@ -175,9 +176,8 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         casters_pickle = "wpiutil.casters.pkl",
         header_gen_config = WPIUTIL_HEADER_GEN,
         deps = header_to_dat_deps + ["wpiutil/src/wpistruct/wpystruct_fns.h"],
-        header_to_dat_deps = ["//subprojects/robotpy-native-wpiutil:import"],
-        generation_includes = [
-            _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+        local_native_libraries = [
+            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
     )
 
@@ -233,8 +233,8 @@ def get_generated_data_files():
     )
 
     return [
-        ":copy_wpiutil",
         ":wpiutil.generated_data_files",
+        ":copy_wpiutil",
     ]
 
 def libinit_files():
