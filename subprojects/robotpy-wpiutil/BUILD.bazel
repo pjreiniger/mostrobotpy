@@ -11,6 +11,7 @@ generate_build_info(
     pkgcfgs = ["$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc"],
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/*.yml"]),
+    additional_srcs = ["wpiutil/src/wpistruct/wpystruct_fns.h"],
 )
 
 publish_library_casters(
@@ -46,11 +47,17 @@ make_pyi(
     name = "make_pyi1",
 )
 
+# filegroup(
+#     name = "srcs",
+#     srcs = glob(["wpiutil/src/**"]),
+# )
+
 robotpy_library(
     name = "wpiutil",
     package_name = "robotpy-wpiutil",
     srcs = glob(["wpiutil/**/*.py"]) + libinit_files(),
     data = get_generated_data_files(),
+    # data = get_generated_data_files() + [":wpiutil.trampoline_hdrs"] + [":srcs"],
     imports = ["."],
     robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
     strip_path_prefixes = ["subprojects/robotpy-wpiutil"],

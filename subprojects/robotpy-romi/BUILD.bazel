@@ -71,7 +71,7 @@ make_pyi(
 
 robotpy_library(
     name = "romi",
-    package_name = "robotpy-tomi",
+    package_name = "robotpy-romi",
     srcs = glob(["romi/**/*.py"]) + libinit_files(),
     data = get_generated_data_files(),
     imports = ["."],

@@ -38,6 +38,7 @@ generate_build_info(
     ],
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/**/*.yml"]),
+    additional_srcs = ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
 )
 
 wpilib_event_extension(
@@ -265,7 +266,7 @@ make_pyi(
 
 robotpy_library(
     name = "wpilib",
-    package_name = "robotpy-wpilib",
+    package_name = "wpilib",
     srcs = glob(["wpilib/**/*.py"]) + libinit_files(),
     data = get_generated_data_files(),
     imports = ["."],
