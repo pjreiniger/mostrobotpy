@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "copy_native_file", "robotpy_library")
-load("//:version.bzl", "VERSION")
+load("//:version.bzl", "MOSTROBOTPY_VERSION")
 
 copy_native_file(
     name = "halsim_ws_server",
@@ -27,6 +27,6 @@ robotpy_library(
         "//subprojects/robotpy-wpinet:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-halsim-ws"],
-    version = VERSION,
+    version = MOSTROBOTPY_VERSION,
     visibility = ["//visibility:public"],
 )

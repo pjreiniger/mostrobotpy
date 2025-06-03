@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
-load("//:version.bzl", "VERSION")
+load("//:version.bzl", "NATIVE_VERSION")
 
 create_native_library(
     name = "romi",
@@ -10,5 +10,5 @@ create_native_library(
     module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/romiVendordep:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-romi"],
-    version = VERSION,
+    version = NATIVE_VERSION,
 )

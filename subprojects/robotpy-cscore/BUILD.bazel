@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
-load("//:version.bzl", "VERSION")
+load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "libinit_files", "get_generated_data_files", "cscore_extension", "publish_library_casters")
 
@@ -75,7 +75,7 @@ robotpy_library(
         "//subprojects/robotpy-wpiutil:import",
     ],
     strip_path_prefixes = ["subprojects/robotpy-cscore"],
-    version = VERSION,
+    version = MOSTROBOTPY_VERSION,
     visibility = ["//visibility:public"],
 )
 

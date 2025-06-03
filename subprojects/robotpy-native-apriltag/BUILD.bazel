@@ -1,5 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
-load("//:version.bzl", "VERSION")
+load("//:version.bzl", "NATIVE_VERSION")
 
 create_native_library(
     name = "apriltag",
@@ -13,5 +13,5 @@ create_native_library(
     ],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-apriltag"],
-    version = VERSION,
+    version = NATIVE_VERSION,
 )
