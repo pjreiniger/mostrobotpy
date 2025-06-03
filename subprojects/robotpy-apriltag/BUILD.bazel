@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension")
+load("//subprojects/robotpy-apriltag:generated_build_info.bzl",  "libinit_files", "get_generated_data_files", "apriltag_extension")
 
 generate_build_info(
     name = "apriltag",
@@ -41,17 +41,11 @@ make_pyi(
     name = "make_pyi1",
 )
 
-copy_extension_library(
-    name = "copy_apriltag",
-    extension = "_apriltag",
-    output_directory = "robotpy_apriltag/",
-)
-
 robotpy_library(
     name = "apriltag",
     package_name = "robotpy-apriltag",
-    srcs = glob(["robotpy_apriltag/**/*.py"]) + ["robotpy_apriltag/_init__apriltag.py"],
-    data = [":copy_apriltag"],
+    srcs = glob(["robotpy_apriltag/**/*.py"]) +  libinit_files(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-apriltag:import",

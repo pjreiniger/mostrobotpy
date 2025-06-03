@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-romi:generated_build_info.bzl", "romi_extension")
+load("//subprojects/robotpy-romi:generated_build_info.bzl", "libinit_files", "get_generated_data_files","romi_extension")
 
 generate_build_info(
     name = "romi",
@@ -69,17 +69,11 @@ make_pyi(
     name = "make_pyi1",
 )
 
-copy_extension_library(
-    name = "copy_romi",
-    extension = "_romi",
-    output_directory = "romi/",
-)
-
 robotpy_library(
     name = "romi",
     package_name = "robotpy-tomi",
-    srcs = glob(["romi/**/*.py"]) + ["romi/_init__romi.py"],
-    data = [":copy_romi"],
+    srcs = glob(["romi/**/*.py"]) + libinit_files(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/robotpy-native-romi:import",

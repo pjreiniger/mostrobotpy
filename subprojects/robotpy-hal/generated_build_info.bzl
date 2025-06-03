@@ -185,6 +185,7 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
             trampolines = [],
         ),
     ]
+
     resolve_casters(
         name = "hal_simulation.resolve_casters",
         caster_files = [
@@ -604,6 +605,7 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             trampolines = [],
         ),
     ]
+
     resolve_casters(
         name = "wpihal.resolve_casters",
         caster_files = [
@@ -674,28 +676,28 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
 
 def get_generated_data_files():
     copy_extension_library(
-        name = "copy_hal_simulation",
-        extension = "_simulation",
-        output_directory = "hal/simulation/",
-    )
-
-    copy_extension_library(
         name = "copy_wpihal",
         extension = "_wpiHal",
         output_directory = "hal/",
+    )
+    copy_extension_library(
+        name = "copy_hal_simulation",
+        extension = "_simulation",
+        output_directory = "hal/simulation/",
     )
 
     native.filegroup(
         name = "hal.generated_data_files",
         srcs = [
             "hal/wpihal.pc",
+            "hal/simulation/hal_simulation.pc",
         ],
     )
 
     return [
         ":hal.generated_data_files",
-        ":copy_hal_simulation",
         ":copy_wpihal",
+        ":copy_hal_simulation",
     ]
 
 def libinit_files():

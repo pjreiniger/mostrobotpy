@@ -1,6 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
 
@@ -37,6 +36,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_event.resolve_casters",
         caster_files = [
@@ -76,17 +76,12 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         header_gen_config = WPILIB_EVENT_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpilib:import"],
-        # generation_includes = [
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        # ],
     )
 
     native.filegroup(
@@ -147,6 +142,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_interfaces.resolve_casters",
         caster_files = [
@@ -186,17 +182,12 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         header_gen_config = WPILIB_INTERFACES_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpilib:import"],
-        # generation_includes = [
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        # ],
     )
 
     native.filegroup(
@@ -569,7 +560,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             class_name = "Filesystem",
             yml_file = "semiwrap/Filesystem.yml",
             header_root = "subprojects/robotpy-wpilib/wpilib/src",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Filesystem.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src" + "/rpy/Filesystem.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -628,7 +619,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             class_name = "Notifier",
             yml_file = "semiwrap/Notifier.yml",
             header_root = "subprojects/robotpy-wpilib/wpilib/src",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/Notifier.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src" + "/rpy/Notifier.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyNotifier", "frc__PyNotifier.hpp"),
@@ -987,7 +978,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             class_name = "MotorControllerGroup",
             yml_file = "semiwrap/MotorControllerGroup.yml",
             header_root = "subprojects/robotpy-wpilib/wpilib/src",
-            header_file = "subprojects/robotpy-wpilib/wpilib/src/rpy/MotorControllerGroup.h",
+            header_file = "subprojects/robotpy-wpilib/wpilib/src" + "/rpy/MotorControllerGroup.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyMotorControllerGroup", "frc__PyMotorControllerGroup.hpp"),
@@ -1257,6 +1248,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib.resolve_casters",
         caster_files = [
@@ -1296,21 +1288,12 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         header_gen_config = WPILIB_HEADER_GEN,
         deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
-        # generation_includes = [
-        #     "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        #     "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
-        #     "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-        #     "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-        # ],
         generation_defines = ["DYNAMIC_CAMERA_SERVER 1"],
     )
 
@@ -1381,6 +1364,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_counter.resolve_casters",
         caster_files = [
@@ -1420,21 +1404,12 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         header_gen_config = WPILIB_COUNTER_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
-        # generation_includes = [
-        #     "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        #     "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
-        #     "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-        #     "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-        # ],
     )
 
     native.filegroup(
@@ -1497,6 +1472,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_drive.resolve_casters",
         caster_files = [
@@ -1536,21 +1512,12 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         header_gen_config = WPILIB_DRIVE_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
-        # generation_includes = [
-        #     "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        #     "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
-        #     "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-        #     "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-        # ],
     )
 
     native.filegroup(
@@ -1796,6 +1763,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_shuffleboard.resolve_casters",
         caster_files = [
@@ -1835,21 +1803,12 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         header_gen_config = WPILIB_SHUFFLEBOARD_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpihal:import", "//subprojects/robotpy-native-ntcore:import", "//subprojects/robotpy-native-wpimath:import", "//subprojects/robotpy-native-wpinet:import", "//subprojects/robotpy-native-wpilib:import", "//subprojects/robotpy-native-wpiutil:import"],
-        # generation_includes = [
-        #     "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/include",
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        #     "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/include",
-        #     "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/include",
-        #     "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/include",
-        # ],
         generation_defines = ["DYNAMIC_CAMERA_SERVER 1"],
     )
 
@@ -2361,6 +2320,7 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpilib_simulation.resolve_casters",
         caster_files = [
@@ -2400,17 +2360,12 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         header_gen_config = WPILIB_SIMULATION_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            # ("//subprojects/robotpy-native-wpihal:import", "ntcore"),
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
             ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-wpilib:import"],
-        # generation_includes = [
-        #     _local_include_root("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-        # ],
     )
 
     native.filegroup(
@@ -2440,41 +2395,35 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
 
 def get_generated_data_files():
     copy_extension_library(
-        name = "copy_wpilib_event",
-        extension = "_event",
-        output_directory = "wpilib/event/",
-    )
-
-    copy_extension_library(
-        name = "copy_wpilib_interfaces",
-        extension = "_interfaces",
-        output_directory = "wpilib/interfaces/",
-    )
-
-    copy_extension_library(
         name = "copy_wpilib",
         extension = "_wpilib",
         output_directory = "wpilib/",
     )
-
     copy_extension_library(
         name = "copy_wpilib_counter",
         extension = "_counter",
         output_directory = "wpilib/counter/",
     )
-
     copy_extension_library(
         name = "copy_wpilib_drive",
         extension = "_drive",
         output_directory = "wpilib/drive/",
     )
-
+    copy_extension_library(
+        name = "copy_wpilib_event",
+        extension = "_event",
+        output_directory = "wpilib/event/",
+    )
+    copy_extension_library(
+        name = "copy_wpilib_interfaces",
+        extension = "_interfaces",
+        output_directory = "wpilib/interfaces/",
+    )
     copy_extension_library(
         name = "copy_wpilib_shuffleboard",
         extension = "_shuffleboard",
         output_directory = "wpilib/shuffleboard/",
     )
-
     copy_extension_library(
         name = "copy_wpilib_simulation",
         extension = "_simulation",
@@ -2485,15 +2434,12 @@ def get_generated_data_files():
         name = "wpilib.generated_data_files",
         srcs = [
             "wpilib/wpilib.pc",
-            "wpilib/interfaces/wpilib_interfaces.pc",
+            "wpilib/counter/wpilib_counter.pc",
+            "wpilib/drive/wpilib_drive.pc",
             "wpilib/event/wpilib_event.pc",
-            # "wpimath/geometry/wpimath_geometry.pc",
-            # "wpimath/filter/wpimath_filter.pc",
-            # "wpimath/kinematics/wpimath_kinematics.pc",
-            # "wpimath/spline/wpimath_spline.pc",
-            # "wpimath/controls/wpimath_controls.pc",
-            # "wpimath/wpimath-casters.pc",
-            # "wpimath/wpimath-casters.pybind11.json",
+            "wpilib/interfaces/wpilib_interfaces.pc",
+            "wpilib/shuffleboard/wpilib_shuffleboard.pc",
+            "wpilib/simulation/wpilib_simulation.pc",
         ],
     )
 

@@ -1,4 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 
 def _local_include_root(project_import, include_subpackage):
@@ -80,6 +80,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
             ],
         ),
     ]
+
     resolve_casters(
         name = "apriltag.resolve_casters",
         caster_files = [
@@ -121,13 +122,9 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         deps = header_to_dat_deps,
         local_native_libraries = [
             ("//subprojects/robotpy-native-apriltag:import", "apriltag"),
+            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
         ],
-        # header_to_dat_deps = ["//subprojects/robotpy-native-apriltag:import", "//subprojects/robotpy-native-wpiutil:import"],
-        # generation_includes = [
-        #     _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-        #     _local_include_root("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
-        # ],
     )
 
     native.filegroup(
@@ -154,3 +151,27 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
+def get_generated_data_files():
+    copy_extension_library(
+        name = "copy_apriltag",
+        extension = "_apriltag",
+        output_directory = "robotpy_apriltag/",
+    )
+
+    native.filegroup(
+        name = "apriltag.generated_data_files",
+        srcs = [
+            "apriltag/apriltag.pc",
+        ],
+    )
+
+    return [
+        ":apriltag.generated_data_files",
+        ":copy_apriltag",
+    ]
+
+def libinit_files():
+    return [
+        "robotpy_apriltag/_init__apriltag.py",
+    ]

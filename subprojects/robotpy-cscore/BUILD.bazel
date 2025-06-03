@@ -1,7 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "make_pyi", "robotpy_library")
 load("//:version.bzl", "VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "publish_library_casters")
+load("//subprojects/robotpy-cscore:generated_build_info.bzl", "libinit_files", "get_generated_data_files", "cscore_extension", "publish_library_casters")
 
 generate_build_info(
     name = "cscore",
@@ -63,17 +63,11 @@ make_pyi(
     name = "make_pyi1",
 )
 
-copy_extension_library(
-    name = "copy_cscore",
-    extension = "_cscore",
-    output_directory = "cscore/",
-)
-
 robotpy_library(
     name = "cscore",
     package_name = "robotpy-cscore",
-    srcs = glob(["cscore/**/*.py"]) + ["cscore/_init__cscore.py"],
-    data = [":copy_cscore"],
+    srcs = glob(["cscore/**/*.py"]) + libinit_files(),
+    data = get_generated_data_files(),
     imports = ["."],
     robotpy_wheel_deps = [
         "//subprojects/pyntcore:import",

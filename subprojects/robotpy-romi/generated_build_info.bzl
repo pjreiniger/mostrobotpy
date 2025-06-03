@@ -1,13 +1,16 @@
-load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+
+def _local_include_root(project_import, include_subpackage):
+    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
 
 def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     ROMI_HEADER_GEN = [
         struct(
             class_name = "OnBoardIO",
             yml_file = "semiwrap/OnBoardIO.yml",
-            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
-            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/OnBoardIO.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-romi:import", "romi"),
+            header_file = _local_include_root("//subprojects/robotpy-native-romi:import", "romi") + "/frc/romi/OnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::OnBoardIO", "frc__OnBoardIO.hpp"),
@@ -16,8 +19,8 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         struct(
             class_name = "RomiGyro",
             yml_file = "semiwrap/RomiGyro.yml",
-            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
-            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/RomiGyro.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-romi:import", "romi"),
+            header_file = _local_include_root("//subprojects/robotpy-native-romi:import", "romi") + "/frc/romi/RomiGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiGyro", "frc__RomiGyro.hpp"),
@@ -26,14 +29,15 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         struct(
             class_name = "RomiMotor",
             yml_file = "semiwrap/RomiMotor.yml",
-            header_root = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include",
-            header_file = "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/include/frc/romi/RomiMotor.h",
+            header_root = _local_include_root("//subprojects/robotpy-native-romi:import", "romi"),
+            header_file = _local_include_root("//subprojects/robotpy-native-romi:import", "romi") + "/frc/romi/RomiMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RomiMotor", "frc__RomiMotor.hpp"),
             ],
         ),
     ]
+
     resolve_casters(
         name = "romi.resolve_casters",
         caster_files = [
@@ -74,11 +78,11 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         deps = header_to_dat_deps,
         local_native_libraries = [
             ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            ("//subprojects/robotpy-native-wpilib:import", "wpiutil"),
+            ("//subprojects/robotpy-native-romi:import", "romi"),
+            ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
             ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
             ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
             ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
-            ("//subprojects/robotpy-native-romi:import", "romi"),
         ],
     )
 
@@ -106,3 +110,27 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
+def get_generated_data_files():
+    copy_extension_library(
+        name = "copy_romi",
+        extension = "_romi",
+        output_directory = "romi/",
+    )
+
+    native.filegroup(
+        name = "romi.generated_data_files",
+        srcs = [
+            "romi/romi.pc",
+        ],
+    )
+
+    return [
+        ":romi.generated_data_files",
+        ":copy_romi",
+    ]
+
+def libinit_files():
+    return [
+        "romi/_init__romi.py",
+    ]
