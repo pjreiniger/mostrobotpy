@@ -1,17 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
         struct(
             class_name = "PortForwarder",
             yml_file = "semiwrap/PortForwarder.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet") + "/wpinet/PortForwarder.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpinet", "wpinet"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpinet", "wpinet") + "/wpinet/PortForwarder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::PortForwarder", "wpi__PortForwarder.hpp"),
@@ -20,8 +17,8 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "WebServer",
             yml_file = "semiwrap/WebServer.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpinet:import", "wpinet") + "/wpinet/WebServer.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpinet", "wpinet"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpinet", "wpinet") + "/wpinet/WebServer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("wpi::WebServer", "wpi__WebServer.hpp"),
@@ -64,8 +61,8 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         header_gen_config = WPINET_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpinet"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 

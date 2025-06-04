@@ -1,9 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     CSCORE_HEADER_GEN = [
@@ -107,9 +104,9 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         header_gen_config = CSCORE_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("ntcore"),
+            local_native_libraries_helper("wpinet"),
+            local_native_libraries_helper("wpiutil"),
         ],
         generation_includes = [
             "external/bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_cscore_cscore-cpp_headers",

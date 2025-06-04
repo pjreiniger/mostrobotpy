@@ -1,17 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     XRP_HEADER_GEN = [
         struct(
             class_name = "XRPGyro",
             yml_file = "semiwrap/XRPGyro.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPGyro.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPGyro.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPGyro", "frc__XRPGyro.hpp"),
@@ -20,8 +17,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPMotor",
             yml_file = "semiwrap/XRPMotor.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPMotor.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPMotor", "frc__XRPMotor.hpp"),
@@ -30,8 +27,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPOnBoardIO",
             yml_file = "semiwrap/XRPOnBoardIO.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPOnBoardIO.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPOnBoardIO.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPOnBoardIO", "frc__XRPOnBoardIO.hpp"),
@@ -40,8 +37,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPRangefinder",
             yml_file = "semiwrap/XRPRangefinder.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPRangefinder.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPRangefinder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPRangefinder", "frc__XRPRangefinder.hpp"),
@@ -50,8 +47,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPReflectanceSensor",
             yml_file = "semiwrap/XRPReflectanceSensor.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPReflectanceSensor.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPReflectanceSensor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPReflectanceSensor", "frc__XRPReflectanceSensor.hpp"),
@@ -60,8 +57,8 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         struct(
             class_name = "XRPServo",
             yml_file = "semiwrap/XRPServo.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp"),
-            header_file = _local_include_root("//subprojects/robotpy-native-xrp:import", "xrp") + "/frc/xrp/XRPServo.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-xrp", "xrp") + "/frc/xrp/XRPServo.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::XRPServo", "frc__XRPServo.hpp"),
@@ -104,12 +101,12 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         header_gen_config = XRP_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            ("//subprojects/robotpy-native-wpilib:import", "wpilib"),
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
-            ("//subprojects/robotpy-native-xrp:import", "xrp"),
+            local_native_libraries_helper("ntcore"),
+            local_native_libraries_helper("wpilib"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpinet"),
+            local_native_libraries_helper("wpiutil"),
+            local_native_libraries_helper("xrp"),
         ],
     )
 

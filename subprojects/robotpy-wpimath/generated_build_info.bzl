@@ -1,25 +1,22 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_HEADER_GEN = [
         struct(
             class_name = "ComputerVisionUtil",
             yml_file = "semiwrap/ComputerVisionUtil.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/ComputerVisionUtil.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/ComputerVisionUtil.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "MathUtil",
             yml_file = "semiwrap/MathUtil.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/MathUtil.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/MathUtil.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -61,8 +58,8 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         header_gen_config = WPIMATH_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -101,8 +98,8 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "Debouncer",
             yml_file = "semiwrap/filter/Debouncer.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/filter/Debouncer.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/filter/Debouncer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Debouncer", "frc__Debouncer.hpp"),
@@ -111,8 +108,8 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "LinearFilter",
             yml_file = "semiwrap/filter/LinearFilter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/filter/LinearFilter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/filter/LinearFilter.h",
             tmpl_class_names = [
                 ("LinearFilter_tmpl1", "LinearFilter"),
             ],
@@ -123,8 +120,8 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "MedianFilter",
             yml_file = "semiwrap/filter/MedianFilter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/filter/MedianFilter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/filter/MedianFilter.h",
             tmpl_class_names = [
                 ("MedianFilter_tmpl1", "MedianFilter"),
             ],
@@ -135,8 +132,8 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "SlewRateLimiter",
             yml_file = "semiwrap/filter/SlewRateLimiter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/filter/SlewRateLimiter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/filter/SlewRateLimiter.h",
             tmpl_class_names = [
                 ("SlewRateLimiter_tmpl1", "SlewRateLimiter"),
             ],
@@ -182,8 +179,8 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         header_gen_config = WPIMATH_FILTER_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -222,8 +219,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "CoordinateAxis",
             yml_file = "semiwrap/geometry/CoordinateAxis.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/CoordinateAxis.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/CoordinateAxis.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CoordinateAxis", "frc__CoordinateAxis.hpp"),
@@ -232,8 +229,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "CoordinateSystem",
             yml_file = "semiwrap/geometry/CoordinateSystem.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/CoordinateSystem.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/CoordinateSystem.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CoordinateSystem", "frc__CoordinateSystem.hpp"),
@@ -242,8 +239,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Ellipse2d",
             yml_file = "semiwrap/geometry/Ellipse2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Ellipse2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Ellipse2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Ellipse2d", "frc__Ellipse2d.hpp"),
@@ -252,8 +249,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Pose2d",
             yml_file = "semiwrap/geometry/Pose2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Pose2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Pose2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Pose2d", "frc__Pose2d.hpp"),
@@ -262,8 +259,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Pose3d",
             yml_file = "semiwrap/geometry/Pose3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Pose3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Pose3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Pose3d", "frc__Pose3d.hpp"),
@@ -272,8 +269,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Quaternion",
             yml_file = "semiwrap/geometry/Quaternion.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Quaternion.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Quaternion.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Quaternion", "frc__Quaternion.hpp"),
@@ -282,8 +279,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Rectangle2d",
             yml_file = "semiwrap/geometry/Rectangle2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Rectangle2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Rectangle2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Rectangle2d", "frc__Rectangle2d.hpp"),
@@ -292,8 +289,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Rotation2d",
             yml_file = "semiwrap/geometry/Rotation2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Rotation2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Rotation2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Rotation2d", "frc__Rotation2d.hpp"),
@@ -302,8 +299,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Rotation3d",
             yml_file = "semiwrap/geometry/Rotation3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Rotation3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Rotation3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Rotation3d", "frc__Rotation3d.hpp"),
@@ -312,8 +309,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Transform2d",
             yml_file = "semiwrap/geometry/Transform2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Transform2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Transform2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Transform2d", "frc__Transform2d.hpp"),
@@ -322,8 +319,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Transform3d",
             yml_file = "semiwrap/geometry/Transform3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Transform3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Transform3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Transform3d", "frc__Transform3d.hpp"),
@@ -332,8 +329,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Translation2d",
             yml_file = "semiwrap/geometry/Translation2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Translation2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Translation2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Translation2d", "frc__Translation2d.hpp"),
@@ -342,8 +339,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Translation3d",
             yml_file = "semiwrap/geometry/Translation3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Translation3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Translation3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Translation3d", "frc__Translation3d.hpp"),
@@ -352,8 +349,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Twist2d",
             yml_file = "semiwrap/geometry/Twist2d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Twist2d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Twist2d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Twist2d", "frc__Twist2d.hpp"),
@@ -362,8 +359,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Twist3d",
             yml_file = "semiwrap/geometry/Twist3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/geometry/Twist3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/geometry/Twist3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Twist3d", "frc__Twist3d.hpp"),
@@ -407,8 +404,8 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         header_gen_config = WPIMATH_GEOMETRY_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -447,8 +444,8 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         struct(
             class_name = "TimeInterpolatableBuffer",
             yml_file = "semiwrap/interpolation/TimeInterpolatableBuffer.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/interpolation/TimeInterpolatableBuffer.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/interpolation/TimeInterpolatableBuffer.h",
             tmpl_class_names = [
                 ("TimeInterpolatableBuffer_tmpl1", "TimeInterpolatablePose2dBuffer"),
                 ("TimeInterpolatableBuffer_tmpl2", "TimeInterpolatablePose3dBuffer"),
@@ -500,8 +497,8 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         header_gen_config = WPIMATH_INTERPOLATION_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
         generation_includes = [
             "subprojects/robotpy-wpimath/wpimath",
@@ -540,8 +537,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "ChassisSpeeds",
             yml_file = "semiwrap/kinematics/ChassisSpeeds.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/ChassisSpeeds.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/ChassisSpeeds.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ChassisSpeeds", "frc__ChassisSpeeds.hpp"),
@@ -550,8 +547,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "DifferentialDriveKinematics",
             yml_file = "semiwrap/kinematics/DifferentialDriveKinematics.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/DifferentialDriveKinematics.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/DifferentialDriveKinematics.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveKinematics", "frc__DifferentialDriveKinematics.hpp"),
@@ -560,8 +557,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "DifferentialDriveOdometry3d",
             yml_file = "semiwrap/kinematics/DifferentialDriveOdometry3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/DifferentialDriveOdometry3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/DifferentialDriveOdometry3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveOdometry3d", "frc__DifferentialDriveOdometry3d.hpp"),
@@ -570,8 +567,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "DifferentialDriveOdometry",
             yml_file = "semiwrap/kinematics/DifferentialDriveOdometry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/DifferentialDriveOdometry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/DifferentialDriveOdometry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveOdometry", "frc__DifferentialDriveOdometry.hpp"),
@@ -580,8 +577,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "DifferentialDriveWheelPositions",
             yml_file = "semiwrap/kinematics/DifferentialDriveWheelPositions.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/DifferentialDriveWheelPositions.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/DifferentialDriveWheelPositions.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveWheelPositions", "frc__DifferentialDriveWheelPositions.hpp"),
@@ -590,8 +587,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "DifferentialDriveWheelSpeeds",
             yml_file = "semiwrap/kinematics/DifferentialDriveWheelSpeeds.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/DifferentialDriveWheelSpeeds.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/DifferentialDriveWheelSpeeds.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveWheelSpeeds", "frc__DifferentialDriveWheelSpeeds.hpp"),
@@ -600,8 +597,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "Kinematics",
             yml_file = "semiwrap/kinematics/Kinematics.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/Kinematics.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/Kinematics.h",
             tmpl_class_names = [
                 ("Kinematics_tmpl1", "DifferentialDriveKinematicsBase"),
                 ("Kinematics_tmpl2", "MecanumDriveKinematicsBase"),
@@ -617,8 +614,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "MecanumDriveKinematics",
             yml_file = "semiwrap/kinematics/MecanumDriveKinematics.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/MecanumDriveKinematics.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/MecanumDriveKinematics.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveKinematics", "frc__MecanumDriveKinematics.hpp"),
@@ -627,8 +624,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "MecanumDriveOdometry",
             yml_file = "semiwrap/kinematics/MecanumDriveOdometry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/MecanumDriveOdometry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/MecanumDriveOdometry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveOdometry", "frc__MecanumDriveOdometry.hpp"),
@@ -637,8 +634,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "MecanumDriveOdometry3d",
             yml_file = "semiwrap/kinematics/MecanumDriveOdometry3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/MecanumDriveOdometry3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/MecanumDriveOdometry3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveOdometry3d", "frc__MecanumDriveOdometry3d.hpp"),
@@ -647,8 +644,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "MecanumDriveWheelPositions",
             yml_file = "semiwrap/kinematics/MecanumDriveWheelPositions.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/MecanumDriveWheelPositions.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/MecanumDriveWheelPositions.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveWheelPositions", "frc__MecanumDriveWheelPositions.hpp"),
@@ -657,8 +654,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "MecanumDriveWheelSpeeds",
             yml_file = "semiwrap/kinematics/MecanumDriveWheelSpeeds.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/MecanumDriveWheelSpeeds.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/MecanumDriveWheelSpeeds.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveWheelSpeeds", "frc__MecanumDriveWheelSpeeds.hpp"),
@@ -667,8 +664,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "Odometry",
             yml_file = "semiwrap/kinematics/Odometry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/Odometry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/Odometry.h",
             tmpl_class_names = [
                 ("Odometry_tmpl1", "DifferentialDriveOdometryBase"),
                 ("Odometry_tmpl2", "MecanumDriveOdometryBase"),
@@ -684,8 +681,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "Odometry3d",
             yml_file = "semiwrap/kinematics/Odometry3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/Odometry3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/Odometry3d.h",
             tmpl_class_names = [
                 ("Odometry3d_tmpl1", "DifferentialDriveOdometry3dBase"),
                 ("Odometry3d_tmpl2", "MecanumDriveOdometry3dBase"),
@@ -701,8 +698,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "SwerveDriveKinematics",
             yml_file = "semiwrap/kinematics/SwerveDriveKinematics.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/SwerveDriveKinematics.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/SwerveDriveKinematics.h",
             tmpl_class_names = [
                 ("SwerveDriveKinematics_tmpl1", "SwerveDrive2Kinematics"),
                 ("SwerveDriveKinematics_tmpl2", "SwerveDrive3Kinematics"),
@@ -716,8 +713,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "SwerveDriveOdometry",
             yml_file = "semiwrap/kinematics/SwerveDriveOdometry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/SwerveDriveOdometry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/SwerveDriveOdometry.h",
             tmpl_class_names = [
                 ("SwerveDriveOdometry_tmpl1", "SwerveDrive2Odometry"),
                 ("SwerveDriveOdometry_tmpl2", "SwerveDrive3Odometry"),
@@ -731,8 +728,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "SwerveDriveOdometry3d",
             yml_file = "semiwrap/kinematics/SwerveDriveOdometry3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/SwerveDriveOdometry3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/SwerveDriveOdometry3d.h",
             tmpl_class_names = [
                 ("SwerveDriveOdometry3d_tmpl1", "SwerveDrive2Odometry3d"),
                 ("SwerveDriveOdometry3d_tmpl2", "SwerveDrive3Odometry3d"),
@@ -746,8 +743,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "SwerveModulePosition",
             yml_file = "semiwrap/kinematics/SwerveModulePosition.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/SwerveModulePosition.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/SwerveModulePosition.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SwerveModulePosition", "frc__SwerveModulePosition.hpp"),
@@ -756,8 +753,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         struct(
             class_name = "SwerveModuleState",
             yml_file = "semiwrap/kinematics/SwerveModuleState.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/kinematics/SwerveModuleState.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/kinematics/SwerveModuleState.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SwerveModuleState", "frc__SwerveModuleState.hpp"),
@@ -801,8 +798,8 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         header_gen_config = WPIMATH_KINEMATICS_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 
@@ -836,8 +833,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "CubicHermiteSpline",
             yml_file = "semiwrap/spline/CubicHermiteSpline.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/spline/CubicHermiteSpline.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/spline/CubicHermiteSpline.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CubicHermiteSpline", "frc__CubicHermiteSpline.hpp"),
@@ -846,8 +843,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "QuinticHermiteSpline",
             yml_file = "semiwrap/spline/QuinticHermiteSpline.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/spline/QuinticHermiteSpline.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/spline/QuinticHermiteSpline.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::QuinticHermiteSpline", "frc__QuinticHermiteSpline.hpp"),
@@ -856,8 +853,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "Spline",
             yml_file = "semiwrap/spline/Spline.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/spline/Spline.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/spline/Spline.h",
             tmpl_class_names = [
                 ("Spline_tmpl1", "Spline3"),
                 ("Spline_tmpl2", "Spline5"),
@@ -870,8 +867,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "SplineHelper",
             yml_file = "semiwrap/spline/SplineHelper.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/spline/SplineHelper.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/spline/SplineHelper.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SplineHelper", "frc__SplineHelper.hpp"),
@@ -880,8 +877,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         struct(
             class_name = "SplineParameterizer",
             yml_file = "semiwrap/spline/SplineParameterizer.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/spline/SplineParameterizer.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/spline/SplineParameterizer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::SplineParameterizer", "frc__SplineParameterizer.hpp"),
@@ -925,8 +922,8 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         header_gen_config = WPIMATH_SPLINE_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 
@@ -960,8 +957,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ArmFeedforward",
             yml_file = "semiwrap/controls/ArmFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/ArmFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/ArmFeedforward.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ArmFeedforward", "frc__ArmFeedforward.hpp"),
@@ -970,8 +967,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "BangBangController",
             yml_file = "semiwrap/controls/BangBangController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/BangBangController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/BangBangController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::BangBangController", "frc__BangBangController.hpp"),
@@ -980,8 +977,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ControlAffinePlantInversionFeedforward",
             yml_file = "semiwrap/controls/ControlAffinePlantInversionFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/ControlAffinePlantInversionFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/ControlAffinePlantInversionFeedforward.h",
             tmpl_class_names = [
                 ("ControlAffinePlantInversionFeedforward_tmpl1", "ControlAffinePlantInversionFeedforward_1_1"),
                 ("ControlAffinePlantInversionFeedforward_tmpl2", "ControlAffinePlantInversionFeedforward_2_1"),
@@ -994,8 +991,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDriveAccelerationLimiter",
             yml_file = "semiwrap/controls/DifferentialDriveAccelerationLimiter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/DifferentialDriveAccelerationLimiter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/DifferentialDriveAccelerationLimiter.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveAccelerationLimiter", "frc__DifferentialDriveAccelerationLimiter.hpp"),
@@ -1004,8 +1001,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDriveFeedforward",
             yml_file = "semiwrap/controls/DifferentialDriveFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/DifferentialDriveFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/DifferentialDriveFeedforward.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveFeedforward", "frc__DifferentialDriveFeedforward.hpp"),
@@ -1014,8 +1011,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDriveWheelVoltages",
             yml_file = "semiwrap/controls/DifferentialDriveWheelVoltages.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/DifferentialDriveWheelVoltages.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/DifferentialDriveWheelVoltages.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveWheelVoltages", "frc__DifferentialDriveWheelVoltages.hpp"),
@@ -1024,8 +1021,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ElevatorFeedforward",
             yml_file = "semiwrap/controls/ElevatorFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/ElevatorFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/ElevatorFeedforward.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::ElevatorFeedforward", "frc__ElevatorFeedforward.hpp"),
@@ -1034,8 +1031,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "HolonomicDriveController",
             yml_file = "semiwrap/controls/HolonomicDriveController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/HolonomicDriveController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/HolonomicDriveController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::HolonomicDriveController", "frc__HolonomicDriveController.hpp"),
@@ -1044,8 +1041,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ImplicitModelFollower",
             yml_file = "semiwrap/controls/ImplicitModelFollower.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/ImplicitModelFollower.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/ImplicitModelFollower.h",
             tmpl_class_names = [
                 ("ImplicitModelFollower_tmpl1", "ImplicitModelFollower_1_1"),
                 ("ImplicitModelFollower_tmpl2", "ImplicitModelFollower_2_1"),
@@ -1058,8 +1055,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LTVDifferentialDriveController",
             yml_file = "semiwrap/controls/LTVDifferentialDriveController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/LTVDifferentialDriveController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/LTVDifferentialDriveController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LTVDifferentialDriveController", "frc__LTVDifferentialDriveController.hpp"),
@@ -1068,8 +1065,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LTVUnicycleController",
             yml_file = "semiwrap/controls/LTVUnicycleController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/LTVUnicycleController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/LTVUnicycleController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LTVUnicycleController", "frc__LTVUnicycleController.hpp"),
@@ -1078,8 +1075,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LinearPlantInversionFeedforward",
             yml_file = "semiwrap/controls/LinearPlantInversionFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/LinearPlantInversionFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/LinearPlantInversionFeedforward.h",
             tmpl_class_names = [
                 ("LinearPlantInversionFeedforward_tmpl1", "LinearPlantInversionFeedforward_1_1"),
                 ("LinearPlantInversionFeedforward_tmpl2", "LinearPlantInversionFeedforward_2_1"),
@@ -1093,8 +1090,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LinearQuadraticRegulator",
             yml_file = "semiwrap/controls/LinearQuadraticRegulator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/LinearQuadraticRegulator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/LinearQuadraticRegulator.h",
             tmpl_class_names = [
                 ("LinearQuadraticRegulator_tmpl1", "LinearQuadraticRegulator_1_1"),
                 ("LinearQuadraticRegulator_tmpl2", "LinearQuadraticRegulator_2_1"),
@@ -1108,8 +1105,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "PIDController",
             yml_file = "semiwrap/controls/PIDController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/PIDController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/PIDController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PIDController", "frc__PIDController.hpp"),
@@ -1118,8 +1115,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ProfiledPIDController",
             yml_file = "semiwrap/controls/ProfiledPIDController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/ProfiledPIDController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/ProfiledPIDController.h",
             tmpl_class_names = [
                 ("ProfiledPIDController_tmpl1", "ProfiledPIDController"),
                 ("ProfiledPIDController_tmpl2", "ProfiledPIDControllerRadians"),
@@ -1131,8 +1128,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "RamseteController",
             yml_file = "semiwrap/controls/RamseteController.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/RamseteController.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/RamseteController.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::RamseteController", "frc__RamseteController.hpp"),
@@ -1141,8 +1138,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "SimpleMotorFeedforward",
             yml_file = "semiwrap/controls/SimpleMotorFeedforward.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/controller/SimpleMotorFeedforward.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/SimpleMotorFeedforward.h",
             tmpl_class_names = [
                 ("SimpleMotorFeedforward_tmpl1", "SimpleMotorFeedforwardMeters"),
                 ("SimpleMotorFeedforward_tmpl2", "SimpleMotorFeedforwardRadians"),
@@ -1154,8 +1151,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDrivePoseEstimator",
             yml_file = "semiwrap/controls/DifferentialDrivePoseEstimator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/DifferentialDrivePoseEstimator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/DifferentialDrivePoseEstimator.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDrivePoseEstimator", "frc__DifferentialDrivePoseEstimator.hpp"),
@@ -1164,8 +1161,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDrivePoseEstimator3d",
             yml_file = "semiwrap/controls/DifferentialDrivePoseEstimator3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/DifferentialDrivePoseEstimator3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/DifferentialDrivePoseEstimator3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDrivePoseEstimator3d", "frc__DifferentialDrivePoseEstimator3d.hpp"),
@@ -1174,8 +1171,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ExtendedKalmanFilter",
             yml_file = "semiwrap/controls/ExtendedKalmanFilter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/ExtendedKalmanFilter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/ExtendedKalmanFilter.h",
             tmpl_class_names = [
                 ("ExtendedKalmanFilter_tmpl1", "ExtendedKalmanFilter_1_1_1"),
                 ("ExtendedKalmanFilter_tmpl2", "ExtendedKalmanFilter_2_1_1"),
@@ -1189,8 +1186,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "KalmanFilter",
             yml_file = "semiwrap/controls/KalmanFilter.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/KalmanFilter.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/KalmanFilter.h",
             tmpl_class_names = [
                 ("KalmanFilter_tmpl1", "KalmanFilter_1_1_1"),
                 ("KalmanFilter_tmpl2", "KalmanFilter_2_1_1"),
@@ -1205,8 +1202,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "MecanumDrivePoseEstimator",
             yml_file = "semiwrap/controls/MecanumDrivePoseEstimator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/MecanumDrivePoseEstimator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/MecanumDrivePoseEstimator.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDrivePoseEstimator", "frc__MecanumDrivePoseEstimator.hpp"),
@@ -1215,8 +1212,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "MecanumDrivePoseEstimator3d",
             yml_file = "semiwrap/controls/MecanumDrivePoseEstimator3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/MecanumDrivePoseEstimator3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/MecanumDrivePoseEstimator3d.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDrivePoseEstimator3d", "frc__MecanumDrivePoseEstimator3d.hpp"),
@@ -1225,8 +1222,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "PoseEstimator",
             yml_file = "semiwrap/controls/PoseEstimator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/PoseEstimator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/PoseEstimator.h",
             tmpl_class_names = [
                 ("PoseEstimator_tmpl1", "DifferentialDrivePoseEstimatorBase"),
                 ("PoseEstimator_tmpl2", "MecanumDrivePoseEstimatorBase"),
@@ -1242,8 +1239,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "PoseEstimator3d",
             yml_file = "semiwrap/controls/PoseEstimator3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/PoseEstimator3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/PoseEstimator3d.h",
             tmpl_class_names = [
                 ("PoseEstimator3d_tmpl1", "DifferentialDrivePoseEstimator3dBase"),
                 ("PoseEstimator3d_tmpl2", "MecanumDrivePoseEstimator3dBase"),
@@ -1259,8 +1256,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "SwerveDrivePoseEstimator",
             yml_file = "semiwrap/controls/SwerveDrivePoseEstimator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/SwerveDrivePoseEstimator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/SwerveDrivePoseEstimator.h",
             tmpl_class_names = [
                 ("SwerveDrivePoseEstimator_tmpl1", "SwerveDrive2PoseEstimator"),
                 ("SwerveDrivePoseEstimator_tmpl2", "SwerveDrive3PoseEstimator"),
@@ -1274,8 +1271,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "SwerveDrivePoseEstimator3d",
             yml_file = "semiwrap/controls/SwerveDrivePoseEstimator3d.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/estimator/SwerveDrivePoseEstimator3d.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/estimator/SwerveDrivePoseEstimator3d.h",
             tmpl_class_names = [
                 ("SwerveDrivePoseEstimator3d_tmpl1", "SwerveDrive2PoseEstimator3d"),
                 ("SwerveDrivePoseEstimator3d_tmpl2", "SwerveDrive3PoseEstimator3d"),
@@ -1289,8 +1286,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "SimulatedAnnealing",
             yml_file = "semiwrap/controls/SimulatedAnnealing.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/optimization/SimulatedAnnealing.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/optimization/SimulatedAnnealing.h",
             tmpl_class_names = [
                 ("SimulatedAnnealing_tmpl1", "SimulatedAnnealing"),
             ],
@@ -1301,8 +1298,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TravelingSalesman",
             yml_file = "semiwrap/controls/TravelingSalesman.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/path/TravelingSalesman.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/path/TravelingSalesman.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TravelingSalesman", "frc__TravelingSalesman.hpp"),
@@ -1311,8 +1308,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LinearSystem",
             yml_file = "semiwrap/controls/LinearSystem.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/system/LinearSystem.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/system/LinearSystem.h",
             tmpl_class_names = [
                 ("LinearSystem_tmpl1", "LinearSystem_1_1_1"),
                 ("LinearSystem_tmpl2", "LinearSystem_1_1_2"),
@@ -1334,8 +1331,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LinearSystemLoop",
             yml_file = "semiwrap/controls/LinearSystemLoop.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/system/LinearSystemLoop.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/system/LinearSystemLoop.h",
             tmpl_class_names = [
                 ("LinearSystemLoop_tmpl1", "LinearSystemLoop_1_1_1"),
                 ("LinearSystemLoop_tmpl2", "LinearSystemLoop_2_1_1"),
@@ -1350,8 +1347,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DCMotor",
             yml_file = "semiwrap/controls/DCMotor.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/system/plant/DCMotor.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/system/plant/DCMotor.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DCMotor", "frc__DCMotor.hpp"),
@@ -1360,8 +1357,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "LinearSystemId",
             yml_file = "semiwrap/controls/LinearSystemId.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/system/plant/LinearSystemId.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/system/plant/LinearSystemId.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::LinearSystemId", "frc__LinearSystemId.hpp"),
@@ -1370,8 +1367,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "ExponentialProfile",
             yml_file = "semiwrap/controls/ExponentialProfile.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/ExponentialProfile.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/ExponentialProfile.h",
             tmpl_class_names = [
                 ("ExponentialProfile_tmpl1", "ExponentialProfileMeterVolts"),
             ],
@@ -1385,8 +1382,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "Trajectory",
             yml_file = "semiwrap/controls/Trajectory.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/Trajectory.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/Trajectory.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Trajectory", "frc__Trajectory.hpp"),
@@ -1396,8 +1393,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrajectoryConfig",
             yml_file = "semiwrap/controls/TrajectoryConfig.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/TrajectoryConfig.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrajectoryConfig.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryConfig", "frc__TrajectoryConfig.hpp"),
@@ -1406,8 +1403,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrajectoryGenerator",
             yml_file = "semiwrap/controls/TrajectoryGenerator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/TrajectoryGenerator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrajectoryGenerator.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryGenerator", "frc__TrajectoryGenerator.hpp"),
@@ -1416,8 +1413,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrajectoryParameterizer",
             yml_file = "semiwrap/controls/TrajectoryParameterizer.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/TrajectoryParameterizer.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrajectoryParameterizer.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryParameterizer", "frc__TrajectoryParameterizer.hpp"),
@@ -1426,8 +1423,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrajectoryUtil",
             yml_file = "semiwrap/controls/TrajectoryUtil.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/TrajectoryUtil.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrajectoryUtil.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryUtil", "frc__TrajectoryUtil.hpp"),
@@ -1436,8 +1433,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrapezoidProfile",
             yml_file = "semiwrap/controls/TrapezoidProfile.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/TrapezoidProfile.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrapezoidProfile.h",
             tmpl_class_names = [
                 ("TrapezoidProfile_tmpl1", "TrapezoidProfile"),
                 ("TrapezoidProfile_tmpl2", "TrapezoidProfileRadians"),
@@ -1451,8 +1448,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "CentripetalAccelerationConstraint",
             yml_file = "semiwrap/controls/CentripetalAccelerationConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/CentripetalAccelerationConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/CentripetalAccelerationConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::CentripetalAccelerationConstraint", "frc__CentripetalAccelerationConstraint.hpp"),
@@ -1461,8 +1458,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDriveKinematicsConstraint",
             yml_file = "semiwrap/controls/DifferentialDriveKinematicsConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/DifferentialDriveKinematicsConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/DifferentialDriveKinematicsConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveKinematicsConstraint", "frc__DifferentialDriveKinematicsConstraint.hpp"),
@@ -1471,8 +1468,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "DifferentialDriveVoltageConstraint",
             yml_file = "semiwrap/controls/DifferentialDriveVoltageConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DifferentialDriveVoltageConstraint", "frc__DifferentialDriveVoltageConstraint.hpp"),
@@ -1481,8 +1478,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "EllipticalRegionConstraint",
             yml_file = "semiwrap/controls/EllipticalRegionConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/EllipticalRegionConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/EllipticalRegionConstraint.h",
             tmpl_class_names = [
                 ("EllipticalRegionConstraint_tmpl1", "EllipticalRegionConstraint"),
             ],
@@ -1493,8 +1490,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "MaxVelocityConstraint",
             yml_file = "semiwrap/controls/MaxVelocityConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/MaxVelocityConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/MaxVelocityConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MaxVelocityConstraint", "frc__MaxVelocityConstraint.hpp"),
@@ -1503,8 +1500,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "MecanumDriveKinematicsConstraint",
             yml_file = "semiwrap/controls/MecanumDriveKinematicsConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/MecanumDriveKinematicsConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/MecanumDriveKinematicsConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::MecanumDriveKinematicsConstraint", "frc__MecanumDriveKinematicsConstraint.hpp"),
@@ -1513,8 +1510,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "RectangularRegionConstraint",
             yml_file = "semiwrap/controls/RectangularRegionConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/RectangularRegionConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/RectangularRegionConstraint.h",
             tmpl_class_names = [
                 ("RectangularRegionConstraint_tmpl1", "RectangularRegionConstraint"),
             ],
@@ -1525,8 +1522,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "SwerveDriveKinematicsConstraint",
             yml_file = "semiwrap/controls/SwerveDriveKinematicsConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/SwerveDriveKinematicsConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/SwerveDriveKinematicsConstraint.h",
             tmpl_class_names = [
                 ("SwerveDriveKinematicsConstraint_tmpl1", "SwerveDrive2KinematicsConstraint"),
                 ("SwerveDriveKinematicsConstraint_tmpl2", "SwerveDrive3KinematicsConstraint"),
@@ -1540,8 +1537,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         struct(
             class_name = "TrajectoryConstraint",
             yml_file = "semiwrap/controls/TrajectoryConstraint.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            header_file = _local_include_root("//subprojects/robotpy-native-wpimath:import", "wpimath") + "/frc/trajectory/constraint/TrajectoryConstraint.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/constraint/TrajectoryConstraint.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryConstraint", "frc__TrajectoryConstraint.hpp"),
@@ -1586,8 +1583,8 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         header_gen_config = WPIMATH_CONTROLS_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 

@@ -1,17 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     APRILTAG_HEADER_GEN = [
         struct(
             class_name = "AprilTag",
             yml_file = "semiwrap/AprilTag.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTag.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTag.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTag", "frc__AprilTag.hpp"),
@@ -20,8 +17,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagDetection",
             yml_file = "semiwrap/AprilTagDetection.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagDetection.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagDetection.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagDetection", "frc__AprilTagDetection.hpp"),
@@ -31,8 +28,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagDetector",
             yml_file = "semiwrap/AprilTagDetector.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagDetector.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagDetector.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagDetector", "frc__AprilTagDetector.hpp"),
@@ -44,8 +41,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagFieldLayout",
             yml_file = "semiwrap/AprilTagFieldLayout.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagFieldLayout.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagFieldLayout.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagFieldLayout", "frc__AprilTagFieldLayout.hpp"),
@@ -54,16 +51,16 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagFields",
             yml_file = "semiwrap/AprilTagFields.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagFields.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagFields.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "AprilTagPoseEstimate",
             yml_file = "semiwrap/AprilTagPoseEstimate.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagPoseEstimate.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagPoseEstimate.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagPoseEstimate", "frc__AprilTagPoseEstimate.hpp"),
@@ -72,8 +69,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         struct(
             class_name = "AprilTagPoseEstimator",
             yml_file = "semiwrap/AprilTagPoseEstimator.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            header_file = _local_include_root("//subprojects/robotpy-native-apriltag:import", "apriltag") + "/frc/apriltag/AprilTagPoseEstimator.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-apriltag", "apriltag") + "/frc/apriltag/AprilTagPoseEstimator.h",
             tmpl_class_names = [],
             trampolines = [
                 ("frc::AprilTagPoseEstimator", "frc__AprilTagPoseEstimator.hpp"),
@@ -117,9 +114,9 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         header_gen_config = APRILTAG_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-apriltag:import", "apriltag"),
-            ("//subprojects/robotpy-native-wpimath:import", "wpimath"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("apriltag"),
+            local_native_libraries_helper("wpimath"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 

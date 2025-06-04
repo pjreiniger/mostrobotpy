@@ -1,17 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
-
-def _local_include_root(project_import, include_subpackage):
-    return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     NTCORE_HEADER_GEN = [
         struct(
             class_name = "BooleanArrayTopic",
             yml_file = "semiwrap/BooleanArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/BooleanArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/BooleanArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::BooleanArraySubscriber", "nt__BooleanArraySubscriber.hpp"),
@@ -23,8 +20,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "BooleanTopic",
             yml_file = "semiwrap/BooleanTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/BooleanTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/BooleanTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::BooleanSubscriber", "nt__BooleanSubscriber.hpp"),
@@ -36,8 +33,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "DoubleArrayTopic",
             yml_file = "semiwrap/DoubleArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/DoubleArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/DoubleArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::DoubleArraySubscriber", "nt__DoubleArraySubscriber.hpp"),
@@ -49,8 +46,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "DoubleTopic",
             yml_file = "semiwrap/DoubleTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/DoubleTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/DoubleTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::DoubleSubscriber", "nt__DoubleSubscriber.hpp"),
@@ -62,8 +59,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "FloatArrayTopic",
             yml_file = "semiwrap/FloatArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/FloatArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/FloatArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::FloatArraySubscriber", "nt__FloatArraySubscriber.hpp"),
@@ -75,8 +72,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "FloatTopic",
             yml_file = "semiwrap/FloatTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/FloatTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/FloatTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::FloatSubscriber", "nt__FloatSubscriber.hpp"),
@@ -88,8 +85,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "GenericEntry",
             yml_file = "semiwrap/GenericEntry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/GenericEntry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/GenericEntry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::GenericSubscriber", "nt__GenericSubscriber.hpp"),
@@ -100,8 +97,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "IntegerArrayTopic",
             yml_file = "semiwrap/IntegerArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/IntegerArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/IntegerArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::IntegerArraySubscriber", "nt__IntegerArraySubscriber.hpp"),
@@ -113,8 +110,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "IntegerTopic",
             yml_file = "semiwrap/IntegerTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/IntegerTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/IntegerTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::IntegerSubscriber", "nt__IntegerSubscriber.hpp"),
@@ -126,8 +123,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "MultiSubscriber",
             yml_file = "semiwrap/MultiSubscriber.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/MultiSubscriber.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/MultiSubscriber.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::MultiSubscriber", "nt__MultiSubscriber.hpp"),
@@ -136,8 +133,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NTSendable",
             yml_file = "semiwrap/NTSendable.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NTSendable.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NTSendable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NTSendable", "nt__NTSendable.hpp"),
@@ -146,8 +143,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NTSendableBuilder",
             yml_file = "semiwrap/NTSendableBuilder.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NTSendableBuilder.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NTSendableBuilder.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NTSendableBuilder", "nt__NTSendableBuilder.hpp"),
@@ -156,8 +153,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTable",
             yml_file = "semiwrap/NetworkTable.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTable.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTable.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTable", "nt__NetworkTable.hpp"),
@@ -166,8 +163,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableEntry",
             yml_file = "semiwrap/NetworkTableEntry.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTableEntry.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTableEntry.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableEntry", "nt__NetworkTableEntry.hpp"),
@@ -176,8 +173,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableInstance",
             yml_file = "semiwrap/NetworkTableInstance.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTableInstance.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTableInstance.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableInstance", "nt__NetworkTableInstance.hpp"),
@@ -186,8 +183,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableListener",
             yml_file = "semiwrap/NetworkTableListener.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTableListener.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTableListener.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::NetworkTableListener", "nt__NetworkTableListener.hpp"),
@@ -197,16 +194,16 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "NetworkTableType",
             yml_file = "semiwrap/NetworkTableType.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTableType.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTableType.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
         struct(
             class_name = "NetworkTableValue",
             yml_file = "semiwrap/NetworkTableValue.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/NetworkTableValue.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/NetworkTableValue.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::Value", "nt__Value.hpp"),
@@ -215,8 +212,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "RawTopic",
             yml_file = "semiwrap/RawTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/RawTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/RawTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::RawSubscriber", "nt__RawSubscriber.hpp"),
@@ -228,8 +225,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StructTopic",
             yml_file = "semiwrap/StructTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/StructTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/StructTopic.h",
             tmpl_class_names = [
                 ("StructTopic_tmpl1", "StructSubscriber"),
                 ("StructTopic_tmpl2", "StructPublisher"),
@@ -246,8 +243,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StructArrayTopic",
             yml_file = "semiwrap/StructArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/StructArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/StructArrayTopic.h",
             tmpl_class_names = [
                 ("StructArrayTopic_tmpl1", "StructArraySubscriber"),
                 ("StructArrayTopic_tmpl2", "StructArrayPublisher"),
@@ -264,8 +261,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StringArrayTopic",
             yml_file = "semiwrap/StringArrayTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/StringArrayTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/StringArrayTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::StringArraySubscriber", "nt__StringArraySubscriber.hpp"),
@@ -277,8 +274,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "StringTopic",
             yml_file = "semiwrap/StringTopic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/StringTopic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/StringTopic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::StringSubscriber", "nt__StringSubscriber.hpp"),
@@ -290,8 +287,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "Topic",
             yml_file = "semiwrap/Topic.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/networktables/Topic.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/networktables/Topic.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::Topic", "nt__Topic.hpp"),
@@ -302,8 +299,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "ntcore_cpp",
             yml_file = "semiwrap/ntcore_cpp.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/ntcore_cpp.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/ntcore_cpp.h",
             tmpl_class_names = [],
             trampolines = [
                 ("nt::EventFlags", "nt__EventFlags.hpp"),
@@ -325,8 +322,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         struct(
             class_name = "ntcore_cpp_types",
             yml_file = "semiwrap/ntcore_cpp_types.yml",
-            header_root = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            header_file = _local_include_root("//subprojects/robotpy-native-ntcore:import", "ntcore") + "/ntcore_cpp_types.h",
+            header_root = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-ntcore", "ntcore") + "/ntcore_cpp_types.h",
             tmpl_class_names = [
                 ("ntcore_cpp_types_tmpl1", "TimestampedBoolean"),
                 ("ntcore_cpp_types_tmpl2", "TimestampedInteger"),
@@ -383,9 +380,9 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         header_gen_config = NTCORE_HEADER_GEN,
         deps = header_to_dat_deps,
         local_native_libraries = [
-            ("//subprojects/robotpy-native-ntcore:import", "ntcore"),
-            ("//subprojects/robotpy-native-wpinet:import", "wpinet"),
-            ("//subprojects/robotpy-native-wpiutil:import", "wpiutil"),
+            local_native_libraries_helper("ntcore"),
+            local_native_libraries_helper("wpinet"),
+            local_native_libraries_helper("wpiutil"),
         ],
     )
 
