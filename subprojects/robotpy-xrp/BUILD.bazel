@@ -83,6 +83,10 @@ robotpy_library(
     strip_path_prefixes = ["subprojects/robotpy-xrp"],
     version = MOSTROBOTPY_VERSION,
     visibility = ["//visibility:public"],
+    entry_points = {
+        "pkg_config": ["xrp = xrp"],
+        "robotpysimext": ["xrp = xrp.extension"],
+    }
 )
 
 filegroup(

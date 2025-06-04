@@ -14,4 +14,5 @@ create_native_library(
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-ntcore"],
     version = NATIVE_VERSION,
+    entry_points = {"pkg_config": ["ntcore = native.ntcore"]}
 )

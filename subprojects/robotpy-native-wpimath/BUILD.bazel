@@ -11,4 +11,5 @@ create_native_library(
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
     version = NATIVE_VERSION,
+    entry_points = {"pkg_config": ["wpimath = native.wpimath"]}
 )

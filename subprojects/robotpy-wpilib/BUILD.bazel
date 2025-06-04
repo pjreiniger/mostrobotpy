@@ -288,7 +288,9 @@ robotpy_library(
         "wpilib_drive = wpilib.drive",
         "wpilib_shuffleboard = wpilib.shuffleboard",
         "wpilib_simulation = wpilib.simulation",
-    ]},
+    ],
+    "robotpy": ["run = wpilib._impl.start:Main"]
+    },
 )
 
 filegroup(

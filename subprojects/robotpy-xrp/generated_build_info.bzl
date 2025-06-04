@@ -99,6 +99,7 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         name = "xrp",
         casters_pickle = "xrp.casters.pkl",
         header_gen_config = XRP_HEADER_GEN,
+        trampoline_subpath = "xrp",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -152,6 +153,7 @@ def get_generated_data_files():
     return [
         ":xrp.generated_data_files",
         ":copy_xrp",
+        ":xrp.trampoline_hdr_files",
     ]
 
 def libinit_files():

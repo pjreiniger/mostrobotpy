@@ -17,4 +17,5 @@ create_native_library(
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpilib"],
     version = NATIVE_VERSION,
+    entry_points = {"pkg_config": ["wpilib = native.wpilib"]}
 )

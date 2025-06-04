@@ -14,4 +14,5 @@ create_native_library(
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-apriltag"],
     version = NATIVE_VERSION,
+    entry_points = {"pkg_config": ["apriltag = native.apriltag"]}
 )
