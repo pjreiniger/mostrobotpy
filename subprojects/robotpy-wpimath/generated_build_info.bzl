@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -23,13 +24,11 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
             trampolines = [],
         ),
     ]
+
     resolve_casters(
         name = "wpimath.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath.casters.pkl",
         dep_file = "wpimath.casters.d",
     )
@@ -146,13 +145,11 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_filter.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_filter.casters.pkl",
         dep_file = "wpimath_filter.casters.d",
     )
@@ -373,13 +370,11 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_geometry.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_geometry.casters.pkl",
         dep_file = "wpimath_geometry.casters.d",
     )
@@ -468,13 +463,11 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_interpolation.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_interpolation.casters.pkl",
         dep_file = "wpimath_interpolation.casters.d",
     )
@@ -771,13 +764,11 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_kinematics.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_kinematics.casters.pkl",
         dep_file = "wpimath_kinematics.casters.d",
     )
@@ -897,13 +888,11 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_spline.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_spline.casters.pkl",
         dep_file = "wpimath_spline.casters.d",
     )
@@ -1560,13 +1549,11 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
             ],
         ),
     ]
+
     resolve_casters(
         name = "wpimath_controls.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":wpimath/wpimath-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpimath_controls.casters.pkl",
         dep_file = "wpimath_controls.casters.d",
     )

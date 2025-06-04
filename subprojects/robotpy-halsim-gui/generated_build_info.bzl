@@ -1,16 +1,13 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
 
 def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HALSIM_GUI_EXT_HEADER_GEN = [
     ]
     resolve_casters(
         name = "halsim_gui_ext.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
+        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
         casters_pkl_file = "halsim_gui_ext.casters.pkl",
         dep_file = "halsim_gui_ext.casters.d",
     )

@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
+load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
 
 def _local_include_root(project_import, include_subpackage):
     return "$(location " + project_import + ")/site-packages/native/" + include_subpackage + "/include"
@@ -72,11 +73,8 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
 
     resolve_casters(
         name = "cscore.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            ":cscore/cscore-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import"],
+        caster_files = [":cscore/cscore-casters.pybind11.json"],
+        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
         casters_pkl_file = "cscore.casters.pkl",
         dep_file = "cscore.casters.d",
     )

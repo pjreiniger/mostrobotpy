@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "create_pybind_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
+load("//bazel_scripts:file_resolver_utils.bzl", "resolve_caster_file")
 
 def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_TEST_HEADER_GEN = [
@@ -16,11 +17,7 @@ def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extensio
     ]
     resolve_casters(
         name = "wpimath_test.resolve_casters",
-        caster_files = [
-            "$(location //subprojects/robotpy-wpiutil:import)" + "/site-packages/wpiutil/wpiutil-casters.pybind11.json",
-            "$(location //subprojects/robotpy-wpimath:import)" + "/site-packages/wpimath/wpimath-casters.pybind11.json",
-        ],
-        caster_deps = ["//subprojects/robotpy-wpiutil:import", "//subprojects/robotpy-wpimath:import"],
+        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
         casters_pkl_file = "wpimath_test.casters.pkl",
         dep_file = "wpimath_test.casters.d",
     )
