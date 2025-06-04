@@ -2,7 +2,6 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_libr
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
 
-
 def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [
         struct(
@@ -204,6 +203,7 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         module_pkg_name = "hal.simulation._simulation",
         output_file = "hal_simulation.pc",
         pkg_name = "hal_simulation",
+        install_path = "hal/simulation",
         project_file = "pyproject.toml",
     )
 
@@ -621,7 +621,8 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         libinit_py = "hal._init__wpiHal",
         module_pkg_name = "hal._wpiHal",
         output_file = "wpihal.pc",
-        pkg_name = "hal",
+        pkg_name = "wpihal",
+        install_path = "hal",
         project_file = "pyproject.toml",
     )
 
@@ -655,7 +656,7 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         tags = ["manual"],
     )
     create_pybind_library(
-        name = "wpiHal",
+        name = "wpihal",
         entry_point = entry_point,
         extension_name = extension_name,
         generated_srcs = [":wpihal.generated_srcs"],

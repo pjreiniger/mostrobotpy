@@ -41,6 +41,7 @@ hal_simulation_extension(
 
 wpihal_extension(
     entry_point = ["hal/src/hal.cpp"],
+    extension_name = "_wpiHal",
     header_to_dat_deps = [
         "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
         "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",

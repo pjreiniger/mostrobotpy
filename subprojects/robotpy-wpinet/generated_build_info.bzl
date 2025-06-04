@@ -45,6 +45,7 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         module_pkg_name = "wpinet._wpinet",
         output_file = "wpinet.pc",
         pkg_name = "wpinet",
+        install_path = "wpinet",
         project_file = "pyproject.toml",
     )
 

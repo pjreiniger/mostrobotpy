@@ -364,6 +364,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         module_pkg_name = "ntcore._ntcore",
         output_file = "ntcore.pc",
         pkg_name = "ntcore",
+        install_path = "ntcore",
         project_file = "pyproject.toml",
     )
 

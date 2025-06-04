@@ -159,6 +159,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         module_pkg_name = "wpiutil._wpiutil",
         output_file = "wpiutil.pc",
         pkg_name = "wpiutil",
+        install_path = "wpiutil",
         project_file = "pyproject.toml",
     )
 
