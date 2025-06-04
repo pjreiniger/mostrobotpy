@@ -38,6 +38,7 @@ def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "halsim_gui_ext",
         casters_pickle = "halsim_gui_ext.casters.pkl",
         header_gen_config = HALSIM_GUI_EXT_HEADER_GEN,
+        trampoline_subpath = "",
         deps = header_to_dat_deps,
         generation_includes = [
         ],

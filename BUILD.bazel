@@ -29,7 +29,7 @@ write_source_files(
     additional_update_targets = [
         "//subprojects/pyntcore:ntcore.generate_build_info",
         "//subprojects/robotpy-apriltag:apriltag.generate_build_info",
-        "//subprojects/robotpy-cscore:cscore.generate_build_info",
+        # "//subprojects/robotpy-cscore:cscore.generate_build_info",
         "//subprojects/robotpy-hal:hal.generate_build_info",
         # "//subprojects/robotpy-halsim-gui:generate_build_info",
         "//subprojects/robotpy-romi:romi.generate_build_info",
