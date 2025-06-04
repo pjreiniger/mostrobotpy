@@ -1,6 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
 def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     APRILTAG_HEADER_GEN = [
@@ -98,6 +98,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         module_pkg_name = "robotpy_apriltag._apriltag",
         output_file = "apriltag.pc",
         pkg_name = "apriltag",
+        install_path = "robotpy_apriltag",
         project_file = "pyproject.toml",
     )
 
@@ -154,14 +155,14 @@ def get_generated_data_files():
     )
 
     native.filegroup(
-        name = "apriltag.generated_data_files",
+        name = "robotpy_apriltag.generated_data_files",
         srcs = [
-            "apriltag/apriltag.pc",
+            "robotpy_apriltag/apriltag.pc",
         ],
     )
 
     return [
-        ":apriltag.generated_data_files",
+        ":robotpy_apriltag.generated_data_files",
         ":copy_apriltag",
         ":apriltag.trampoline_hdr_files",
     ]
@@ -170,3 +171,25 @@ def libinit_files():
     return [
         "robotpy_apriltag/_init__apriltag.py",
     ]
+
+def define_pybind_library(name, version):
+    robotpy_library(
+        name = name,
+        srcs = native.glob(["robotpy_apriltag/**/*.py"]) + libinit_files(),
+        data = get_generated_data_files(),
+        imports = ["."],
+        robotpy_wheel_deps = [
+            "//subprojects/robotpy-native-apriltag:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ],
+        strip_path_prefixes = ["subprojects/robotpy-apriltag"],
+        version = version,
+        entry_points = {"pkg_config": ["apriltag = robotpy_apriltag"]},
+        visibility = ["//visibility:public"],
+        package_name = "robotpy-apriltag",
+        package_summary = "RobotPy bindings for WPILib's AprilTag library",
+        package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+        package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+        package_requires = ["robotpy-native-apriltag==2025.3.2", "robotpy-wpimath==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+    )

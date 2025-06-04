@@ -1,6 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
 def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [
@@ -703,3 +703,27 @@ def libinit_files():
         "hal/_init__wpiHal.py",
         "hal/simulation/_init__simulation.py",
     ]
+
+def define_robotpy_library(name, version):
+    robotpy_library(
+        name = name,
+        srcs = native.glob(["hal/**/*.py"]) + libinit_files(),
+        data = get_generated_data_files(),
+        imports = ["."],
+        robotpy_wheel_deps = [
+            "//subprojects/robotpy-native-wpihal:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ],
+        strip_path_prefixes = ["subprojects/robotpy-hal"],
+        version = version,
+        entry_points = {"pkg_config": [
+            "hal_simulation = hal.simulation",
+            "wpihal = hal",
+        ]},
+        visibility = ["//visibility:public"],
+        package_name = "robotpy-hal",
+        package_summary = "Binary wrapper for FRC HAL",
+        package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+        package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+        package_requires = ["robotpy-native-wpihal==2025.3.2", "robotpy-wpiutil==2025.3.2.2"],
+    )

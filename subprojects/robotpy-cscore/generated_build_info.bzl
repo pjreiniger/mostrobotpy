@@ -1,6 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file")
 
 def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     CSCORE_HEADER_GEN = [
@@ -180,3 +180,25 @@ def libinit_files():
     return [
         "cscore/_init__cscore.py",
     ]
+
+def define_pybind_library(name, version):
+    robotpy_library(
+        name = name,
+        srcs = native.glob(["cscore/**/*.py"]) + libinit_files(),
+        data = get_generated_data_files(),
+        imports = ["."],
+        robotpy_wheel_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ],
+        strip_path_prefixes = ["subprojects/robotpy-cscore"],
+        version = version,
+        visibility = ["//visibility:public"],
+        entry_points = {"pkg_config": ["cscore = cscore", "cscore-casters = cscore"]},
+        package_name = "robotpy-cscore",
+        package_summary = "RobotPy bindings for cscore image processing library",
+        package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+        package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+        package_requires = ["pyntcore==2025.3.2.2", "robotpy-wpinet==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+    )

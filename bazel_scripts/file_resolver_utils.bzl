@@ -1,5 +1,3 @@
-
-
 def resolve_caster_file(caster_name):
     if caster_name == "wpiutil-casters":
         project = "//subprojects/robotpy-wpiutil"
@@ -13,10 +11,8 @@ def resolve_caster_file(caster_name):
 
     return (caster_deps, caster_files)
 
-
 def resolve_include_root(library_label, include_subpackage):
     return "$(location " + library_label + ":import)/site-packages/native/" + include_subpackage + "/include"
-
 
 def local_native_libraries_helper(base_library_name):
     return ("//subprojects/robotpy-native-" + base_library_name + ":import", base_library_name)

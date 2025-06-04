@@ -15,6 +15,10 @@ robotpy_library(
         ":halsim_ds_socket.copy_lib",
     ],
     imports = ["."],
+    package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+    package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+    package_requires = ["robotpy-native-wpiutil==2025.3.2"],
+    package_summary = "Binary wrapper for FRC WPIUtil library",
     robotpy_wheel_deps = [
         "//subprojects/robotpy-wpilib:import",
     ],

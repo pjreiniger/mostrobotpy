@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "get_generated_data_files", "libinit_files", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
+load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "define_robotpy_library", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
 
 generate_build_info(
     name = "wpimath",
@@ -177,29 +177,9 @@ make_pyi(
     name = "make_pyi7",
 )
 
-robotpy_library(
+define_robotpy_library(
     name = "wpimath",
-    package_name = "robotpy-wpimath",
-    srcs = glob(["wpimath/**/*.py"]) + libinit_files(),
-    data = get_generated_data_files(),
-    imports = ["."],
-    robotpy_wheel_deps = [
-        "//subprojects/robotpy-native-wpimath:import",
-        "//subprojects/robotpy-wpiutil:import",
-    ],
-    strip_path_prefixes = ["subprojects/robotpy-wpimath"],
     version = MOSTROBOTPY_VERSION,
-    visibility = ["//visibility:public"],
-    entry_points = {'pkg_config': [
-        "wpimath-casters = wpimath",
-        'wpimath = wpimath',
-        "wpimath_filter = wpimath.filter",
-        "wpimath_geometry = wpimath.geometry",
-        "wpimath_interpolation = wpimath.interpolation",
-        "wpimath_kinematics = wpimath.kinematics",
-        "wpimath_spline = wpimath.spline",
-        "wpimath_controls = wpimath._controls",
-    ]},
 )
 
 filegroup(

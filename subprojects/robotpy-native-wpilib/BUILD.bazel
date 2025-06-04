@@ -4,6 +4,7 @@ load("//:version.bzl", "NATIVE_VERSION")
 create_native_library(
     name = "wpilib",
     package_name = "robotpy-native-wpilib",
+    entry_points = {"pkg_config": ["wpilib = native.wpilib"]},
     headers = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpilibc_wpilibc-cpp_headers"],
     lib_name = "wpilib",
@@ -14,8 +15,15 @@ create_native_library(
         "native.wpimath._init_robotpy_native_wpimath",
         "native.wpihal._init_robotpy_native_wpihal",
     ],
+    package_requires = [
+        "robotpy-native-ntcore==2025.3.2",
+        "robotpy-native-wpihal==2025.3.2",
+        "robotpy-native-wpimath==2025.3.2",
+        "robotpy-native-wpinet==2025.3.2",
+        "robotpy-native-wpiutil==2025.3.2",
+    ],
+    package_summary = "WPILib Robotics Library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpilib"],
     version = NATIVE_VERSION,
-    entry_points = {"pkg_config": ["wpilib = native.wpilib"]}
 )

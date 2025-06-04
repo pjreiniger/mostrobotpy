@@ -4,12 +4,14 @@ load("//:version.bzl", "NATIVE_VERSION")
 create_native_library(
     name = "wpimath",
     package_name = "robotpy-native-wpimath",
+    entry_points = {"pkg_config": ["wpimath = native.wpimath"]},
     headers = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpimath_wpimath-cpp_headers"],
     lib_name = "wpimath",
     module_dependencies = ["native.wpiutil._init_robotpy_native_wpiutil"],
+    package_requires = ["robotpy-native-wpiutil==2025.3.2"],
+    package_summary = "WPILib Math Library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
     version = NATIVE_VERSION,
-    entry_points = {"pkg_config": ["wpimath = native.wpimath"]}
 )

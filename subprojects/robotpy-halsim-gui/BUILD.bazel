@@ -7,7 +7,7 @@ halsim_gui_ext_extension(
     header_to_dat_deps = [],
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpiHal_pybind_library",
+        "//subprojects/robotpy-hal:wpihal_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/halsim_gui:shared",
     ],
@@ -38,6 +38,10 @@ robotpy_library(
         ":halsim_gui.copy_lib",
     ],
     imports = ["."],
+    package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+    package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+    package_requires = ["robotpy-native-wpiutil==2025.3.2"],
+    package_summary = "Binary wrapper for FRC WPIUtil library",
     robotpy_wheel_deps = [
         "//subprojects/pyntcore:import",
         "//subprojects/robotpy-hal:import",

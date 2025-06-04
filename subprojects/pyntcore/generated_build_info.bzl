@@ -1,6 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     NTCORE_HEADER_GEN = [
@@ -437,3 +437,25 @@ def libinit_files():
     return [
         "ntcore/_init__ntcore.py",
     ]
+
+def define_robotpy_library(name, version):
+    robotpy_library(
+        name = name,
+        package_name = "pyntcore",
+        srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
+        data = get_generated_data_files(),
+        imports = ["."],
+        robotpy_wheel_deps = [
+            "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ],
+        strip_path_prefixes = ["subprojects/pyntcore"],
+        version = version,
+        entry_points = {"pkg_config": ["ntcore = ntcore"]},
+        visibility = ["//visibility:public"],
+        package_summary = "Binary wrappers for the FRC ntcore library",
+        package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+        package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+        package_requires = ["robotpy-native-ntcore==2025.3.2", "robotpy-wpinet==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+    )

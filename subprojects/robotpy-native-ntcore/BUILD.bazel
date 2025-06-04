@@ -4,6 +4,7 @@ load("//:version.bzl", "NATIVE_VERSION")
 create_native_library(
     name = "ntcore",
     package_name = "robotpy-native-ntcore",
+    entry_points = {"pkg_config": ["ntcore = native.ntcore"]},
     headers = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_ntcore_ntcore-cpp_headers"],
     lib_name = "ntcore",
@@ -11,8 +12,12 @@ create_native_library(
         "native.wpinet._init_robotpy_native_wpinet",
         "native.wpiutil._init_robotpy_native_wpiutil",
     ],
+    package_requires = [
+        "robotpy-native-wpinet==2025.3.2",
+        "robotpy-native-wpiutil==2025.3.2",
+    ],
+    package_summary = "WPILib NetworkTables Library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-ntcore"],
     version = NATIVE_VERSION,
-    entry_points = {"pkg_config": ["ntcore = native.ntcore"]}
 )

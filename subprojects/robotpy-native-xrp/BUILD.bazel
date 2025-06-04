@@ -4,12 +4,14 @@ load("//:version.bzl", "NATIVE_VERSION")
 create_native_library(
     name = "xrp",
     package_name = "robotpy-native-xrp",
+    entry_points = {"pkg_config": ["xrp = native.xrp"]},
     headers = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_xrpvendordep_xrpvendordep-cpp_headers"],
     lib_name = "xrp",
     module_dependencies = ["native.wpilib._init_robotpy_native_wpilib"],
+    package_requires = ["robotpy-native-wpilib==2025.3.2"],
+    package_summary = "WPILib XRP vendor library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-xrp"],
     version = NATIVE_VERSION,
-    entry_points = {"pkg_config": ["xrp = native.xrp"]}
 )

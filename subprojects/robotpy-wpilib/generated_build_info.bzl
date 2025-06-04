@@ -1,6 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
 def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_EVENT_HEADER_GEN = [
@@ -38,7 +38,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
 
     resolve_casters(
         name = "wpilib_event.resolve_casters",
-        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
+        caster_deps = [resolve_caster_file("wpimath-casters"), resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpilib_event.casters.pkl",
         dep_file = "wpilib_event.casters.d",
     )
@@ -55,6 +55,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         module_pkg_name = "wpilib.event._event",
         output_file = "wpilib_event.pc",
         pkg_name = "wpilib_event",
+        install_path = "wpilib/event",
         project_file = "pyproject.toml",
     )
 
@@ -141,7 +142,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
 
     resolve_casters(
         name = "wpilib_interfaces.resolve_casters",
-        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
+        caster_deps = [resolve_caster_file("wpimath-casters"), resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "wpilib_interfaces.casters.pkl",
         dep_file = "wpilib_interfaces.casters.d",
     )
@@ -158,6 +159,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         module_pkg_name = "wpilib.interfaces._interfaces",
         output_file = "wpilib_interfaces.pc",
         pkg_name = "wpilib_interfaces",
+        install_path = "wpilib/interfaces",
         project_file = "pyproject.toml",
     )
 
@@ -1261,6 +1263,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         module_pkg_name = "wpilib._wpilib",
         output_file = "wpilib.pc",
         pkg_name = "wpilib",
+        install_path = "wpilib",
         project_file = "pyproject.toml",
     )
 
@@ -1374,6 +1377,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         module_pkg_name = "wpilib.counter._counter",
         output_file = "wpilib_counter.pc",
         pkg_name = "wpilib_counter",
+        install_path = "wpilib/counter",
         project_file = "pyproject.toml",
     )
 
@@ -1479,6 +1483,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         module_pkg_name = "wpilib.drive._drive",
         output_file = "wpilib_drive.pc",
         pkg_name = "wpilib_drive",
+        install_path = "wpilib/drive",
         project_file = "pyproject.toml",
     )
 
@@ -1767,6 +1772,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         module_pkg_name = "wpilib.shuffleboard._shuffleboard",
         output_file = "wpilib_shuffleboard.pc",
         pkg_name = "wpilib_shuffleboard",
+        install_path = "wpilib/shuffleboard",
         project_file = "pyproject.toml",
     )
 
@@ -2321,6 +2327,7 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         module_pkg_name = "wpilib.simulation._simulation",
         output_file = "wpilib_simulation.pc",
         pkg_name = "wpilib_simulation",
+        install_path = "wpilib/simulation",
         project_file = "pyproject.toml",
     )
 
@@ -2430,11 +2437,11 @@ def get_generated_data_files():
         ":copy_wpilib_interfaces",
         ":copy_wpilib_shuffleboard",
         ":copy_wpilib_simulation",
-        ":wpilib_event.trampoline_hdr_files",
-        ":wpilib_interfaces.trampoline_hdr_files",
         ":wpilib.trampoline_hdr_files",
         ":wpilib_counter.trampoline_hdr_files",
         ":wpilib_drive.trampoline_hdr_files",
+        ":wpilib_event.trampoline_hdr_files",
+        ":wpilib_interfaces.trampoline_hdr_files",
         ":wpilib_shuffleboard.trampoline_hdr_files",
         ":wpilib_simulation.trampoline_hdr_files",
     ]
@@ -2449,3 +2456,47 @@ def libinit_files():
         "wpilib/shuffleboard/_init__shuffleboard.py",
         "wpilib/simulation/_init__simulation.py",
     ]
+
+def define_robotpy_library(
+        name,
+        version):
+    robotpy_library(
+        name = name,
+        srcs = native.glob(["wpilib/**/*.py"]) + libinit_files(),
+        data = get_generated_data_files(),
+        imports = ["."],
+        robotpy_wheel_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ],
+        strip_path_prefixes = ["subprojects/robotpy-wpilib"],
+        version = version,
+        visibility = ["//visibility:public"],
+        entry_points = {
+            "pkg_config": [
+                "wpilib_event = wpilib.event",
+                "wpilib_interfaces = wpilib.interfaces",
+                "wpilib = wpilib",
+                "wpilib_counter = wpilib.counter",
+                "wpilib_drive = wpilib.drive",
+                "wpilib_shuffleboard = wpilib.shuffleboard",
+                "wpilib_simulation = wpilib.simulation",
+            ],
+            "robotpy": ["run = wpilib._impl.start:Main"],
+        },
+        package_name = "wpilib",
+        package_summary = "Binary wrapper for FRC WPILib",
+        package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
+        package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
+        package_requires = [
+            "pyntcore==2025.3.2.2",
+            "robotpy-hal==2025.3.2.2",
+            "robotpy-native-wpilib==2025.3.2",
+            "robotpy-wpimath==2025.3.2.2",
+            "robotpy-wpiutil==2025.3.2.2",
+            "robotpy-cli~=2024.0b",
+        ],
+    )

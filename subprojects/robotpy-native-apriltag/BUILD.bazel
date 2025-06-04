@@ -4,6 +4,7 @@ load("//:version.bzl", "NATIVE_VERSION")
 create_native_library(
     name = "apriltag",
     package_name = "robotpy-native-apriltag",
+    entry_points = {"pkg_config": ["apriltag = native.apriltag"]},
     headers = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers"],
     lib_name = "apriltag",
@@ -11,8 +12,12 @@ create_native_library(
         "native.wpiutil._init_robotpy_native_wpiutil",
         "native.wpimath._init_robotpy_native_wpimath",
     ],
+    package_requires = [
+        "robotpy-native-wpimath==2025.3.2",
+        "robotpy-native-wpiutil==2025.3.2",
+    ],
+    package_summary = "WPILib AprilTag Library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
     strip_pkg_prefix = ["subprojects/robotpy-native-apriltag"],
     version = NATIVE_VERSION,
-    entry_points = {"pkg_config": ["apriltag = native.apriltag"]}
 )

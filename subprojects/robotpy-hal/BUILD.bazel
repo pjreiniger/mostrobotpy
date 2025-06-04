@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "make_pyi", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-hal:generated_build_info.bzl", "get_generated_data_files", "hal_simulation_extension", "libinit_files", "wpihal_extension")
+load("//subprojects/robotpy-hal:generated_build_info.bzl", "define_robotpy_library", "hal_simulation_extension", "wpihal_extension")
 
 generate_build_info(
     name = "hal",
@@ -13,7 +13,6 @@ generate_build_info(
     pkgcfgs = [
         "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
         "$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc",
-        # "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",
         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
     ],
     pyproject_toml = ":pyproject.toml",
@@ -60,23 +59,9 @@ make_pyi(
     name = "make_pyi2",
 )
 
-robotpy_library(
+define_robotpy_library(
     name = "hal",
-    package_name = "robotpy-hal",
-    srcs = glob(["hal/**/*.py"]) + libinit_files(),
-    data = get_generated_data_files(),
-    imports = ["."],
-    robotpy_wheel_deps = [
-        "//subprojects/robotpy-native-wpihal:import",
-        "//subprojects/robotpy-wpiutil:import",
-    ],
-    strip_path_prefixes = ["subprojects/robotpy-hal"],
     version = MOSTROBOTPY_VERSION,
-    entry_points = {'pkg_config': [
-        "hal_simulation = hal.simulation",
-        "wpihal = hal",
-    ]},
-    visibility = ["//visibility:public"],
 )
 
 filegroup(
