@@ -56,6 +56,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         name = "wpimath",
         casters_pickle = "wpimath.casters.pkl",
         header_gen_config = WPIMATH_HEADER_GEN,
+        trampoline_subpath = "wpimath",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -177,6 +178,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpimath_filter",
         casters_pickle = "wpimath_filter.casters.pkl",
         header_gen_config = WPIMATH_FILTER_HEADER_GEN,
+        trampoline_subpath = "wpimath/filter",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -402,6 +404,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         name = "wpimath_geometry",
         casters_pickle = "wpimath_geometry.casters.pkl",
         header_gen_config = WPIMATH_GEOMETRY_HEADER_GEN,
+        trampoline_subpath = "wpimath/geometry",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -495,6 +498,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         name = "wpimath_interpolation",
         casters_pickle = "wpimath_interpolation.casters.pkl",
         header_gen_config = WPIMATH_INTERPOLATION_HEADER_GEN,
+        trampoline_subpath = "wpimath/interpolation",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -796,6 +800,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         name = "wpimath_kinematics",
         casters_pickle = "wpimath_kinematics.casters.pkl",
         header_gen_config = WPIMATH_KINEMATICS_HEADER_GEN,
+        trampoline_subpath = "wpimath/kinematics",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -920,6 +925,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpimath_spline",
         casters_pickle = "wpimath_spline.casters.pkl",
         header_gen_config = WPIMATH_SPLINE_HEADER_GEN,
+        trampoline_subpath = "wpimath/spline",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -1581,6 +1587,7 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         name = "wpimath_controls",
         casters_pickle = "wpimath_controls.casters.pkl",
         header_gen_config = WPIMATH_CONTROLS_HEADER_GEN,
+        trampoline_subpath = "wpimath/_controls",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpimath"),
@@ -1672,6 +1679,7 @@ def get_generated_data_files():
             "wpimath/wpimath.pc",
             "wpimath/geometry/wpimath_geometry.pc",
             "wpimath/filter/wpimath_filter.pc",
+            "wpimath/interpolation/wpimath_interpolation.pc",
             "wpimath/kinematics/wpimath_kinematics.pc",
             "wpimath/spline/wpimath_spline.pc",
             "wpimath/controls/wpimath_controls.pc",
@@ -1689,6 +1697,13 @@ def get_generated_data_files():
         ":copy_wpimath_kinematics",
         ":copy_wpimath_spline",
         ":wpimath.generated_data_files",
+        ":wpimath.trampoline_hdr_files",
+        ":wpimath_filter.trampoline_hdr_files",
+        ":wpimath_geometry.trampoline_hdr_files",
+        ":wpimath_interpolation.trampoline_hdr_files",
+        ":wpimath_kinematics.trampoline_hdr_files",
+        ":wpimath_spline.trampoline_hdr_files",
+        ":wpimath_controls.trampoline_hdr_files",
     ]
 
 def libinit_files():

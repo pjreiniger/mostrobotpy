@@ -47,6 +47,7 @@ robotpy_library(
     ],
     strip_path_prefixes = ["subprojects/robotpy-wpinet"],
     version = MOSTROBOTPY_VERSION,
+    entry_points = {'pkg_config': ['wpinet = wpinet']},
     visibility = ["//visibility:public"],
 )
 

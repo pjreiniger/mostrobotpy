@@ -59,6 +59,7 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "wpinet",
         casters_pickle = "wpinet.casters.pkl",
         header_gen_config = WPINET_HEADER_GEN,
+        trampoline_subpath = "wpinet",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpinet"),
@@ -108,6 +109,7 @@ def get_generated_data_files():
     return [
         ":wpinet.generated_data_files",
         ":copy_wpinet",
+        ":wpinet.trampoline_hdr_files",
     ]
 
 def libinit_files():

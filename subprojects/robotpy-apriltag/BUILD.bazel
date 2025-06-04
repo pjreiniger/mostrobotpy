@@ -54,6 +54,7 @@ robotpy_library(
     ],
     strip_path_prefixes = ["subprojects/robotpy-apriltag"],
     version = MOSTROBOTPY_VERSION,
+    entry_points = {'pkg_config': ['apriltag = robotpy_apriltag']},
     visibility = ["//visibility:public"],
 )
 

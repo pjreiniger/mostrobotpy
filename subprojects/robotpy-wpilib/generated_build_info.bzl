@@ -69,6 +69,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         name = "wpilib_event",
         casters_pickle = "wpilib_event.casters.pkl",
         header_gen_config = WPILIB_EVENT_HEADER_GEN,
+        trampoline_subpath = "wpilib/event",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -171,6 +172,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         name = "wpilib_interfaces",
         casters_pickle = "wpilib_interfaces.casters.pkl",
         header_gen_config = WPILIB_INTERFACES_HEADER_GEN,
+        trampoline_subpath = "wpilib/interfaces",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -1273,6 +1275,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "wpilib",
         casters_pickle = "wpilib.casters.pkl",
         header_gen_config = WPILIB_HEADER_GEN,
+        trampoline_subpath = "wpilib",
         deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -1385,6 +1388,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "wpilib_counter",
         casters_pickle = "wpilib_counter.casters.pkl",
         header_gen_config = WPILIB_COUNTER_HEADER_GEN,
+        trampoline_subpath = "wpilib/counter",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -1489,6 +1493,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         name = "wpilib_drive",
         casters_pickle = "wpilib_drive.casters.pkl",
         header_gen_config = WPILIB_DRIVE_HEADER_GEN,
+        trampoline_subpath = "wpilib/drive",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -1776,6 +1781,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         name = "wpilib_shuffleboard",
         casters_pickle = "wpilib_shuffleboard.casters.pkl",
         header_gen_config = WPILIB_SHUFFLEBOARD_HEADER_GEN,
+        trampoline_subpath = "wpilib/shuffleboard",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -2329,6 +2335,7 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         name = "wpilib_simulation",
         casters_pickle = "wpilib_simulation.casters.pkl",
         header_gen_config = WPILIB_SIMULATION_HEADER_GEN,
+        trampoline_subpath = "wpilib/simulation",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -2423,6 +2430,13 @@ def get_generated_data_files():
         ":copy_wpilib_interfaces",
         ":copy_wpilib_shuffleboard",
         ":copy_wpilib_simulation",
+        ":wpilib_event.trampoline_hdr_files",
+        ":wpilib_interfaces.trampoline_hdr_files",
+        ":wpilib.trampoline_hdr_files",
+        ":wpilib_counter.trampoline_hdr_files",
+        ":wpilib_drive.trampoline_hdr_files",
+        ":wpilib_shuffleboard.trampoline_hdr_files",
+        ":wpilib_simulation.trampoline_hdr_files",
     ]
 
 def libinit_files():

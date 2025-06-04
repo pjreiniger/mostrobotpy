@@ -218,6 +218,7 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         name = "hal_simulation",
         casters_pickle = "hal_simulation.casters.pkl",
         header_gen_config = HAL_SIMULATION_HEADER_GEN,
+        trampoline_subpath = "hal/simulation",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpihal"),
@@ -635,6 +636,7 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "wpihal",
         casters_pickle = "wpihal.casters.pkl",
         header_gen_config = WPIHAL_HEADER_GEN,
+        trampoline_subpath = "hal",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("wpihal"),
@@ -691,6 +693,8 @@ def get_generated_data_files():
         ":hal.generated_data_files",
         ":copy_wpihal",
         ":copy_hal_simulation",
+        ":wpihal.trampoline_hdr_files",
+        ":hal_simulation.trampoline_hdr_files",
     ]
 
 def libinit_files():

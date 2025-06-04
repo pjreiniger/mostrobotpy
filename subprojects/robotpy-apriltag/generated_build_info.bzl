@@ -112,6 +112,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         name = "apriltag",
         casters_pickle = "apriltag.casters.pkl",
         header_gen_config = APRILTAG_HEADER_GEN,
+        trampoline_subpath = "robotpy_apriltag",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("apriltag"),
@@ -162,6 +163,7 @@ def get_generated_data_files():
     return [
         ":apriltag.generated_data_files",
         ":copy_apriltag",
+        ":apriltag.trampoline_hdr_files",
     ]
 
 def libinit_files():

@@ -173,6 +173,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         name = "wpiutil",
         casters_pickle = "wpiutil.casters.pkl",
         header_gen_config = WPIUTIL_HEADER_GEN,
+        trampoline_subpath = "wpiutil",
         deps = header_to_dat_deps + ["wpiutil/src/wpistruct/wpystruct_fns.h"],
         local_native_libraries = [
             local_native_libraries_helper("wpiutil"),
@@ -233,6 +234,7 @@ def get_generated_data_files():
     return [
         ":wpiutil.generated_data_files",
         ":copy_wpiutil",
+        ":wpiutil.trampoline_hdr_files",
     ]
 
 def libinit_files():

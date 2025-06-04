@@ -378,6 +378,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "ntcore",
         casters_pickle = "ntcore.casters.pkl",
         header_gen_config = NTCORE_HEADER_GEN,
+        trampoline_subpath = "ntcore",
         deps = header_to_dat_deps,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
@@ -428,6 +429,7 @@ def get_generated_data_files():
     return [
         ":ntcore.generated_data_files",
         ":copy_ntcore",
+        ":ntcore.trampoline_hdr_files",
     ]
 
 def libinit_files():

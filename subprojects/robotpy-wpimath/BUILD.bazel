@@ -190,6 +190,16 @@ robotpy_library(
     strip_path_prefixes = ["subprojects/robotpy-wpimath"],
     version = MOSTROBOTPY_VERSION,
     visibility = ["//visibility:public"],
+    entry_points = {'pkg_config': [
+        "wpimath-casters = wpimath",
+        'wpimath = wpimath',
+        "wpimath_filter = wpimath.filter",
+        "wpimath_geometry = wpimath.geometry",
+        "wpimath_interpolation = wpimath.interpolation",
+        "wpimath_kinematics = wpimath.kinematics",
+        "wpimath_spline = wpimath.spline",
+        "wpimath_controls = wpimath._controls",
+    ]},
 )
 
 filegroup(

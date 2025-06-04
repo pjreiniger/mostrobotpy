@@ -280,6 +280,15 @@ robotpy_library(
     strip_path_prefixes = ["subprojects/robotpy-wpilib"],
     version = MOSTROBOTPY_VERSION,
     visibility = ["//visibility:public"],
+    entry_points = {'pkg_config': [
+        "wpilib_event = wpilib.event",
+        "wpilib_interfaces = wpilib.interfaces",
+        "wpilib = wpilib",
+        "wpilib_counter = wpilib.counter",
+        "wpilib_drive = wpilib.drive",
+        "wpilib_shuffleboard = wpilib.shuffleboard",
+        "wpilib_simulation = wpilib.simulation",
+    ]},
 )
 
 filegroup(
