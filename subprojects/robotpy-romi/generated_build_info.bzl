@@ -132,10 +132,16 @@ def libinit_files():
     ]
 
 def define_pybind_library(name, version):
+    native.filegroup(
+        name = "romi.extra_pkg_files",
+        srcs = native.glob(["romi/**"], exclude=["romi/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["romi/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["romi.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-romi:import",

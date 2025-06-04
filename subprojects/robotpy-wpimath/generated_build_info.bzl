@@ -1719,10 +1719,17 @@ def libinit_files():
     ]
 
 def define_robotpy_library(name, version):
+
+    native.filegroup(
+        name = "wpimath.extra_pkg_files",
+        srcs = native.glob(["wpimath/**"], exclude=["wpimath/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["wpimath/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["wpimath.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpimath:import",

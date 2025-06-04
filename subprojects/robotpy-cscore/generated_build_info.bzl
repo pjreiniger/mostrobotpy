@@ -182,10 +182,16 @@ def libinit_files():
     ]
 
 def define_pybind_library(name, version):
+    native.filegroup(
+        name = "cscore.extra_pkg_files",
+        srcs = native.glob(["cscore/**"], exclude=["cscore/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["cscore/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["cscore.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/pyntcore:import",

@@ -2460,10 +2460,16 @@ def libinit_files():
 def define_robotpy_library(
         name,
         version):
+    native.filegroup(
+        name = "wpilib.extra_pkg_files",
+        srcs = native.glob(["wpilib/**"], exclude=["wpilib/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["wpilib/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["wpilib.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/pyntcore:import",

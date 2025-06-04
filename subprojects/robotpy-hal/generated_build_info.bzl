@@ -705,10 +705,16 @@ def libinit_files():
     ]
 
 def define_robotpy_library(name, version):
+    native.filegroup(
+        name = "hal.extra_pkg_files",
+        srcs = native.glob(["hal/**"], exclude=["hal/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["hal/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["hal.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpihal:import",

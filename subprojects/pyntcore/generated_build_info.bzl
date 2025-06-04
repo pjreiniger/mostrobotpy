@@ -439,11 +439,17 @@ def libinit_files():
     ]
 
 def define_robotpy_library(name, version):
+    native.filegroup(
+        name = "ntcore.extra_pkg_files",
+        srcs = native.glob(["ntcore/**"], exclude=["ntcore/**/*.py"]),
+        tags = ["manual"],
+    )
+
     robotpy_library(
         name = name,
         package_name = "pyntcore",
         srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["ntcore.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-ntcore:import",
