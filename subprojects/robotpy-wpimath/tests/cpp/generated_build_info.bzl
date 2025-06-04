@@ -48,6 +48,7 @@ def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extensio
         name = "wpimath_test",
         casters_pickle = "wpimath_test.casters.pkl",
         header_gen_config = WPIMATH_TEST_HEADER_GEN,
+        trampoline_subpath = "wpimath_test",
         deps = header_to_dat_deps,
     )
 
