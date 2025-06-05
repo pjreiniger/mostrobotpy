@@ -99,25 +99,40 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
     make_pyi(
         name = "wpimath.make_pyi",
         extension_package = "wpimath._wpimath",
+        extension_library = "copy_wpimath",
         interface_files = [
             "_wpimath.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath",
-        extension_library = "copy_wpimath",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -247,6 +262,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
     make_pyi(
         name = "wpimath_filter.make_pyi",
         extension_package = "wpimath.filter._filter",
+        extension_library = "copy_wpimath_filter",
         interface_files = [
             "_filter.pyi",
         ],
@@ -254,14 +270,21 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "wpimath/_init__wpimath.py",
             "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/filter",
-        extension_library = "copy_wpimath_filter",
         init_packages = [
             "wpimath",
             "wpimath/filter",
             "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath/filter",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
@@ -269,6 +292,10 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -502,19 +529,29 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
     make_pyi(
         name = "wpimath_geometry.make_pyi",
         extension_package = "wpimath.geometry._geometry",
+        extension_library = "copy_wpimath_geometry",
         interface_files = [
             "_geometry.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/geometry",
-        extension_library = "copy_wpimath_geometry",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath/geometry",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
@@ -522,6 +559,11 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -623,28 +665,40 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
     make_pyi(
         name = "wpimath_interpolation.make_pyi",
         extension_package = "wpimath.interpolation._interpolation",
+        extension_library = "copy_wpimath_interpolation",
         interface_files = [
             "_interpolation.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
             "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/interpolation",
-        extension_library = "copy_wpimath_interpolation",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
             "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath/interpolation",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -949,30 +1003,40 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
     make_pyi(
         name = "wpimath_kinematics.make_pyi",
         extension_package = "wpimath.kinematics._kinematics",
+        extension_library = "copy_wpimath_kinematics",
         interface_files = [
             "_kinematics.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
             "wpimath/interpolation/_init__interpolation.py",
             "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/kinematics",
-        extension_library = "copy_wpimath_kinematics",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
             "wpimath/interpolation",
             "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath/kinematics",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -1105,25 +1169,29 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
     make_pyi(
         name = "wpimath_spline.make_pyi",
         extension_package = "wpimath.spline._spline",
+        extension_library = "copy_wpimath_spline",
         interface_files = [
             "_spline.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
             "wpimath/interpolation/_init__interpolation.py",
             "wpimath/kinematics/_init__kinematics.py",
             "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/spline",
-        extension_library = "copy_wpimath_spline",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
             "wpimath/interpolation",
             "wpimath/kinematics",
             "wpimath/spline",
+            "wpimath/_controls",
         ],
+        install_path = "wpimath/spline",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
@@ -1131,7 +1199,11 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/_controls/_controls", "copy_wpimath_controls"),
         ],
     )
 
@@ -1801,35 +1873,37 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
     make_pyi(
         name = "wpimath_controls.make_pyi",
         extension_package = "wpimath._controls._controls",
+        extension_library = "copy_wpimath_controls",
         interface_files = [
             "__init__.pyi",
-            "system.pyi",
-            "estimator.pyi",
-            "path.pyi",
-            "controller.pyi",
-            "plant.pyi",
-            "optimization.pyi",
-            "trajectory.pyi",
             "constraint.pyi",
+            "controller.pyi",
+            "estimator.pyi",
+            "optimization.pyi",
+            "path.pyi",
+            "plant.pyi",
+            "system.pyi",
+            "trajectory.pyi",
         ],
         init_pkgcfgs = [
             "wpimath/_init__wpimath.py",
+            "wpimath/filter/_init__filter.py",
             "wpimath/geometry/_init__geometry.py",
             "wpimath/interpolation/_init__interpolation.py",
             "wpimath/kinematics/_init__kinematics.py",
             "wpimath/spline/_init__spline.py",
             "wpimath/_controls/_init__controls.py",
         ],
-        install_path = "wpimath/_controls/_controls",
-        extension_library = "copy_wpimath_controls",
         init_packages = [
             "wpimath",
+            "wpimath/filter",
             "wpimath/geometry",
             "wpimath/interpolation",
             "wpimath/kinematics",
             "wpimath/spline",
             "wpimath/_controls",
         ],
+        install_path = "wpimath/_controls/_controls",
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
@@ -1837,7 +1911,9 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/interpolation/_interpolation", "copy_wpimath_interpolation"),
             ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
             ("wpimath/spline/_spline", "copy_wpimath_spline"),
         ],
@@ -1934,7 +2010,7 @@ def libinit_files():
         "wpimath/_controls/_init__controls.py",
     ]
 
-def define_robotpy_library(name, version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "wpimath.extra_pkg_files",
         srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"]),
@@ -1966,16 +2042,18 @@ def define_robotpy_library(name, version):
         strip_path_prefixes = ["subprojects/robotpy-wpimath"],
         version = version,
         visibility = ["//visibility:public"],
-        entry_points = {"pkg_config": [
-            "wpimath-casters = wpimath",
-            "wpimath = wpimath",
-            "wpimath_filter = wpimath.filter",
-            "wpimath_geometry = wpimath.geometry",
-            "wpimath_interpolation = wpimath.interpolation",
-            "wpimath_kinematics = wpimath.kinematics",
-            "wpimath_spline = wpimath.spline",
-            "wpimath_controls = wpimath._controls",
-        ]},
+        entry_points = {
+            "pkg_config": [
+                "wpimath-casters = wpimath",
+                "wpimath = wpimath",
+                "wpimath_filter = wpimath.filter",
+                "wpimath_geometry = wpimath.geometry",
+                "wpimath_interpolation = wpimath.interpolation",
+                "wpimath_kinematics = wpimath.kinematics",
+                "wpimath_spline = wpimath.spline",
+                "wpimath_controls = wpimath._controls",
+            ],
+        },
         package_name = "robotpy-wpimath",
         package_summary = "Binary wrapper for FRC WPIMath library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

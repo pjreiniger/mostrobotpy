@@ -209,16 +209,16 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
     make_pyi(
         name = "wpiutil.make_pyi",
         extension_package = "wpiutil._wpiutil",
+        extension_library = "copy_wpiutil",
         interface_files = [
             "__init__.pyi",
-            "sync.pyi",
             "log.pyi",
+            "sync.pyi",
             "wpistruct.pyi",
         ],
         init_pkgcfgs = ["wpiutil/_init__wpiutil.py"],
-        install_path = "wpiutil/_wpiutil",
-        extension_library = "copy_wpiutil",
         init_packages = ["wpiutil"],
+        install_path = "wpiutil/_wpiutil",
         python_deps = [
             "//subprojects/robotpy-native-wpiutil:robotpy-native-wpiutil",
         ],
@@ -261,9 +261,7 @@ def libinit_files():
         "wpiutil/_init__wpiutil.py",
     ]
 
-def define_pybind_library(
-        name,
-        version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "wpiutil.extra_pkg_files",
         srcs = native.glob(["wpiutil/**"], exclude = ["wpiutil/**/*.py"]),
@@ -272,7 +270,9 @@ def define_pybind_library(
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [":wpiutil.make_pyi"],
+        srcs = [
+            ":wpiutil.make_pyi",
+        ],
     )
 
     robotpy_library(

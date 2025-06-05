@@ -1,6 +1,6 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "define_robotpy_library", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
+load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "define_pybind_library", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
 generate_build_info(
     name = "wpilib",
@@ -239,7 +239,7 @@ wpilib_simulation_extension(
     ],
 )
 
-define_robotpy_library(
+define_pybind_library(
     name = "wpilib",
     version = MOSTROBOTPY_VERSION,
 )

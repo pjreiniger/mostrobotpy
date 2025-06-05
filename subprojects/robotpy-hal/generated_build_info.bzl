@@ -706,39 +706,39 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
 
 def get_generated_data_files():
     copy_extension_library(
-        name = "copy_wpihal",
-        extension = "_wpiHal",
-        output_directory = "hal/",
-    )
-    copy_extension_library(
         name = "copy_hal_simulation",
         extension = "_simulation",
         output_directory = "hal/simulation/",
+    )
+    copy_extension_library(
+        name = "copy_wpihal",
+        extension = "_wpiHal",
+        output_directory = "hal/",
     )
 
     native.filegroup(
         name = "hal.generated_data_files",
         srcs = [
-            "hal/wpihal.pc",
             "hal/simulation/hal_simulation.pc",
+            "hal/wpihal.pc",
         ],
     )
 
     return [
         ":hal.generated_data_files",
-        ":copy_wpihal",
         ":copy_hal_simulation",
-        ":wpihal.trampoline_hdr_files",
+        ":copy_wpihal",
         ":hal_simulation.trampoline_hdr_files",
+        ":wpihal.trampoline_hdr_files",
     ]
 
 def libinit_files():
     return [
-        "hal/_init__wpiHal.py",
         "hal/simulation/_init__simulation.py",
+        "hal/_init__wpiHal.py",
     ]
 
-def define_robotpy_library(name, version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "hal.extra_pkg_files",
         srcs = native.glob(["hal/**"], exclude = ["hal/**/*.py"]),
@@ -747,7 +747,10 @@ def define_robotpy_library(name, version):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [":wpihal.make_pyi", ":hal_simulation.make_pyi"],
+        srcs = [
+            ":hal_simulation.make_pyi",
+            ":wpihal.make_pyi",
+        ],
     )
 
     robotpy_library(
@@ -761,11 +764,13 @@ def define_robotpy_library(name, version):
         ],
         strip_path_prefixes = ["subprojects/robotpy-hal"],
         version = version,
-        entry_points = {"pkg_config": [
-            "hal_simulation = hal.simulation",
-            "wpihal = hal",
-        ]},
         visibility = ["//visibility:public"],
+        entry_points = {
+            "pkg_config": [
+                "hal_simulation = hal.simulation",
+                "wpihal = hal",
+            ],
+        },
         package_name = "robotpy-hal",
         package_summary = "Binary wrapper for FRC HAL",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

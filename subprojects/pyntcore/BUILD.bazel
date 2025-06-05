@@ -1,6 +1,6 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/pyntcore:generated_build_info.bzl", "define_robotpy_library", "ntcore_extension")
+load("//subprojects/pyntcore:generated_build_info.bzl", "define_pybind_library", "ntcore_extension")
 
 generate_build_info(
     name = "ntcore",
@@ -45,7 +45,7 @@ ntcore_extension(
     ],
 )
 
-define_robotpy_library(
+define_pybind_library(
     name = "ntcore",
     version = MOSTROBOTPY_VERSION,
 )

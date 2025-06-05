@@ -217,8 +217,12 @@ def define_pybind_library(name, version):
         ],
         strip_path_prefixes = ["subprojects/robotpy-apriltag"],
         version = version,
-        entry_points = {"pkg_config": ["apriltag = robotpy_apriltag"]},
         visibility = ["//visibility:public"],
+        entry_points = {
+            "pkg_config": [
+                "apriltag = robotpy_apriltag",
+            ],
+        },
         package_name = "robotpy-apriltag",
         package_summary = "RobotPy bindings for WPILib's AprilTag library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

@@ -1,6 +1,6 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-hal:generated_build_info.bzl", "define_robotpy_library", "hal_simulation_extension", "wpihal_extension")
+load("//subprojects/robotpy-hal:generated_build_info.bzl", "define_pybind_library", "hal_simulation_extension", "wpihal_extension")
 
 generate_build_info(
     name = "hal",
@@ -50,7 +50,7 @@ wpihal_extension(
     ],
 )
 
-define_robotpy_library(
+define_pybind_library(
     name = "hal",
     version = MOSTROBOTPY_VERSION,
 )

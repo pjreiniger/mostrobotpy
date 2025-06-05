@@ -456,7 +456,7 @@ def libinit_files():
         "ntcore/_init__ntcore.py",
     ]
 
-def define_robotpy_library(name, version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "ntcore.extra_pkg_files",
         srcs = native.glob(["ntcore/**"], exclude = ["ntcore/**/*.py"]),
@@ -465,12 +465,13 @@ def define_robotpy_library(name, version):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [":ntcore.make_pyi"],
+        srcs = [
+            ":ntcore.make_pyi",
+        ],
     )
 
     robotpy_library(
         name = name,
-        package_name = "pyntcore",
         srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
         data = get_generated_data_files() + ["ntcore.extra_pkg_files"] + [":pyi_files"],
         imports = ["."],
@@ -481,8 +482,13 @@ def define_robotpy_library(name, version):
         ],
         strip_path_prefixes = ["subprojects/pyntcore"],
         version = version,
-        entry_points = {"pkg_config": ["ntcore = ntcore"]},
         visibility = ["//visibility:public"],
+        entry_points = {
+            "pkg_config": [
+                "ntcore = ntcore",
+            ],
+        },
+        package_name = "pyntcore",
         package_summary = "Binary wrappers for the FRC ntcore library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",

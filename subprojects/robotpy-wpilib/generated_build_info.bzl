@@ -110,21 +110,29 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
     make_pyi(
         name = "wpilib_event.make_pyi",
         extension_package = "wpilib.event._event",
+        extension_library = "copy_wpilib_event",
         interface_files = [
             "_event.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/event",
-        extension_library = "copy_wpilib_event",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
+            "wpilib/drive",
+            "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/event",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -134,8 +142,12 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -246,21 +258,29 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
     make_pyi(
         name = "wpilib_interfaces.make_pyi",
         extension_package = "wpilib.interfaces._interfaces",
+        extension_library = "copy_wpilib_interfaces",
         interface_files = [
             "_interfaces.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/interfaces",
-        extension_library = "copy_wpilib_interfaces",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
+            "wpilib/drive",
+            "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/interfaces",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -270,8 +290,12 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -1384,22 +1408,30 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     make_pyi(
         name = "wpilib.make_pyi",
         extension_package = "wpilib._wpilib",
+        extension_library = "copy_wpilib",
         interface_files = [
             "__init__.pyi",
             "sysid.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/_wpilib",
-        extension_library = "copy_wpilib",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
+            "wpilib/drive",
+            "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/_wpilib",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -1411,6 +1443,10 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -1529,23 +1565,29 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
     make_pyi(
         name = "wpilib_counter.make_pyi",
         extension_package = "wpilib.counter._counter",
+        extension_library = "copy_wpilib_counter",
         interface_files = [
             "_counter.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/counter",
-        extension_library = "copy_wpilib_counter",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
             "wpilib/counter",
+            "wpilib/drive",
+            "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/counter",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -1555,9 +1597,12 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -1670,23 +1715,29 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
     make_pyi(
         name = "wpilib_drive.make_pyi",
         extension_package = "wpilib.drive._drive",
+        extension_library = "copy_wpilib_drive",
         interface_files = [
             "_drive.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/drive",
-        extension_library = "copy_wpilib_drive",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
             "wpilib/drive",
+            "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/drive",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -1696,9 +1747,12 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -1996,23 +2050,29 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
     make_pyi(
         name = "wpilib_shuffleboard.make_pyi",
         extension_package = "wpilib.shuffleboard._shuffleboard",
+        extension_library = "copy_wpilib_shuffleboard",
         interface_files = [
             "_shuffleboard.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
             "wpilib/shuffleboard/_init__shuffleboard.py",
+            "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/shuffleboard",
-        extension_library = "copy_wpilib_shuffleboard",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
+            "wpilib/drive",
             "wpilib/shuffleboard",
+            "wpilib/simulation",
         ],
+        install_path = "wpilib/shuffleboard",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -2022,9 +2082,12 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
             "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
@@ -2584,23 +2647,29 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
     make_pyi(
         name = "wpilib_simulation.make_pyi",
         extension_package = "wpilib.simulation._simulation",
+        extension_library = "copy_wpilib_simulation",
         interface_files = [
             "_simulation.pyi",
         ],
         init_pkgcfgs = [
-            "wpilib/_init__wpilib.py",
             "wpilib/event/_init__event.py",
             "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/_init__wpilib.py",
+            "wpilib/counter/_init__counter.py",
+            "wpilib/drive/_init__drive.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
-        install_path = "wpilib/simulation",
-        extension_library = "copy_wpilib_simulation",
         init_packages = [
-            "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
+            "wpilib",
+            "wpilib/counter",
+            "wpilib/drive",
+            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
+        install_path = "wpilib/simulation",
         python_deps = [
             "//subprojects/pyntcore:import",
             "//subprojects/robotpy-hal:import",
@@ -2611,13 +2680,26 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             requirement("numpy"),
         ],
         local_extension_deps = [
-            ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/counter/_counter", "copy_wpilib_counter"),
+            ("wpilib/drive/_drive", "copy_wpilib_drive"),
+            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
         ],
     )
 
 def get_generated_data_files():
+    copy_extension_library(
+        name = "copy_wpilib_event",
+        extension = "_event",
+        output_directory = "wpilib/event/",
+    )
+    copy_extension_library(
+        name = "copy_wpilib_interfaces",
+        extension = "_interfaces",
+        output_directory = "wpilib/interfaces/",
+    )
     copy_extension_library(
         name = "copy_wpilib",
         extension = "_wpilib",
@@ -2634,16 +2716,6 @@ def get_generated_data_files():
         output_directory = "wpilib/drive/",
     )
     copy_extension_library(
-        name = "copy_wpilib_event",
-        extension = "_event",
-        output_directory = "wpilib/event/",
-    )
-    copy_extension_library(
-        name = "copy_wpilib_interfaces",
-        extension = "_interfaces",
-        output_directory = "wpilib/interfaces/",
-    )
-    copy_extension_library(
         name = "copy_wpilib_shuffleboard",
         extension = "_shuffleboard",
         output_directory = "wpilib/shuffleboard/",
@@ -2657,11 +2729,11 @@ def get_generated_data_files():
     native.filegroup(
         name = "wpilib.generated_data_files",
         srcs = [
+            "wpilib/event/wpilib_event.pc",
+            "wpilib/interfaces/wpilib_interfaces.pc",
             "wpilib/wpilib.pc",
             "wpilib/counter/wpilib_counter.pc",
             "wpilib/drive/wpilib_drive.pc",
-            "wpilib/event/wpilib_event.pc",
-            "wpilib/interfaces/wpilib_interfaces.pc",
             "wpilib/shuffleboard/wpilib_shuffleboard.pc",
             "wpilib/simulation/wpilib_simulation.pc",
         ],
@@ -2669,36 +2741,34 @@ def get_generated_data_files():
 
     return [
         ":wpilib.generated_data_files",
+        ":copy_wpilib_event",
+        ":copy_wpilib_interfaces",
         ":copy_wpilib",
         ":copy_wpilib_counter",
         ":copy_wpilib_drive",
-        ":copy_wpilib_event",
-        ":copy_wpilib_interfaces",
         ":copy_wpilib_shuffleboard",
         ":copy_wpilib_simulation",
+        ":wpilib_event.trampoline_hdr_files",
+        ":wpilib_interfaces.trampoline_hdr_files",
         ":wpilib.trampoline_hdr_files",
         ":wpilib_counter.trampoline_hdr_files",
         ":wpilib_drive.trampoline_hdr_files",
-        ":wpilib_event.trampoline_hdr_files",
-        ":wpilib_interfaces.trampoline_hdr_files",
         ":wpilib_shuffleboard.trampoline_hdr_files",
         ":wpilib_simulation.trampoline_hdr_files",
     ]
 
 def libinit_files():
     return [
+        "wpilib/event/_init__event.py",
+        "wpilib/interfaces/_init__interfaces.py",
         "wpilib/_init__wpilib.py",
         "wpilib/counter/_init__counter.py",
         "wpilib/drive/_init__drive.py",
-        "wpilib/event/_init__event.py",
-        "wpilib/interfaces/_init__interfaces.py",
         "wpilib/shuffleboard/_init__shuffleboard.py",
         "wpilib/simulation/_init__simulation.py",
     ]
 
-def define_robotpy_library(
-        name,
-        version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "wpilib.extra_pkg_files",
         srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"]),

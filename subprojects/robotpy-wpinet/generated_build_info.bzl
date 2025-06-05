@@ -96,13 +96,13 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     make_pyi(
         name = "wpinet.make_pyi",
         extension_package = "wpinet._wpinet",
+        extension_library = "copy_wpinet",
         interface_files = [
             "_wpinet.pyi",
         ],
         init_pkgcfgs = ["wpinet/_init__wpinet.py"],
-        install_path = "wpinet",
-        extension_library = "copy_wpinet",
         init_packages = ["wpinet"],
+        install_path = "wpinet",
         python_deps = [
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -134,9 +134,7 @@ def libinit_files():
         "wpinet/_init__wpinet.py",
     ]
 
-def define_pybind_library(
-        name,
-        version):
+def define_pybind_library(name, version):
     native.filegroup(
         name = "wpinet.extra_pkg_files",
         srcs = native.glob(["wpinet/**"], exclude = ["wpinet/**/*.py"]),
@@ -145,7 +143,9 @@ def define_pybind_library(
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [":wpinet.make_pyi"],
+        srcs = [
+            ":wpinet.make_pyi",
+        ],
     )
 
     robotpy_library(
@@ -159,8 +159,12 @@ def define_pybind_library(
         ],
         strip_path_prefixes = ["subprojects/robotpy-wpinet"],
         version = version,
-        entry_points = {"pkg_config": ["wpinet = wpinet"]},
         visibility = ["//visibility:public"],
+        entry_points = {
+            "pkg_config": [
+                "wpinet = wpinet",
+            ],
+        },
         package_name = "robotpy-wpinet",
         package_summary = "Binary wrapper for FRC wpinet library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
