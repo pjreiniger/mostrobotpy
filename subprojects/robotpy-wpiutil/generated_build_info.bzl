@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
@@ -205,6 +206,24 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         extra_srcs = extra_srcs,
         includes = includes,
     )
+    
+    make_pyi(
+        name = "wpiutil.make_pyi",
+        extension_package = "wpiutil._wpiutil",
+        interface_files = [
+            "__init__.pyi",
+            "sync.pyi",
+            "log.pyi",
+            "wpistruct.pyi",
+        ],
+        init_pkgcfgs = ["wpiutil/_init__wpiutil.py"],
+        install_path = "wpiutil/_wpiutil",
+        extension_library = "copy_wpiutil",
+        init_packages =  ["wpiutil"],
+        python_deps = [
+            "//subprojects/robotpy-native-wpiutil:robotpy-native-wpiutil",
+        ]
+    )
 
 def publish_library_casters(typecasters_srcs):
     publish_casters(
@@ -246,10 +265,21 @@ def libinit_files():
 def define_pybind_library(
         name,
         version):
+    native.filegroup(
+        name = "wpiutil.extra_pkg_files",
+        srcs = native.glob(["wpiutil/**"], exclude=["wpiutil/**/*.py"]),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [":wpiutil.make_pyi"]
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["wpiutil/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files(),
+        data = get_generated_data_files() + ["wpiutil.extra_pkg_files"] + [":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
         strip_path_prefixes = ["subprojects/robotpy-wpiutil"],

@@ -51,14 +51,6 @@ wpihal_extension(
     ],
 )
 
-make_pyi(
-    name = "make_pyi2",
-)
-
-make_pyi(
-    name = "make_pyi2",
-)
-
 define_robotpy_library(
     name = "hal",
     version = MOSTROBOTPY_VERSION,

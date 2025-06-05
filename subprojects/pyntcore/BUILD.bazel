@@ -46,10 +46,6 @@ ntcore_extension(
     ],
 )
 
-make_pyi(
-    name = "make_pyi1",
-)
-
 define_robotpy_library(
     name = "ntcore",
     version = MOSTROBOTPY_VERSION,

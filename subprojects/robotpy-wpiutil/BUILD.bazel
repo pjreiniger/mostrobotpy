@@ -43,10 +43,6 @@ wpiutil_extension(
     deps = ["@bzlmodrio-allwpilib//libraries/cpp/wpiutil:shared"],
 )
 
-make_pyi(
-    name = "make_pyi1",
-)
-
 # filegroup(
 #     name = "srcs",
 #     srcs = glob(["wpiutil/src/**"]),

@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [
@@ -249,6 +250,25 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    make_pyi(
+        name = "hal_simulation.make_pyi",
+        extension_package = "hal.simulation._simulation",
+        interface_files = [
+            "_simulation.pyi",
+        ],
+        init_pkgcfgs = ["hal/_init__wpiHal.py", "hal/simulation/_init__simulation.py"],
+        install_path = "hal/simulation",
+        extension_library = "copy_hal_simulation",
+        init_packages =  ["hal", "hal/simulation"],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
+        ],
+        local_extension_deps = [
+            ("hal/_wpiHal", "copy_wpihal"),
+        ]
     )
 
 def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -668,6 +688,21 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    make_pyi(
+        name = "wpihal.make_pyi",
+        extension_package = "hal._wpiHal",
+        interface_files = [
+            "_wpiHal.pyi",
+        ],
+        init_pkgcfgs = ["hal/_init__wpiHal.py"],
+        install_path = "hal",
+        extension_library = "copy_wpihal",
+        init_packages =  ["hal"],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
+        ]
     )
 
 def get_generated_data_files():

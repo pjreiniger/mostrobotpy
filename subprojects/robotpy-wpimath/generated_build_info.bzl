@@ -1,6 +1,8 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 
 def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_HEADER_GEN = [
@@ -93,6 +95,31 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    
+    make_pyi(
+        name = "wpimath.make_pyi",
+        extension_package = "wpimath._wpimath",
+        interface_files = [
+            '_wpimath.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+        ],
+        install_path = "wpimath",
+        extension_library = "copy_wpimath",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+        ],
+        local_extension_deps = [
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+        ]
     )
 
 def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -216,6 +243,34 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    
+    make_pyi(
+        name = "wpimath_filter.make_pyi",
+        extension_package = "wpimath.filter._filter",
+        interface_files = [
+            '_filter.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/filter/_init__filter.py",
+            "wpimath/geometry/_init__geometry.py",
+        ],
+        install_path = "wpimath/filter",
+        extension_library = "copy_wpimath_filter",
+        init_packages =  [
+            "wpimath",
+            "wpimath/filter",
+            "wpimath/geometry",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+        ]
     )
 
 def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -444,6 +499,32 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         extra_srcs = extra_srcs,
         includes = includes,
     )
+    
+    make_pyi(
+        name = "wpimath_geometry.make_pyi",
+        extension_package = "wpimath.geometry._geometry",
+        interface_files = [
+            '_geometry.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+        ],
+        install_path = "wpimath/geometry",
+        extension_library = "copy_wpimath_geometry",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+            requirement("numpy"),
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+        ]
+    )
 
 def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_INTERPOLATION_HEADER_GEN = [
@@ -538,6 +619,34 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    
+    make_pyi(
+        name = "wpimath_interpolation.make_pyi",
+        extension_package = "wpimath.interpolation._interpolation",
+        interface_files = [
+    '_interpolation.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+        ],
+        install_path = "wpimath/interpolation",
+        extension_library = "copy_wpimath_interpolation",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+            "wpimath/interpolation",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+        ]
     )
 
 def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -838,6 +947,36 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         includes = includes,
     )
 
+    make_pyi(
+        name = "wpimath_kinematics.make_pyi",
+        extension_package = "wpimath.kinematics._kinematics",
+        interface_files = [
+            '_kinematics.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+        ],
+        install_path = "wpimath/kinematics",
+        extension_library = "copy_wpimath_kinematics",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+        ]
+    )
+
 def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
@@ -962,6 +1101,39 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    
+    make_pyi(
+        name = "wpimath_spline.make_pyi",
+        extension_package = "wpimath.spline._spline",
+        interface_files = [
+            '_spline.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+        ],
+        install_path = "wpimath/spline",
+        extension_library = "copy_wpimath_spline",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+            requirement("numpy"),
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+        ]
     )
 
 def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -1627,6 +1799,51 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         includes = includes,
     )
 
+    make_pyi(
+        name = "wpimath_controls.make_pyi",
+        extension_package = "wpimath._controls._controls",
+        interface_files = [
+            '__init__.pyi',
+            'system.pyi',
+            'estimator.pyi',
+            'path.pyi',
+            'controller.pyi',
+            'plant.pyi',
+            'optimization.pyi',
+            'trajectory.pyi',
+            'constraint.pyi',
+        ],
+        init_pkgcfgs = [
+            "wpimath/_init__wpimath.py", 
+            "wpimath/geometry/_init__geometry.py",
+            "wpimath/interpolation/_init__interpolation.py",
+            "wpimath/kinematics/_init__kinematics.py",
+            "wpimath/spline/_init__spline.py",
+            "wpimath/_controls/_init__controls.py",
+        ],
+        install_path = "wpimath/_controls/_controls",
+        extension_library = "copy_wpimath_controls",
+        init_packages =  [
+            "wpimath",
+            "wpimath/geometry",
+            "wpimath/interpolation",
+            "wpimath/kinematics",
+            "wpimath/spline",
+            "wpimath/_controls",
+        ],
+        python_deps = [
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
+            requirement("numpy"),
+        ],
+        local_extension_deps = [
+            ("wpimath/_wpimath", "copy_wpimath"),
+            ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
+            ("wpimath/kinematics/_kinematics", "copy_wpimath_kinematics"),
+            ("wpimath/spline/_spline", "copy_wpimath_spline"),
+        ]
+    )
+
 def publish_library_casters(typecasters_srcs):
     publish_casters(
         name = "publish_casters",
@@ -1725,11 +1942,25 @@ def define_robotpy_library(name, version):
         srcs = native.glob(["wpimath/**"], exclude=["wpimath/**/*.py"]),
         tags = ["manual"],
     )
+    
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [
+            ":wpimath.make_pyi",
+            ":wpimath_filter.make_pyi",
+            ":wpimath_geometry.make_pyi",
+            ":wpimath_interpolation.make_pyi",
+            ":wpimath_kinematics.make_pyi",
+            ":wpimath_spline.make_pyi",
+            ":wpimath_controls.make_pyi",
+        ]
+    )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["wpimath/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpimath.extra_pkg_files"],
+        data = get_generated_data_files() + ["wpimath.extra_pkg_files"] + [":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpimath:import",

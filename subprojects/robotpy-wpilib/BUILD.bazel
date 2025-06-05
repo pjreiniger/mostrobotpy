@@ -240,34 +240,6 @@ wpilib_simulation_extension(
     ],
 )
 
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
 define_robotpy_library(
     name = "wpilib",
     version = MOSTROBOTPY_VERSION,

@@ -149,34 +149,6 @@ wpimath_controls_extension(
     ],
 )
 
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
-make_pyi(
-    name = "make_pyi7",
-)
-
 define_robotpy_library(
     name = "wpimath",
     version = MOSTROBOTPY_VERSION,

@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     NTCORE_HEADER_GEN = [
@@ -411,6 +412,24 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    make_pyi(
+        name = "ntcore.make_pyi",
+        extension_package = "ntcore._ntcore",
+        interface_files = [
+            '__init__.pyi',
+            'meta.pyi',
+        ],
+        init_pkgcfgs = ["ntcore/_init__ntcore.py"],
+        install_path = "ntcore/_ntcore",
+        extension_library = "copy_ntcore",
+        init_packages =  ["ntcore"],
+        python_deps = [
+            "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ]
     )
 
 def get_generated_data_files():

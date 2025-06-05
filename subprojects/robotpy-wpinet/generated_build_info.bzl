@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
@@ -91,6 +92,22 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+    
+    make_pyi(
+        name = "wpinet.make_pyi",
+        extension_package = "wpinet._wpinet",
+        interface_files = [
+            "_wpinet.pyi",
+        ],
+        init_pkgcfgs = ["wpinet/_init__wpinet.py"],
+        install_path = "wpinet",
+        extension_library = "copy_wpinet",
+        init_packages =  ["wpinet"],
+        python_deps = [
+            "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ]
     )
 
 def get_generated_data_files():
