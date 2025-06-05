@@ -141,13 +141,12 @@ def xrp_extension(entry_point, deps, header_to_dat_deps, extension_name = None, 
         name = "xrp.make_pyi",
         extension_package = "xrp._xrp",
         interface_files = [
-            "__init__.pyi",
-            "sysid.pyi",
+            "_xrp.pyi",
         ],
         init_pkgcfgs = [
             "xrp/_init__xrp.py",
         ],
-        install_path = "xrp/_xrp",
+        install_path = "xrp",
         extension_library = "copy_xrp",
         init_packages = ["xrp"],
         python_deps = [

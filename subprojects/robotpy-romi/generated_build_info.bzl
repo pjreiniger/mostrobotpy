@@ -1,4 +1,4 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
@@ -108,21 +108,20 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
     )
 
     make_pyi(
-        name = "xrp.make_pyi",
-        extension_package = "xrp._xrp",
+        name = "romi.make_pyi",
+        extension_package = "romi._romi",
         interface_files = [
-            "__init__.pyi",
-            "sysid.pyi",
+            "_romi.pyi",
         ],
         init_pkgcfgs = [
-            "xrp/_init__xrp.py",
+            "romi/_init__romi.py",
         ],
-        install_path = "xrp/_xrp",
-        extension_library = "copy_xrp",
-        init_packages = ["xrp"],
+        install_path = "romi",
+        extension_library = "copy_romi",
+        init_packages = ["romi"],
         python_deps = [
             "//subprojects/robotpy-wpilib:import",
-            "//subprojects/robotpy-native-xrp:robotpy-native-xrp",
+            "//subprojects/robotpy-native-romi:robotpy-native-romi",
         ],
     )
 

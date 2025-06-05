@@ -198,10 +198,17 @@ def define_pybind_library(name, version):
         tags = ["manual"],
     )
 
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [
+            ":apriltag.make_pyi",
+        ],
+    )
+
     robotpy_library(
         name = name,
         srcs = native.glob(["robotpy_apriltag/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["robotpy_apriltag.extra_pkg_files"],
+        data = get_generated_data_files() + ["robotpy_apriltag.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-apriltag:import",
