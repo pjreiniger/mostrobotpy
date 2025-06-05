@@ -34,6 +34,7 @@ def wpimath_test_extension(entry_point, other_deps, header_to_dat_deps, extensio
         module_pkg_name = "wpimath_test._wpimath_test",
         output_file = "wpimath_test.pc",
         pkg_name = "wpimath_test",
+        install_path = "wpimath_test",
         project_file = "pyproject.toml",
     )
 

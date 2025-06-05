@@ -1,7 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPINET_HEADER_GEN = [
@@ -93,7 +92,7 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_srcs = extra_srcs,
         includes = includes,
     )
-    
+
     make_pyi(
         name = "wpinet.make_pyi",
         extension_package = "wpinet._wpinet",
@@ -103,11 +102,11 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         init_pkgcfgs = ["wpinet/_init__wpinet.py"],
         install_path = "wpinet",
         extension_library = "copy_wpinet",
-        init_packages =  ["wpinet"],
+        init_packages = ["wpinet"],
         python_deps = [
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ]
+        ],
     )
 
 def get_generated_data_files():
@@ -138,17 +137,21 @@ def libinit_files():
 def define_pybind_library(
         name,
         version):
-        
     native.filegroup(
         name = "wpinet.extra_pkg_files",
-        srcs = native.glob(["wpinet/**"], exclude=["wpinet/**/*.py"]),
+        srcs = native.glob(["wpinet/**"], exclude = ["wpinet/**/*.py"]),
         tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [":wpinet.make_pyi"],
     )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["wpinet/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpinet.extra_pkg_files"],
+        data = get_generated_data_files() + ["wpinet.extra_pkg_files"] + [":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpinet:import",

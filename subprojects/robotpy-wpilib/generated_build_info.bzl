@@ -1,7 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_EVENT_HEADER_GEN = [
@@ -106,12 +106,12 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         extra_srcs = extra_srcs,
         includes = includes,
     )
-    
+
     make_pyi(
         name = "wpilib_event.make_pyi",
         extension_package = "wpilib.event._event",
         interface_files = [
-            '_event.pyi',
+            "_event.pyi",
         ],
         init_pkgcfgs = [
             "wpilib/_init__wpilib.py",
@@ -120,7 +120,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         ],
         install_path = "wpilib/event",
         extension_library = "copy_wpilib_event",
-        init_packages =  [
+        init_packages = [
             "wpilib",
             "wpilib/event",
             "wpilib/interfaces",
@@ -136,7 +136,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         local_extension_deps = [
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
-        ]
+        ],
     )
 
 def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -241,6 +241,38 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    make_pyi(
+        name = "wpilib_interfaces.make_pyi",
+        extension_package = "wpilib.interfaces._interfaces",
+        interface_files = [
+            "_interfaces.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+        ],
+        install_path = "wpilib/interfaces",
+        extension_library = "copy_wpilib_interfaces",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+        ],
+        local_extension_deps = [
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/event/_event", "copy_wpilib_event"),
+        ],
     )
 
 def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -1349,6 +1381,39 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
+    make_pyi(
+        name = "wpilib.make_pyi",
+        extension_package = "wpilib._wpilib",
+        interface_files = [
+            "__init__.pyi",
+            "sysid.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+        ],
+        install_path = "wpilib/_wpilib",
+        extension_library = "copy_wpilib",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+        ],
+        local_extension_deps = [
+            ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+        ],
+    )
+
 def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
@@ -1461,6 +1526,41 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         includes = includes,
     )
 
+    make_pyi(
+        name = "wpilib_counter.make_pyi",
+        extension_package = "wpilib.counter._counter",
+        interface_files = [
+            "_counter.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/counter/_init__counter.py",
+        ],
+        install_path = "wpilib/counter",
+        extension_library = "copy_wpilib_counter",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+            "wpilib/counter",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+        ],
+        local_extension_deps = [
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+        ],
+    )
+
 def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
@@ -1565,6 +1665,41 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    make_pyi(
+        name = "wpilib_drive.make_pyi",
+        extension_package = "wpilib.drive._drive",
+        interface_files = [
+            "_drive.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/drive/_init__drive.py",
+        ],
+        install_path = "wpilib/drive",
+        extension_library = "copy_wpilib_drive",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+            "wpilib/drive",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+        ],
+        local_extension_deps = [
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+        ],
     )
 
 def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -1856,6 +1991,41 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         extra_srcs = extra_srcs,
         includes = includes,
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
+    )
+
+    make_pyi(
+        name = "wpilib_shuffleboard.make_pyi",
+        extension_package = "wpilib.shuffleboard._shuffleboard",
+        interface_files = [
+            "_shuffleboard.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/shuffleboard/_init__shuffleboard.py",
+        ],
+        install_path = "wpilib/shuffleboard",
+        extension_library = "copy_wpilib_shuffleboard",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+            "wpilib/shuffleboard",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+        ],
+        local_extension_deps = [
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+        ],
     )
 
 def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -2411,6 +2581,42 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         includes = includes,
     )
 
+    make_pyi(
+        name = "wpilib_simulation.make_pyi",
+        extension_package = "wpilib.simulation._simulation",
+        interface_files = [
+            "_simulation.pyi",
+        ],
+        init_pkgcfgs = [
+            "wpilib/_init__wpilib.py",
+            "wpilib/event/_init__event.py",
+            "wpilib/interfaces/_init__interfaces.py",
+            "wpilib/simulation/_init__simulation.py",
+        ],
+        install_path = "wpilib/simulation",
+        extension_library = "copy_wpilib_simulation",
+        init_packages = [
+            "wpilib",
+            "wpilib/event",
+            "wpilib/interfaces",
+            "wpilib/simulation",
+        ],
+        python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
+            "//subprojects/robotpy-native-wpilib:robotpy-native-wpilib",
+            requirement("numpy"),
+        ],
+        local_extension_deps = [
+            ("wpilib/_wpilib", "copy_wpilib"),
+            ("wpilib/event/_event", "copy_wpilib_event"),
+            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
+        ],
+    )
+
 def get_generated_data_files():
     copy_extension_library(
         name = "copy_wpilib",
@@ -2495,14 +2701,27 @@ def define_robotpy_library(
         version):
     native.filegroup(
         name = "wpilib.extra_pkg_files",
-        srcs = native.glob(["wpilib/**"], exclude=["wpilib/**/*.py"]),
+        srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"]),
         tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [
+            ":wpilib_event.make_pyi",
+            ":wpilib_interfaces.make_pyi",
+            ":wpilib.make_pyi",
+            ":wpilib_counter.make_pyi",
+            ":wpilib_drive.make_pyi",
+            ":wpilib_shuffleboard.make_pyi",
+            ":wpilib_simulation.make_pyi",
+        ],
     )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["wpilib/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpilib.extra_pkg_files"],
+        data = get_generated_data_files() + ["wpilib.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/pyntcore:import",

@@ -1,8 +1,7 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 
 def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     APRILTAG_HEADER_GEN = [
@@ -153,18 +152,18 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
         name = "apriltag.make_pyi",
         extension_package = "robotpy_apriltag._apriltag",
         interface_files = [
-            '_apriltag.pyi',
+            "_apriltag.pyi",
         ],
         init_pkgcfgs = ["robotpy_apriltag/_init__apriltag.py"],
         install_path = "robotpy_apriltag",
         extension_library = "copy_apriltag",
-        init_packages =  ["robotpy_apriltag"],
+        init_packages = ["robotpy_apriltag"],
         python_deps = [
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-apriltag:import",
             requirement("numpy"),
-        ]
+        ],
     )
 
 def get_generated_data_files():
@@ -195,7 +194,7 @@ def libinit_files():
 def define_pybind_library(name, version):
     native.filegroup(
         name = "robotpy_apriltag.extra_pkg_files",
-        srcs = native.glob(["robotpy_apriltag/**"], exclude=["robotpy_apriltag/**/*.py"]),
+        srcs = native.glob(["robotpy_apriltag/**"], exclude = ["robotpy_apriltag/**/*.py"]),
         tags = ["manual"],
     )
 

@@ -1,4 +1,3 @@
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-hal:generated_build_info.bzl", "define_robotpy_library", "hal_simulation_extension", "wpihal_extension")

@@ -1,4 +1,3 @@
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "define_pybind_library", "xrp_extension")
@@ -63,10 +62,6 @@ xrp_extension(
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared",
     ],
-)
-
-make_pyi(
-    name = "make_pyi1",
 )
 
 define_pybind_library(

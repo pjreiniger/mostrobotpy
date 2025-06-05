@@ -54,6 +54,7 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         libinit_py = "romi._init__romi",
         module_pkg_name = "romi._romi",
         output_file = "romi.pc",
+        install_path = "romi",
         pkg_name = "romi",
         project_file = "pyproject.toml",
     )
@@ -106,6 +107,25 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         includes = includes,
     )
 
+    make_pyi(
+        name = "xrp.make_pyi",
+        extension_package = "xrp._xrp",
+        interface_files = [
+            "__init__.pyi",
+            "sysid.pyi",
+        ],
+        init_pkgcfgs = [
+            "xrp/_init__xrp.py",
+        ],
+        install_path = "xrp/_xrp",
+        extension_library = "copy_xrp",
+        init_packages = ["xrp"],
+        python_deps = [
+            "//subprojects/robotpy-wpilib:import",
+            "//subprojects/robotpy-native-xrp:robotpy-native-xrp",
+        ],
+    )
+
 def get_generated_data_files():
     copy_extension_library(
         name = "copy_romi",
@@ -134,14 +154,21 @@ def libinit_files():
 def define_pybind_library(name, version):
     native.filegroup(
         name = "romi.extra_pkg_files",
-        srcs = native.glob(["romi/**"], exclude=["romi/**/*.py"]),
+        srcs = native.glob(["romi/**"], exclude = ["romi/**/*.py"]),
         tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [
+            ":romi.make_pyi",
+        ],
     )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["romi/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["romi.extra_pkg_files"],
+        data = get_generated_data_files() + ["romi.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-romi:import",

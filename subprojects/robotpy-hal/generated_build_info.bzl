@@ -1,7 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     HAL_SIMULATION_HEADER_GEN = [
@@ -261,14 +260,14 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         init_pkgcfgs = ["hal/_init__wpiHal.py", "hal/simulation/_init__simulation.py"],
         install_path = "hal/simulation",
         extension_library = "copy_hal_simulation",
-        init_packages =  ["hal", "hal/simulation"],
+        init_packages = ["hal", "hal/simulation"],
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
         ],
         local_extension_deps = [
             ("hal/_wpiHal", "copy_wpihal"),
-        ]
+        ],
     )
 
 def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
@@ -698,11 +697,11 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         init_pkgcfgs = ["hal/_init__wpiHal.py"],
         install_path = "hal",
         extension_library = "copy_wpihal",
-        init_packages =  ["hal"],
+        init_packages = ["hal"],
         python_deps = [
             "//subprojects/robotpy-wpiutil:import",
             "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
-        ]
+        ],
     )
 
 def get_generated_data_files():
@@ -742,14 +741,19 @@ def libinit_files():
 def define_robotpy_library(name, version):
     native.filegroup(
         name = "hal.extra_pkg_files",
-        srcs = native.glob(["hal/**"], exclude=["hal/**/*.py"]),
+        srcs = native.glob(["hal/**"], exclude = ["hal/**/*.py"]),
         tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [":wpihal.make_pyi", ":hal_simulation.make_pyi"],
     )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["hal/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["hal.extra_pkg_files"],
+        data = get_generated_data_files() + ["hal.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpihal:import",

@@ -88,6 +88,7 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         module_pkg_name = "cscore._cscore",
         output_file = "cscore.pc",
         pkg_name = "cscore",
+        install_path = "cscore",
         project_file = "pyproject.toml",
     )
 
@@ -184,7 +185,7 @@ def libinit_files():
 def define_pybind_library(name, version):
     native.filegroup(
         name = "cscore.extra_pkg_files",
-        srcs = native.glob(["cscore/**"], exclude=["cscore/**/*.py"]),
+        srcs = native.glob(["cscore/**"], exclude = ["cscore/**/*.py"]),
         tags = ["manual"],
     )
 

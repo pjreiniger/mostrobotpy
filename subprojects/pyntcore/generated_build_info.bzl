@@ -1,7 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "robotpy_library")
+load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     NTCORE_HEADER_GEN = [
@@ -418,18 +417,18 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         name = "ntcore.make_pyi",
         extension_package = "ntcore._ntcore",
         interface_files = [
-            '__init__.pyi',
-            'meta.pyi',
+            "__init__.pyi",
+            "meta.pyi",
         ],
         init_pkgcfgs = ["ntcore/_init__ntcore.py"],
         install_path = "ntcore/_ntcore",
         extension_library = "copy_ntcore",
-        init_packages =  ["ntcore"],
+        init_packages = ["ntcore"],
         python_deps = [
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ]
+        ],
     )
 
 def get_generated_data_files():
@@ -460,15 +459,20 @@ def libinit_files():
 def define_robotpy_library(name, version):
     native.filegroup(
         name = "ntcore.extra_pkg_files",
-        srcs = native.glob(["ntcore/**"], exclude=["ntcore/**/*.py"]),
+        srcs = native.glob(["ntcore/**"], exclude = ["ntcore/**/*.py"]),
         tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [":ntcore.make_pyi"],
     )
 
     robotpy_library(
         name = name,
         package_name = "pyntcore",
         srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["ntcore.extra_pkg_files"],
+        data = get_generated_data_files() + ["ntcore.extra_pkg_files"] + [":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-ntcore:import",

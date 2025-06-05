@@ -24,6 +24,7 @@ def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_na
         module_pkg_name = "halsim_gui._ext._halsim_gui_ext",
         output_file = "halsim_gui_ext.pc",
         pkg_name = "halsim_gui_ext",
+        install_path = "halsim_gui_ext",
         project_file = "pyproject.toml",
     )
 

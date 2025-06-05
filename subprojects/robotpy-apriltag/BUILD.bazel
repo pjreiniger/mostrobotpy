@@ -1,4 +1,3 @@
-load("@rules_semiwrap//:defs.bzl", "make_pyi")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension", "define_pybind_library")
