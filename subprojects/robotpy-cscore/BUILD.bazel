@@ -1,4 +1,6 @@
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "define_pybind_library", "publish_library_casters")
 
 # generate_build_info(
@@ -8,19 +10,23 @@ load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension"
 #         "@bzlmodrio-allwpilib//libraries/cpp/cscore:header_files",
 #     ],
 #     local_libraries = [
+#         "//subprojects/robotpy-native-datalog:import",
 #         "//subprojects/robotpy-native-wpiutil:import",
 #         "//subprojects/robotpy-native-wpinet:import",
 #         "//subprojects/robotpy-native-ntcore:import",
+#         "//subprojects/robotpy-wpilog:import",
 #         "//subprojects/robotpy-wpiutil:import",
 #         "//subprojects/robotpy-wpinet:import",
 #         "//subprojects/pyntcore:import",
 #     ],
 #     pkgcfgs = [
+#         "$(location //subprojects/robotpy-native-datalog:import)/site-packages/native/datalog/robotpy-native-datalog.pc",
 #         "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
 #         "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",
 #         "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc",
 #         "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
 #         "$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc",
+#         "$(location //subprojects/robotpy-wpilog:import)/site-packages/wpilog/wpilog.pc",
 #         "$(location //subprojects/pyntcore:import)/site-packages/ntcore/ntcore.pc",
 #     ],
 #     pyproject_toml = ":pyproject.toml",
@@ -55,6 +61,7 @@ cscore_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
         "@bzlmodrio-opencv//libraries/cpp/opencv:static",
     ],
+    extra_pyi_deps = [requirement("numpy")]
 )
 
 define_pybind_library(

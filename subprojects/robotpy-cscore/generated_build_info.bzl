@@ -1,9 +1,8 @@
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     CSCORE_HEADER_GEN = [
         struct(
             class_name = "CameraServer",
@@ -72,7 +71,7 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     resolve_casters(
         name = "cscore.resolve_casters",
         caster_files = [":cscore/cscore-casters.pybind11.json"],
-        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
+        caster_deps = [resolve_caster_file("wpiutil-casters")],
         casters_pkl_file = "cscore.casters.pkl",
         dep_file = "cscore.casters.d",
     )
@@ -107,6 +106,7 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         trampoline_subpath = "cscore",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
@@ -149,20 +149,22 @@ def cscore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     make_pyi(
         name = "cscore.make_pyi",
         extension_package = "cscore._cscore",
+        extension_library = "copy_cscore",
         interface_files = [
             "_cscore.pyi",
         ],
         init_pkgcfgs = ["cscore/_init__cscore.py"],
-        install_path = "cscore",
-        extension_library = "copy_cscore",
         init_packages = ["cscore"],
+        install_path = "cscore",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-            # "//subprojects/robotpy-native-cscore:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
     )
 
 def publish_library_casters(typecasters_srcs):
@@ -202,10 +204,10 @@ def libinit_files():
         "cscore/_init__cscore.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "cscore.extra_pkg_files",
-        srcs = native.glob(["cscore/**"], exclude = ["cscore/**/*.py"]),
+        srcs = native.glob(["cscore/**"], exclude = ["cscore/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 
@@ -223,16 +225,25 @@ def define_pybind_library(name, version):
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-cscore"],
         version = version,
         visibility = ["//visibility:public"],
-        entry_points = {"pkg_config": ["cscore = cscore", "cscore-casters = cscore"]},
+        entry_points = {
+            "pkg_config": [
+                "cscore-casters = cscore",
+                "cscore = cscore",
+            ],
+        }.update(extra_entry_points),
         package_name = "robotpy-cscore",
         package_summary = "RobotPy bindings for cscore image processing library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["pyntcore==2025.3.2.2", "robotpy-wpinet==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+        package_requires = ["robotpy-wpiutil==2027.0.0a1.dev0", "robotpy-wpinet==2027.0.0a1.dev0", "pyntcore==2027.0.0a1.dev0"],
     )

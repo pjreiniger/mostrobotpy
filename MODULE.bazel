@@ -15,9 +15,9 @@ bazel_dep(name = "rules_semiwrap", version = "")
 
 archive_override(
     module_name = "rules_semiwrap",
-    integrity = "sha256-Zzo+jrpywWAl5uab+J7ZipfaIWAnKDIsibZGPR4Hi9A=",
-    strip_prefix = "rules_semiwrap-53c84338a264c1be4e89543140378f153e622e55",
-    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/53c84338a264c1be4e89543140378f153e622e55.tar.gz"],
+    integrity = "sha256-ab5nFAXZeH0Ptm5zudLQo21gUARTv135bKJKqfEZUXU=",
+    strip_prefix = "rules_semiwrap-bf163f0fbff574775749beb0e94b8136d892be98",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/bf163f0fbff574775749beb0e94b8136d892be98.tar.gz"],
 )
 
 # local_path_override(
@@ -44,7 +44,7 @@ archive_override(
 
 archive_override(
     module_name = "bzlmodrio-allwpilib",
-    # integrity = "sha256-EwwQCDvw1JMVtFz7ECVw/ZjIJkAJgifv22aqbP8VU1E=",
+    integrity = "sha256-EwwQCDvw1JMVtFz7ECVw/ZjIJkAJgifv22aqbP8VU1E=",
     strip_prefix = "bzlmodRio-allwpilib-9fbe4505438241d32ea97fea2c04522b1f944685",
     urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/9fbe4505438241d32ea97fea2c04522b1f944685.tar.gz"],
 )
