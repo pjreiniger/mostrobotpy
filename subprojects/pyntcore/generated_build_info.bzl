@@ -458,7 +458,7 @@ def libinit_files():
         "ntcore/_init__ntcore.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "ntcore.extra_pkg_files",
         srcs = native.glob(["ntcore/**"], exclude = ["ntcore/**/*.py"]),
@@ -491,7 +491,7 @@ def define_pybind_library(name, version):
             "pkg_config": [
                 "ntcore = ntcore",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "pyntcore",
         package_summary = "Binary wrappers for the FRC ntcore library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

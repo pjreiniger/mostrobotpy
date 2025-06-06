@@ -135,7 +135,7 @@ def libinit_files():
         "wpinet/_init__wpinet.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpinet.extra_pkg_files",
         srcs = native.glob(["wpinet/**"], exclude = ["wpinet/**/*.py"]),
@@ -166,7 +166,7 @@ def define_pybind_library(name, version):
             "pkg_config": [
                 "wpinet = wpinet",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-wpinet",
         package_summary = "Binary wrapper for FRC wpinet library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

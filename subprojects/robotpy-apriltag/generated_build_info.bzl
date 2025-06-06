@@ -191,7 +191,7 @@ def libinit_files():
         "robotpy_apriltag/_init__apriltag.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "robotpy_apriltag.extra_pkg_files",
         srcs = native.glob(["robotpy_apriltag/**"], exclude = ["robotpy_apriltag/**/*.py"]),
@@ -224,7 +224,7 @@ def define_pybind_library(name, version):
             "pkg_config": [
                 "apriltag = robotpy_apriltag",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-apriltag",
         package_summary = "RobotPy bindings for WPILib's AprilTag library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

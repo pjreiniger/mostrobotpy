@@ -261,7 +261,7 @@ def libinit_files():
         "wpiutil/_init__wpiutil.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpiutil.extra_pkg_files",
         srcs = native.glob(["wpiutil/**"], exclude = ["wpiutil/**/*.py"]),
@@ -291,7 +291,7 @@ def define_pybind_library(name, version):
                 "wpiutil-casters = wpiutil",
                 "wpiutil = wpiutil",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-wpiutil",
         package_summary = "Binary wrapper for FRC WPIUtil library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

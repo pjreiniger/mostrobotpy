@@ -67,6 +67,7 @@ xrp_extension(
 define_pybind_library(
     name = "xrp",
     version = MOSTROBOTPY_VERSION,
+    extra_entry_points = {"robotpysimext": ["xrp = xrp.extension"]}
 )
 
 filegroup(

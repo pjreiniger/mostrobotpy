@@ -184,7 +184,7 @@ def libinit_files():
         "xrp/_init__xrp.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "xrp.extra_pkg_files",
         srcs = native.glob(["xrp/**"], exclude = ["xrp/**/*.py"]),
@@ -220,8 +220,7 @@ def define_pybind_library(name, version):
             "pkg_config": [
                 "xrp = xrp",
             ],
-            "robotpysimext": ["xrp = xrp.extension"],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-xrp",
         package_summary = "Binary wrapper for WPILib XRP Vendor library",
         package_project_urls = None,

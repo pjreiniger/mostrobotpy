@@ -756,7 +756,7 @@ def libinit_files():
         "hal/_init__wpiHal.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "hal.extra_pkg_files",
         srcs = native.glob(["hal/**"], exclude = ["hal/**/*.py"]),
@@ -789,7 +789,7 @@ def define_pybind_library(name, version):
                 "hal_simulation = hal.simulation",
                 "wpihal = hal",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-hal",
         package_summary = "Binary wrapper for FRC HAL",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
