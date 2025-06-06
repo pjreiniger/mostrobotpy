@@ -157,7 +157,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "romi.extra_pkg_files",
-        srcs = native.glob(["romi/**"], exclude = ["romi/**/*.py"]),
+        srcs = native.glob(["romi/**"], exclude = ["romi/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

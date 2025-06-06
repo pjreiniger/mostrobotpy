@@ -187,7 +187,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "xrp.extra_pkg_files",
-        srcs = native.glob(["xrp/**"], exclude = ["xrp/**/*.py"]),
+        srcs = native.glob(["xrp/**"], exclude = ["xrp/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

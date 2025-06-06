@@ -138,7 +138,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpinet.extra_pkg_files",
-        srcs = native.glob(["wpinet/**"], exclude = ["wpinet/**/*.py"]),
+        srcs = native.glob(["wpinet/**"], exclude = ["wpinet/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

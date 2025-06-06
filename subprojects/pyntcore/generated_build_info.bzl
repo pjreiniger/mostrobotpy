@@ -464,7 +464,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "ntcore.extra_pkg_files",
-        srcs = native.glob(["ntcore/**"], exclude = ["ntcore/**/*.py"]),
+        srcs = native.glob(["ntcore/**"], exclude = ["ntcore/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

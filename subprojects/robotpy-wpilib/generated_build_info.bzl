@@ -1216,10 +1216,10 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         trampoline_subpath = "wpilib",
         deps = header_to_dat_deps + ["wpilib/src/rpy/Filesystem.h", "wpilib/src/rpy/Notifier.h", "wpilib/src/rpy/MotorControllerGroup.h"],
         local_native_libraries = [
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
             local_native_libraries_helper("wpilib"),
-            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
@@ -2189,7 +2189,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpilib.extra_pkg_files",
-        srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"]),
+        srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

@@ -9,11 +9,9 @@ create_native_library(
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_datalog_datalog-cpp_headers"],
     lib_name = "datalog",
     module_dependencies = [
-        "native.wpinet._init_robotpy_native_wpinet",
         "native.wpiutil._init_robotpy_native_wpiutil",
     ],
     package_requires = [
-        "robotpy-native-wpinet==2025.3.2",
         "robotpy-native-wpiutil==2025.3.2",
     ],
     package_summary = "WPILib NetworkTables Library",

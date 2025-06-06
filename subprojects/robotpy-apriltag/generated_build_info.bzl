@@ -194,7 +194,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "robotpy_apriltag.extra_pkg_files",
-        srcs = native.glob(["robotpy_apriltag/**"], exclude = ["robotpy_apriltag/**/*.py"]),
+        srcs = native.glob(["robotpy_apriltag/**"], exclude = ["robotpy_apriltag/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

@@ -145,23 +145,22 @@ def wpilog_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         includes = includes,
     )
 
-
-    # make_pyi(
-    #     name = "wpilog.make_pyi",
-    #     extension_package = "wpilog._wpilog",
-    #     extension_library = "copy_wpilog",
-    #     interface_files = [
-    #         "_wpilog.pyi",
-    #     ],
-    #     init_pkgcfgs = ["wpilog/_init__wpilog.py"],
-    #     init_packages = ["wpilog"],
-    #     install_path = "wpilog",
-    #     python_deps = [
-    #         "//subprojects/robotpy-native-datalog:import",
-    #         "//subprojects/robotpy-native-wpiutil:import",
-    #         "//subprojects/robotpy-wpiutil:import",
-    #     ] + extra_pyi_deps,
-    # )
+    make_pyi(
+        name = "wpilog.make_pyi",
+        extension_package = "wpilog._wpilog",
+        extension_library = "copy_wpilog",
+        interface_files = [
+            "_wpilog.pyi",
+        ],
+        init_pkgcfgs = ["wpilog/_init__wpilog.py"],
+        init_packages = ["wpilog"],
+        install_path = "wpilog",
+        python_deps = [
+            "//subprojects/robotpy-native-datalog:import",
+            "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpiutil:import",
+        ] + extra_pyi_deps,
+    )
 
 def get_generated_data_files():
     copy_extension_library(
@@ -195,17 +194,17 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         tags = ["manual"],
     )
 
-    # native.filegroup(
-    #     name = "pyi_files",
-    #     srcs = [
-    #         ":wpilog.make_pyi",
-    #     ],
-    # )
+    native.filegroup(
+        name = "pyi_files",
+        srcs = [
+            ":wpilog.make_pyi",
+        ],
+    )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["wpilog/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpilog.extra_pkg_files"],
+        data = get_generated_data_files() + ["wpilog.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-datalog:import",

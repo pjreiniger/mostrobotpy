@@ -191,7 +191,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpiutil.extra_pkg_files",
-        srcs = native.glob(["wpiutil/**"], exclude = ["wpiutil/**/*.py"]),
+        srcs = native.glob(["wpiutil/**"], exclude = ["wpiutil/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

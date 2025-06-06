@@ -1976,7 +1976,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpimath.extra_pkg_files",
-        srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"]),
+        srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 

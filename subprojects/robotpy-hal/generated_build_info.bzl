@@ -173,9 +173,9 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         trampoline_subpath = "hal/simulation",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
-            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
         ],
@@ -540,9 +540,9 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         trampoline_subpath = "hal",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
-            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
         ],
@@ -640,7 +640,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "hal.extra_pkg_files",
-        srcs = native.glob(["hal/**"], exclude = ["hal/**/*.py"]),
+        srcs = native.glob(["hal/**"], exclude = ["hal/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 
