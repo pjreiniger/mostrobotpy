@@ -229,5 +229,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "RobotPy bindings for WPILib's AprilTag library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-apriltag==2025.3.2", "robotpy-wpiutil==2025.3.2.2", "robotpy-wpimath==2025.3.2.2"],
+        package_requires = ["robotpy-native-apriltag==2027.0.0a1.dev0", "robotpy-wpiutil==2027.0.0a1.dev0", "robotpy-wpimath==2027.0.0a1.dev0"],
     )

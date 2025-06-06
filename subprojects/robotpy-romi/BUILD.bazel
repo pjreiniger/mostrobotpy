@@ -5,6 +5,7 @@ load("//subprojects/robotpy-romi:generated_build_info.bzl", "define_pybind_libra
 generate_build_info(
     name = "romi",
     local_libraries = [
+        "//subprojects/robotpy-native-datalog:import",
         "//subprojects/robotpy-native-ntcore:import",
         "//subprojects/robotpy-native-wpinet:import",
         "//subprojects/robotpy-native-wpimath:import",
@@ -13,6 +14,7 @@ generate_build_info(
         "//subprojects/robotpy-native-wpiutil:import",
         "//subprojects/robotpy-native-wpihal:import",
         "//subprojects/robotpy-native-romi:import",
+        "//subprojects/robotpy-wpilog:import",
         "//subprojects/robotpy-hal:import",
         "//subprojects/robotpy-wpilib:import",
         "//subprojects/robotpy-wpiutil:import",
@@ -20,6 +22,7 @@ generate_build_info(
         "//subprojects/pyntcore:import",
     ],
     pkgcfgs = [
+        "$(location //subprojects/robotpy-native-datalog:import)/site-packages/native/datalog/robotpy-native-datalog.pc",
         "$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc",
         "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc",
         "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",
@@ -27,6 +30,7 @@ generate_build_info(
         "$(location //subprojects/robotpy-native-romi:import)/site-packages/native/romi/robotpy-native-romi.pc",
         "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/robotpy-native-wpilib.pc",
         "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
+        "$(location //subprojects/robotpy-wpilog:import)/site-packages/wpilog/wpilog.pc",
         "$(location //subprojects/robotpy-hal:import)/site-packages/hal/wpihal.pc",
         "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
         "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",

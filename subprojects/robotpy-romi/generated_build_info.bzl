@@ -195,5 +195,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "Binary wrapper for WPILib Romi Vendor library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["wpilib==2025.3.2.2"],
+        package_requires = ["wpilib==2027.0.0a1.dev0"],
     )

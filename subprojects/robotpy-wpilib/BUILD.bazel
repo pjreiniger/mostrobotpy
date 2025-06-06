@@ -224,7 +224,6 @@ filegroup(
         "wpilib_drive.generated_files",
         "wpilib_event.generated_files",
         "wpilib_interfaces.generated_files",
-        "wpilib_shuffleboard.generated_files",
         "wpilib_simulation.generated_files",
     ],
     tags = ["manual"],

@@ -37,17 +37,17 @@ archive_override(
 )
 
 
-local_path_override(
-    module_name = "bzlmodrio-allwpilib",
-    path = "/home/pjreiniger/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
-)
-
-# archive_override(
+# local_path_override(
 #     module_name = "bzlmodrio-allwpilib",
-#     integrity = "sha256-xGfPnmwkmynzIe6hjOpkTsiSkblt4bqS7DRTXjB+dDA=",
-#     strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
-#     urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
+#     path = "/home/pjreiniger/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
 # )
+
+archive_override(
+    module_name = "bzlmodrio-allwpilib",
+    # integrity = "sha256-EwwQCDvw1JMVtFz7ECVw/ZjIJkAJgifv22aqbP8VU1E=",
+    strip_prefix = "bzlmodRio-allwpilib-9fbe4505438241d32ea97fea2c04522b1f944685",
+    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/9fbe4505438241d32ea97fea2c04522b1f944685.tar.gz"],
+)
 
 python = use_extension(
     "@rules_python//python/extensions:python.bzl",

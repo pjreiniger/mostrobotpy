@@ -5,6 +5,8 @@ load("//subprojects/robotpy-xrp:generated_build_info.bzl", "define_pybind_librar
 generate_build_info(
     name = "xrp",
     local_libraries = [
+        "//subprojects/robotpy-native-datalog:import",
+        "//subprojects/robotpy-wpilog:import",
         "//subprojects/robotpy-native-ntcore:import",
         "//subprojects/robotpy-native-wpinet:import",
         "//subprojects/robotpy-native-wpimath:import",
@@ -20,6 +22,8 @@ generate_build_info(
         "//subprojects/pyntcore:import",
     ],
     pkgcfgs = [
+        "$(location //subprojects/robotpy-native-datalog:import)/site-packages/native/datalog/robotpy-native-datalog.pc",
+        "$(location //subprojects/robotpy-wpilog:import)/site-packages/wpilog/wpilog.pc",
         "$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc",
         "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc",
         "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",

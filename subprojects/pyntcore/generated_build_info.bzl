@@ -355,7 +355,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     gen_libinit(
         name = "ntcore.gen_lib_init",
         output_file = "ntcore/_init__ntcore.py",
-        modules = ["native.datalog._init_robotpy_native_datalog", "native.ntcore._init_robotpy_native_ntcore", "wpiutil._init__wpiutil", "wpilog._init__wpilog", "wpinet._init__wpinet", "wpilog._init__wpilog"],
+        modules = ["native.ntcore._init_robotpy_native_ntcore", "wpiutil._init__wpiutil", "wpinet._init__wpinet", "wpilog._init__wpilog"],
     )
 
     gen_pkgconf(
