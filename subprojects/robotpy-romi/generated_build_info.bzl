@@ -54,8 +54,8 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         libinit_py = "romi._init__romi",
         module_pkg_name = "romi._romi",
         output_file = "romi.pc",
-        install_path = "romi",
         pkg_name = "romi",
+        install_path = "romi",
         project_file = "pyproject.toml",
     )
 
@@ -75,9 +75,9 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
         local_native_libraries = [
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("romi"),
+            local_native_libraries_helper("wpihal"),
             local_native_libraries_helper("wpilib"),
             local_native_libraries_helper("wpimath"),
-            local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
         ],
     )
@@ -110,18 +110,22 @@ def romi_extension(entry_point, deps, header_to_dat_deps, extension_name = None,
     make_pyi(
         name = "romi.make_pyi",
         extension_package = "romi._romi",
+        extension_library = "copy_romi",
         interface_files = [
             "_romi.pyi",
         ],
-        init_pkgcfgs = [
-            "romi/_init__romi.py",
-        ],
-        install_path = "romi",
-        extension_library = "copy_romi",
+        init_pkgcfgs = ["romi/_init__romi.py"],
         init_packages = ["romi"],
+        install_path = "romi",
         python_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-native-romi:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpilib:import",
-            "//subprojects/robotpy-native-romi:robotpy-native-romi",
+            "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
         ],
     )
 
@@ -170,15 +174,22 @@ def define_pybind_library(name, version):
         data = get_generated_data_files() + ["romi.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
+            "//subprojects/pyntcore:import",
             "//subprojects/robotpy-native-romi:import",
+            "//subprojects/robotpy-native-wpilib:import",
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpilib:import",
             "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-romi"],
         version = version,
         visibility = ["//visibility:public"],
         entry_points = {
-            "pkg_config": ["romi = romi"],
+            "pkg_config": [
+                "romi = romi",
+            ],
         },
         package_name = "robotpy-romi",
         package_summary = "Binary wrapper for WPILib Romi Vendor library",

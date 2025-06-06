@@ -280,7 +280,9 @@ def define_pybind_library(name, version):
         srcs = native.glob(["wpiutil/**/*.py"]) + libinit_files(),
         data = get_generated_data_files() + ["wpiutil.extra_pkg_files", ":pyi_files"],
         imports = ["."],
-        robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
+        robotpy_wheel_deps = [
+            "//subprojects/robotpy-native-wpiutil:import",
+        ],
         strip_path_prefixes = ["subprojects/robotpy-wpiutil"],
         version = version,
         visibility = ["//visibility:public"],
