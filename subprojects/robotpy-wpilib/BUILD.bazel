@@ -1,6 +1,6 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
-load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "define_pybind_library", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
+load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "define_pybind_library", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_simulation_extension")
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 
 generate_build_info(
@@ -11,12 +11,14 @@ generate_build_info(
         "wpilib/src/rpy/MotorControllerGroup.h",
     ],
     local_libraries = [
+        "//subprojects/robotpy-native-datalog:import",
         "//subprojects/robotpy-native-ntcore:import",
         "//subprojects/robotpy-native-wpinet:import",
         "//subprojects/robotpy-native-wpilib:import",
         "//subprojects/robotpy-native-wpimath:import",
         "//subprojects/robotpy-native-wpiutil:import",
         "//subprojects/robotpy-native-wpihal:import",
+        "//subprojects/robotpy-wpilog:import",
         "//subprojects/robotpy-wpimath:import",
         "//subprojects/robotpy-wpinet:import",
         "//subprojects/robotpy-wpiutil:import",
@@ -24,12 +26,14 @@ generate_build_info(
         "//subprojects/pyntcore:import",
     ],
     pkgcfgs = [
+        "$(location //subprojects/robotpy-native-datalog:import)/site-packages/native/datalog/robotpy-native-datalog.pc",
         "$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc",
         "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
         "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/robotpy-native-wpilib.pc",
         "$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc",
         "$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc",
         "$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc",
+        "$(location //subprojects/robotpy-wpilog:import)/site-packages/wpilog/wpilog.pc",
         "$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc",
         "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
         "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/geometry/wpimath_geometry.pc",
@@ -160,41 +164,6 @@ wpilib_drive_extension(
         "wpilib/src/rpy/*.h",
         "wpilib/src/rpy/*.inc",
     ]),
-    deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
-    ],
-)
-
-wpilib_shuffleboard_extension(
-    entry_point = ["wpilib/shuffleboard/shuffleboard.cpp"],
-    extension_name = "_shuffleboard",
-    extra_hdrs = glob(["wpilib/shuffleboard/*.h"]),
-    extra_srcs = glob(
-        ["wpilib/shuffleboard/*.cpp"],
-        exclude = ["wpilib/shuffleboard/shuffleboard.cpp"],
-    ),
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ] + glob([
-        "wpilib/src/rpy/*.h",
-        "wpilib/src/rpy/*.inc",
-    ]),
-    includes = ["wpilib/shuffleboard"],
     deps = [
         "//subprojects/pyntcore:ntcore_pybind_library",
         "//subprojects/robotpy-hal:wpihal_pybind_library",

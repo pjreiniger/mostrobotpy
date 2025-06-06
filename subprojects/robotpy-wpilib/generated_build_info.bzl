@@ -120,7 +120,6 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -129,7 +128,6 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/event",
@@ -142,6 +140,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -151,7 +150,6 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/counter/_counter", "copy_wpilib_counter"),
             ("wpilib/drive/_drive", "copy_wpilib_drive"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
             ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
@@ -274,7 +272,6 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -283,7 +280,6 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/interfaces",
@@ -296,6 +292,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -305,33 +302,12 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/counter/_counter", "copy_wpilib_counter"),
             ("wpilib/drive/_drive", "copy_wpilib_drive"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
             ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
 def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_HEADER_GEN = [
-        struct(
-            class_name = "ADIS16448_IMU",
-            yml_file = "semiwrap/ADIS16448_IMU.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/ADIS16448_IMU.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ADIS16448_IMU", "frc__ADIS16448_IMU.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADIS16470_IMU",
-            yml_file = "semiwrap/ADIS16470_IMU.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/ADIS16470_IMU.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ADIS16470_IMU", "frc__ADIS16470_IMU.hpp"),
-            ],
-        ),
         struct(
             class_name = "ADXL345_I2C",
             yml_file = "semiwrap/ADXL345_I2C.yml",
@@ -341,38 +317,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             trampolines = [
                 ("frc::ADXL345_I2C", "frc__ADXL345_I2C.hpp"),
                 ("frc::ADXL345_I2C::AllAxes", "frc__ADXL345_I2C__AllAxes.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADXL345_SPI",
-            yml_file = "semiwrap/ADXL345_SPI.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/ADXL345_SPI.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ADXL345_SPI", "frc__ADXL345_SPI.hpp"),
-                ("frc::ADXL345_SPI::AllAxes", "frc__ADXL345_SPI__AllAxes.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADXL362",
-            yml_file = "semiwrap/ADXL362.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/ADXL362.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ADXL362", "frc__ADXL362.hpp"),
-                ("frc::ADXL362::AllAxes", "frc__ADXL362__AllAxes.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADXRS450_Gyro",
-            yml_file = "semiwrap/ADXRS450_Gyro.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/ADXRS450_Gyro.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ADXRS450_Gyro", "frc__ADXRS450_Gyro.hpp"),
             ],
         ),
         struct(
@@ -437,16 +381,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "AnalogOutput",
-            yml_file = "semiwrap/AnalogOutput.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/AnalogOutput.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::AnalogOutput", "frc__AnalogOutput.hpp"),
-            ],
-        ),
-        struct(
             class_name = "AnalogPotentiometer",
             yml_file = "semiwrap/AnalogPotentiometer.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -457,51 +391,12 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "AnalogTrigger",
-            yml_file = "semiwrap/AnalogTrigger.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/AnalogTrigger.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::AnalogTrigger", "frc__AnalogTrigger.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "AnalogTriggerOutput",
-            yml_file = "semiwrap/AnalogTriggerOutput.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/AnalogTriggerOutput.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::AnalogTriggerOutput", "frc__AnalogTriggerOutput.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "AnalogTriggerType",
-            yml_file = "semiwrap/AnalogTriggerType.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/AnalogTriggerType.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "BuiltInAccelerometer",
-            yml_file = "semiwrap/BuiltInAccelerometer.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/BuiltInAccelerometer.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::BuiltInAccelerometer", "frc__BuiltInAccelerometer.hpp"),
-            ],
-        ),
-        struct(
             class_name = "CAN",
             yml_file = "semiwrap/CAN.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/CAN.h",
             tmpl_class_names = [],
             trampolines = [
-                ("frc::CANData", "frc__CANData.hpp"),
                 ("frc::CAN", "frc__CAN.hpp"),
             ],
         ),
@@ -524,16 +419,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             trampolines = [],
         ),
         struct(
-            class_name = "Counter",
-            yml_file = "semiwrap/Counter.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/Counter.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::Counter", "frc__Counter.hpp"),
-            ],
-        ),
-        struct(
             class_name = "DataLogManager",
             yml_file = "semiwrap/DataLogManager.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -554,16 +439,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "DigitalGlitchFilter",
-            yml_file = "semiwrap/DigitalGlitchFilter.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/DigitalGlitchFilter.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::DigitalGlitchFilter", "frc__DigitalGlitchFilter.hpp"),
-            ],
-        ),
-        struct(
             class_name = "DigitalInput",
             yml_file = "semiwrap/DigitalInput.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -581,16 +456,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             tmpl_class_names = [],
             trampolines = [
                 ("frc::DigitalOutput", "frc__DigitalOutput.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "DigitalSource",
-            yml_file = "semiwrap/DigitalSource.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/DigitalSource.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::DigitalSource", "frc__DigitalSource.hpp"),
             ],
         ),
         struct(
@@ -819,16 +684,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "Relay",
-            yml_file = "semiwrap/Relay.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/Relay.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::Relay", "frc__Relay.hpp"),
-            ],
-        ),
-        struct(
             class_name = "RobotBase",
             yml_file = "semiwrap/RobotBase.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -866,16 +721,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/RuntimeType.h",
             tmpl_class_names = [],
             trampolines = [],
-        ),
-        struct(
-            class_name = "SPI",
-            yml_file = "semiwrap/SPI.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/SPI.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::SPI", "frc__SPI.hpp"),
-            ],
         ),
         struct(
             class_name = "SensorUtil",
@@ -940,13 +785,13 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "SynchronousInterrupt",
-            yml_file = "semiwrap/SynchronousInterrupt.yml",
+            class_name = "SystemServer",
+            yml_file = "semiwrap/SystemServer.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/SynchronousInterrupt.h",
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/SystemServer.h",
             tmpl_class_names = [],
             trampolines = [
-                ("frc::SynchronousInterrupt", "frc__SynchronousInterrupt.hpp"),
+                ("frc::SystemServer", "frc__SystemServer.hpp"),
             ],
         ),
         struct(
@@ -998,16 +843,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "Ultrasonic",
-            yml_file = "semiwrap/Ultrasonic.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/Ultrasonic.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::Ultrasonic", "frc__Ultrasonic.hpp"),
-            ],
-        ),
-        struct(
             class_name = "Watchdog",
             yml_file = "semiwrap/Watchdog.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -1040,16 +875,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "LiveWindow",
-            yml_file = "semiwrap/LiveWindow.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/livewindow/LiveWindow.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::LiveWindow", "frc__LiveWindow.hpp"),
-            ],
-        ),
-        struct(
             class_name = "DMC60",
             yml_file = "semiwrap/DMC60.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -1070,6 +895,16 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
+            class_name = "Koors40",
+            yml_file = "semiwrap/Koors40.yml",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/motorcontrol/Koors40.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("frc::Koors40", "frc__Koors40.hpp"),
+            ],
+        ),
+        struct(
             class_name = "MotorControllerGroup",
             yml_file = "semiwrap/MotorControllerGroup.yml",
             header_root = "subprojects/robotpy-wpilib/wpilib/src",
@@ -1077,16 +912,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             tmpl_class_names = [],
             trampolines = [
                 ("frc::PyMotorControllerGroup", "frc__PyMotorControllerGroup.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "NidecBrushless",
-            yml_file = "semiwrap/NidecBrushless.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/motorcontrol/NidecBrushless.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::NidecBrushless", "frc__NidecBrushless.hpp"),
             ],
         ),
         struct(
@@ -1177,6 +1002,16 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             tmpl_class_names = [],
             trampolines = [
                 ("frc::Spark", "frc__Spark.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "SparkMini",
+            yml_file = "semiwrap/SparkMini.yml",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/motorcontrol/SparkMini.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("frc::SparkMini", "frc__SparkMini.hpp"),
             ],
         ),
         struct(
@@ -1384,6 +1219,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
             local_native_libraries_helper("wpilib"),
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
@@ -1431,7 +1267,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -1440,7 +1275,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/_wpilib",
@@ -1453,6 +1287,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -1462,7 +1297,6 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
             ("wpilib/counter/_counter", "copy_wpilib_counter"),
             ("wpilib/drive/_drive", "copy_wpilib_drive"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
             ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
@@ -1476,16 +1310,6 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/counter/EdgeConfiguration.h",
             tmpl_class_names = [],
             trampolines = [],
-        ),
-        struct(
-            class_name = "ExternalDirectionCounter",
-            yml_file = "semiwrap/counter/ExternalDirectionCounter.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/counter/ExternalDirectionCounter.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ExternalDirectionCounter", "frc__ExternalDirectionCounter.hpp"),
-            ],
         ),
         struct(
             class_name = "Tachometer",
@@ -1593,7 +1417,6 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -1602,7 +1425,6 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/counter",
@@ -1615,6 +1437,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -1624,7 +1447,6 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/drive/_drive", "copy_wpilib_drive"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
             ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
@@ -1749,7 +1571,6 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -1758,7 +1579,6 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/drive",
@@ -1771,6 +1591,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -1780,374 +1601,12 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/counter/_counter", "copy_wpilib_counter"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
-            ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
-        ],
-    )
-
-def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
-    WPILIB_SHUFFLEBOARD_HEADER_GEN = [
-        struct(
-            class_name = "BuiltInLayouts",
-            yml_file = "semiwrap/shuffleboard/BuiltInLayouts.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/BuiltInLayouts.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "BuiltInWidgets",
-            yml_file = "semiwrap/shuffleboard/BuiltInWidgets.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/BuiltInWidgets.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "ComplexWidget",
-            yml_file = "semiwrap/shuffleboard/ComplexWidget.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ComplexWidget.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ComplexWidget", "frc__ComplexWidget.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "LayoutType",
-            yml_file = "semiwrap/shuffleboard/LayoutType.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/LayoutType.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::LayoutType", "frc__LayoutType.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "Shuffleboard",
-            yml_file = "semiwrap/shuffleboard/Shuffleboard.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/Shuffleboard.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::Shuffleboard", "frc__Shuffleboard.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardComponent",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardComponent.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardComponent.h",
-            tmpl_class_names = [
-                ("ShuffleboardComponent_tmpl1", "_SimpleComponent"),
-                ("ShuffleboardComponent_tmpl2", "_ComplexComponent"),
-                ("ShuffleboardComponent_tmpl3", "_LayoutComponent"),
-                ("ShuffleboardComponent_tmpl4", "_SuppliedValueComponent_string"),
-                ("ShuffleboardComponent_tmpl5", "_SuppliedValueComponent_double"),
-                ("ShuffleboardComponent_tmpl6", "_SuppliedValueComponent_float"),
-                ("ShuffleboardComponent_tmpl7", "_SuppliedValueComponent_integer"),
-                ("ShuffleboardComponent_tmpl8", "_SuppliedValueComponent_bool"),
-                ("ShuffleboardComponent_tmpl9", "_SuppliedValueComponent_vector_string"),
-                ("ShuffleboardComponent_tmpl10", "_SuppliedValueComponent_vector_double"),
-                ("ShuffleboardComponent_tmpl11", "_SuppliedValueComponent_vector_float"),
-                ("ShuffleboardComponent_tmpl12", "_SuppliedValueComponent_vector_int"),
-                ("ShuffleboardComponent_tmpl13", "_SuppliedValueComponent_vector_bool"),
-                ("ShuffleboardComponent_tmpl14", "_SuppliedValueComponent_vector_raw"),
-            ],
-            trampolines = [
-                ("frc::ShuffleboardComponent", "frc__ShuffleboardComponent.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardComponentBase",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardComponentBase.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardComponentBase.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardComponentBase", "frc__ShuffleboardComponentBase.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardContainer",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardContainer.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardContainer.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardContainer", "frc__ShuffleboardContainer.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardEventImportance",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardEventImportance.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardEventImportance.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "ShuffleboardInstance",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardInstance.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardInstance.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::detail::ShuffleboardInstance", "frc__detail__ShuffleboardInstance.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardLayout",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardLayout.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardLayout.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardLayout", "frc__ShuffleboardLayout.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardRoot",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardRoot.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardRoot.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardRoot", "frc__ShuffleboardRoot.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardTab",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardTab.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardTab.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardTab", "frc__ShuffleboardTab.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardValue",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardValue.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardValue.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::ShuffleboardValue", "frc__ShuffleboardValue.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ShuffleboardWidget",
-            yml_file = "semiwrap/shuffleboard/ShuffleboardWidget.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/ShuffleboardWidget.h",
-            tmpl_class_names = [
-                ("ShuffleboardWidget_tmpl1", "_SimpleWidget"),
-                ("ShuffleboardWidget_tmpl2", "_ComplexWidget"),
-                ("ShuffleboardWidget_tmpl3", "_SuppliedValueWidget_string"),
-                ("ShuffleboardWidget_tmpl4", "_SuppliedValueWidget_double"),
-                ("ShuffleboardWidget_tmpl5", "_SuppliedValueWidget_float"),
-                ("ShuffleboardWidget_tmpl6", "_SuppliedValueWidget_integer"),
-                ("ShuffleboardWidget_tmpl7", "_SuppliedValueWidget_bool"),
-                ("ShuffleboardWidget_tmpl8", "_SuppliedValueWidget_vector_string"),
-                ("ShuffleboardWidget_tmpl9", "_SuppliedValueWidget_vector_double"),
-                ("ShuffleboardWidget_tmpl10", "_SuppliedValueWidget_vector_float"),
-                ("ShuffleboardWidget_tmpl11", "_SuppliedValueWidget_vector_int"),
-                ("ShuffleboardWidget_tmpl12", "_SuppliedValueWidget_vector_bool"),
-                ("ShuffleboardWidget_tmpl13", "_SuppliedValueWidget_vector_raw"),
-            ],
-            trampolines = [
-                ("frc::ShuffleboardWidget", "frc__ShuffleboardWidget.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "SimpleWidget",
-            yml_file = "semiwrap/shuffleboard/SimpleWidget.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/SimpleWidget.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::SimpleWidget", "frc__SimpleWidget.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "SuppliedValueWidget",
-            yml_file = "semiwrap/shuffleboard/SuppliedValueWidget.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/SuppliedValueWidget.h",
-            tmpl_class_names = [
-                ("SuppliedValueWidget_tmpl1", "SuppliedStringValueWidget"),
-                ("SuppliedValueWidget_tmpl2", "SuppliedDoubleValueWidget"),
-                ("SuppliedValueWidget_tmpl3", "SuppliedFloatValueWidget"),
-                ("SuppliedValueWidget_tmpl4", "SuppliedIntegerValueWidget"),
-                ("SuppliedValueWidget_tmpl5", "SuppliedBoolValueWidget"),
-                ("SuppliedValueWidget_tmpl6", "SuppliedStringListValueWidget"),
-                ("SuppliedValueWidget_tmpl7", "SuppliedDoubleListValueWidget"),
-                ("SuppliedValueWidget_tmpl8", "SuppliedFloatListValueWidget"),
-                ("SuppliedValueWidget_tmpl9", "SuppliedIntListValueWidget"),
-                ("SuppliedValueWidget_tmpl10", "SuppliedBoolListValueWidget"),
-                ("SuppliedValueWidget_tmpl11", "SuppliedRawValueWidget"),
-            ],
-            trampolines = [
-                ("frc::SuppliedValueWidget", "frc__SuppliedValueWidget.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "WidgetType",
-            yml_file = "semiwrap/shuffleboard/WidgetType.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/shuffleboard/WidgetType.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::WidgetType", "frc__WidgetType.hpp"),
-            ],
-        ),
-    ]
-
-    resolve_casters(
-        name = "wpilib_shuffleboard.resolve_casters",
-        caster_deps = [resolve_caster_file("wpiutil-casters"), resolve_caster_file("wpimath-casters")],
-        casters_pkl_file = "wpilib_shuffleboard.casters.pkl",
-        dep_file = "wpilib_shuffleboard.casters.d",
-    )
-
-    gen_libinit(
-        name = "wpilib_shuffleboard.gen_lib_init",
-        output_file = "wpilib/shuffleboard/_init__shuffleboard.py",
-        modules = ["native.wpilib._init_robotpy_native_wpilib", "wpilib._init__wpilib", "wpilib.interfaces._init__interfaces"],
-    )
-
-    gen_pkgconf(
-        name = "wpilib_shuffleboard.gen_pkgconf",
-        libinit_py = "wpilib.shuffleboard._init__shuffleboard",
-        module_pkg_name = "wpilib.shuffleboard._shuffleboard",
-        output_file = "wpilib_shuffleboard.pc",
-        pkg_name = "wpilib_shuffleboard",
-        install_path = "wpilib/shuffleboard",
-        project_file = "pyproject.toml",
-    )
-
-    gen_modinit_hpp(
-        name = "wpilib_shuffleboard.gen_modinit_hpp",
-        input_dats = [x.class_name for x in WPILIB_SHUFFLEBOARD_HEADER_GEN],
-        libname = "_shuffleboard",
-        output_file = "semiwrap_init.wpilib.shuffleboard._shuffleboard.hpp",
-    )
-
-    run_header_gen(
-        name = "wpilib_shuffleboard",
-        casters_pickle = "wpilib_shuffleboard.casters.pkl",
-        header_gen_config = WPILIB_SHUFFLEBOARD_HEADER_GEN,
-        trampoline_subpath = "wpilib/shuffleboard",
-        deps = header_to_dat_deps,
-        local_native_libraries = [
-            local_native_libraries_helper("ntcore"),
-            local_native_libraries_helper("wpihal"),
-            local_native_libraries_helper("wpilib"),
-            local_native_libraries_helper("wpimath"),
-            local_native_libraries_helper("wpinet"),
-            local_native_libraries_helper("wpiutil"),
-        ],
-        generation_defines = ["DYNAMIC_CAMERA_SERVER 1"],
-    )
-
-    native.filegroup(
-        name = "wpilib_shuffleboard.generated_files",
-        srcs = [
-            "wpilib_shuffleboard.gen_modinit_hpp.gen",
-            "wpilib_shuffleboard.header_gen_files",
-            "wpilib_shuffleboard.gen_pkgconf",
-            "wpilib_shuffleboard.gen_lib_init",
-        ],
-        tags = ["manual"],
-    )
-    create_pybind_library(
-        name = "wpilib_shuffleboard",
-        entry_point = entry_point,
-        extension_name = extension_name,
-        generated_srcs = [":wpilib_shuffleboard.generated_srcs"],
-        semiwrap_header = [":wpilib_shuffleboard.gen_modinit_hpp"],
-        deps = deps + [
-            ":wpilib_shuffleboard.tmpl_hdrs",
-            ":wpilib_shuffleboard.trampoline_hdrs",
-        ],
-        extra_hdrs = extra_hdrs,
-        extra_srcs = extra_srcs,
-        includes = includes,
-        local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
-    )
-
-    make_pyi(
-        name = "wpilib_shuffleboard.make_pyi",
-        extension_package = "wpilib.shuffleboard._shuffleboard",
-        extension_library = "copy_wpilib_shuffleboard",
-        interface_files = [
-            "_shuffleboard.pyi",
-        ],
-        init_pkgcfgs = [
-            "wpilib/event/_init__event.py",
-            "wpilib/interfaces/_init__interfaces.py",
-            "wpilib/_init__wpilib.py",
-            "wpilib/counter/_init__counter.py",
-            "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
-            "wpilib/simulation/_init__simulation.py",
-        ],
-        init_packages = [
-            "wpilib/event",
-            "wpilib/interfaces",
-            "wpilib",
-            "wpilib/counter",
-            "wpilib/drive",
-            "wpilib/shuffleboard",
-            "wpilib/simulation",
-        ],
-        install_path = "wpilib/shuffleboard",
-        python_deps = [
-            "//subprojects/pyntcore:import",
-            "//subprojects/robotpy-hal:import",
-            "//subprojects/robotpy-native-ntcore:import",
-            "//subprojects/robotpy-native-wpihal:import",
-            "//subprojects/robotpy-native-wpilib:import",
-            "//subprojects/robotpy-native-wpimath:import",
-            "//subprojects/robotpy-native-wpinet:import",
-            "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpimath:import",
-            "//subprojects/robotpy-wpinet:import",
-            "//subprojects/robotpy-wpiutil:import",
-        ] + extra_pyi_deps,
-        local_extension_deps = [
-            ("wpilib/event/_event", "copy_wpilib_event"),
-            ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
-            ("wpilib/_wpilib", "copy_wpilib"),
-            ("wpilib/counter/_counter", "copy_wpilib_counter"),
-            ("wpilib/drive/_drive", "copy_wpilib_drive"),
             ("wpilib/simulation/_simulation", "copy_wpilib_simulation"),
         ],
     )
 
 def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_SIMULATION_HEADER_GEN = [
-        struct(
-            class_name = "ADIS16448_IMUSim",
-            yml_file = "semiwrap/simulation/ADIS16448_IMUSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/ADIS16448_IMUSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::ADIS16448_IMUSim", "frc__sim__ADIS16448_IMUSim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADIS16470_IMUSim",
-            yml_file = "semiwrap/simulation/ADIS16470_IMUSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/ADIS16470_IMUSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::ADIS16470_IMUSim", "frc__sim__ADIS16470_IMUSim.hpp"),
-            ],
-        ),
         struct(
             class_name = "ADXL345Sim",
             yml_file = "semiwrap/simulation/ADXL345Sim.yml",
@@ -2156,26 +1615,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::ADXL345Sim", "frc__sim__ADXL345Sim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADXL362Sim",
-            yml_file = "semiwrap/simulation/ADXL362Sim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/ADXL362Sim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::ADXL362Sim", "frc__sim__ADXL362Sim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "ADXRS450_GyroSim",
-            yml_file = "semiwrap/simulation/ADXRS450_GyroSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/ADXRS450_GyroSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::ADXRS450_GyroSim", "frc__sim__ADXRS450_GyroSim.hpp"),
             ],
         ),
         struct(
@@ -2199,16 +1638,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
         struct(
-            class_name = "AnalogGyroSim",
-            yml_file = "semiwrap/simulation/AnalogGyroSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/AnalogGyroSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::AnalogGyroSim", "frc__sim__AnalogGyroSim.hpp"),
-            ],
-        ),
-        struct(
             class_name = "AnalogInputSim",
             yml_file = "semiwrap/simulation/AnalogInputSim.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -2219,26 +1648,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
         struct(
-            class_name = "AnalogOutputSim",
-            yml_file = "semiwrap/simulation/AnalogOutputSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/AnalogOutputSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::AnalogOutputSim", "frc__sim__AnalogOutputSim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "AnalogTriggerSim",
-            yml_file = "semiwrap/simulation/AnalogTriggerSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/AnalogTriggerSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::AnalogTriggerSim", "frc__sim__AnalogTriggerSim.hpp"),
-            ],
-        ),
-        struct(
             class_name = "BatterySim",
             yml_file = "semiwrap/simulation/BatterySim.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -2246,16 +1655,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::BatterySim", "frc__sim__BatterySim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "BuiltInAccelerometerSim",
-            yml_file = "semiwrap/simulation/BuiltInAccelerometerSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/BuiltInAccelerometerSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::BuiltInAccelerometerSim", "frc__sim__BuiltInAccelerometerSim.hpp"),
             ],
         ),
         struct(
@@ -2480,6 +1879,16 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
         struct(
+            class_name = "PWMMotorControllerSim",
+            yml_file = "semiwrap/simulation/PWMMotorControllerSim.yml",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/PWMMotorControllerSim.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("frc::sim::PWMMotorControllerSim", "frc__sim__PWMMotorControllerSim.hpp"),
+            ],
+        ),
+        struct(
             class_name = "REVPHSim",
             yml_file = "semiwrap/simulation/REVPHSim.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -2487,16 +1896,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::REVPHSim", "frc__sim__REVPHSim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "RelaySim",
-            yml_file = "semiwrap/simulation/RelaySim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/RelaySim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::RelaySim", "frc__sim__RelaySim.hpp"),
             ],
         ),
         struct(
@@ -2510,16 +1909,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ],
         ),
         struct(
-            class_name = "SPIAccelerometerSim",
-            yml_file = "semiwrap/simulation/SPIAccelerometerSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/SPIAccelerometerSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::SPIAccelerometerSim", "frc__sim__SPIAccelerometerSim.hpp"),
-            ],
-        ),
-        struct(
             class_name = "SendableChooserSim",
             yml_file = "semiwrap/simulation/SendableChooserSim.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
@@ -2527,6 +1916,16 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::SendableChooserSim", "frc__sim__SendableChooserSim.hpp"),
+            ],
+        ),
+        struct(
+            class_name = "ServoSim",
+            yml_file = "semiwrap/simulation/ServoSim.yml",
+            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
+            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/ServoSim.h",
+            tmpl_class_names = [],
+            trampolines = [
+                ("frc::sim::ServoSim", "frc__sim__ServoSim.hpp"),
             ],
         ),
         struct(
@@ -2585,16 +1984,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             tmpl_class_names = [],
             trampolines = [
                 ("frc::sim::StadiaControllerSim", "frc__sim__StadiaControllerSim.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "UltrasonicSim",
-            yml_file = "semiwrap/simulation/UltrasonicSim.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpilib", "wpilib") + "/frc/simulation/UltrasonicSim.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::sim::UltrasonicSim", "frc__sim__UltrasonicSim.hpp"),
             ],
         ),
         struct(
@@ -2693,7 +2082,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             "wpilib/_init__wpilib.py",
             "wpilib/counter/_init__counter.py",
             "wpilib/drive/_init__drive.py",
-            "wpilib/shuffleboard/_init__shuffleboard.py",
             "wpilib/simulation/_init__simulation.py",
         ],
         init_packages = [
@@ -2702,7 +2090,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             "wpilib",
             "wpilib/counter",
             "wpilib/drive",
-            "wpilib/shuffleboard",
             "wpilib/simulation",
         ],
         install_path = "wpilib/simulation",
@@ -2715,6 +2102,7 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -2725,7 +2113,6 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
             ("wpilib/_wpilib", "copy_wpilib"),
             ("wpilib/counter/_counter", "copy_wpilib_counter"),
             ("wpilib/drive/_drive", "copy_wpilib_drive"),
-            ("wpilib/shuffleboard/_shuffleboard", "copy_wpilib_shuffleboard"),
         ],
     )
 
@@ -2756,11 +2143,6 @@ def get_generated_data_files():
         output_directory = "wpilib/drive/",
     )
     copy_extension_library(
-        name = "copy_wpilib_shuffleboard",
-        extension = "_shuffleboard",
-        output_directory = "wpilib/shuffleboard/",
-    )
-    copy_extension_library(
         name = "copy_wpilib_simulation",
         extension = "_simulation",
         output_directory = "wpilib/simulation/",
@@ -2774,7 +2156,6 @@ def get_generated_data_files():
             "wpilib/wpilib.pc",
             "wpilib/counter/wpilib_counter.pc",
             "wpilib/drive/wpilib_drive.pc",
-            "wpilib/shuffleboard/wpilib_shuffleboard.pc",
             "wpilib/simulation/wpilib_simulation.pc",
         ],
     )
@@ -2786,14 +2167,12 @@ def get_generated_data_files():
         ":copy_wpilib",
         ":copy_wpilib_counter",
         ":copy_wpilib_drive",
-        ":copy_wpilib_shuffleboard",
         ":copy_wpilib_simulation",
         ":wpilib_event.trampoline_hdr_files",
         ":wpilib_interfaces.trampoline_hdr_files",
         ":wpilib.trampoline_hdr_files",
         ":wpilib_counter.trampoline_hdr_files",
         ":wpilib_drive.trampoline_hdr_files",
-        ":wpilib_shuffleboard.trampoline_hdr_files",
         ":wpilib_simulation.trampoline_hdr_files",
     ]
 
@@ -2804,7 +2183,6 @@ def libinit_files():
         "wpilib/_init__wpilib.py",
         "wpilib/counter/_init__counter.py",
         "wpilib/drive/_init__drive.py",
-        "wpilib/shuffleboard/_init__shuffleboard.py",
         "wpilib/simulation/_init__simulation.py",
     ]
 
@@ -2823,7 +2201,6 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             ":wpilib.make_pyi",
             ":wpilib_counter.make_pyi",
             ":wpilib_drive.make_pyi",
-            ":wpilib_shuffleboard.make_pyi",
             ":wpilib_simulation.make_pyi",
         ],
     )
@@ -2842,6 +2219,7 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
@@ -2856,7 +2234,6 @@ def define_pybind_library(name, version, extra_entry_points = {}):
                 "wpilib = wpilib",
                 "wpilib_counter = wpilib.counter",
                 "wpilib_drive = wpilib.drive",
-                "wpilib_shuffleboard = wpilib.shuffleboard",
                 "wpilib_simulation = wpilib.simulation",
             ],
         }.update(extra_entry_points),
@@ -2864,5 +2241,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "Binary wrapper for FRC WPILib",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-wpilib==2025.3.2", "robotpy-wpiutil==2025.3.2.2", "robotpy-wpimath==2025.3.2.2", "robotpy-hal==2025.3.2.2", "pyntcore==2025.3.2.2", "robotpy-cli~=2024.0b"],
+        package_requires = ["robotpy-native-wpilib==2027.0.0a1.dev0", "robotpy-wpiutil==2027.0.0a1.dev0", "robotpy-wpimath==2027.0.0a1.dev0", "robotpy-hal==2027.0.0a1.dev0", "pyntcore==2027.0.0a1.dev0", "robotpy-cli~=2024.0b"],
     )
