@@ -1,9 +1,8 @@
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     APRILTAG_HEADER_GEN = [
         struct(
             class_name = "AprilTag",
@@ -164,8 +163,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpiutil:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
     )
 
 def get_generated_data_files():

@@ -1,9 +1,8 @@
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_EVENT_HEADER_GEN = [
         struct(
             class_name = "BooleanEvent",
@@ -144,7 +143,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
             ("wpilib/_wpilib", "copy_wpilib"),
@@ -155,7 +154,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         ],
     )
 
-def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_INTERFACES_HEADER_GEN = [
         struct(
             class_name = "CounterBase",
@@ -296,7 +295,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpimath:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/_wpilib", "copy_wpilib"),
@@ -307,7 +306,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         ],
     )
 
-def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMU",
@@ -1443,17 +1442,17 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         install_path = "wpilib/_wpilib",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -1464,7 +1463,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         ],
     )
 
-def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
             class_name = "EdgeConfiguration",
@@ -1605,17 +1604,17 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         install_path = "wpilib/counter",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -1626,7 +1625,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
     )
 
-def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
             class_name = "DifferentialDrive",
@@ -1761,17 +1760,17 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         install_path = "wpilib/drive",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -1782,7 +1781,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         ],
     )
 
-def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_SHUFFLEBOARD_HEADER_GEN = [
         struct(
             class_name = "BuiltInLayouts",
@@ -2102,17 +2101,17 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         install_path = "wpilib/shuffleboard",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -2123,7 +2122,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         ],
     )
 
-def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_SIMULATION_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMUSim",
@@ -2705,18 +2704,17 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension
         install_path = "wpilib/simulation",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -2833,13 +2831,13 @@ def define_pybind_library(name, version):
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
