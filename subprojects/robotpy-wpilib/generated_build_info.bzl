@@ -135,14 +135,16 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         install_path = "wpilib/event",
         python_deps = [
             "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -295,6 +297,8 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpimath:import",
+            "//subprojects/robotpy-wpinet:import",
+            "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
@@ -2804,7 +2808,7 @@ def libinit_files():
         "wpilib/simulation/_init__simulation.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpilib.extra_pkg_files",
         srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"]),
@@ -2855,8 +2859,7 @@ def define_pybind_library(name, version):
                 "wpilib_shuffleboard = wpilib.shuffleboard",
                 "wpilib_simulation = wpilib.simulation",
             ],
-            "robotpy": ["run = wpilib._impl.start:Main"],
-        },
+        }.update(extra_entry_points),
         package_name = "wpilib",
         package_summary = "Binary wrapper for FRC WPILib",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

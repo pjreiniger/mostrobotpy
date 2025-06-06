@@ -244,6 +244,7 @@ wpilib_simulation_extension(
 define_pybind_library(
     name = "wpilib",
     version = MOSTROBOTPY_VERSION,
+    extra_entry_points = {"robotpy": ["run = wpilib._impl.start:Main"]},
 )
 
 filegroup(
