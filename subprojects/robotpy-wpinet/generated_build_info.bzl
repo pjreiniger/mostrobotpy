@@ -105,6 +105,7 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         install_path = "wpinet",
         python_deps = [
             "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
     )
@@ -151,10 +152,11 @@ def define_pybind_library(name, version):
     robotpy_library(
         name = name,
         srcs = native.glob(["wpinet/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpinet.extra_pkg_files"] + [":pyi_files"],
+        data = get_generated_data_files() + ["wpinet.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-wpinet"],

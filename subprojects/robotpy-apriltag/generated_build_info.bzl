@@ -151,17 +151,19 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps, extension_name = N
     make_pyi(
         name = "apriltag.make_pyi",
         extension_package = "robotpy_apriltag._apriltag",
+        extension_library = "copy_apriltag",
         interface_files = [
             "_apriltag.pyi",
         ],
         init_pkgcfgs = ["robotpy_apriltag/_init__apriltag.py"],
-        install_path = "robotpy_apriltag",
-        extension_library = "copy_apriltag",
         init_packages = ["robotpy_apriltag"],
+        install_path = "robotpy_apriltag",
         python_deps = [
+            "//subprojects/robotpy-native-apriltag:import",
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-apriltag:import",
             requirement("numpy"),
         ],
     )
@@ -212,6 +214,8 @@ def define_pybind_library(name, version):
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-apriltag:import",
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpimath:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
@@ -227,5 +231,5 @@ def define_pybind_library(name, version):
         package_summary = "RobotPy bindings for WPILib's AprilTag library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-apriltag==2025.3.2", "robotpy-wpimath==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+        package_requires = ["robotpy-native-apriltag==2025.3.2", "robotpy-wpiutil==2025.3.2.2", "robotpy-wpimath==2025.3.2.2"],
     )

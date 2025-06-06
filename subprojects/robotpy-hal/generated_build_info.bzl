@@ -254,16 +254,23 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
     make_pyi(
         name = "hal_simulation.make_pyi",
         extension_package = "hal.simulation._simulation",
+        extension_library = "copy_hal_simulation",
         interface_files = [
             "_simulation.pyi",
         ],
-        init_pkgcfgs = ["hal/_init__wpiHal.py", "hal/simulation/_init__simulation.py"],
+        init_pkgcfgs = [
+            "hal/simulation/_init__simulation.py",
+            "hal/_init__wpiHal.py",
+        ],
+        init_packages = [
+            "hal/simulation",
+            "hal",
+        ],
         install_path = "hal/simulation",
-        extension_library = "copy_hal_simulation",
-        init_packages = ["hal", "hal/simulation"],
         python_deps = [
+            "//subprojects/robotpy-native-wpihal:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
         ],
         local_extension_deps = [
             ("hal/_wpiHal", "copy_wpihal"),
@@ -688,19 +695,30 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         extra_srcs = extra_srcs,
         includes = includes,
     )
+
     make_pyi(
         name = "wpihal.make_pyi",
         extension_package = "hal._wpiHal",
+        extension_library = "copy_wpihal",
         interface_files = [
             "_wpiHal.pyi",
         ],
-        init_pkgcfgs = ["hal/_init__wpiHal.py"],
+        init_pkgcfgs = [
+            "hal/simulation/_init__simulation.py",
+            "hal/_init__wpiHal.py",
+        ],
+        init_packages = [
+            "hal/simulation",
+            "hal",
+        ],
         install_path = "hal",
-        extension_library = "copy_wpihal",
-        init_packages = ["hal"],
         python_deps = [
+            "//subprojects/robotpy-native-wpihal:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpihal:robotpy-native-wpihal",
+        ],
+        local_extension_deps = [
+            ("hal/simulation/_simulation", "copy_hal_simulation"),
         ],
     )
 
@@ -760,6 +778,7 @@ def define_pybind_library(name, version):
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpihal:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-hal"],

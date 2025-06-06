@@ -416,16 +416,18 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     make_pyi(
         name = "ntcore.make_pyi",
         extension_package = "ntcore._ntcore",
+        extension_library = "copy_ntcore",
         interface_files = [
             "__init__.pyi",
             "meta.pyi",
         ],
         init_pkgcfgs = ["ntcore/_init__ntcore.py"],
-        install_path = "ntcore/_ntcore",
-        extension_library = "copy_ntcore",
         init_packages = ["ntcore"],
+        install_path = "ntcore/_ntcore",
         python_deps = [
             "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
@@ -473,10 +475,12 @@ def define_pybind_library(name, version):
     robotpy_library(
         name = name,
         srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["ntcore.extra_pkg_files"] + [":pyi_files"],
+        data = get_generated_data_files() + ["ntcore.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-ntcore:import",
+            "//subprojects/robotpy-native-wpinet:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
@@ -492,5 +496,5 @@ def define_pybind_library(name, version):
         package_summary = "Binary wrappers for the FRC ntcore library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-ntcore==2025.3.2", "robotpy-wpinet==2025.3.2.2", "robotpy-wpiutil==2025.3.2.2"],
+        package_requires = ["robotpy-native-ntcore==2025.3.2", "robotpy-wpiutil==2025.3.2.2", "robotpy-wpinet==2025.3.2.2"],
     )

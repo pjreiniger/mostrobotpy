@@ -1,6 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_include_root")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
 def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
     WPIUTIL_HEADER_GEN = [
@@ -220,7 +220,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         init_packages = ["wpiutil"],
         install_path = "wpiutil/_wpiutil",
         python_deps = [
-            "//subprojects/robotpy-native-wpiutil:robotpy-native-wpiutil",
+            "//subprojects/robotpy-native-wpiutil:import",
         ],
     )
 
@@ -278,7 +278,7 @@ def define_pybind_library(name, version):
     robotpy_library(
         name = name,
         srcs = native.glob(["wpiutil/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpiutil.extra_pkg_files"] + [":pyi_files"],
+        data = get_generated_data_files() + ["wpiutil.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = ["//subprojects/robotpy-native-wpiutil:import"],
         strip_path_prefixes = ["subprojects/robotpy-wpiutil"],

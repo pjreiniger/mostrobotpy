@@ -123,8 +123,9 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         ],
         install_path = "wpimath",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -286,8 +287,9 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
         install_path = "wpimath/filter",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
@@ -553,8 +555,9 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         ],
         install_path = "wpimath/geometry",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
             requirement("numpy"),
         ],
         local_extension_deps = [
@@ -689,8 +692,9 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         ],
         install_path = "wpimath/interpolation",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
@@ -1027,8 +1031,9 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         ],
         install_path = "wpimath/kinematics",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
         ],
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
@@ -1193,8 +1198,9 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
         install_path = "wpimath/spline",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
             requirement("numpy"),
         ],
         local_extension_deps = [
@@ -1905,8 +1911,9 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
         ],
         install_path = "wpimath/_controls/_controls",
         python_deps = [
+            "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            "//subprojects/robotpy-native-wpimath:robotpy-native-wpimath",
             requirement("numpy"),
         ],
         local_extension_deps = [
@@ -2033,10 +2040,11 @@ def define_pybind_library(name, version):
     robotpy_library(
         name = name,
         srcs = native.glob(["wpimath/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["wpimath.extra_pkg_files"] + [":pyi_files"],
+        data = get_generated_data_files() + ["wpimath.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpimath:import",
+            "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-wpimath"],
