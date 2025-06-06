@@ -1,0 +1,34 @@
+load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
+load("//subprojects/robotpy-wpilog:generated_build_info.bzl", "define_pybind_library", "wpilog_extension")
+
+generate_build_info(
+    name = "wpilog",
+    # additional_srcs = ["wpiutil/src/wpistruct/wpystruct_fns.h"],
+    local_libraries = [
+        "//subprojects/robotpy-native-wpiutil:import",
+        "//subprojects/robotpy-native-datalog:import",
+        "//subprojects/robotpy-wpiutil:import",
+    ],
+    pkgcfgs = [
+        "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
+        "$(location //subprojects/robotpy-native-datalog:import)/site-packages/native/datalog/robotpy-native-datalog.pc",
+        "$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc",
+    ],
+    pyproject_toml = ":pyproject.toml",
+    yaml_files = glob(["semiwrap/*.yml"]),
+)
+
+wpilog_extension(
+    entry_point = ["src/main.cpp"],
+    header_to_dat_deps = [],
+    deps = [
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        "@bzlmodrio-allwpilib//libraries/cpp/datalog:shared",
+    ],
+)
+
+define_pybind_library(
+    name = "wpilog",
+    version = MOSTROBOTPY_VERSION,
+)

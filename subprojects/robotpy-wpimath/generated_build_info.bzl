@@ -1364,16 +1364,6 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
             ],
         ),
         struct(
-            class_name = "RamseteController",
-            yml_file = "semiwrap/controls/RamseteController.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/controller/RamseteController.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::RamseteController", "frc__RamseteController.hpp"),
-            ],
-        ),
-        struct(
             class_name = "SimpleMotorFeedforward",
             yml_file = "semiwrap/controls/SimpleMotorFeedforward.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
@@ -1656,16 +1646,6 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
             tmpl_class_names = [],
             trampolines = [
                 ("frc::TrajectoryParameterizer", "frc__TrajectoryParameterizer.hpp"),
-            ],
-        ),
-        struct(
-            class_name = "TrajectoryUtil",
-            yml_file = "semiwrap/controls/TrajectoryUtil.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpimath", "wpimath") + "/frc/trajectory/TrajectoryUtil.h",
-            tmpl_class_names = [],
-            trampolines = [
-                ("frc::TrajectoryUtil", "frc__TrajectoryUtil.hpp"),
             ],
         ),
         struct(
@@ -2042,5 +2022,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "Binary wrapper for FRC WPIMath library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-wpimath==2025.3.2", "robotpy-wpiutil==2025.3.2.2"],
+        package_requires = ["robotpy-native-wpimath==2027.0.0a1.dev0", "robotpy-wpiutil==2027.0.0a1.dev0"],
     )

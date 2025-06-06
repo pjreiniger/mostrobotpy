@@ -36,12 +36,18 @@ archive_override(
     urls = ["https://github.com/pybind/pybind11_bazel/archive/2b6082a4d9d163a52299718113fa41e4b7978db5.tar.gz"],
 )
 
-archive_override(
+
+local_path_override(
     module_name = "bzlmodrio-allwpilib",
-    integrity = "sha256-xGfPnmwkmynzIe6hjOpkTsiSkblt4bqS7DRTXjB+dDA=",
-    strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
-    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
+    path = "/home/pjreiniger/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
 )
+
+# archive_override(
+#     module_name = "bzlmodrio-allwpilib",
+#     integrity = "sha256-xGfPnmwkmynzIe6hjOpkTsiSkblt4bqS7DRTXjB+dDA=",
+#     strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
+#     urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
+# )
 
 python = use_extension(
     "@rules_python//python/extensions:python.bzl",

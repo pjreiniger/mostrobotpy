@@ -5,14 +5,6 @@ load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper",
 def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     HAL_SIMULATION_HEADER_GEN = [
         struct(
-            class_name = "AccelerometerData",
-            yml_file = "semiwrap/simulation/AccelerometerData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/AccelerometerData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "AddressableLEDData",
             yml_file = "semiwrap/simulation/AddressableLEDData.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
@@ -21,34 +13,10 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
             trampolines = [],
         ),
         struct(
-            class_name = "AnalogGyroData",
-            yml_file = "semiwrap/simulation/AnalogGyroData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/AnalogGyroData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "AnalogInData",
             yml_file = "semiwrap/simulation/AnalogInData.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/AnalogInData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "AnalogOutData",
-            yml_file = "semiwrap/simulation/AnalogOutData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/AnalogOutData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "AnalogTriggerData",
-            yml_file = "semiwrap/simulation/AnalogTriggerData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/AnalogTriggerData.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -143,14 +111,6 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
             trampolines = [],
         ),
         struct(
-            class_name = "RelayData",
-            yml_file = "semiwrap/simulation/RelayData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/RelayData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "Reset",
             yml_file = "semiwrap/simulation/Reset.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
@@ -163,14 +123,6 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
             yml_file = "semiwrap/simulation/RoboRioData.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/RoboRioData.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "SPIAccelerometerData",
-            yml_file = "semiwrap/simulation/SPIAccelerometerData.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/simulation/SPIAccelerometerData.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -194,7 +146,7 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
     gen_libinit(
         name = "hal_simulation.gen_lib_init",
         output_file = "hal/simulation/_init__simulation.py",
-        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
+        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil", "ntcore._init__ntcore"],
     )
 
     gen_pkgconf(
@@ -221,7 +173,10 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         trampoline_subpath = "hal/simulation",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
+            local_native_libraries_helper("datalog"),
+            local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
         ],
     )
@@ -251,42 +206,38 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps, extension_na
         includes = includes,
     )
 
-    make_pyi(
-        name = "hal_simulation.make_pyi",
-        extension_package = "hal.simulation._simulation",
-        extension_library = "copy_hal_simulation",
-        interface_files = [
-            "_simulation.pyi",
-        ],
-        init_pkgcfgs = [
-            "hal/simulation/_init__simulation.py",
-            "hal/_init__wpiHal.py",
-        ],
-        init_packages = [
-            "hal/simulation",
-            "hal",
-        ],
-        install_path = "hal/simulation",
-        python_deps = [
-            "//subprojects/robotpy-native-wpihal:import",
-            "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
-        ] + extra_pyi_deps,
-        local_extension_deps = [
-            ("hal/_wpiHal", "copy_wpihal"),
-        ],
-    )
+    # make_pyi(
+    #     name = "hal_simulation.make_pyi",
+    #     extension_package = "hal.simulation._simulation",
+    #     extension_library = "copy_hal_simulation",
+    #     interface_files = [
+    #         "_simulation.pyi",
+    #     ],
+    #     init_pkgcfgs = [
+    #         "hal/simulation/_init__simulation.py",
+    #         "hal/_init__wpiHal.py",
+    #     ],
+    #     init_packages = [
+    #         "hal/simulation",
+    #         "hal",
+    #     ],
+    #     install_path = "hal/simulation",
+    #     python_deps = [
+    #         "//subprojects/pyntcore:import",
+    #         "//subprojects/robotpy-native-ntcore:import",
+    #         "//subprojects/robotpy-native-wpihal:import",
+    #         "//subprojects/robotpy-native-wpiutil:import",
+    #         "//subprojects/robotpy-wpilog:import",
+    #         "//subprojects/robotpy-wpinet:import",
+    #         "//subprojects/robotpy-wpiutil:import",
+    #     ] + extra_pyi_deps,
+    #     local_extension_deps = [
+    #         ("hal/_wpiHal", "copy_wpihal"),
+    #     ],
+    # )
 
 def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIHAL_HEADER_GEN = [
-        struct(
-            class_name = "Accelerometer",
-            yml_file = "semiwrap/Accelerometer.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/Accelerometer.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
         struct(
             class_name = "AddressableLED",
             yml_file = "semiwrap/AddressableLED.yml",
@@ -306,42 +257,10 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "AnalogAccumulator",
-            yml_file = "semiwrap/AnalogAccumulator.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/AnalogAccumulator.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "AnalogGyro",
-            yml_file = "semiwrap/AnalogGyro.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/AnalogGyro.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "AnalogInput",
             yml_file = "semiwrap/AnalogInput.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/AnalogInput.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "AnalogOutput",
-            yml_file = "semiwrap/AnalogOutput.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/AnalogOutput.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "AnalogTrigger",
-            yml_file = "semiwrap/AnalogTrigger.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/AnalogTrigger.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -369,7 +288,10 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/CANAPITypes.h",
             tmpl_class_names = [],
-            trampolines = [],
+            trampolines = [
+                ("HAL_CANMessage", "__HAL_CANMessage.hpp"),
+                ("HAL_CANReceiveMessage", "__HAL_CANReceiveMessage.hpp"),
+            ],
         ),
         struct(
             class_name = "CTREPCM",
@@ -451,14 +373,6 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             trampolines = [],
         ),
         struct(
-            class_name = "FRCUsageReporting",
-            yml_file = "semiwrap/FRCUsageReporting.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/FRCUsageReporting.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "HALBase",
             yml_file = "semiwrap/HALBase.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
@@ -479,22 +393,6 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             yml_file = "semiwrap/I2CTypes.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
             header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/I2CTypes.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "Interrupts",
-            yml_file = "semiwrap/Interrupts.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/Interrupts.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "LEDs",
-            yml_file = "semiwrap/LEDs.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/LEDs.h",
             tmpl_class_names = [],
             trampolines = [],
         ),
@@ -564,30 +462,6 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
             ],
         ),
         struct(
-            class_name = "Relay",
-            yml_file = "semiwrap/Relay.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/Relay.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "SPI",
-            yml_file = "semiwrap/SPI.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/SPI.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
-            class_name = "SPITypes",
-            yml_file = "semiwrap/SPITypes.yml",
-            header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
-            header_file = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal") + "/hal/SPITypes.h",
-            tmpl_class_names = [],
-            trampolines = [],
-        ),
-        struct(
             class_name = "SerialPort",
             yml_file = "semiwrap/SerialPort.yml",
             header_root = resolve_include_root("//subprojects/robotpy-native-wpihal", "wpihal"),
@@ -639,7 +513,7 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     gen_libinit(
         name = "wpihal.gen_lib_init",
         output_file = "hal/_init__wpiHal.py",
-        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil"],
+        modules = ["native.wpihal._init_robotpy_native_wpihal", "wpiutil._init__wpiutil", "ntcore._init__ntcore"],
     )
 
     gen_pkgconf(
@@ -666,7 +540,10 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         trampoline_subpath = "hal",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpihal"),
+            local_native_libraries_helper("datalog"),
+            local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
         ],
     )
@@ -696,31 +573,35 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         includes = includes,
     )
 
-    make_pyi(
-        name = "wpihal.make_pyi",
-        extension_package = "hal._wpiHal",
-        extension_library = "copy_wpihal",
-        interface_files = [
-            "_wpiHal.pyi",
-        ],
-        init_pkgcfgs = [
-            "hal/simulation/_init__simulation.py",
-            "hal/_init__wpiHal.py",
-        ],
-        init_packages = [
-            "hal/simulation",
-            "hal",
-        ],
-        install_path = "hal",
-        python_deps = [
-            "//subprojects/robotpy-native-wpihal:import",
-            "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
-        ] + extra_pyi_deps,
-        local_extension_deps = [
-            ("hal/simulation/_simulation", "copy_hal_simulation"),
-        ],
-    )
+    # make_pyi(
+    #     name = "wpihal.make_pyi",
+    #     extension_package = "hal._wpiHal",
+    #     extension_library = "copy_wpihal",
+    #     interface_files = [
+    #         "_wpiHal.pyi",
+    #     ],
+    #     init_pkgcfgs = [
+    #         "hal/simulation/_init__simulation.py",
+    #         "hal/_init__wpiHal.py",
+    #     ],
+    #     init_packages = [
+    #         "hal/simulation",
+    #         "hal",
+    #     ],
+    #     install_path = "hal",
+    #     python_deps = [
+    #         "//subprojects/pyntcore:import",
+    #         "//subprojects/robotpy-native-ntcore:import",
+    #         "//subprojects/robotpy-native-wpihal:import",
+    #         "//subprojects/robotpy-native-wpiutil:import",
+    #         "//subprojects/robotpy-wpilog:import",
+    #         "//subprojects/robotpy-wpinet:import",
+    #         "//subprojects/robotpy-wpiutil:import",
+    #     ] + extra_pyi_deps,
+    #     local_extension_deps = [
+    #         ("hal/simulation/_simulation", "copy_hal_simulation"),
+    #     ],
+    # )
 
 def get_generated_data_files():
     copy_extension_library(
@@ -766,8 +647,8 @@ def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "pyi_files",
         srcs = [
-            ":hal_simulation.make_pyi",
-            ":wpihal.make_pyi",
+            # ":hal_simulation.make_pyi",
+            # ":wpihal.make_pyi",
         ],
     )
 
@@ -777,8 +658,12 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         data = get_generated_data_files() + ["hal.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
+            "//subprojects/pyntcore:import",
+            "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpihal:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
+            "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
         strip_path_prefixes = ["subprojects/robotpy-hal"],
@@ -794,5 +679,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "Binary wrapper for FRC HAL",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-wpihal==2025.3.2", "robotpy-wpiutil==2025.3.2.2"],
+        package_requires = ["robotpy-native-wpihal==2027.0.0a1.dev0", "robotpy-wpiutil==2027.0.0a1.dev0"],
     )

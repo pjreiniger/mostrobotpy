@@ -355,7 +355,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
     gen_libinit(
         name = "ntcore.gen_lib_init",
         output_file = "ntcore/_init__ntcore.py",
-        modules = ["native.ntcore._init_robotpy_native_ntcore", "wpiutil._init__wpiutil", "wpinet._init__wpinet"],
+        modules = ["native.ntcore._init_robotpy_native_ntcore", "wpiutil._init__wpiutil", "wpinet._init__wpinet", "wpilog._init__wpilog"],
     )
 
     gen_pkgconf(
@@ -382,6 +382,7 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         trampoline_subpath = "ntcore",
         deps = header_to_dat_deps,
         local_native_libraries = [
+            local_native_libraries_helper("datalog"),
             local_native_libraries_helper("ntcore"),
             local_native_libraries_helper("wpinet"),
             local_native_libraries_helper("wpiutil"),
@@ -413,25 +414,27 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         includes = includes,
     )
 
-    make_pyi(
-        name = "ntcore.make_pyi",
-        extension_package = "ntcore._ntcore",
-        extension_library = "copy_ntcore",
-        interface_files = [
-            "__init__.pyi",
-            "meta.pyi",
-        ],
-        init_pkgcfgs = ["ntcore/_init__ntcore.py"],
-        init_packages = ["ntcore"],
-        install_path = "ntcore/_ntcore",
-        python_deps = [
-            "//subprojects/robotpy-native-ntcore:import",
-            "//subprojects/robotpy-native-wpinet:import",
-            "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpinet:import",
-            "//subprojects/robotpy-wpiutil:import",
-        ] + extra_pyi_deps,
-    )
+    # make_pyi(
+    #     name = "ntcore.make_pyi",
+    #     extension_package = "ntcore._ntcore",
+    #     extension_library = "copy_ntcore",
+    #     interface_files = [
+    #         "__init__.pyi",
+    #         "meta.pyi",
+    #     ],
+    #     init_pkgcfgs = ["ntcore/_init__ntcore.py"],
+    #     init_packages = ["ntcore"],
+    #     install_path = "ntcore/_ntcore",
+    #     python_deps = [
+    #         "//subprojects/robotpy-native-datalog:import",
+    #         "//subprojects/robotpy-native-ntcore:import",
+    #         "//subprojects/robotpy-native-wpinet:import",
+    #         "//subprojects/robotpy-native-wpiutil:import",
+    #         "//subprojects/robotpy-wpilog:import",
+    #         "//subprojects/robotpy-wpinet:import",
+    #         "//subprojects/robotpy-wpiutil:import",
+    #     ] + extra_pyi_deps,
+    # )
 
 def get_generated_data_files():
     copy_extension_library(
@@ -465,22 +468,24 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         tags = ["manual"],
     )
 
-    native.filegroup(
-        name = "pyi_files",
-        srcs = [
-            ":ntcore.make_pyi",
-        ],
-    )
+    # native.filegroup(
+    #     name = "pyi_files",
+    #     srcs = [
+    #         ":ntcore.make_pyi",
+    #     ],
+    # )
 
     robotpy_library(
         name = name,
         srcs = native.glob(["ntcore/**/*.py"]) + libinit_files(),
-        data = get_generated_data_files() + ["ntcore.extra_pkg_files", ":pyi_files"],
+        data = get_generated_data_files() + ["ntcore.extra_pkg_files"],
         imports = ["."],
         robotpy_wheel_deps = [
+            "//subprojects/robotpy-native-datalog:import",
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
+            "//subprojects/robotpy-wpilog:import",
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ],
@@ -496,5 +501,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "Binary wrappers for the FRC ntcore library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-native-ntcore==2025.3.2", "robotpy-wpiutil==2025.3.2.2", "robotpy-wpinet==2025.3.2.2"],
+        package_requires = ["robotpy-native-ntcore==2027.0.0a1.dev0", "robotpy-wpiutil==2027.0.0a1.dev0", "robotpy-wpinet==2027.0.0a1.dev0", "robotpy-wpilog==2027.0.0a1.dev0"],
     )

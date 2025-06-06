@@ -1,0 +1,23 @@
+load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("//:version.bzl", "NATIVE_VERSION")
+
+create_native_library(
+    name = "datalog",
+    package_name = "robotpy-native-datalog",
+    entry_points = {"pkg_config": ["datalog = native.datalog"]},
+    headers = "@bzlmodrio-allwpilib//libraries/cpp/datalog:header_files",
+    headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_datalog_datalog-cpp_headers"],
+    lib_name = "datalog",
+    module_dependencies = [
+        "native.wpinet._init_robotpy_native_wpinet",
+        "native.wpiutil._init_robotpy_native_wpiutil",
+    ],
+    package_requires = [
+        "robotpy-native-wpinet==2025.3.2",
+        "robotpy-native-wpiutil==2025.3.2",
+    ],
+    package_summary = "WPILib NetworkTables Library",
+    shared_library = "@bzlmodrio-allwpilib//libraries/cpp/datalog:shared_raw",
+    strip_pkg_prefix = ["subprojects/robotpy-native-datalog"],
+    version = NATIVE_VERSION,
+)
