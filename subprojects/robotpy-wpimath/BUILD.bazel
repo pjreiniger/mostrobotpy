@@ -1,6 +1,7 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "define_pybind_library", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 
 generate_build_info(
     name = "wpimath",
@@ -72,6 +73,7 @@ wpimath_geometry_extension(
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
     ],
+    extra_pyi_deps = [requirement("numpy")],
 )
 
 wpimath_interpolation_extension(
@@ -126,6 +128,7 @@ wpimath_spline_extension(
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
     ],
+    extra_pyi_deps = [requirement("numpy")],
 )
 
 wpimath_controls_extension(
@@ -146,6 +149,7 @@ wpimath_controls_extension(
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "@bzlmodrio-allwpilib//libraries/cpp/wpimath:shared",
     ],
+    extra_pyi_deps = [requirement("numpy")],
 )
 
 define_pybind_library(

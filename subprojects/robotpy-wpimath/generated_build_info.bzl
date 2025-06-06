@@ -1,9 +1,8 @@
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_HEADER_GEN = [
         struct(
             class_name = "ComputerVisionUtil",
@@ -64,11 +63,6 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpiutil"),
         ],
-        generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-        ],
     )
 
     native.filegroup(
@@ -126,7 +120,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
@@ -137,7 +131,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps, extension_name = No
         ],
     )
 
-def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_FILTER_HEADER_GEN = [
         struct(
             class_name = "Debouncer",
@@ -228,11 +222,6 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpiutil"),
         ],
-        generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-        ],
     )
 
     native.filegroup(
@@ -290,7 +279,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
@@ -301,7 +290,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
     )
 
-def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_GEOMETRY_HEADER_GEN = [
         struct(
             class_name = "CoordinateAxis",
@@ -496,11 +485,6 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpiutil"),
         ],
-        generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-        ],
     )
 
     native.filegroup(
@@ -558,8 +542,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -570,7 +553,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps, extension_
         ],
     )
 
-def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_INTERPOLATION_HEADER_GEN = [
         struct(
             class_name = "TimeInterpolatableBuffer",
@@ -633,11 +616,6 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
             local_native_libraries_helper("wpimath"),
             local_native_libraries_helper("wpiutil"),
         ],
-        generation_includes = [
-            "subprojects/robotpy-wpimath/wpimath",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src",
-            "subprojects/robotpy-wpimath/wpimath/_impl/src/type_casters",
-        ],
     )
 
     native.filegroup(
@@ -695,7 +673,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -706,7 +684,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps, exten
         ],
     )
 
-def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_KINEMATICS_HEADER_GEN = [
         struct(
             class_name = "ChassisSpeeds",
@@ -1034,7 +1012,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -1045,7 +1023,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps, extensio
         ],
     )
 
-def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
             class_name = "CubicHermiteSpline",
@@ -1201,8 +1179,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -1213,7 +1190,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
     )
 
-def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = []):
+def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPIMATH_CONTROLS_HEADER_GEN = [
         struct(
             class_name = "ArmFeedforward",
@@ -1914,8 +1891,7 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps, extension_
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
-            requirement("numpy"),
-        ],
+        ] + extra_pyi_deps,
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -2017,7 +1993,7 @@ def libinit_files():
         "wpimath/_controls/_init__controls.py",
     ]
 
-def define_pybind_library(name, version):
+def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpimath.extra_pkg_files",
         srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"]),
@@ -2061,7 +2037,7 @@ def define_pybind_library(name, version):
                 "wpimath_spline = wpimath.spline",
                 "wpimath_controls = wpimath._controls",
             ],
-        },
+        }.update(extra_entry_points),
         package_name = "robotpy-wpimath",
         package_summary = "Binary wrapper for FRC WPIMath library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},

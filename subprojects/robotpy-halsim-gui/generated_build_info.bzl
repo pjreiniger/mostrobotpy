@@ -41,8 +41,6 @@ def halsim_gui_ext_extension(entry_point, deps, header_to_dat_deps, extension_na
         header_gen_config = HALSIM_GUI_EXT_HEADER_GEN,
         trampoline_subpath = "",
         deps = header_to_dat_deps,
-        generation_includes = [
-        ],
     )
 
     native.filegroup(
