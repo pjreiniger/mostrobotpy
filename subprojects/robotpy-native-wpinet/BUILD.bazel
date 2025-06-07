@@ -1,22 +1,16 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
 load("//:version.bzl", "NATIVE_VERSION")
+load("//subprojects/robotpy-native-wpinet:generated_build_info.bzl", "define_library")
+load("//bazel_scripts:generate_native_build_info.bzl", "generate_native_build_info")
 
-create_native_library(
+generate_native_build_info(
     name = "wpinet",
-    package_name = "robotpy-native-wpinet",
-    entry_points = {"pkg_config": ["wpinet = native.wpinet"]},
+)
+
+define_library(
+    name = "wpinet",
     headers = "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_wpinet_wpinet-cpp_headers"],
-    lib_name = "wpinet",
-    pc_dep_deps = [
-        "//subprojects/robotpy-native-wpiutil:import",
-    ],
-    pc_dep_files = [
-        "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
-    ],
-    package_requires = ["robotpy-native-wpiutil==2025.3.2"],
-    package_summary = "WPILib Networking Library",
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/wpinet:shared_raw",
-    strip_pkg_prefix = ["subprojects/robotpy-native-wpinet"],
     version = NATIVE_VERSION,
 )
