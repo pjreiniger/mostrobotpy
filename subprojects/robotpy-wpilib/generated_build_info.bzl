@@ -146,6 +146,9 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps = [], extension
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
             ("wpilib/_wpilib", "copy_wpilib"),
@@ -300,6 +303,9 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps = [], exte
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/_wpilib", "copy_wpilib"),
@@ -1457,6 +1463,9 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -1619,6 +1628,9 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps = [], extensi
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -1775,6 +1787,9 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps = [], extension
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -2116,6 +2131,9 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps = [], ex
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -2719,6 +2737,9 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps = [], exte
             "//subprojects/robotpy-wpinet:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpilib/event/_event", "copy_wpilib_event"),
             ("wpilib/interfaces/_interfaces", "copy_wpilib_interfaces"),
@@ -2817,15 +2838,18 @@ def define_pybind_library(name, version, extra_entry_points = {}):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [
-            ":wpilib_event.make_pyi",
-            ":wpilib_interfaces.make_pyi",
-            ":wpilib.make_pyi",
-            ":wpilib_counter.make_pyi",
-            ":wpilib_drive.make_pyi",
-            ":wpilib_shuffleboard.make_pyi",
-            ":wpilib_simulation.make_pyi",
-        ],
+        srcs = select({
+            "//conditions:default": [],
+            # "//conditions:default": [
+            #     ":wpilib_event.make_pyi",
+            #     ":wpilib_interfaces.make_pyi",
+            #     ":wpilib.make_pyi",
+            #     ":wpilib_counter.make_pyi",
+            #     ":wpilib_drive.make_pyi",
+            #     ":wpilib_shuffleboard.make_pyi",
+            #     ":wpilib_simulation.make_pyi",
+            # ],
+        }),
     )
 
     robotpy_library(

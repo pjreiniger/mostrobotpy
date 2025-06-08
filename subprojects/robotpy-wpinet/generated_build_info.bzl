@@ -108,6 +108,9 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
     )
 
 def get_generated_data_files():
@@ -144,9 +147,12 @@ def define_pybind_library(name, version, extra_entry_points = {}):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [
-            ":wpinet.make_pyi",
-        ],
+        srcs = select({
+            "//conditions:default": [],
+            # "//conditions:default": [
+            #     ":wpinet.make_pyi",
+            # ],
+        }),
     )
 
     robotpy_library(

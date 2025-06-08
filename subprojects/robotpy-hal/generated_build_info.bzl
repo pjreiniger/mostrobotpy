@@ -272,6 +272,9 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps = [], extensi
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("hal/_wpiHal", "copy_wpihal"),
         ],
@@ -717,6 +720,9 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("hal/simulation/_simulation", "copy_hal_simulation"),
         ],
@@ -765,10 +771,13 @@ def define_pybind_library(name, version, extra_entry_points = {}):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [
-            ":hal_simulation.make_pyi",
-            ":wpihal.make_pyi",
-        ],
+        srcs = select({
+            "//conditions:default": [],
+            # "//conditions:default": [
+            #     ":hal_simulation.make_pyi",
+            #     ":wpihal.make_pyi",
+            # ],
+        }),
     )
 
     robotpy_library(

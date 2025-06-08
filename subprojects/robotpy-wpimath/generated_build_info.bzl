@@ -121,6 +121,9 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
@@ -280,6 +283,9 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extensi
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/geometry/_geometry", "copy_wpimath_geometry"),
@@ -543,6 +549,9 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], exten
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -674,6 +683,9 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], 
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -1013,6 +1025,9 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], ext
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -1180,6 +1195,9 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extensi
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -1892,6 +1910,9 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps = [], exten
             "//subprojects/robotpy-native-wpiutil:import",
             "//subprojects/robotpy-wpiutil:import",
         ] + extra_pyi_deps,
+        target_compatible_with = select({
+            "//conditions:default": ["@platforms//:incompatible"],
+        }),
         local_extension_deps = [
             ("wpimath/_wpimath", "copy_wpimath"),
             ("wpimath/filter/_filter", "copy_wpimath_filter"),
@@ -2002,15 +2023,18 @@ def define_pybind_library(name, version, extra_entry_points = {}):
 
     native.filegroup(
         name = "pyi_files",
-        srcs = [
-            ":wpimath.make_pyi",
-            ":wpimath_filter.make_pyi",
-            ":wpimath_geometry.make_pyi",
-            ":wpimath_interpolation.make_pyi",
-            ":wpimath_kinematics.make_pyi",
-            ":wpimath_spline.make_pyi",
-            ":wpimath_controls.make_pyi",
-        ],
+        srcs = select({
+            "//conditions:default": [],
+            # "//conditions:default": [
+            #     ":wpimath.make_pyi",
+            #     ":wpimath_filter.make_pyi",
+            #     ":wpimath_geometry.make_pyi",
+            #     ":wpimath_interpolation.make_pyi",
+            #     ":wpimath_kinematics.make_pyi",
+            #     ":wpimath_spline.make_pyi",
+            #     ":wpimath_controls.make_pyi",
+            # ],
+        }),
     )
 
     robotpy_library(
