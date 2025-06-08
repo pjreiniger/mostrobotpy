@@ -1,5 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_native_file", "robotpy_library")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 copy_native_file(
     name = "halsim_ds_socket",
@@ -20,7 +21,7 @@ robotpy_library(
     package_requires = ["robotpy-native-wpiutil==2025.3.2"],
     package_summary = "Binary wrapper for FRC WPIUtil library",
     robotpy_wheel_deps = [
-        "//subprojects/robotpy-wpilib:import",
+        local_pybind_library("//subprojects/robotpy-wpilib", "wpilib"),
     ],
     strip_path_prefixes = ["subprojects/robotpy-halsim-ds-socket"],
     version = MOSTROBOTPY_VERSION,

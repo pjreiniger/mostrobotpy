@@ -1,6 +1,7 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/pyntcore:generated_build_info.bzl", "define_pybind_library", "ntcore_extension")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "ntcore",
@@ -8,9 +9,8 @@ generate_build_info(
         ("//subprojects/robotpy-native-ntcore:import", ["$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc"]),
         ("//subprojects/robotpy-native-wpinet:import", ["$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc"]),
         ("//subprojects/robotpy-native-wpiutil:import", ["$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc"]),
-        ("//subprojects/robotpy-wpinet:import", ["$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc"]),
-        ("//subprojects/robotpy-wpiutil:import", ["$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc"]),
-    ],
+    ] + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"])
+    + local_pc_file_util("//subprojects/robotpy-wpinet", ["wpinet/wpinet.pc"]),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/*.yml"]),
 )

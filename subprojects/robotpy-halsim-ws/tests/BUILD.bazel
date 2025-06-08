@@ -1,5 +1,6 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 robotpy_py_test(
     "halsim_ws_tests",
@@ -13,6 +14,6 @@ robotpy_py_test(
     ),
     deps = [
         requirement("pytest"),
-        "//subprojects/robotpy-halsim-ws:import",
+        local_pybind_library("//subprojects/robotpy-halsim-ws", "halsim-ws"),
     ],
 )

@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_HEADER_GEN = [
@@ -119,7 +120,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -281,7 +282,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extensi
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -547,7 +548,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], exten
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -681,7 +682,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], 
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -1023,7 +1024,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], ext
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -1193,7 +1194,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extensi
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -1908,7 +1909,7 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps = [], exten
         python_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -2045,7 +2046,7 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         robotpy_wheel_deps = [
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ],
         strip_path_prefixes = ["subprojects/robotpy-wpimath"],
         version = version,

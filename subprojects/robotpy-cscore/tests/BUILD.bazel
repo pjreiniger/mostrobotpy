@@ -1,5 +1,6 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 robotpy_py_test(
     "cscore_tests",
@@ -14,6 +15,6 @@ robotpy_py_test(
     deps = [
         requirement("numpy"),
         requirement("pytest"),
-        "//subprojects/robotpy-cscore:import",
+        local_pybind_library("//subprojects/robotpy-cscore", "cscore"),
     ],
 )

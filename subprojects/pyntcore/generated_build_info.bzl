@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 def ntcore_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     NTCORE_HEADER_GEN = [
@@ -428,8 +429,8 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpinet:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpinet", "wpinet"),
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -487,8 +488,8 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             "//subprojects/robotpy-native-ntcore:import",
             "//subprojects/robotpy-native-wpinet:import",
             "//subprojects/robotpy-native-wpiutil:import",
-            "//subprojects/robotpy-wpinet:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-wpinet", "wpinet"),
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ],
         strip_path_prefixes = ["subprojects/pyntcore"],
         version = version,

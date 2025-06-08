@@ -1,5 +1,6 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("@rules_semiwrap//:defs.bzl", "robotpy_py_test")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 robotpy_py_test(
     "wpinet_tests",
@@ -12,7 +13,7 @@ robotpy_py_test(
         ],
     ),
     deps = [
-        "//subprojects/robotpy-wpinet:import",
+        local_pybind_library("//subprojects/robotpy-wpinet", "wpinet"),
         requirement("pytest"),
     ],
 )

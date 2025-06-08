@@ -1,6 +1,7 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
 
 def xrp_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     XRP_HEADER_GEN = [
@@ -148,14 +149,14 @@ def xrp_extension(entry_point, deps, header_to_dat_deps = [], extension_name = N
         init_packages = ["xrp"],
         install_path = "xrp",
         python_deps = [
-            "//subprojects/pyntcore:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-xrp:import",
-            "//subprojects/robotpy-wpilib:import",
-            "//subprojects/robotpy-wpimath:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/pyntcore", "ntcore"),
+            local_pybind_library("//subprojects/robotpy-hal", "hal"),
+            local_pybind_library("//subprojects/robotpy-wpilib", "wpilib"),
+            local_pybind_library("//subprojects/robotpy-wpimath", "wpimath"),
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -210,14 +211,14 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         data = get_generated_data_files() + ["xrp.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
-            "//subprojects/pyntcore:import",
-            "//subprojects/robotpy-hal:import",
             "//subprojects/robotpy-native-wpilib:import",
             "//subprojects/robotpy-native-wpimath:import",
             "//subprojects/robotpy-native-xrp:import",
-            "//subprojects/robotpy-wpilib:import",
-            "//subprojects/robotpy-wpimath:import",
-            "//subprojects/robotpy-wpiutil:import",
+            local_pybind_library("//subprojects/pyntcore", "ntcore"),
+            local_pybind_library("//subprojects/robotpy-hal", "hal"),
+            local_pybind_library("//subprojects/robotpy-wpilib", "wpilib"),
+            local_pybind_library("//subprojects/robotpy-wpimath", "wpimath"),
+            local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ],
         strip_path_prefixes = ["subprojects/robotpy-xrp"],
         version = version,

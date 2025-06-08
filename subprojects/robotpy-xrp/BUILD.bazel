@@ -1,6 +1,7 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "define_pybind_library", "xrp_extension")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "xrp",
@@ -12,24 +13,25 @@ generate_build_info(
         ("//subprojects/robotpy-native-wpihal:import", ["$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc"]),
         ("//subprojects/robotpy-native-wpinet:import", ["$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc"]),
         ("//subprojects/robotpy-native-ntcore:import", ["$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc"]),
-        ("//subprojects/robotpy-wpimath:import", [
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/wpimath.pc",
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/geometry/wpimath_geometry.pc",
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/filter/wpimath_filter.pc",
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/_controls/wpimath_controls.pc",
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/kinematics/wpimath_kinematics.pc",
-            "$(location //subprojects/robotpy-wpimath:import)/site-packages/wpimath/spline/wpimath_spline.pc",
-        ]),
-        ("//subprojects/robotpy-wpilib:import", [
-            "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/wpilib.pc",
-            "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/interfaces/wpilib_interfaces.pc",
-            "$(location //subprojects/robotpy-wpilib:import)/site-packages/wpilib/event/wpilib_event.pc",
-        ]),
-        ("//subprojects/robotpy-wpinet:import", ["$(location //subprojects/robotpy-wpinet:import)/site-packages/wpinet/wpinet.pc"]),
-        ("//subprojects/robotpy-hal:import", ["$(location //subprojects/robotpy-hal:import)/site-packages/hal/wpihal.pc"]),
-        ("//subprojects/pyntcore:import", ["$(location //subprojects/pyntcore:import)/site-packages/ntcore/ntcore.pc"]),
-        ("//subprojects/robotpy-wpiutil:import", ["$(location //subprojects/robotpy-wpiutil:import)/site-packages/wpiutil/wpiutil.pc"]),
-    ],
+    ] + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"])
+      + local_pc_file_util("//subprojects/pyntcore", ["ntcore/ntcore.pc"])
+      + local_pc_file_util("//subprojects/robotpy-wpinet", ["wpinet/wpinet.pc"])
+      + local_pc_file_util("//subprojects/robotpy-hal", ["hal/wpihal.pc"])
+      + local_pc_file_util("//subprojects/robotpy-wpimath", [
+        "wpimath/wpimath.pc", 
+        "wpimath/wpimath-casters.pc", 
+        "wpimath/geometry/wpimath_geometry.pc", 
+        "wpimath/filter/wpimath_filter.pc", 
+        "wpimath/_controls/wpimath_controls.pc", 
+        "wpimath/kinematics/wpimath_kinematics.pc", 
+        "wpimath/spline/wpimath_spline.pc",
+        "wpimath/wpimath-casters.pybind11.json",
+    ])
+      + local_pc_file_util("//subprojects/robotpy-wpilib", [
+            "wpilib/wpilib.pc",
+            "wpilib/interfaces/wpilib_interfaces.pc",
+            "wpilib/event/wpilib_event.pc",
+    ]),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/**/*.yml"]),
 )
