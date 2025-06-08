@@ -25,15 +25,10 @@ generate_build_info(
 
 apriltag_extension(
     entry_point = ["robotpy_apriltag/src/main.cpp"],
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/apriltag:header_files",
-    ],
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared",
+        "//subprojects/robotpy-native-apriltag:apriltag",
     ],
     extra_pyi_deps = [requirement("numpy")],
 )

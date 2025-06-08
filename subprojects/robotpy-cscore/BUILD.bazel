@@ -1,4 +1,6 @@
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-cscore:generated_build_info.bzl", "cscore_extension", "define_pybind_library", "publish_library_casters")
 
 # generate_build_info(
@@ -55,6 +57,7 @@ cscore_extension(
         "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
         "@bzlmodrio-opencv//libraries/cpp/opencv:static",
     ],
+    extra_pyi_deps = [requirement("numpy")]
 )
 
 define_pybind_library(

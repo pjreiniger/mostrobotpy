@@ -2,7 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_libr
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_event_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_EVENT_HEADER_GEN = [
         struct(
             class_name = "BooleanEvent",
@@ -156,7 +156,7 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps, extension_name
         ],
     )
 
-def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_INTERFACES_HEADER_GEN = [
         struct(
             class_name = "CounterBase",
@@ -310,7 +310,7 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps, extension
         ],
     )
 
-def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMU",
@@ -1467,7 +1467,7 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps, extension_name = Non
         ],
     )
 
-def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_counter_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_COUNTER_HEADER_GEN = [
         struct(
             class_name = "EdgeConfiguration",
@@ -1629,7 +1629,7 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps, extension_na
         ],
     )
 
-def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_drive_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_DRIVE_HEADER_GEN = [
         struct(
             class_name = "DifferentialDrive",
@@ -1785,7 +1785,7 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps, extension_name
         ],
     )
 
-def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_SHUFFLEBOARD_HEADER_GEN = [
         struct(
             class_name = "BuiltInLayouts",
@@ -2126,7 +2126,7 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps, extensi
         ],
     )
 
-def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps, extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
     WPILIB_SIMULATION_HEADER_GEN = [
         struct(
             class_name = "ADIS16448_IMUSim",
@@ -2811,7 +2811,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpilib.extra_pkg_files",
-        srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"]),
+        srcs = native.glob(["wpilib/**"], exclude = ["wpilib/**/*.py"], allow_empty=True),
         tags = ["manual"],
     )
 
