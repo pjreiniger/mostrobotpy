@@ -39,7 +39,6 @@ write_source_files(
         "//subprojects/robotpy-wpinet:wpinet.generate_build_info",
         "//subprojects/robotpy-wpiutil:wpiutil.generate_build_info",
         "//subprojects/robotpy-xrp:xrp.generate_build_info",
-        
         "//subprojects/robotpy-native-apriltag:apriltag.generate_build_info",
         "//subprojects/robotpy-native-ntcore:ntcore.generate_build_info",
         "//subprojects/robotpy-native-romi:romi.generate_build_info",

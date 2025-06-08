@@ -21,8 +21,8 @@ generate_build_info(
 wpinet_extension(
     entry_point = ["wpinet/src/main.cpp"],
     deps = [
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "//subprojects/robotpy-native-wpinet:wpinet",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
     ],
 )
 

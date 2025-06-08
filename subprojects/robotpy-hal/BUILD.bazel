@@ -36,8 +36,8 @@ hal_simulation_extension(
     ),
     includes = ["hal/simulation"],
     deps = [
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "//subprojects/robotpy-native-wpihal:wpihal",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
     ],
 )
 
@@ -45,8 +45,8 @@ wpihal_extension(
     entry_point = ["hal/src/hal.cpp"],
     extension_name = "_wpiHal",
     deps = [
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
         "//subprojects/robotpy-native-wpihal:wpihal",
+        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
     ],
 )
 

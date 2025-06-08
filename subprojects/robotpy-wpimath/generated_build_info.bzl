@@ -2,7 +2,7 @@ load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_libr
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file", "resolve_include_root")
 
-def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_HEADER_GEN = [
         struct(
             class_name = "ComputerVisionUtil",
@@ -131,7 +131,7 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name
         ],
     )
 
-def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_FILTER_HEADER_GEN = [
         struct(
             class_name = "Debouncer",
@@ -290,7 +290,7 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extensi
         ],
     )
 
-def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_GEOMETRY_HEADER_GEN = [
         struct(
             class_name = "CoordinateAxis",
@@ -553,7 +553,7 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], exten
         ],
     )
 
-def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_INTERPOLATION_HEADER_GEN = [
         struct(
             class_name = "TimeInterpolatableBuffer",
@@ -684,7 +684,7 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], 
         ],
     )
 
-def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_KINEMATICS_HEADER_GEN = [
         struct(
             class_name = "ChassisSpeeds",
@@ -1023,7 +1023,7 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], ext
         ],
     )
 
-def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_SPLINE_HEADER_GEN = [
         struct(
             class_name = "CubicHermiteSpline",
@@ -1190,7 +1190,7 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extensi
         ],
     )
 
-def wpimath_controls_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps=[]):
+def wpimath_controls_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     WPIMATH_CONTROLS_HEADER_GEN = [
         struct(
             class_name = "ArmFeedforward",
@@ -1996,7 +1996,7 @@ def libinit_files():
 def define_pybind_library(name, version, extra_entry_points = {}):
     native.filegroup(
         name = "wpimath.extra_pkg_files",
-        srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"], allow_empty=True),
+        srcs = native.glob(["wpimath/**"], exclude = ["wpimath/**/*.py"], allow_empty = True),
         tags = ["manual"],
     )
 

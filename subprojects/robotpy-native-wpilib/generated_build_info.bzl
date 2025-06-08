@@ -1,5 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_python//python:pip.bzl", "whl_filegroup")
+load("@rules_semiwrap//:defs.bzl", "create_native_library")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -35,8 +36,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpilib/include",
         whl = ":robotpy-native-wpilib-wheel",
     )
-
-    native.cc_library(
+    cc_library(
         name = "wpilib",
         srcs = [shared_library],
         hdrs = [":header_files"],

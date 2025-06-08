@@ -1,7 +1,6 @@
-load("@rules_semiwrap//:defs.bzl", "create_native_library")
 load("//:version.bzl", "NATIVE_VERSION")
-load("//subprojects/robotpy-native-xrp:generated_build_info.bzl", "define_library")
 load("//bazel_scripts:generate_native_build_info.bzl", "generate_native_build_info")
+load("//subprojects/robotpy-native-xrp:generated_build_info.bzl", "define_library")
 
 generate_native_build_info(
     name = "xrp",
@@ -14,4 +13,3 @@ define_library(
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared_raw",
     version = NATIVE_VERSION,
 )
-

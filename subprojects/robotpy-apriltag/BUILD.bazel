@@ -1,7 +1,7 @@
+load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-apriltag:generated_build_info.bzl", "apriltag_extension", "define_pybind_library")
-load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 
 generate_build_info(
     name = "apriltag",
@@ -25,12 +25,12 @@ generate_build_info(
 
 apriltag_extension(
     entry_point = ["robotpy_apriltag/src/main.cpp"],
+    extra_pyi_deps = [requirement("numpy")],
     deps = [
+        "//subprojects/robotpy-native-apriltag:apriltag",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "//subprojects/robotpy-native-apriltag:apriltag",
     ],
-    extra_pyi_deps = [requirement("numpy")],
 )
 
 define_pybind_library(

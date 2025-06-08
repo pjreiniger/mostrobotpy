@@ -34,9 +34,9 @@ ntcore_extension(
     ),
     includes = ["ntcore"],
     deps = [
+        "//subprojects/robotpy-native-ntcore:ntcore",
         "//subprojects/robotpy-wpinet:wpinet_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "//subprojects/robotpy-native-ntcore:ntcore",
     ],
 )
 

@@ -49,16 +49,16 @@ generate_build_info(
 xrp_extension(
     entry_point = ["xrp/src/main.cpp"],
     deps = [
+        "//subprojects/robotpy-native-xrp:xrp",
         "//subprojects/robotpy-wpilib:wpilib_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-native-xrp:xrp",
     ],
 )
 
 define_pybind_library(
     name = "xrp",
+    extra_entry_points = {"robotpysimext": ["xrp = xrp.extension"]},
     version = MOSTROBOTPY_VERSION,
-    extra_entry_points = {"robotpysimext": ["xrp = xrp.extension"]}
 )
 
 filegroup(

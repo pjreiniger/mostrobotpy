@@ -49,9 +49,9 @@ generate_build_info(
 romi_extension(
     entry_point = ["romi/src/main.cpp"],
     deps = [
+        "//subprojects/robotpy-native-romi:romi",
         "//subprojects/robotpy-wpilib:wpilib_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-native-romi:romi",
     ],
 )
 
