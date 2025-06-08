@@ -50,7 +50,6 @@ wpilib_event_extension(
     extension_name = "_event",
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-native-ntcore:ntcore",
         "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
