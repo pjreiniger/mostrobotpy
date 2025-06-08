@@ -38,27 +38,19 @@ hal_simulation_extension(
         ["hal/simulation/*.cpp"],
         exclude = ["hal/simulation/main.cpp"],
     ),
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
     includes = ["hal/simulation"],
     deps = [
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:shared",
+        "//subprojects/robotpy-native-wpihal:wpihal",
     ],
 )
 
 wpihal_extension(
     entry_point = ["hal/src/hal.cpp"],
     extension_name = "_wpiHal",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
     deps = [
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:shared",
+        "//subprojects/robotpy-native-wpihal:wpihal",
     ],
 )
 

@@ -52,19 +52,10 @@ generate_build_info(
 
 xrp_extension(
     entry_point = ["xrp/src/main.cpp"],
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:header_files",
-    ],
     deps = [
         "//subprojects/robotpy-wpilib:wpilib_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/xrpVendordep:shared",
+        "//subprojects/robotpy-native-xrp:xrp",
     ],
 )
 

@@ -1,4 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -19,4 +20,18 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         package_summary = "WPILib Math Library",
         strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
         version = version,
+    )
+
+    whl_filegroup(
+        name = "header_files",
+        pattern = "native/wpimath/include",
+        whl = ":robotpy-native-wpimath-wheel",
+    )
+
+    native.cc_library(
+        name = "wpimath",
+        srcs = [shared_library],
+        hdrs = [":header_files"],
+        includes = ["header_files/native/wpimath/include"],
+        visibility = ["//visibility:public"],
     )

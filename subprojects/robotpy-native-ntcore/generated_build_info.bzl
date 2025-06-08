@@ -1,4 +1,5 @@
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -23,4 +24,18 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         package_summary = "WPILib NetworkTables Library",
         strip_pkg_prefix = ["subprojects/robotpy-native-ntcore"],
         version = version,
+    )
+
+    whl_filegroup(
+        name = "header_files",
+        pattern = "native/ntcore/include",
+        whl = ":robotpy-native-ntcore-wheel",
+    )
+
+    native.cc_library(
+        name = "ntcore",
+        srcs = [shared_library],
+        hdrs = [":header_files"],
+        includes = ["header_files/native/ntcore/include"],
+        visibility = ["//visibility:public"],
     )

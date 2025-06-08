@@ -36,18 +36,12 @@ ntcore_extension(
         ["ntcore/src/*.cpp"],
         exclude = ["ntcore/src/ntcore.cpp"],
     ),
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/datalog:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-    ],
     includes = ["ntcore"],
     deps = [
         "//subprojects/robotpy-wpilog:wpilog_pybind_library",
         "//subprojects/robotpy-wpinet:wpinet_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:shared",
+        "//subprojects/robotpy-native-ntcore:ntcore",
     ],
 )
 

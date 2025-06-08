@@ -52,36 +52,20 @@ generate_build_info(
 wpilib_event_extension(
     entry_point = ["wpilib/event/event.cpp"],
     extension_name = "_event",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
     deps = [
         "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
 wpilib_interfaces_extension(
     entry_point = ["wpilib/interfaces/interfaces.cpp"],
     extension_name = "_interfaces",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
     deps = [
         "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
@@ -95,14 +79,6 @@ wpilib_extension(
         ["wpilib/src/**/*.cpp"],
         exclude = ["wpilib/src/main.cpp"],
     ),
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ],
     includes = [
         "wpilib",
         "wpilib/src",
@@ -117,21 +93,14 @@ wpilib_extension(
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
 wpilib_counter_extension(
     entry_point = ["wpilib/counter/counter.cpp"],
     extension_name = "_counter",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ] + glob([
+    header_to_dat_deps = glob([
         "wpilib/src/rpy/*.h",
         "wpilib/src/rpy/*.inc",
     ]),
@@ -146,21 +115,14 @@ wpilib_counter_extension(
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
 wpilib_drive_extension(
     entry_point = ["wpilib/drive/drive.cpp"],
     extension_name = "_drive",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ] + glob([
+    header_to_dat_deps = glob([
         "wpilib/src/rpy/*.h",
         "wpilib/src/rpy/*.inc",
     ]),
@@ -175,21 +137,14 @@ wpilib_drive_extension(
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
 wpilib_simulation_extension(
     entry_point = ["wpilib/simulation/simulation.cpp"],
     extension_name = "_simulation",
-    header_to_dat_deps = [
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/hal:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/ntcore:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpimath:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpinet:header_files",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpiutil:header_files",
-    ] + glob([
+    header_to_dat_deps = glob([
         "wpilib/src/rpy/*.h",
         "wpilib/src/rpy/*.inc",
     ]),
@@ -205,7 +160,7 @@ wpilib_simulation_extension(
         "//subprojects/robotpy-wpimath:wpimath_kinematics_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
     extra_pyi_deps = [requirement("numpy")],
 )

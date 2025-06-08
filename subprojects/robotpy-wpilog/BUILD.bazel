@@ -21,10 +21,9 @@ generate_build_info(
 
 wpilog_extension(
     entry_point = ["src/main.cpp"],
-    header_to_dat_deps = [],
     deps = [
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/datalog:shared",
+        "//subprojects/robotpy-native-datalog:datalog",
     ],
 )
 
