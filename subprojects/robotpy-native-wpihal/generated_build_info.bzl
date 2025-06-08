@@ -28,6 +28,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpihal/include",
         whl = ":robotpy-native-wpihal-wheel",
     )
+
     cc_library(
         name = "wpihal",
         srcs = [shared_library],

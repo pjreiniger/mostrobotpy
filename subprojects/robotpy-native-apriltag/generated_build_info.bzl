@@ -30,6 +30,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/apriltag/include",
         whl = ":robotpy-native-apriltag-wheel",
     )
+
     cc_library(
         name = "apriltag",
         srcs = [shared_library],

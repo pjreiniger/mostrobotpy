@@ -28,6 +28,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpinet/include",
         whl = ":robotpy-native-wpinet-wheel",
     )
+
     cc_library(
         name = "wpinet",
         srcs = [shared_library],

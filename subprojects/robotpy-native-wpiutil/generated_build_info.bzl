@@ -26,6 +26,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpiutil/include",
         whl = ":robotpy-native-wpiutil-wheel",
     )
+
     cc_library(
         name = "wpiutil",
         srcs = [shared_library],

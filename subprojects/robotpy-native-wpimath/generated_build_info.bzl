@@ -28,6 +28,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpimath/include",
         whl = ":robotpy-native-wpimath-wheel",
     )
+
     cc_library(
         name = "wpimath",
         srcs = [shared_library],

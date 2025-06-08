@@ -36,6 +36,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/wpilib/include",
         whl = ":robotpy-native-wpilib-wheel",
     )
+
     cc_library(
         name = "wpilib",
         srcs = [shared_library],

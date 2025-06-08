@@ -28,6 +28,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/romi/include",
         whl = ":robotpy-native-romi-wheel",
     )
+
     cc_library(
         name = "romi",
         srcs = [shared_library],

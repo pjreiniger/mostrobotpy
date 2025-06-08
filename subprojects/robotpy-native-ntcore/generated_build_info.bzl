@@ -30,6 +30,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/ntcore/include",
         whl = ":robotpy-native-ntcore-wheel",
     )
+
     cc_library(
         name = "ntcore",
         srcs = [shared_library],

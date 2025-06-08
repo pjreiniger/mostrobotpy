@@ -28,6 +28,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         pattern = "native/xrp/include",
         whl = ":robotpy-native-xrp-wheel",
     )
+
     cc_library(
         name = "xrp",
         srcs = [shared_library],
