@@ -147,7 +147,7 @@ wpilib_shuffleboard_extension(
         "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
         "//subprojects/robotpy-wpimath:wpimath_pybind_library",
         "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
-        "@bzlmodrio-allwpilib//libraries/cpp/wpilibc:shared",
+        "//subprojects/robotpy-native-wpilib:wpilib",
     ],
 )
 
