@@ -1,15 +1,28 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-wpimath:generated_build_info.bzl", "define_pybind_library", "publish_library_casters", "wpimath_controls_extension", "wpimath_extension", "wpimath_filter_extension", "wpimath_geometry_extension", "wpimath_interpolation_extension", "wpimath_kinematics_extension", "wpimath_spline_extension")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "wpimath",
-    local_pkgcfgs = 
-    local_pc_file_util("//subprojects/robotpy-native-wpimath", ["native/wpimath/robotpy-native-wpimath.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"]),
+    local_pkgcfgs =
+        local_pc_file_util(
+            "//subprojects/robotpy-native-wpimath",
+            ["native/wpimath/robotpy-native-wpimath.pc"],
+        ) +
+        local_pc_file_util(
+            "//subprojects/robotpy-native-wpiutil",
+            ["native/wpiutil/robotpy-native-wpiutil.pc"],
+        ) +
+        local_pc_file_util(
+            "//subprojects/robotpy-wpiutil",
+            [
+                "wpiutil/wpiutil.pc",
+                "wpiutil/wpiutil-casters.pc",
+                "wpiutil/wpiutil-casters.pybind11.json",
+            ],
+        ),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/**/*.yml"]),
 )

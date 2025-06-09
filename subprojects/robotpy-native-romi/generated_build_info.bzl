@@ -1,6 +1,7 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -11,12 +12,8 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         headers_external_repositories = headers_external_repositories,
         shared_library = shared_library,
         lib_name = "romi",
-        pc_dep_deps = [
-            "//subprojects/robotpy-native-wpilib:import",
-        ],
-        pc_dep_files = [
-            "$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/robotpy-native-wpilib.pc",
-        ],
+        local_pc_file_info =
+            local_pc_file_util("//subprojects/robotpy-native-wpilib", ["native/wpilib/robotpy-native-wpilib.pc"]),
         package_requires = ["robotpy-native-wpilib==2025.3.2"],
         package_summary = "WPILib Romi support library",
         strip_pkg_prefix = ["subprojects/robotpy-native-romi"],

@@ -1,36 +1,79 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "define_pybind_library", "xrp_extension")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "xrp",
-    local_pkgcfgs = local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-xrp", ["native/xrp/robotpy-native-xrp.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpimath", ["native/wpimath/robotpy-native-wpimath.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpilib", ["native/wpilib/robotpy-native-wpilib.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpihal", ["native/wpihal/robotpy-native-wpihal.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpinet", ["native/wpinet/robotpy-native-wpinet.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-ntcore", ["native/ntcore/robotpy-native-ntcore.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"]) 
-      + local_pc_file_util("//subprojects/pyntcore", ["ntcore/ntcore.pc"])
-      + local_pc_file_util("//subprojects/robotpy-wpinet", ["wpinet/wpinet.pc"])
-      + local_pc_file_util("//subprojects/robotpy-hal", ["hal/wpihal.pc"])
-      + local_pc_file_util("//subprojects/robotpy-wpimath", [
-        "wpimath/wpimath.pc", 
-        "wpimath/wpimath-casters.pc", 
-        "wpimath/geometry/wpimath_geometry.pc", 
-        "wpimath/filter/wpimath_filter.pc", 
-        "wpimath/_controls/wpimath_controls.pc", 
-        "wpimath/kinematics/wpimath_kinematics.pc", 
-        "wpimath/spline/wpimath_spline.pc",
-        "wpimath/wpimath-casters.pybind11.json",
-    ])
-      + local_pc_file_util("//subprojects/robotpy-wpilib", [
-            "wpilib/wpilib.pc",
-            "wpilib/interfaces/wpilib_interfaces.pc",
-            "wpilib/event/wpilib_event.pc",
-    ]),
+    local_pkgcfgs = local_pc_file_util(
+                        "//subprojects/robotpy-native-wpiutil",
+                        ["native/wpiutil/robotpy-native-wpiutil.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-xrp",
+                        ["native/xrp/robotpy-native-xrp.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpimath",
+                        ["native/wpimath/robotpy-native-wpimath.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpilib",
+                        ["native/wpilib/robotpy-native-wpilib.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpihal",
+                        ["native/wpihal/robotpy-native-wpihal.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpinet",
+                        ["native/wpinet/robotpy-native-wpinet.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-ntcore",
+                        ["native/ntcore/robotpy-native-ntcore.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpiutil",
+                        [
+                            "wpiutil/wpiutil.pc",
+                            "wpiutil/wpiutil-casters.pc",
+                            "wpiutil/wpiutil-casters.pybind11.json",
+                        ],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/pyntcore",
+                        ["ntcore/ntcore.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpinet",
+                        ["wpinet/wpinet.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-hal",
+                        ["hal/wpihal.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpimath",
+                        [
+                            "wpimath/wpimath.pc",
+                            "wpimath/wpimath-casters.pc",
+                            "wpimath/geometry/wpimath_geometry.pc",
+                            "wpimath/filter/wpimath_filter.pc",
+                            "wpimath/_controls/wpimath_controls.pc",
+                            "wpimath/kinematics/wpimath_kinematics.pc",
+                            "wpimath/spline/wpimath_spline.pc",
+                            "wpimath/wpimath-casters.pybind11.json",
+                        ],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpilib",
+                        [
+                            "wpilib/wpilib.pc",
+                            "wpilib/interfaces/wpilib_interfaces.pc",
+                            "wpilib/event/wpilib_event.pc",
+                        ],
+                    ),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/**/*.yml"]),
 )

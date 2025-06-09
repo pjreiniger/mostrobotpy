@@ -1,15 +1,34 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/pyntcore:generated_build_info.bzl", "define_pybind_library", "ntcore_extension")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "ntcore",
-    local_pkgcfgs = local_pc_file_util("//subprojects/robotpy-native-ntcore", ["native/ntcore/robotpy-native-ntcore.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpinet", ["native/wpinet/robotpy-native-wpinet.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]) 
-    + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"])
-    + local_pc_file_util("//subprojects/robotpy-wpinet", ["wpinet/wpinet.pc"]),
+    local_pkgcfgs = local_pc_file_util(
+                        "//subprojects/robotpy-native-ntcore",
+                        ["native/ntcore/robotpy-native-ntcore.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpinet",
+                        ["native/wpinet/robotpy-native-wpinet.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-native-wpiutil",
+                        ["native/wpiutil/robotpy-native-wpiutil.pc"],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpiutil",
+                        [
+                            "wpiutil/wpiutil.pc",
+                            "wpiutil/wpiutil-casters.pc",
+                            "wpiutil/wpiutil-casters.pybind11.json",
+                        ],
+                    ) +
+                    local_pc_file_util(
+                        "//subprojects/robotpy-wpinet",
+                        ["wpinet/wpinet.pc"],
+                    ),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/*.yml"]),
 )

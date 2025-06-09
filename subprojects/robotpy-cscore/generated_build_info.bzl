@@ -1,7 +1,6 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "resolve_caster_file")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file")
 
 def cscore_extension(entry_point, deps, header_to_dat_deps = [], extension_name = None, extra_hdrs = [], extra_srcs = [], includes = [], extra_pyi_deps = []):
     CSCORE_HEADER_GEN = [
@@ -157,10 +156,10 @@ def cscore_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         init_packages = ["cscore"],
         install_path = "cscore",
         python_deps = [
-            "//subprojects/robotpy-native-ntcore:import",
-            "//subprojects/robotpy-native-wpinet:import",
-            "//subprojects/robotpy-native-wpiutil:import",
             local_pybind_library("//subprojects/pyntcore", "ntcore"),
+            local_pybind_library("//subprojects/robotpy-native-ntcore", "robotpy-native-ntcore"),
+            local_pybind_library("//subprojects/robotpy-native-wpinet", "robotpy-native-wpinet"),
+            local_pybind_library("//subprojects/robotpy-native-wpiutil", "robotpy-native-wpiutil"),
             local_pybind_library("//subprojects/robotpy-wpinet", "wpinet"),
             local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ] + extra_pyi_deps,
@@ -217,10 +216,10 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         name = "pyi_files",
         srcs = select({
             "//conditions:default": [],
+            # "//conditions:default": [
+            #     ":cscore.make_pyi",
+            # ],
         }),
-        # srcs = [
-        #     ":cscore.make_pyi",
-        # ],
     )
 
     robotpy_library(
@@ -229,10 +228,10 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         data = get_generated_data_files() + ["cscore.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
-            "//subprojects/robotpy-native-ntcore:import",
-            "//subprojects/robotpy-native-wpinet:import",
-            "//subprojects/robotpy-native-wpiutil:import",
             local_pybind_library("//subprojects/pyntcore", "ntcore"),
+            local_pybind_library("//subprojects/robotpy-native-ntcore", "robotpy-native-ntcore"),
+            local_pybind_library("//subprojects/robotpy-native-wpinet", "robotpy-native-wpinet"),
+            local_pybind_library("//subprojects/robotpy-native-wpiutil", "robotpy-native-wpiutil"),
             local_pybind_library("//subprojects/robotpy-wpinet", "wpinet"),
             local_pybind_library("//subprojects/robotpy-wpiutil", "wpiutil"),
         ],
@@ -249,5 +248,5 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         package_summary = "RobotPy bindings for cscore image processing library",
         package_project_urls = {"Source code": "https://github.com/robotpy/mostrobotpy"},
         package_author_email = "RobotPy Development Team <robotpy@googlegroups.com>",
-        package_requires = ["robotpy-wpiutil==2027.0.0a1.dev0", "robotpy-wpinet==2027.0.0a1.dev0", "pyntcore==2027.0.0a1.dev0"],
+        package_requires = ["robotpy-wpiutil==2025.3.2.2", "robotpy-wpinet==2025.3.2.2", "pyntcore==2025.3.2.2"],
     )

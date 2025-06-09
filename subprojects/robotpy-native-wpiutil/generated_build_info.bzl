@@ -1,6 +1,7 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -11,10 +12,7 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         headers_external_repositories = headers_external_repositories,
         shared_library = shared_library,
         lib_name = "wpiutil",
-        pc_dep_deps = [
-        ],
-        pc_dep_files = [
-        ],
+        local_pc_file_info = [],
         package_requires = ["msvc-runtime>=14.42.34433; platform_system == 'Windows'"],
         package_summary = "WPILib Utility Library",
         strip_pkg_prefix = ["subprojects/robotpy-native-wpiutil"],

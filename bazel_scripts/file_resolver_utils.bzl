@@ -1,7 +1,6 @@
 INSTALL_WHEELS = True
 
 def resolve_caster_file(caster_name):
-
     if INSTALL_WHEELS:
         if caster_name == "wpiutil-casters":
             project = "//subprojects/robotpy-wpiutil"
@@ -14,19 +13,18 @@ def resolve_caster_file(caster_name):
         caster_files = "$(location " + project + ":import)" + "/site-packages/" + caster_path
 
         return (caster_deps, caster_files)
+    elif caster_name == "wpiutil-casters":
+        return (
+            "//subprojects/robotpy-wpiutil:wpiutil/wpiutil-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpiutil:wpiutil/wpiutil-casters.pybind11.json)",
+        )
+    elif caster_name == "wpimath-casters":
+        return (
+            "//subprojects/robotpy-wpimath:wpimath/wpimath-casters.pybind11.json",
+            "$(location //subprojects/robotpy-wpimath:wpimath/wpimath-casters.pybind11.json)",
+        )
     else:
-        if caster_name == "wpiutil-casters":
-            return (
-                "//subprojects/robotpy-wpiutil:wpiutil/wpiutil-casters.pybind11.json", 
-                "$(location //subprojects/robotpy-wpiutil:wpiutil/wpiutil-casters.pybind11.json)"
-            )
-        elif caster_name == "wpimath-casters":
-            return (
-                "//subprojects/robotpy-wpimath:wpimath/wpimath-casters.pybind11.json", 
-                "$(location //subprojects/robotpy-wpimath:wpimath/wpimath-casters.pybind11.json)"
-            )
-        else:
-            fail()
+        fail()
 
 def resolve_include_root(library_label, include_subpackage):
     return "$(location " + library_label + ":import)/site-packages/native/" + include_subpackage + "/include"
@@ -47,7 +45,6 @@ def local_pc_file_util(library_project, pc_subpaths):
             output.append((combo, ["$(location " + combo + ")"]))
 
         return output
-
 
 def local_pybind_library(library_project, lib_name):
     if INSTALL_WHEELS:

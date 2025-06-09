@@ -1,6 +1,7 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 def define_library(name, headers, headers_external_repositories, shared_library, version):
     create_native_library(
@@ -11,12 +12,8 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         headers_external_repositories = headers_external_repositories,
         shared_library = shared_library,
         lib_name = "wpimath",
-        pc_dep_deps = [
-            "//subprojects/robotpy-native-wpiutil:import",
-        ],
-        pc_dep_files = [
-            "$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc",
-        ],
+        local_pc_file_info =
+            local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]),
         package_requires = ["robotpy-native-wpiutil==2025.3.2"],
         package_summary = "WPILib Math Library",
         strip_pkg_prefix = ["subprojects/robotpy-native-wpimath"],
