@@ -221,7 +221,7 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps = [], extension_name
         init_packages = ["wpiutil"],
         install_path = "wpiutil/_wpiutil",
         python_deps = [
-            "//subprojects/robotpy-native-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-native-wpiutil", "robotpy-native-wpiutil"),
         ] + extra_pyi_deps,
         target_compatible_with = select({
             "//conditions:default": ["@platforms//:incompatible"],
@@ -288,7 +288,7 @@ def define_pybind_library(name, version, extra_entry_points = {}):
         data = get_generated_data_files() + ["wpiutil.extra_pkg_files", ":pyi_files"],
         imports = ["."],
         robotpy_wheel_deps = [
-            "//subprojects/robotpy-native-wpiutil:import",
+            local_pybind_library("//subprojects/robotpy-native-wpiutil", "robotpy-native-wpiutil"),
         ],
         strip_path_prefixes = ["subprojects/robotpy-wpiutil"],
         version = version,
