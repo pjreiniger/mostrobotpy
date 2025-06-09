@@ -1,4 +1,4 @@
-INSTALL_WHEELS = False
+INSTALL_WHEELS = True
 
 def resolve_caster_file(caster_name):
 
@@ -35,7 +35,7 @@ def local_native_libraries_helper(base_library_name):
     return ("//subprojects/robotpy-native-" + base_library_name + ":import", base_library_name)
 
 def local_pc_file_util(library_project, pc_subpaths):
-    if INSTALL_WHEELS:
+    if INSTALL_WHEELS or "native" in library_project:
         pc_files = []
         for pc in pc_subpaths:
             pc_files.append("$(location " + library_project + ":import)/site-packages/" + pc)

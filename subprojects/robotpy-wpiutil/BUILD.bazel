@@ -1,13 +1,12 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-wpiutil:generated_build_info.bzl", "define_pybind_library", "publish_library_casters", "wpiutil_extension")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library", "local_pc_file_util")
 
 generate_build_info(
     name = "wpiutil",
     additional_srcs = ["wpiutil/src/wpistruct/wpystruct_fns.h"],
-    local_pkgcfgs = [
-        ("//subprojects/robotpy-native-wpiutil:import", ["$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc"]),
-    ],
+    local_pkgcfgs = local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/*.yml"]),
 )

@@ -6,10 +6,10 @@ load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "wpimath",
-    local_pkgcfgs = [
-        ("//subprojects/robotpy-native-wpimath:import", ["$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc"]),
-        ("//subprojects/robotpy-native-wpiutil:import", ["$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc"]),
-    ] + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"]),
+    local_pkgcfgs = 
+    local_pc_file_util("//subprojects/robotpy-native-wpimath", ["native/wpimath/robotpy-native-wpimath.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"]),
     pyproject_toml = ":pyproject.toml",
     yaml_files = glob(["semiwrap/**/*.yml"]),
 )

@@ -5,15 +5,14 @@ load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
 generate_build_info(
     name = "xrp",
-    local_pkgcfgs = [
-        ("//subprojects/robotpy-native-xrp:import", ["$(location //subprojects/robotpy-native-xrp:import)/site-packages/native/xrp/robotpy-native-xrp.pc"]),
-        ("//subprojects/robotpy-native-wpimath:import", ["$(location //subprojects/robotpy-native-wpimath:import)/site-packages/native/wpimath/robotpy-native-wpimath.pc"]),
-        ("//subprojects/robotpy-native-wpiutil:import", ["$(location //subprojects/robotpy-native-wpiutil:import)/site-packages/native/wpiutil/robotpy-native-wpiutil.pc"]),
-        ("//subprojects/robotpy-native-wpilib:import", ["$(location //subprojects/robotpy-native-wpilib:import)/site-packages/native/wpilib/robotpy-native-wpilib.pc"]),
-        ("//subprojects/robotpy-native-wpihal:import", ["$(location //subprojects/robotpy-native-wpihal:import)/site-packages/native/wpihal/robotpy-native-wpihal.pc"]),
-        ("//subprojects/robotpy-native-wpinet:import", ["$(location //subprojects/robotpy-native-wpinet:import)/site-packages/native/wpinet/robotpy-native-wpinet.pc"]),
-        ("//subprojects/robotpy-native-ntcore:import", ["$(location //subprojects/robotpy-native-ntcore:import)/site-packages/native/ntcore/robotpy-native-ntcore.pc"]),
-    ] + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"])
+    local_pkgcfgs = local_pc_file_util("//subprojects/robotpy-native-wpiutil", ["native/wpiutil/robotpy-native-wpiutil.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-xrp", ["native/xrp/robotpy-native-xrp.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-wpimath", ["native/wpimath/robotpy-native-wpimath.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-wpilib", ["native/wpilib/robotpy-native-wpilib.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-wpihal", ["native/wpihal/robotpy-native-wpihal.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-wpinet", ["native/wpinet/robotpy-native-wpinet.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-native-ntcore", ["native/ntcore/robotpy-native-ntcore.pc"]) 
+    + local_pc_file_util("//subprojects/robotpy-wpiutil", ["wpiutil/wpiutil.pc", "wpiutil/wpiutil-casters.pc", "wpiutil/wpiutil-casters.pybind11.json"]) 
       + local_pc_file_util("//subprojects/pyntcore", ["ntcore/ntcore.pc"])
       + local_pc_file_util("//subprojects/robotpy-wpinet", ["wpinet/wpinet.pc"])
       + local_pc_file_util("//subprojects/robotpy-hal", ["hal/wpihal.pc"])
