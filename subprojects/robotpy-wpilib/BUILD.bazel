@@ -1,6 +1,6 @@
 load("@mostrobotpy_tests_pip_deps//:requirements.bzl", "requirement")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-wpilib:generated_build_info.bzl", "define_pybind_library", "wpilib_counter_extension", "wpilib_drive_extension", "wpilib_event_extension", "wpilib_extension", "wpilib_interfaces_extension", "wpilib_shuffleboard_extension", "wpilib_simulation_extension")
 
@@ -77,7 +77,7 @@ wpilib_event_extension(
     extension_name = "_event",
     deps = [
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
     ],
 )
 
@@ -87,8 +87,8 @@ wpilib_interfaces_extension(
     deps = [
         "//subprojects/robotpy-native-wpilib:wpilib",
         "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
     ],
 )
 
@@ -107,16 +107,16 @@ wpilib_extension(
         "wpilib/src",
     ],
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        ":wpilib_event_pybind_library",
+        ":wpilib_interfaces_pybind_library",
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_controls"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -128,17 +128,17 @@ wpilib_counter_extension(
         "wpilib/src/rpy/*.inc",
     ]),
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        ":wpilib_event_pybind_library",
+        ":wpilib_interfaces_pybind_library",
+        ":wpilib_pybind_library",
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_controls"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -150,17 +150,17 @@ wpilib_drive_extension(
         "wpilib/src/rpy/*.inc",
     ]),
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        ":wpilib_event_pybind_library",
+        ":wpilib_interfaces_pybind_library",
+        ":wpilib_pybind_library",
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_controls"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -174,17 +174,17 @@ wpilib_shuffleboard_extension(
     ),
     includes = ["wpilib/shuffleboard"],
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        ":wpilib_event_pybind_library",
+        ":wpilib_interfaces_pybind_library",
+        ":wpilib_pybind_library",
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_controls"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -197,18 +197,18 @@ wpilib_simulation_extension(
         "wpilib/src/rpy/*.inc",
     ]),
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        ":wpilib_event_pybind_library",
+        ":wpilib_interfaces_pybind_library",
+        ":wpilib_pybind_library",
         "//subprojects/robotpy-native-wpilib:wpilib",
-        "//subprojects/robotpy-wpilib:wpilib_event_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_interfaces_pybind_library",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_controls_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_filter_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_kinematics_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_controls"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_filter"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_kinematics"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -216,18 +216,4 @@ define_pybind_library(
     name = "wpilib",
     extra_entry_points = {"robotpy": ["run = wpilib._impl.start:Main"]},
     version = MOSTROBOTPY_VERSION,
-)
-
-filegroup(
-    name = "generated_files",
-    srcs = [
-        "wpilib.generated_files",
-        "wpilib_counter.generated_files",
-        "wpilib_drive.generated_files",
-        "wpilib_event.generated_files",
-        "wpilib_interfaces.generated_files",
-        "wpilib_simulation.generated_files",
-    ],
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
 )

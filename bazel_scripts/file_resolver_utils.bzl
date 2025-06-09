@@ -1,4 +1,4 @@
-INSTALL_WHEELS = True
+INSTALL_WHEELS = False
 
 def resolve_caster_file(caster_name):
     if INSTALL_WHEELS:
@@ -27,13 +27,25 @@ def resolve_caster_file(caster_name):
         fail()
 
 def resolve_include_root(library_label, include_subpackage):
-    return "$(location " + library_label + ":import)/site-packages/native/" + include_subpackage + "/include"
+    if INSTALL_WHEELS:
+        return "$(location " + library_label + ":import)/site-packages/native/" + include_subpackage + "/include"
+    else:
+        return "$(location " + library_label + ":header_files)/native/" + include_subpackage + "/include/"
 
 def local_native_libraries_helper(base_library_name):
-    return ("//subprojects/robotpy-native-" + base_library_name + ":import", base_library_name)
+    if INSTALL_WHEELS:
+        return ("//subprojects/robotpy-native-" + base_library_name + ":import", base_library_name)
+    else:
+        return ("//subprojects/robotpy-native-" + base_library_name + ":header_files", "//subprojects/robotpy-native-" + base_library_name + ":" + base_library_name)
+
+def local_extension_util(library_project, extension_name):
+    if INSTALL_WHEELS:
+        return library_project + ":" + extension_name + ".wheel.headers"
+    else:
+        return library_project + ":" + extension_name + "_pybind_library"
 
 def local_pc_file_util(library_project, pc_subpaths):
-    if INSTALL_WHEELS or "native" in library_project:
+    if INSTALL_WHEELS:
         pc_files = []
         for pc in pc_subpaths:
             pc_files.append("$(location " + library_project + ":import)/site-packages/" + pc)

@@ -1,5 +1,5 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-xrp:generated_build_info.bzl", "define_pybind_library", "xrp_extension")
 
@@ -82,8 +82,8 @@ xrp_extension(
     entry_point = ["xrp/src/main.cpp"],
     deps = [
         "//subprojects/robotpy-native-xrp:xrp",
-        "//subprojects/robotpy-wpilib:wpilib_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_geometry_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpilib", "wpilib"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath_geometry"),
     ],
 )
 
@@ -91,12 +91,4 @@ define_pybind_library(
     name = "xrp",
     extra_entry_points = {"robotpysimext": ["xrp = xrp.extension"]},
     version = MOSTROBOTPY_VERSION,
-)
-
-filegroup(
-    name = "generated_files",
-    srcs = [
-        "xrp.generated_files",
-    ],
-    visibility = ["//visibility:public"],
 )

@@ -1,3 +1,5 @@
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file", "resolve_include_root")
@@ -105,6 +107,33 @@ def wpilib_event_extension(entry_point, deps, header_to_dat_deps = [], extension
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpilib_event.wheel.trampoline_files",
+        pattern = "wpilib/event/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_event.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_event.wheel.trampoline_files"],
+        includes = ["wpilib_event.wheel.trampoline_files/wpilib/event"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_event.wheel.headers",
+        deps = [
+            ":wpilib_event.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_filter.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -262,6 +291,35 @@ def wpilib_interfaces_extension(entry_point, deps, header_to_dat_deps = [], exte
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpilib_interfaces.wheel.trampoline_files",
+        pattern = "wpilib/interfaces/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_interfaces.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_interfaces.wheel.trampoline_files"],
+        includes = ["wpilib_interfaces.wheel.trampoline_files/wpilib/interfaces"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_interfaces.wheel.headers",
+        deps = [
+            ":wpilib_interfaces.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_filter.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -1423,6 +1481,41 @@ def wpilib_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
     )
 
+    whl_filegroup(
+        name = "wpilib.wheel.trampoline_files",
+        pattern = "wpilib/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib.wheel.trampoline_hdrs",
+        hdrs = [":wpilib.wheel.trampoline_files"],
+        includes = ["wpilib.wheel.trampoline_files/wpilib"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib.wheel.headers",
+        deps = [
+            ":wpilib.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_filter.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_kinematics.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_spline.wheel.headers",
+            "//subprojects/robotpy-wpinet:wpinet.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpilib.make_pyi",
         extension_package = "wpilib._wpilib",
@@ -1589,6 +1682,38 @@ def wpilib_counter_extension(entry_point, deps, header_to_dat_deps = [], extensi
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpilib_counter.wheel.trampoline_files",
+        pattern = "wpilib/counter/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_counter.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_counter.wheel.trampoline_files"],
+        includes = ["wpilib_counter.wheel.trampoline_files/wpilib/counter"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_counter.wheel.headers",
+        deps = [
+            ":wpilib_counter.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpilib_counter.make_pyi",
         extension_package = "wpilib.counter._counter",
@@ -1746,6 +1871,38 @@ def wpilib_drive_extension(entry_point, deps, header_to_dat_deps = [], extension
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpilib_drive.wheel.trampoline_files",
+        pattern = "wpilib/drive/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_drive.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_drive.wheel.trampoline_files"],
+        includes = ["wpilib_drive.wheel.trampoline_files/wpilib/drive"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_drive.wheel.headers",
+        deps = [
+            ":wpilib_drive.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -2090,6 +2247,38 @@ def wpilib_shuffleboard_extension(entry_point, deps, header_to_dat_deps = [], ex
         extra_srcs = extra_srcs,
         includes = includes,
         local_defines = ["DYNAMIC_CAMERA_SERVER=1"],
+    )
+
+    whl_filegroup(
+        name = "wpilib_shuffleboard.wheel.trampoline_files",
+        pattern = "wpilib/shuffleboard/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_shuffleboard.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_shuffleboard.wheel.trampoline_files"],
+        includes = ["wpilib_shuffleboard.wheel.trampoline_files/wpilib/shuffleboard"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_shuffleboard.wheel.headers",
+        deps = [
+            ":wpilib_shuffleboard.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -2698,6 +2887,40 @@ def wpilib_simulation_extension(entry_point, deps, header_to_dat_deps = [], exte
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpilib_simulation.wheel.trampoline_files",
+        pattern = "wpilib/simulation/trampolines",
+        whl = ":wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_simulation.wheel.trampoline_hdrs",
+        hdrs = [":wpilib_simulation.wheel.trampoline_files"],
+        includes = ["wpilib_simulation.wheel.trampoline_files/wpilib/simulation"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpilib_simulation.wheel.headers",
+        deps = [
+            ":wpilib_simulation.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
+            "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_kinematics.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_spline.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpilib_simulation.make_pyi",
         extension_package = "wpilib.simulation._simulation",
@@ -2798,6 +3021,7 @@ def get_generated_data_files():
             "wpilib/shuffleboard/wpilib_shuffleboard.pc",
             "wpilib/simulation/wpilib_simulation.pc",
         ],
+        tags = ["manual"],
     )
 
     return [
@@ -2850,6 +3074,22 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             #     ":wpilib_simulation.make_pyi",
             # ],
         }),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "generated_files",
+        srcs = [
+            "wpilib_event.generated_files",
+            "wpilib_interfaces.generated_files",
+            "wpilib.generated_files",
+            "wpilib_counter.generated_files",
+            "wpilib_drive.generated_files",
+            "wpilib_shuffleboard.generated_files",
+            "wpilib_simulation.generated_files",
+        ],
+        tags = ["manual"],
+        visibility = ["//visibility:public"],
     )
 
     robotpy_library(

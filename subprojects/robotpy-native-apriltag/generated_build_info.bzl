@@ -25,6 +25,8 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         name = "header_files",
         pattern = "native/apriltag/include",
         whl = ":robotpy-native-apriltag-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     cc_library(
@@ -37,4 +39,5 @@ def define_library(name, headers, headers_external_repositories, shared_library,
             "//subprojects/robotpy-native-wpimath:wpimath",
             "//subprojects/robotpy-native-wpiutil:wpiutil",
         ],
+        tags = ["manual"],
     )

@@ -1,3 +1,5 @@
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file", "resolve_include_root")
@@ -249,6 +251,32 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps = [], extensi
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "hal_simulation.wheel.trampoline_files",
+        pattern = "hal/simulation/trampolines",
+        whl = ":hal-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "hal_simulation.wheel.trampoline_hdrs",
+        hdrs = [":hal_simulation.wheel.trampoline_files"],
+        includes = ["hal_simulation.wheel.trampoline_files/hal/simulation"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "hal_simulation.wheel.headers",
+        deps = [
+            ":hal_simulation.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpihal:wpihal",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -699,6 +727,32 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpihal.wheel.trampoline_files",
+        pattern = "hal/trampolines",
+        whl = ":hal-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpihal.wheel.trampoline_hdrs",
+        hdrs = [":wpihal.wheel.trampoline_files"],
+        includes = ["wpihal.wheel.trampoline_files/hal"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpihal.wheel.headers",
+        deps = [
+            ":wpihal.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpihal:wpihal",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpihal.make_pyi",
         extension_package = "hal._wpiHal",
@@ -746,6 +800,7 @@ def get_generated_data_files():
             "hal/simulation/hal_simulation.pc",
             "hal/wpihal.pc",
         ],
+        tags = ["manual"],
     )
 
     return [
@@ -778,6 +833,17 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             #     ":wpihal.make_pyi",
             # ],
         }),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "generated_files",
+        srcs = [
+            "hal_simulation.generated_files",
+            "wpihal.generated_files",
+        ],
+        tags = ["manual"],
+        visibility = ["//visibility:public"],
     )
 
     robotpy_library(

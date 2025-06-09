@@ -1,14 +1,14 @@
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "copy_native_file", "robotpy_library")
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pybind_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pybind_library")
 load("//subprojects/robotpy-halsim-gui:generated_build_info.bzl", "halsim_gui_ext_extension")
 
 halsim_gui_ext_extension(
     entry_point = ["halsim_gui/_ext/main.cpp"],
     deps = [
-        "//subprojects/pyntcore:ntcore_pybind_library",
-        "//subprojects/robotpy-hal:wpihal_pybind_library",
-        "//subprojects/robotpy-wpimath:wpimath_pybind_library",
+        local_extension_util("//subprojects/pyntcore", "ntcore"),
+        local_extension_util("//subprojects/robotpy-hal", "wpihal"),
+        local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),
         "@bzlmodrio-allwpilib//libraries/cpp/halsim_gui:shared",
     ],
 )

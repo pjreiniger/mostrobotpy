@@ -1,3 +1,5 @@
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file", "resolve_include_root")
@@ -88,6 +90,33 @@ def wpimath_extension(entry_point, deps, header_to_dat_deps = [], extension_name
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpimath.wheel.trampoline_files",
+        pattern = "wpimath/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath.wheel.trampoline_hdrs",
+        hdrs = [":wpimath.wheel.trampoline_files"],
+        includes = ["wpimath.wheel.trampoline_files/wpimath"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath.wheel.headers",
+        deps = [
+            ":wpimath.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -250,6 +279,34 @@ def wpimath_filter_extension(entry_point, deps, header_to_dat_deps = [], extensi
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpimath_filter.wheel.trampoline_files",
+        pattern = "wpimath/filter/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_filter.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_filter.wheel.trampoline_files"],
+        includes = ["wpimath_filter.wheel.trampoline_files/wpimath/filter"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_filter.wheel.headers",
+        deps = [
+            ":wpimath_filter.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -518,6 +575,34 @@ def wpimath_geometry_extension(entry_point, deps, header_to_dat_deps = [], exten
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpimath_geometry.wheel.trampoline_files",
+        pattern = "wpimath/geometry/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_geometry.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_geometry.wheel.trampoline_files"],
+        includes = ["wpimath_geometry.wheel.trampoline_files/wpimath/geometry"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_geometry.wheel.headers",
+        deps = [
+            ":wpimath_geometry.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpimath_geometry.make_pyi",
         extension_package = "wpimath.geometry._geometry",
@@ -650,6 +735,34 @@ def wpimath_interpolation_extension(entry_point, deps, header_to_dat_deps = [], 
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpimath_interpolation.wheel.trampoline_files",
+        pattern = "wpimath/interpolation/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_interpolation.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_interpolation.wheel.trampoline_files"],
+        includes = ["wpimath_interpolation.wheel.trampoline_files/wpimath/interpolation"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_interpolation.wheel.headers",
+        deps = [
+            ":wpimath_interpolation.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -994,6 +1107,34 @@ def wpimath_kinematics_extension(entry_point, deps, header_to_dat_deps = [], ext
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpimath_kinematics.wheel.trampoline_files",
+        pattern = "wpimath/kinematics/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_kinematics.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_kinematics.wheel.trampoline_files"],
+        includes = ["wpimath_kinematics.wheel.trampoline_files/wpimath/kinematics"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_kinematics.wheel.headers",
+        deps = [
+            ":wpimath_kinematics.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpimath_kinematics.make_pyi",
         extension_package = "wpimath.kinematics._kinematics",
@@ -1162,6 +1303,34 @@ def wpimath_spline_extension(entry_point, deps, header_to_dat_deps = [], extensi
         extra_hdrs = extra_hdrs,
         extra_srcs = extra_srcs,
         includes = includes,
+    )
+
+    whl_filegroup(
+        name = "wpimath_spline.wheel.trampoline_files",
+        pattern = "wpimath/spline/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_spline.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_spline.wheel.trampoline_files"],
+        includes = ["wpimath_spline.wheel.trampoline_files/wpimath/spline"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_spline.wheel.headers",
+        deps = [
+            ":wpimath_spline.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     make_pyi(
@@ -1871,6 +2040,37 @@ def wpimath_controls_extension(entry_point, deps, header_to_dat_deps = [], exten
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpimath_controls.wheel.trampoline_files",
+        pattern = "wpimath/_controls/trampolines",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_controls.wheel.trampoline_hdrs",
+        hdrs = [":wpimath_controls.wheel.trampoline_files"],
+        includes = ["wpimath_controls.wheel.trampoline_files/wpimath/_controls"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath_controls.wheel.headers",
+        deps = [
+            ":wpimath_controls.wheel.trampoline_hdrs",
+            ":wpimath-casters.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_kinematics.wheel.headers",
+            "//subprojects/robotpy-wpimath:wpimath_spline.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpimath_controls.make_pyi",
         extension_package = "wpimath._controls._controls",
@@ -1933,6 +2133,22 @@ def publish_library_casters(typecasters_srcs):
         typecasters_srcs = typecasters_srcs,
     )
 
+    whl_filegroup(
+        name = "wpimath-casters.wheel.header_files",
+        pattern = "wpimath/_impl/.*.h$",
+        whl = ":wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpimath-casters.wheel.headers",
+        hdrs = [":wpimath-casters.wheel.header_files"],
+        includes = ["wpimath-casters.wheel.header_files/wpimath/_impl/src", "wpimath-casters.wheel.header_files/wpimath/_impl/src/type_casters"],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
 def get_generated_data_files():
     copy_extension_library(
         name = "copy_wpimath",
@@ -1983,6 +2199,7 @@ def get_generated_data_files():
             "wpimath/wpimath-casters.pc",
             "wpimath/wpimath-casters.pybind11.json",
         ],
+        tags = ["manual"],
     )
 
     return [
@@ -2035,6 +2252,22 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             #     ":wpimath_controls.make_pyi",
             # ],
         }),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "generated_files",
+        srcs = [
+            "wpimath.generated_files",
+            "wpimath_filter.generated_files",
+            "wpimath_geometry.generated_files",
+            "wpimath_interpolation.generated_files",
+            "wpimath_kinematics.generated_files",
+            "wpimath_spline.generated_files",
+            "wpimath_controls.generated_files",
+        ],
+        tags = ["manual"],
+        visibility = ["//visibility:public"],
     )
 
     robotpy_library(

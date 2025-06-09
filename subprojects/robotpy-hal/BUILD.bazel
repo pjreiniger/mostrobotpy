@@ -1,5 +1,5 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-hal:generated_build_info.bzl", "define_pybind_library", "hal_simulation_extension", "wpihal_extension")
 
@@ -36,7 +36,7 @@ hal_simulation_extension(
     includes = ["hal/simulation"],
     deps = [
         "//subprojects/robotpy-native-wpihal:wpihal",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
@@ -45,20 +45,11 @@ wpihal_extension(
     extension_name = "_wpiHal",
     deps = [
         "//subprojects/robotpy-native-wpihal:wpihal",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
 define_pybind_library(
     name = "hal",
     version = MOSTROBOTPY_VERSION,
-)
-
-filegroup(
-    name = "generated_files",
-    srcs = [
-        "hal_simulation.generated_files",
-        "wpihal.generated_files",
-    ],
-    visibility = ["//visibility:public"],
 )

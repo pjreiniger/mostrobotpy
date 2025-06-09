@@ -1,3 +1,5 @@
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file", "resolve_include_root")
@@ -147,6 +149,33 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps = [], extension_nam
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "apriltag.wheel.trampoline_files",
+        pattern = "apriltag/trampolines",
+        whl = ":apriltag-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "apriltag.wheel.trampoline_hdrs",
+        hdrs = [":apriltag.wheel.trampoline_files"],
+        includes = ["apriltag.wheel.trampoline_files/apriltag"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "apriltag.wheel.headers",
+        deps = [
+            ":apriltag.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
+            "//subprojects/robotpy-native-apriltag:apriltag",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "apriltag.make_pyi",
         extension_package = "robotpy_apriltag._apriltag",
@@ -181,6 +210,7 @@ def get_generated_data_files():
         srcs = [
             "robotpy_apriltag/apriltag.pc",
         ],
+        tags = ["manual"],
     )
 
     return [
@@ -209,6 +239,16 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             #     ":apriltag.make_pyi",
             # ],
         }),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "generated_files",
+        srcs = [
+            "apriltag.generated_files",
+        ],
+        tags = ["manual"],
+        visibility = ["//visibility:public"],
     )
 
     robotpy_library(

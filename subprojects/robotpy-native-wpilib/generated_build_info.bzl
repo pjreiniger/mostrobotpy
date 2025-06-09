@@ -28,6 +28,8 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         name = "header_files",
         pattern = "native/wpilib/include",
         whl = ":robotpy-native-wpilib-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     cc_library(
@@ -43,4 +45,5 @@ def define_library(name, headers, headers_external_repositories, shared_library,
             "//subprojects/robotpy-native-wpinet:wpinet",
             "//subprojects/robotpy-native-wpiutil:wpiutil",
         ],
+        tags = ["manual"],
     )

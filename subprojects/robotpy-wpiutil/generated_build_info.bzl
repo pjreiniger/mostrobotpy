@@ -1,3 +1,5 @@
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library", "make_pyi", "robotpy_library")
 load("@rules_semiwrap//rules_semiwrap/private:semiwrap_helpers.bzl", "gen_libinit", "gen_modinit_hpp", "gen_pkgconf", "publish_casters", "resolve_casters", "run_header_gen")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_native_libraries_helper", "local_pybind_library", "resolve_caster_file", "resolve_include_root")
@@ -206,6 +208,32 @@ def wpiutil_extension(entry_point, deps, header_to_dat_deps = [], extension_name
         includes = includes,
     )
 
+    whl_filegroup(
+        name = "wpiutil.wheel.trampoline_files",
+        pattern = "wpiutil/trampolines",
+        whl = ":wpiutil-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpiutil.wheel.trampoline_hdrs",
+        hdrs = [":wpiutil.wheel.trampoline_files"],
+        includes = ["wpiutil.wheel.trampoline_files/wpiutil"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpiutil.wheel.headers",
+        deps = [
+            ":wpiutil.wheel.trampoline_hdrs",
+            ":wpiutil-casters.wheel.headers",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
+        ],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
     make_pyi(
         name = "wpiutil.make_pyi",
         extension_package = "wpiutil._wpiutil",
@@ -237,6 +265,22 @@ def publish_library_casters(typecasters_srcs):
         typecasters_srcs = typecasters_srcs,
     )
 
+    whl_filegroup(
+        name = "wpiutil-casters.wheel.header_files",
+        pattern = "wpiutil/src/.*.h$",
+        whl = ":wpiutil-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
+    cc_library(
+        name = "wpiutil-casters.wheel.headers",
+        hdrs = [":wpiutil-casters.wheel.header_files"],
+        includes = ["wpiutil-casters.wheel.header_files/wpiutil/src/type_casters", "wpiutil-casters.wheel.header_files/wpiutil/src/wpistruct"],
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
+    )
+
 def get_generated_data_files():
     copy_extension_library(
         name = "copy_wpiutil",
@@ -251,6 +295,7 @@ def get_generated_data_files():
             "wpiutil/wpiutil-casters.pc",
             "wpiutil/wpiutil-casters.pybind11.json",
         ],
+        tags = ["manual"],
     )
 
     return [
@@ -279,6 +324,16 @@ def define_pybind_library(name, version, extra_entry_points = {}):
             #     ":wpiutil.make_pyi",
             # ],
         }),
+        tags = ["manual"],
+    )
+
+    native.filegroup(
+        name = "generated_files",
+        srcs = [
+            "wpiutil.generated_files",
+        ],
+        tags = ["manual"],
+        visibility = ["//visibility:public"],
     )
 
     robotpy_library(

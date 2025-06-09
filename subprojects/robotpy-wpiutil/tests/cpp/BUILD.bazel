@@ -1,5 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_library")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library", "create_pybind_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 
 DEFAULT_INCLUDE_ROOT = "subprojects/robotpy-wpiutil/tests/cpp/wpiutil_test/include"
 
@@ -12,7 +13,7 @@ create_pybind_library(
         exclude = ["wpiutil_test/module.cpp"],
     ),
     deps = [
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 

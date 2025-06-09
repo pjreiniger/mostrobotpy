@@ -1,5 +1,5 @@
 load("//:version.bzl", "MOSTROBOTPY_VERSION")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 load("//bazel_scripts:generate_build_info.bzl", "generate_build_info")
 load("//subprojects/robotpy-wpinet:generated_build_info.bzl", "define_pybind_library", "wpinet_extension")
 
@@ -29,19 +29,11 @@ wpinet_extension(
     entry_point = ["wpinet/src/main.cpp"],
     deps = [
         "//subprojects/robotpy-native-wpinet:wpinet",
-        "//subprojects/robotpy-wpiutil:wpiutil_pybind_library",
+        local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
     ],
 )
 
 define_pybind_library(
     name = "wpinet",
     version = MOSTROBOTPY_VERSION,
-)
-
-filegroup(
-    name = "generated_files",
-    srcs = [
-        "wpinet.generated_files",
-    ],
-    visibility = ["//visibility:public"],
 )

@@ -40,21 +40,7 @@ wpiutil_extension(
     deps = ["//subprojects/robotpy-native-wpiutil:wpiutil"],
 )
 
-# filegroup(
-#     name = "srcs",
-#     srcs = glob(["wpiutil/src/**"]),
-# )
-
 define_pybind_library(
     name = "wpiutil",
     version = MOSTROBOTPY_VERSION,
-)
-
-filegroup(
-    name = "generated_files",
-    srcs = [
-        "wpiutil.generated_files",
-    ],
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
 )

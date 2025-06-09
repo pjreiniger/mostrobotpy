@@ -24,6 +24,8 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         name = "header_files",
         pattern = "native/wpimath/include",
         whl = ":robotpy-native-wpimath-wheel",
+        visibility = ["//visibility:public"],
+        tags = ["manual"],
     )
 
     cc_library(
@@ -35,4 +37,5 @@ def define_library(name, headers, headers_external_repositories, shared_library,
         deps = [
             "//subprojects/robotpy-native-wpiutil:wpiutil",
         ],
+        tags = ["manual"],
     )
