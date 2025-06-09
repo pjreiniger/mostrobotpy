@@ -39,7 +39,6 @@ def local_pc_file_util(library_project, pc_subpaths):
         pc_files = []
         for pc in pc_subpaths:
             pc_files.append("$(location " + library_project + ":import)/site-packages/" + pc)
-        print(library_project, pc_files)
         return [(library_project + ":import", pc_files)]
     else:
         output = []
