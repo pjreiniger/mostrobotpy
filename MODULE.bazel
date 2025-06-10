@@ -15,9 +15,9 @@ bazel_dep(name = "rules_semiwrap", version = "")
 
 archive_override(
     module_name = "rules_semiwrap",
-    integrity = "sha256-Vlzy8JKM/OF4gXyQmS+zANRGwtvD/mH0ElRhiAZUdKA=",
-    strip_prefix = "rules_semiwrap-4b1abe40359510e72560223a1746631220126cd0",
-    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/4b1abe40359510e72560223a1746631220126cd0.tar.gz"],
+    integrity = "sha256-YjMo/epyQgYacAtOQcGSE6k+Vv1ZYibi0OwXjvulIzc=",
+    strip_prefix = "rules_semiwrap-b0c173f15fe32fa0802ce8e7afd6246a42fed42e",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/b0c173f15fe32fa0802ce8e7afd6246a42fed42e.tar.gz"],
 )
 
 # local_path_override(
@@ -38,14 +38,15 @@ archive_override(
 
 # local_path_override(
 #     module_name = "bzlmodrio-allwpilib",
-#     path = "/home/pjreiniger/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
+#     # path = "/home/pjreiniger/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
+#     path = "C:/Users/PJ/git/bzlmodrio/monorepo/libraries/bzlmodRio-allwpilib",
 # )
 
 archive_override(
     module_name = "bzlmodrio-allwpilib",
-    integrity = "sha256-xGfPnmwkmynzIe6hjOpkTsiSkblt4bqS7DRTXjB+dDA=",
-    strip_prefix = "bzlmodRio-allwpilib-4f390713a5ec66a2b6e78f5af30bbbe4dc434e04",
-    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/4f390713a5ec66a2b6e78f5af30bbbe4dc434e04.tar.gz"],
+    integrity = "sha256-+K/dv3dAEPT/SMVv6hdDiQADADAB3MGr5OdwKtSigeU=",
+    strip_prefix = "bzlmodRio-allwpilib-3e71c27f244dec83a8e4f30b97e94ac92b41b5a8",
+    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/3e71c27f244dec83a8e4f30b97e94ac92b41b5a8.tar.gz"],
 )
 
 python = use_extension(

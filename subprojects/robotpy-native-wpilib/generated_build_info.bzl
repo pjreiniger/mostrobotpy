@@ -3,7 +3,7 @@ load("@rules_python//python:pip.bzl", "whl_filegroup")
 load("@rules_semiwrap//:defs.bzl", "create_native_library")
 load("//bazel_scripts:file_resolver_utils.bzl", "local_pc_file_util")
 
-def define_library(name, headers, headers_external_repositories, shared_library, version):
+def define_library(name, headers, headers_external_repositories, shared_library, windows_interface_library, version):
     create_native_library(
         name = name,
         package_name = "robotpy-native-wpilib",
@@ -44,6 +44,9 @@ def define_library(name, headers, headers_external_repositories, shared_library,
             "//subprojects/robotpy-native-wpimath:wpimath",
             "//subprojects/robotpy-native-wpinet:wpinet",
             "//subprojects/robotpy-native-wpiutil:wpiutil",
-        ],
+        ] + select({
+            "@bazel_tools//src/conditions:windows": [windows_interface_library],
+            "//conditions:default": [],
+        }),
         tags = ["manual"],
     )
