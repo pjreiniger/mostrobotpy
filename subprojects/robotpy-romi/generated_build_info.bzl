@@ -128,6 +128,9 @@ def romi_extension(entry_point, deps, header_to_dat_deps = [], extension_name = 
         name = "romi.wheel.headers",
         deps = [
             ":romi.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-native-romi:romi",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+            "//subprojects/robotpy-native-wpimath:wpimath",
             "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
             "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
             "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
@@ -135,7 +138,6 @@ def romi_extension(entry_point, deps, header_to_dat_deps = [], extension_name = 
             "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
             "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
             "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
-            "//subprojects/robotpy-native-romi:romi",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],

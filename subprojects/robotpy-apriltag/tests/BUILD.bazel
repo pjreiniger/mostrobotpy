@@ -19,6 +19,6 @@ robotpy_py_test(
     deps = [
         requirement("opencv-python"),
         requirement("pytest"),
-        local_pybind_library("//subprojects/robotpy-apriltag", "apriltag"),
+        local_pybind_library("//subprojects/robotpy-apriltag", "robotpy_apriltag"),
     ],
 )

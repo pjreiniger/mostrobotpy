@@ -6,6 +6,7 @@ bazel_dep(name = "rules_cc", version = "0.0.17")
 bazel_dep(name = "platforms", version = "0.0.11")
 bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
 bazel_dep(name = "rules_pycross", version = "0.7.1")
+bazel_dep(name = "rules_bzlmodrio_toolchains", version = "2025-1.bcr2")
 bazel_dep(name = "caseyduquettesc_rules_python_pytest", version = "1.1.1", repo_name = "rules_python_pytest")
 bazel_dep(name = "rules_semiwrap", version = "")
 # local_path_override(
@@ -15,9 +16,9 @@ bazel_dep(name = "rules_semiwrap", version = "")
 
 archive_override(
     module_name = "rules_semiwrap",
-    integrity = "sha256-YjMo/epyQgYacAtOQcGSE6k+Vv1ZYibi0OwXjvulIzc=",
-    strip_prefix = "rules_semiwrap-b0c173f15fe32fa0802ce8e7afd6246a42fed42e",
-    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/b0c173f15fe32fa0802ce8e7afd6246a42fed42e.tar.gz"],
+    integrity = "sha256-9sB1X8bFssrptzKGj1OPOOuPds7yvnVB+pcsDYwPw3s=",
+    strip_prefix = "rules_semiwrap-20a1bcb3123d9b8ebe23efa8b48cbc4ea9efbfee",
+    urls = ["https://github.com/bzlmodrio/rules_semiwrap/archive/20a1bcb3123d9b8ebe23efa8b48cbc4ea9efbfee.tar.gz"],
 )
 
 # local_path_override(

@@ -49,6 +49,6 @@ apriltag_extension(
 )
 
 define_pybind_library(
-    name = "apriltag",
+    name = "robotpy_apriltag",
     version = MOSTROBOTPY_VERSION,
 )

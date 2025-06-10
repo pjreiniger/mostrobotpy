@@ -114,8 +114,9 @@ def wpinet_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         name = "wpinet.wheel.headers",
         deps = [
             ":wpinet.wheel.trampoline_hdrs",
-            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
             "//subprojects/robotpy-native-wpinet:wpinet",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],

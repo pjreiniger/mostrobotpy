@@ -272,8 +272,9 @@ def hal_simulation_extension(entry_point, deps, header_to_dat_deps = [], extensi
         name = "hal_simulation.wheel.headers",
         deps = [
             ":hal_simulation.wheel.trampoline_hdrs",
-            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
             "//subprojects/robotpy-native-wpihal:wpihal",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],
@@ -746,8 +747,9 @@ def wpihal_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         name = "wpihal.wheel.headers",
         deps = [
             ":wpihal.wheel.trampoline_hdrs",
-            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
             "//subprojects/robotpy-native-wpihal:wpihal",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
+            "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],

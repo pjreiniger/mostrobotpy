@@ -158,6 +158,9 @@ def xrp_extension(entry_point, deps, header_to_dat_deps = [], extension_name = N
         name = "xrp.wheel.headers",
         deps = [
             ":xrp.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-native-wpilib:wpilib",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+            "//subprojects/robotpy-native-xrp:xrp",
             "//subprojects/robotpy-wpilib:wpilib.wheel.headers",
             "//subprojects/robotpy-wpilib:wpilib_event.wheel.headers",
             "//subprojects/robotpy-wpilib:wpilib_interfaces.wheel.headers",
@@ -165,7 +168,6 @@ def xrp_extension(entry_point, deps, header_to_dat_deps = [], extension_name = N
             "//subprojects/robotpy-wpimath:wpimath_controls.wheel.headers",
             "//subprojects/robotpy-wpimath:wpimath_geometry.wheel.headers",
             "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
-            "//subprojects/robotpy-native-xrp:xrp",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],

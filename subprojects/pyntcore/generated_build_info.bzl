@@ -434,9 +434,11 @@ def ntcore_extension(entry_point, deps, header_to_dat_deps = [], extension_name 
         name = "ntcore.wheel.headers",
         deps = [
             ":ntcore.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-native-ntcore:ntcore",
+            "//subprojects/robotpy-native-wpinet:wpinet",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
             "//subprojects/robotpy-wpinet:wpinet.wheel.headers",
             "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
-            "//subprojects/robotpy-native-ntcore:ntcore",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],

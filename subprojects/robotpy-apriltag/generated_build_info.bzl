@@ -151,8 +151,8 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps = [], extension_nam
 
     whl_filegroup(
         name = "apriltag.wheel.trampoline_files",
-        pattern = "apriltag/trampolines",
-        whl = ":apriltag-wheel",
+        pattern = "robotpy_apriltag/trampolines",
+        whl = ":robotpy_apriltag-wheel",
         visibility = ["//visibility:public"],
         tags = ["manual"],
     )
@@ -160,7 +160,7 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps = [], extension_nam
     cc_library(
         name = "apriltag.wheel.trampoline_hdrs",
         hdrs = [":apriltag.wheel.trampoline_files"],
-        includes = ["apriltag.wheel.trampoline_files/apriltag"],
+        includes = ["apriltag.wheel.trampoline_files/robotpy_apriltag"],
         tags = ["manual"],
     )
 
@@ -168,9 +168,11 @@ def apriltag_extension(entry_point, deps, header_to_dat_deps = [], extension_nam
         name = "apriltag.wheel.headers",
         deps = [
             ":apriltag.wheel.trampoline_hdrs",
+            "//subprojects/robotpy-native-apriltag:apriltag",
+            "//subprojects/robotpy-native-wpimath:wpimath",
+            "//subprojects/robotpy-native-wpiutil:wpiutil",
             "//subprojects/robotpy-wpimath:wpimath.wheel.headers",
             "//subprojects/robotpy-wpiutil:wpiutil.wheel.headers",
-            "//subprojects/robotpy-native-apriltag:apriltag",
         ],
         visibility = ["//visibility:public"],
         tags = ["manual"],
