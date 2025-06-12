@@ -1,14 +1,14 @@
 load("@rules_python//python:defs.bzl", "py_library")
 load("@rules_semiwrap//:defs.bzl", "copy_extension_library")
+load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util")
 load("//subprojects/robotpy-wpimath/tests/cpp:generated_build_info.bzl", "wpimath_test_extension")
-load("//bazel_scripts:file_resolver_utils.bzl", "local_extension_util", "local_pc_file_util")
 
 wpimath_test_extension(
     entry_point = ["wpimath_test/src/module.cpp"],
     extra_hdrs = glob(["wpimath_test/include/*.h"]),
     header_to_dat_deps = glob(["wpimath_test/include/*.h"]),
     includes = ["wpimath_test/include"],
-    other_deps = [local_extension_util("//subprojects/robotpy-wpimath", "wpimath"),],
+    other_deps = [local_extension_util("//subprojects/robotpy-wpimath", "wpimath")],
 )
 
 copy_extension_library(
@@ -32,6 +32,6 @@ filegroup(
     srcs = [
         "wpimath_test.generated_files",
     ],
-    visibility = ["//visibility:public"],
     tags = ["manual"],
+    visibility = ["//visibility:public"],
 )

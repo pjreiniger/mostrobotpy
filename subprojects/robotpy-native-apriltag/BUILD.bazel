@@ -11,6 +11,6 @@ define_library(
     headers = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:header_files",
     headers_external_repositories = ["bzlmodrio-allwpilib~~setup_bzlmodrio_allwpilib_cpp_dependencies~bazelrio_edu_wpi_first_apriltag_apriltag-cpp_headers"],
     shared_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_raw",
-    windows_interface_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_interface",
     version = NATIVE_VERSION,
+    windows_interface_library = "@bzlmodrio-allwpilib//libraries/cpp/apriltag:shared_interface",
 )
