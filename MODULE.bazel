@@ -45,9 +45,9 @@ archive_override(
 
 archive_override(
     module_name = "bzlmodrio-allwpilib",
-    integrity = "sha256-+K/dv3dAEPT/SMVv6hdDiQADADAB3MGr5OdwKtSigeU=",
-    strip_prefix = "bzlmodRio-allwpilib-3e71c27f244dec83a8e4f30b97e94ac92b41b5a8",
-    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/3e71c27f244dec83a8e4f30b97e94ac92b41b5a8.tar.gz"],
+    # integrity = "sha256-OHSW4yFrgONp54mtDSTyIwlnpOvyDmC1JragAu31ISU=",
+    strip_prefix = "bzlmodRio-allwpilib-b635fa21d9fd2c4e38bbf9aedc99011adaaeee42",
+    urls = ["https://github.com/bzlmodrio/bzlmodrio-allwpilib/archive/b635fa21d9fd2c4e38bbf9aedc99011adaaeee42.tar.gz"],
 )
 
 python = use_extension(

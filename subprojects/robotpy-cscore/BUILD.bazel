@@ -41,12 +41,12 @@ cscore_extension(
     ],
     includes = ["cscore"],
     deps = [
+        "@bzlmodrio-opencv//libraries/cpp/opencv:static",
+        "@bzlmodrio-allwpilib//libraries/cpp/cscore:standalone_static",
+        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:standalone_static",
         local_extension_util("//subprojects/pyntcore", "ntcore"),
         local_extension_util("//subprojects/robotpy-wpinet", "wpinet"),
         local_extension_util("//subprojects/robotpy-wpiutil", "wpiutil"),
-        "@bzlmodrio-allwpilib//libraries/cpp/cameraserver:static",
-        "@bzlmodrio-allwpilib//libraries/cpp/cscore:static",
-        "@bzlmodrio-opencv//libraries/cpp/opencv:static",
     ],
 )
 

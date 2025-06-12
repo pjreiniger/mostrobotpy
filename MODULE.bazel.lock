@@ -196,7 +196,7 @@
     },
     "@@bzlmodrio-allwpilib~//:maven_cpp_deps.bzl%setup_bzlmodrio_allwpilib_cpp_dependencies": {
       "general": {
-        "bzlTransitiveDigest": "nQN4NamZyc6MQrSoKree+GuldG/DVQsI+A/GtveZgP8=",
+        "bzlTransitiveDigest": "7QxwUSjbpwTfISmahHSibJG4S9sKUvM1pqt9dC8UGpo=",
         "usagesDigest": "wxU3gs1hez+OurOUmYI7kpWJ6xvV4uTB2rfW0W24R24=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -3067,7 +3067,13 @@
               "sha256": "986395311ddcdc470d38e9a895dc6328f234c91592bffac504b63ac8ae39dc3e",
               "build_file": "@@bzlmodrio-allwpilib~//private/cpp/romiVendordep:shared.BUILD.bazel",
               "patch_cmds": [
-                "install_name_tool -id @rpath/libromiVendordep.dylib osx/universal/shared/libromiVendordep.dylib"
+                "install_name_tool -id @rpath/libromiVendordep.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libntcore.dylib @rpath/libntcore.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpiHal.dylib @rpath/libwpiHal.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpilibc.dylib @rpath/libwpilibc.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpimath.dylib @rpath/libwpimath.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpinet.dylib @rpath/libwpinet.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpiutil.dylib @rpath/libwpiutil.dylib osx/universal/shared/libromiVendordep.dylib"
               ]
             }
           },
@@ -3178,7 +3184,13 @@
               "sha256": "62bd16bafc296603d5d13873e65bdd23e27e00c77b5c708fa6c9eb986e4aeafd",
               "build_file": "@@bzlmodrio-allwpilib~//private/cpp/romiVendordep:shared.BUILD.bazel",
               "patch_cmds": [
-                "install_name_tool -id @rpath/libromiVendordep.dylib osx/universal/shared/libromiVendordep.dylib"
+                "install_name_tool -id @rpath/libromiVendordep.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libntcore.dylib @rpath/libntcore.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpiHal.dylib @rpath/libwpiHal.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpilibc.dylib @rpath/libwpilibc.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpimath.dylib @rpath/libwpimath.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpinet.dylib @rpath/libwpinet.dylib osx/universal/shared/libromiVendordep.dylib",
+                "install_name_tool -change libwpiutil.dylib @rpath/libwpiutil.dylib osx/universal/shared/libromiVendordep.dylib"
               ]
             }
           },
@@ -3343,7 +3355,13 @@
               "sha256": "5109237826c71e2790e8a118e693e028a836e0c1d3ff82a64d8d59ed922d52f5",
               "build_file": "@@bzlmodrio-allwpilib~//private/cpp/xrpVendordep:shared.BUILD.bazel",
               "patch_cmds": [
-                "install_name_tool -id @rpath/libxrpVendordep.dylib osx/universal/shared/libxrpVendordep.dylib"
+                "install_name_tool -id @rpath/libxrpVendordep.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libntcore.dylib @rpath/libntcore.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpiHal.dylib @rpath/libwpiHal.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpilibc.dylib @rpath/libwpilibc.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpimath.dylib @rpath/libwpimath.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpinet.dylib @rpath/libwpinet.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpiutil.dylib @rpath/libwpiutil.dylib osx/universal/shared/libxrpVendordep.dylib"
               ]
             }
           },
@@ -3454,7 +3472,13 @@
               "sha256": "92f451806b7a55c30af5f67a7c06ed4deffcf131818be4a5bf33bc2e9858b7fe",
               "build_file": "@@bzlmodrio-allwpilib~//private/cpp/xrpVendordep:shared.BUILD.bazel",
               "patch_cmds": [
-                "install_name_tool -id @rpath/libxrpVendordep.dylib osx/universal/shared/libxrpVendordep.dylib"
+                "install_name_tool -id @rpath/libxrpVendordep.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libntcore.dylib @rpath/libntcore.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpiHal.dylib @rpath/libwpiHal.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpilibc.dylib @rpath/libwpilibc.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpimath.dylib @rpath/libwpimath.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpinet.dylib @rpath/libwpinet.dylib osx/universal/shared/libxrpVendordep.dylib",
+                "install_name_tool -change libwpiutil.dylib @rpath/libwpiutil.dylib osx/universal/shared/libxrpVendordep.dylib"
               ]
             }
           },
