@@ -26,13 +26,6 @@ classes:
           const Eigen::Matrix2d&:
             rename: fromMatrix
             keepalive: []
-      RotateBy:
-      ToMatrix:
-      Radians:
-      Degrees:
-      Cos:
-      Sin:
-      Tan:
       operator+:
       operator+=:
       operator-:
@@ -44,6 +37,13 @@ classes:
       operator/:
       operator==:
       operator!=:
+      RotateBy:
+      ToMatrix:
+      Radians:
+      Degrees:
+      Cos:
+      Sin:
+      Tan:
 
 inline_code: |
   cls_Rotation2d

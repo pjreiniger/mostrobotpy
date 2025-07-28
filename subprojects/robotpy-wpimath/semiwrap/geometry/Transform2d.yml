@@ -28,9 +28,9 @@ classes:
       Inverse:
       operator*:
       operator/:
+      operator+:
       operator==:
       operator!=:
-      operator+:
 
 inline_code: |
   cls_Transform2d

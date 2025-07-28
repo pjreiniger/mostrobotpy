@@ -25,11 +25,6 @@ classes:
       Angle:
       RotateBy:
       RotateAround:
-      Nearest:
-        overloads:
-          std::span<const Translation2d> [const]:
-          std::initializer_list<Translation2d> [const]:
-            ignore: true
       operator+:
       operator+=:
       operator-:
@@ -43,7 +38,11 @@ classes:
       operator==:
       operator!=:
       operator/=:
-
+      Nearest:
+        overloads:
+          std::span<const Translation2d> [const]:
+          std::initializer_list<Translation2d> [const]:
+            ignore: true
 inline_code: |
   cls_Translation2d
     .def_static("fromFeet", [](units::foot_t x, units::foot_t y){

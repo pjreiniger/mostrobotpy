@@ -148,6 +148,8 @@ classes:
       GetName:
       CreateValue:
         ignore: true
+      CreateInt:
+      CreateLong:
       CreateDouble:
       CreateEnum:
         overloads:
@@ -180,8 +182,6 @@ classes:
               }
 
       CreateBoolean:
-      CreateInt:
-      CreateLong:
 
 inline_code: |
 

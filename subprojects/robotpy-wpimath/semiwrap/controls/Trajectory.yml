@@ -23,8 +23,8 @@ classes:
       Sample:
       TransformBy:
       RelativeTo:
-      InitialPose:
       operator+:
+      InitialPose:
       operator==:
       operator!=:
   frc::Trajectory::State:

@@ -16,13 +16,13 @@ classes:
               measurementStdDevs:
                 default: std::array<double, 1>{0.0}
       SetState:
-      GetAngularVelocity:
-      GetCurrentDraw:
-      SetInputVoltage:
       SetVelocity:
+      GetAngularVelocity:
       GetAngularAcceleration:
       GetTorque:
+      GetCurrentDraw:
       GetInputVoltage:
+      SetInputVoltage:
       Gearbox:
       Gearing:
       J:
