@@ -215,6 +215,11 @@ jobs:
     - name: Ensure all headers are accounted for
       run: |
         python -m devtools ci scan-headers
+        
+    # TODO blocked on semiwrap release
+    # - name: Ensure YAML files are up to date
+    #   run: |
+    #     python -m devtools ci update-yaml
 
     - uses: actions/upload-artifact@v4
       with:
