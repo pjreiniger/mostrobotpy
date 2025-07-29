@@ -26,18 +26,13 @@ classes:
       RotateBy:
       RotateAround:
       operator+:
-      operator+=:
       operator-:
         overloads:
           const Translation2d& [const]:
           '[const]':
-      operator-=:
       operator*:
-      operator*=:
       operator/:
       operator==:
-      operator!=:
-      operator/=:
       Nearest:
         overloads:
           std::span<const Translation2d> [const]:

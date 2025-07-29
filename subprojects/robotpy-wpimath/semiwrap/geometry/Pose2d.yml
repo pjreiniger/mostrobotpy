@@ -23,10 +23,8 @@ classes:
             rename: fromMatrix
             keepalive: []
       operator+:
-      operator+=:
       operator-:
       operator==:
-      operator!=:
       Translation:
       X:
       Y:
@@ -44,6 +42,7 @@ classes:
           std::span<const Pose2d> [const]:
           std::initializer_list<Pose2d> [const]:
             ignore: true
+      RotateAround:
 inline_code: |
   cls_Pose2d
     .def_static("fromFeet", [](units::foot_t x, units::foot_t y, Rotation2d r) {

@@ -7,5 +7,7 @@ classes:
       r:
       g:
       b:
-      padding:
-        ignore: true
+enums:
+  HAL_AddressableLEDColorOrder:
+functions:
+  format_as:

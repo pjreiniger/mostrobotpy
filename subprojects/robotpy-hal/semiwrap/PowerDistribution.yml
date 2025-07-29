@@ -101,3 +101,5 @@ classes:
       canWarning:
       canBusOff:
       hasReset:
+      hardwareFault:
+      firmwareFault:
