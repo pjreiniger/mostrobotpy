@@ -8,19 +8,19 @@ classes:
     methods:
       AddressableLEDSim:
         overloads:
-          const AddressableLED&:
           int:
+          const AddressableLED&:
       RegisterInitializedCallback:
       GetInitialized:
       SetInitialized:
-      RegisterLengthCallback:
-      GetLength:
-      SetLength:
-      RegisterDataCallback:
-      GetData:
-      SetData:
       RegisterStartCallback:
       GetStart:
       SetStart:
+      RegisterLengthCallback:
+      GetLength:
+      SetLength:
+      GetData:
+      SetData:
+      RegisterDataCallback:
       GetGlobalData:
       SetGlobalData:

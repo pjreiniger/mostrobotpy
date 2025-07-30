@@ -14,10 +14,10 @@ classes:
       SetPulseTime:
       GetPulseTime:
       SetDisabled:
-      GetChannel:
-      InitSendable:
       SetOutputPeriod:
+      GetChannel:
       SetSimDevice:
+      InitSendable:
 
 inline_code: |
   cls_PWM

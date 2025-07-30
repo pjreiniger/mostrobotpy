@@ -6,6 +6,7 @@ classes:
   wpi::SendableRegistry:
     nodelete: true
     methods:
+      EnsureInitialized:
       Add:
         overloads:
           Sendable*, std::string_view:
@@ -51,4 +52,3 @@ classes:
       GetSendable:
       Publish:
       Update:
-      EnsureInitialized:

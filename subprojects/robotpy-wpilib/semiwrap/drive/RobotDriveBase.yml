@@ -5,10 +5,10 @@ extra_includes:
 classes:
   frc::RobotDriveBase:
     attributes:
-      m_deadband:
-      m_maxOutput:
       kDefaultDeadband:
       kDefaultMaxOutput:
+      m_deadband:
+      m_maxOutput:
     enums:
       MotorType:
     methods:

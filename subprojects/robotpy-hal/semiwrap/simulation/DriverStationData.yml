@@ -81,6 +81,7 @@ functions:
   HALSIM_SetJoystickPOVCount:
   HALSIM_SetJoystickButtonCount:
   HALSIM_GetJoystickCounts:
+  HALSIM_SetJoystickIsGamepad:
   HALSIM_SetJoystickType:
   HALSIM_SetJoystickName:
     cpp_code: |
@@ -110,4 +111,3 @@ functions:
     ignore: true
   HALSIM_CancelDriverStationNewDataCallback:
   HALSIM_NotifyDriverStationNewData:
-  HALSIM_SetJoystickIsGamepad:

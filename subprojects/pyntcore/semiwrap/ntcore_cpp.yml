@@ -46,13 +46,13 @@ classes:
       kTimeSync:
   nt::TopicInfo:
     attributes:
-      name:
-      type_str:
-      properties:
       topic:
         ignore: true
+      name:
       type:
         ignore: true
+      type_str:
+      properties:
     methods:
       GetProperties:
     inline_code: |

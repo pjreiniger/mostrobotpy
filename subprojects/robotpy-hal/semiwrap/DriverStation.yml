@@ -13,6 +13,7 @@ functions:
   HAL_GetJoystickButtons:
   HAL_GetAllJoystickData:
   HAL_GetJoystickDescriptor:
+  HAL_GetJoystickIsGamepad:
   HAL_GetJoystickType:
   HAL_GetJoystickName:
     param_override:
@@ -39,4 +40,3 @@ functions:
   HAL_ObserveUserProgramAutonomous:
   HAL_ObserveUserProgramTeleop:
   HAL_ObserveUserProgramTest:
-  HAL_GetJoystickIsGamepad:

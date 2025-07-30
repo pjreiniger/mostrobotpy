@@ -2,6 +2,7 @@ strip_prefixes:
 - HAL_
 
 functions:
+  HAL_GetNumCanBuses:
   HAL_GetNumAnalogInputs:
   HAL_GetNumCounters:
   HAL_GetNumDigitalChannels:
@@ -9,8 +10,6 @@ functions:
   HAL_GetNumDigitalPWMOutputs:
   HAL_GetNumEncoders:
   HAL_GetNumInterrupts:
-  HAL_GetNumDutyCycles:
-  HAL_GetNumAddressableLEDs:
   HAL_GetNumCTREPCMModules:
   HAL_GetNumCTRESolenoidChannels:
   HAL_GetNumCTREPDPModules:
@@ -19,4 +18,5 @@ functions:
   HAL_GetNumREVPDHChannels:
   HAL_GetNumREVPHModules:
   HAL_GetNumREVPHChannels:
-  HAL_GetNumCanBuses:
+  HAL_GetNumDutyCycles:
+  HAL_GetNumAddressableLEDs:

@@ -124,6 +124,7 @@ classes:
             self->StartServer(persist_filename, listen_address, port);
           }
       StopServer:
+      StartClient:
       StopClient:
       SetServer:
         overloads:
@@ -154,7 +155,6 @@ classes:
       AddStructSchema:
         ignore: true
       operator==:
-      StartClient:
     inline_code: |
       .def("configPythonLogging", [](NetworkTableInstance * self, 
         NetworkTableInstance::LogLevel minLevel, NetworkTableInstance::LogLevel maxLevel, py::str logName) {
