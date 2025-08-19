@@ -1,0 +1,179 @@
+# MOSTROBOTPY_URL = "https://github.com/robotpy/mostrobotpy.git"
+# MOSTROBOTPY_TRUTH_BRANCH = "2027"
+MOSTROBOTPY_URL = "https://github.com/pjreiniger/mostrobotpy.git"
+MOSTROBOTPY_TRUTH_BRANCH = "run_update_yaml"
+
+ALLWPILIB_URL = "https://github.com/bzlmodRio/allwpilib.git"
+ALLWPILIB_TRUTH_BRANCH = "bzl_2027_robotpy_create_yaml"
+
+MOSTROBOTPY_PROJECTS = [
+    struct(
+        wpilib_name = "apriltag",
+        robotpy_name = "robotpy-apriltag",
+        native_robotpy_name = "robotpy-native-apriltag",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "datalog",
+        robotpy_name = "robotpy-wpilog",
+        native_robotpy_name = "robotpy-native-datalog",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "hal",
+        robotpy_name = "robotpy-hal",
+        native_robotpy_name = "robotpy-native-wpihal",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "ntcore",
+        robotpy_name = "pyntcore",
+        native_robotpy_name = "robotpy-native-ntcore",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "romiVendordep",
+        robotpy_name = "robotpy-romi",
+        native_robotpy_name = "robotpy-native-romi",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "wpilibc",
+        robotpy_name = "robotpy-wpilib",
+        native_robotpy_name = "robotpy-native-wpilib",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "wpimath",
+        robotpy_name = "robotpy-wpimath",
+        native_robotpy_name = "robotpy-native-wpimath",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "wpinet",
+        robotpy_name = "robotpy-wpinet",
+        native_robotpy_name = "robotpy-native-wpinet",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "wpiutil",
+        robotpy_name = "robotpy-wpiutil",
+        native_robotpy_name = "robotpy-native-wpiutil",
+        has_tests = True,
+    ),
+    struct(
+        wpilib_name = "xrpVendordep",
+        robotpy_name = "robotpy-xrp",
+        native_robotpy_name = "robotpy-native-xrp",
+        has_tests = True,
+    ),
+]
+
+IGNORED_PROJECTS = [
+    "subprojects/robotpy-cscore",
+    "subprojects/robotpy-halsim-ds-socket",
+    "subprojects/robotpy-halsim-gui",
+    "subprojects/robotpy-halsim-ws",
+]
+
+def define_mostrobotpy_to_allwpilib():
+    origin_files = []
+    destination_files = []
+    transformations = []
+
+    EXCLUDES = ["**/meson.build", "**/.gitignore", "**/requirements.txt", "**/run_tests.py", "**/.gittrack", "**/.gittrackexclude"]
+
+    for project_info in MOSTROBOTPY_PROJECTS:
+        origin_files += glob([
+            "subprojects/" + project_info.robotpy_name + "/**",
+        ], exclude = EXCLUDES)
+
+        if project_info.native_robotpy_name:
+            origin_files += glob([
+                "subprojects/" + project_info.native_robotpy_name + "/pyproject.toml",
+            ], exclude = EXCLUDES)
+
+        destination_files += glob([
+            project_info.wpilib_name + "/src/main/python/**",
+            project_info.wpilib_name + "/src/test/python/**",
+        ], exclude = [])
+
+        if project_info.has_tests:
+            transformations.append(core.move("subprojects/" + project_info.robotpy_name + "/tests", project_info.wpilib_name + "/src/test/python"))
+        if project_info.native_robotpy_name:
+            transformations.append(core.move("subprojects/" + project_info.native_robotpy_name + "/pyproject.toml", "subprojects/" + project_info.native_robotpy_name + "/native-pyproject.toml"))
+        transformations.append(core.move("subprojects/" + project_info.robotpy_name, project_info.wpilib_name + "/src/main/python"))
+        if project_info.native_robotpy_name:
+            transformations.append(core.move("subprojects/" + project_info.native_robotpy_name + "/native-pyproject.toml", project_info.wpilib_name + "/src/main/python/native-pyproject.toml"))
+
+    core.workflow(
+        name = "mostrobotpy_to_allwpilib",
+        origin = git.origin(
+            url = MOSTROBOTPY_URL,
+            ref = MOSTROBOTPY_TRUTH_BRANCH,
+        ),
+        # destination = git.destination(
+        #     url = ALLWPILIB_URL,
+        #     fetch = "test_copybara",
+        #     push = "test_copybara",
+        # ),
+        destination = git.github_pr_destination(
+            url = ALLWPILIB_URL,
+            destination_ref = ALLWPILIB_TRUTH_BRANCH,
+            pr_branch = "mostrobotpy_to_allwpilib",
+            title = "[copybara] Sync mostrobotpy",
+            body = "",
+            integrates = [],
+        ),
+        destination_files = destination_files,
+        origin_files = origin_files,
+        authoring = authoring.pass_thru("Default email <default@default.com>"),
+        transformations = transformations,
+    )
+
+def define_allwpilib_to_mostrobotpy():
+    ignored_project_exclude = [p + "/**" for p in IGNORED_PROJECTS]
+    origin_files = []
+    destination_files = glob(["**"], exclude = ["*", ".github/**", "docs/**", "**/.gitignore", "**/meson.build", "**/requirements.txt", "**/run_tests.py", "devtools/**", "examples/**"] + ignored_project_exclude)
+    transformations = []
+
+    for project_info in MOSTROBOTPY_PROJECTS:
+        origin_files += glob([
+            project_info.wpilib_name + "/src/main/python/**",
+            project_info.wpilib_name + "/src/test/python/**",
+        ], exclude = [])
+
+        if project_info.has_tests:
+            transformations.append(core.move(project_info.wpilib_name + "/src/test/python", "subprojects/" + project_info.robotpy_name + "/tests"))
+        transformations.append(core.move(project_info.wpilib_name + "/src/main/python", "subprojects/" + project_info.robotpy_name))
+        transformations.append(core.move("subprojects/" + project_info.robotpy_name + "/native-pyproject.toml", "subprojects/" + project_info.native_robotpy_name + "/pyproject.toml"))
+
+    core.workflow(
+        name = "allwpilib_to_mostrobotpy",
+        origin = git.origin(
+            url = ALLWPILIB_URL,
+            ref = ALLWPILIB_TRUTH_BRANCH,
+        ),
+        # destination = git.destination(
+        #     url = MOSTROBOTPY_URL,
+        #     fetch = "test_copybara",
+        #     push = "test_copybara",
+        # ),
+        destination = git.github_pr_destination(
+            url = MOSTROBOTPY_URL,
+            destination_ref = MOSTROBOTPY_TRUTH_BRANCH,
+            pr_branch = "allwpilib_to_mostrobotpy",
+            title = "[copybara] Sync mostrobotpy",
+            body = "",
+            integrates = [],
+        ),
+        destination_files = destination_files,
+        origin_files = origin_files,
+        authoring = authoring.pass_thru("Default email <default@default.com>"),
+        transformations = transformations,
+    )
+
+define_mostrobotpy_to_allwpilib()
+define_allwpilib_to_mostrobotpy()
+
+# # bazel run //:copybara -- migrate /home/pjreiniger/git/allwpilib/copy.bara.sky mostrobotpy_to_allwpilib
