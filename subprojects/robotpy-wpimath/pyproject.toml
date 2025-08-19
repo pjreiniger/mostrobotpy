@@ -45,6 +45,8 @@ update_init = [
     "wpimath.estimator wpimath._controls._controls.estimator",
     "wpimath.filter",
     "wpimath.geometry",
+    "wpimath.kinematics",
+    "wpimath.interpolation",
     "wpimath.optimization wpimath._controls._controls.optimization",
     "wpimath.path wpimath._controls._controls.path",
     "wpimath.spline",
@@ -1574,7 +1576,6 @@ DifferentialDriveAccelerationLimiter = "frc/controller/DifferentialDriveAccelera
 DifferentialDriveFeedforward = "frc/controller/DifferentialDriveFeedforward.h"
 DifferentialDriveWheelVoltages = "frc/controller/DifferentialDriveWheelVoltages.h"
 ElevatorFeedforward = "frc/controller/ElevatorFeedforward.h"
-HolonomicDriveController = "frc/controller/HolonomicDriveController.h"
 ImplicitModelFollower = "frc/controller/ImplicitModelFollower.h"
 LTVDifferentialDriveController = "frc/controller/LTVDifferentialDriveController.h"
 LTVUnicycleController = "frc/controller/LTVUnicycleController.h"

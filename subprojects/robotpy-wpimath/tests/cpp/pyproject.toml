@@ -12,11 +12,17 @@ authors = [
     {name = "RobotPy Development Team", email = "robotpy@googlegroups.com"},
 ]
 license = "BSD-3-Clause"
+dependencies = [
+    "robotpy-wpimath==2027.0.0a2",
+]
 
 [tool.hatch.build.hooks.semiwrap]
 [tool.hatch.build.hooks.meson]
 
 [tool.semiwrap]
+update_init = [
+    "wpimath_test wpimath_test._wpimath_test",
+]
 
 [tool.semiwrap.extension_modules."wpimath_test._wpimath_test"]
 name = "wpimath_test"
