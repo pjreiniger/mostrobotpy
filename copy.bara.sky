@@ -81,7 +81,7 @@ def define_mostrobotpy_to_allwpilib():
     destination_files = []
     transformations = []
 
-    EXCLUDES = ["**/meson.build", "**/.gitignore", "**/requirements.txt", "**/run_tests.py", "**/.gittrack", "**/.gittrackexclude"]
+    EXCLUDES = ["**/meson.build", "**/.gitignore", "**/requirements.txt", "**/.gittrack", "**/.gittrackexclude"]
 
     for project_info in MOSTROBOTPY_PROJECTS:
         origin_files += glob([
@@ -129,7 +129,7 @@ def define_mostrobotpy_to_allwpilib():
 def define_allwpilib_to_mostrobotpy():
     ignored_project_exclude = [p + "/**" for p in IGNORED_PROJECTS]
     origin_files = []
-    destination_files = glob(["**"], exclude = ["*", ".github/**", "docs/**", "**/.gitignore", "**/meson.build", "**/requirements.txt", "**/run_tests.py", "devtools/**", "examples/**"] + ignored_project_exclude)
+    destination_files = glob(["**"], exclude = ["*", ".github/**", "docs/**", "**/.gitignore", "**/meson.build", "**/requirements.txt", "devtools/**", "examples/**"] + ignored_project_exclude)
     transformations = []
 
     for project_info in MOSTROBOTPY_PROJECTS:
