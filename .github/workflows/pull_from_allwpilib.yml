@@ -1,8 +1,9 @@
 
-name: Pull from allwpilib
+name: Push to allwpilib
 
 on:
   workflow_dispatch:
+  push:
 jobs:
   move-code:
     runs-on: ubuntu-latest
@@ -10,11 +11,25 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - uses: olivr/copybara-action@v1.2.5
+          
+      - uses: actions/setup-java@v4
         with:
-          # access_token: ${{ secrets.GH_TOKEN }}
-          # ssh_key: ${{ secrets.SSH_KEY }}
-          workflow: allwpilib_to_mostrobotpy
-          custom_config: copy.bara.sky
-          # copybara_options: --force
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Download copybara
+        run: |
+          wget https://github.com/google/copybara/releases/download/v20250616/copybara_deploy.jar
+          chmod +x copybara_deploy.jar
+          
+      - name: Configure committer identity
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          
+      - name: Configure Git credentials
+        run: |
+          git config --global url."https://${{ secrets.COPYBARA_TOKEN }}@github.com/".insteadOf "https://github.com/"
+        
+      - name: Run copybara
+        run: java -jar copybara_deploy.jar migrate `pwd`/copy.bara.sky allwpilib_to_mostrobotpy
