@@ -1,7 +1,7 @@
 # MOSTROBOTPY_URL = "https://github.com/robotpy/mostrobotpy.git"
 # MOSTROBOTPY_TRUTH_BRANCH = "2027"
 MOSTROBOTPY_URL = "https://github.com/pjreiniger/mostrobotpy.git"
-MOSTROBOTPY_TRUTH_BRANCH = "run_update_yaml"
+MOSTROBOTPY_TRUTH_BRANCH = "2027"
 
 ALLWPILIB_URL = "https://github.com/bzlmodRio/allwpilib.git"
 ALLWPILIB_TRUTH_BRANCH = "bzl_2027_robotpy_create_yaml"
@@ -112,11 +112,6 @@ def define_mostrobotpy_to_allwpilib():
             url = MOSTROBOTPY_URL,
             ref = MOSTROBOTPY_TRUTH_BRANCH,
         ),
-        # destination = git.destination(
-        #     url = ALLWPILIB_URL,
-        #     fetch = "test_copybara",
-        #     push = "test_copybara",
-        # ),
         destination = git.github_pr_destination(
             url = ALLWPILIB_URL,
             destination_ref = ALLWPILIB_TRUTH_BRANCH,
@@ -154,11 +149,6 @@ def define_allwpilib_to_mostrobotpy():
             url = ALLWPILIB_URL,
             ref = ALLWPILIB_TRUTH_BRANCH,
         ),
-        # destination = git.destination(
-        #     url = MOSTROBOTPY_URL,
-        #     fetch = "test_copybara",
-        #     push = "test_copybara",
-        # ),
         destination = git.github_pr_destination(
             url = MOSTROBOTPY_URL,
             destination_ref = MOSTROBOTPY_TRUTH_BRANCH,

@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+jobs:
+  move-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: olivr/copybara-action@v1.2.5
+        with:
+          # access_token: ${{ secrets.GH_TOKEN }}
+          # ssh_key: ${{ secrets.SSH_KEY }}
+          workflow: mostrobotpy_to_allwpilib
+          custom_config: copy.bara.sky
+          # copybara_options: --force
