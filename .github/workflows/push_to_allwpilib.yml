@@ -26,8 +26,10 @@ jobs:
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
+          
+      - name: Configure Git credentials
+        run: |
+          git config --global url."https://${{ secrets.COPYBARA_TOKEN }}@github.com/".insteadOf "https://github.com/"
         
       - name: Run copybara
         run: java -jar copybara_deploy.jar migrate `pwd`/copy.bara.sky mostrobotpy_to_allwpilib
-        env:
-          GH_TOKEN: ${{ secrets.COPYBARA_TOKEN }}
