@@ -23,12 +23,4 @@ jobs:
           chmod +x copybara_deploy.jar
         
       - name: Run copybara
-        run: java -jar copybara_deploy.jar --help
-
-      # - uses: olivr/copybara-action@v1.2.5
-      #   with:
-      #     # access_token: ${{ secrets.GH_TOKEN }}
-      #     ssh_key: fake
-      #     workflow: mostrobotpy_to_allwpilib
-      #     custom_config: copy.bara.sky
-      #     # copybara_options: --force
+        run: java -jar copybara_deploy.jar mostrobotpy_to_allwpilib
