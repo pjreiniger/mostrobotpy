@@ -11,11 +11,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
 
       - name: Download copybara
         run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler liblist-moreutils-perl
           wget https://github.com/google/copybara/releases/download/v20250616/copybara_deploy.jar
           chmod +x copybara_deploy.jar
         
