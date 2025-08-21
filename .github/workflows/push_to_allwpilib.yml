@@ -29,3 +29,5 @@ jobs:
         
       - name: Run copybara
         run: java -jar copybara_deploy.jar migrate `pwd`/copy.bara.sky mostrobotpy_to_allwpilib
+        env:
+          GH_TOKEN: ${{ secrets.COPYBARA_TOKEN }}
