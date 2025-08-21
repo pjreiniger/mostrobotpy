@@ -110,7 +110,7 @@ def define_mostrobotpy_to_allwpilib():
         name = "mostrobotpy_to_allwpilib",
         origin = git.github_pr_origin(
             url = MOSTROBOTPY_URL,
-            ref = MOSTROBOTPY_TRUTH_BRANCH,
+            branch = MOSTROBOTPY_TRUTH_BRANCH,
         ),
         destination = git.github_pr_destination(
             url = ALLWPILIB_URL,
