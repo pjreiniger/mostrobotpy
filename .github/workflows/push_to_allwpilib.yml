@@ -21,6 +21,11 @@ jobs:
         run: |
           wget https://github.com/google/copybara/releases/download/v20250616/copybara_deploy.jar
           chmod +x copybara_deploy.jar
+          
+      - name: Configure committer identity
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
         
       - name: Run copybara
         run: java -jar copybara_deploy.jar migrate `pwd`/copy.bara.sky mostrobotpy_to_allwpilib
