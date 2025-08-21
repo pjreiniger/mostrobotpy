@@ -23,4 +23,4 @@ jobs:
           chmod +x copybara_deploy.jar
         
       - name: Run copybara
-        run: java -jar migrate copybara_deploy.jar mostrobotpy_to_allwpilib
+        run: java -jar copybara_deploy.jar migrate mostrobotpy_to_allwpilib
