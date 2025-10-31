@@ -6,3 +6,11 @@
 
 rpy-include
 .venv/
+
+
+.copybara.json
+bazel-*
+.bazelrc
+BUILD
+MODULE.bazel*
+WORKSPACE
