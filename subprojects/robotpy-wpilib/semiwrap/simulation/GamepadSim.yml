@@ -1,8 +1,5 @@
-extra_includes:
-- wpi/driverstation/Gamepad.hpp
-
 classes:
-  wpi::sim::GamepadSim:
+  frc::sim::GamepadSim:
     methods:
       GamepadSim:
         overloads:
