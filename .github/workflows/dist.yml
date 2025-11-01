@@ -4,9 +4,6 @@ name: dist
 on:
   pull_request:
   push:
-    branches:
-    tags:
-    - '*'
   workflow_dispatch:
 
 concurrency:
