@@ -1,7 +1,7 @@
 classes:
   frc::Gamepad:
     ignored_bases:
-    - wpi::SendableHelper<XboxController>
+    - wpi::SendableHelper<Gamepad>
     methods:
       Gamepad:
       GetLeftX:
