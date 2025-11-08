@@ -6,3 +6,7 @@
 
 rpy-include
 .venv/
+
+
+.copybara.json
+bazel-*
