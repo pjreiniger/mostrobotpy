@@ -23,7 +23,7 @@ inline_code: |
   cls_MecanumDriveWheelAccelerations
     .def(
       py::init<
-        wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t,
+        wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t
       >(),
       py::arg("frontLeft") = 0, py::arg("frontRight") = 0, py::arg("rearLeft") = 0, py::arg("rearRight") = 0
     )
