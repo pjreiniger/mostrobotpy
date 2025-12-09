@@ -18,7 +18,7 @@ classes:
       operator/:
 
 inline_code: |
-  cls_ChassisSpeeds
+  cls_SwerveModuleAcceleration
     .def(
       py::init<
         wpi::units::meters_per_second_squared_t, wpi::math::Rotation2d
@@ -27,4 +27,4 @@ inline_code: |
     )
   ;
 
-  SetupWPyStruct<wpi::math::ChassisSpeeds>(cls_ChassisSpeeds);
+  SetupWPyStruct<wpi::math::SwerveModuleAcceleration>(cls_SwerveModuleAcceleration);
