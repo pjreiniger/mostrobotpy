@@ -13,3 +13,13 @@ classes:
       operator*:
       operator/:
       operator==:
+
+inline_code: |
+  cls_DifferentialDriveWheelAccelerations
+    .def(
+      py::init<wpi::units::meters_per_second_squared_t, wpi::units::meters_per_second_squared_t>(),
+      py::arg("left") = 0, py::arg("right") = 0
+    )
+  ;
+
+  SetupWPyStruct<wpi::math::DifferentialDriveWheelAccelerations>(cls_DifferentialDriveWheelAccelerations);
