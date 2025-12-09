@@ -1,5 +1,6 @@
 classes:
   wpi::math::ChassisAccelerations:
+    force_no_default_constructor: true
     attributes:
       ax:
       ay:
