@@ -4,11 +4,6 @@ name: dist
 on:
   pull_request:
   push:
-    branches:
-    - main
-    - '2027'
-    tags:
-    - '*'
   workflow_dispatch:
 
 concurrency:
@@ -110,7 +105,6 @@ jobs:
     needs: [setup_concurrency]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
-      fail-fast: true
       matrix:
         os: ["ubuntu-24.04", "ubuntu-24.04-arm", "macos-14", "windows-2022"]
         include:
@@ -154,7 +148,6 @@ jobs:
     needs: [setup_concurrency, build-other, build-pure]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
-      fail-fast: true
       matrix:
         os:
         - "ubuntu-24.04"
