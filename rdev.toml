@@ -48,108 +48,107 @@ hatch-nativelib = "~=0.2.0"
 hatch-robotpy = "~=0.2.1"
 robotpy-cli = "~=2027.0.0a1"
 
-# [subprojects."robotpy-native-wpiutil"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-datalog"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-wpinet"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-ntcore"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-wpihal"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-wpimath"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-apriltag"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-wpilib"]
-# py_version = "native"
-# robot = true
-# 
-# [subprojects."robotpy-native-romi"]
-# py_version = "native"
-# robot = false
-# 
-# [subprojects."robotpy-native-xrp"]
-# py_version = "native"
-# robot = false
-# 
-# [subprojects."robotpy-wpiutil"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-wpilog"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-wpinet"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."pyntcore"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-hal"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-wpimath"]
-# py_version = "wrapper"
-# robot = true
-# 
+[subprojects."robotpy-native-wpiutil"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-datalog"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-wpinet"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-ntcore"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-wpihal"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-wpimath"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-apriltag"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-wpilib"]
+py_version = "native"
+robot = true
+
+[subprojects."robotpy-native-romi"]
+py_version = "native"
+robot = false
+
+[subprojects."robotpy-native-xrp"]
+py_version = "native"
+robot = false
+
+[subprojects."robotpy-wpiutil"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-wpilog"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-wpinet"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."pyntcore"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-hal"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-wpimath"]
+py_version = "wrapper"
+robot = true
+
 [subprojects."robotpy-cscore"]
 py_version = "wrapper"
 robot = true
 
 # practicality over purity - this is because we use a static
 # library that only exists at build time
-# ci_scan_headers = false
-# ci_update_yaml = false
+ci_scan_headers = false
+ci_update_yaml = false
 
-# [subprojects."robotpy-apriltag"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-wpilib"]
-# py_version = "wrapper"
-# robot = true
-# 
-# [subprojects."robotpy-halsim-ds-socket"]
-# py_version = "halsim_native"
-# robot = false
-# 
-# [subprojects."robotpy-halsim-ws"]
-# py_version = "halsim_native"
-# robot = false
-# 
-# [subprojects."robotpy-halsim-gui"]
-# py_version = "wrapper"
-# robot = false
-# 
-# [subprojects."robotpy-romi"]
-# py_version = "wrapper"
-# robot = false
-# 
-# [subprojects."robotpy-xrp"]
-# py_version = "wrapper"
-# robot = false
-# 
-# [subprojects."robotpy-commands-v2"]
-# py_version = "wrapper"
-# robot = true
-# 
+[subprojects."robotpy-apriltag"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-wpilib"]
+py_version = "wrapper"
+robot = true
+
+[subprojects."robotpy-halsim-ds-socket"]
+py_version = "halsim_native"
+robot = false
+
+[subprojects."robotpy-halsim-ws"]
+py_version = "halsim_native"
+robot = false
+
+[subprojects."robotpy-halsim-gui"]
+py_version = "wrapper"
+robot = false
+
+[subprojects."robotpy-romi"]
+py_version = "wrapper"
+robot = false
+
+[subprojects."robotpy-xrp"]
+py_version = "wrapper"
+robot = false
+
+[subprojects."robotpy-commands-v2"]
+py_version = "wrapper"
+robot = true
