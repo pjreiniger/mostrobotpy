@@ -17,7 +17,9 @@ def group_name(request):
     AlertSim.resetData()
 
 
-def get_active_alerts(group_name: str, level: Alert.Level) -> T.List[str]:
+def get_active_alerts(
+    group_name: str, level: Alert.Level
+) -> T.List[str]:
     return [
         a.text
         for a in AlertSim.getAll()
@@ -25,14 +27,13 @@ def get_active_alerts(group_name: str, level: Alert.Level) -> T.List[str]:
     ]
 
 
-def is_alert_active(group_name: str, text: str, level: Alert.Level):
+def is_alert_active(
+    group_name: str, text: str, level: Alert.Level
+):
     matches = [
         a
         for a in AlertSim.getAll()
-        if a.group == group_name
-        and a.level == level
-        and a.text == text
-        and a.isActive()
+        if a.group == group_name and a.level == level and a.text == text and a.isActive()
     ]
     return len(matches) > 0
 
