@@ -4,16 +4,7 @@ name: dist
 on:
   pull_request:
   push:
-    branches:
-    - main
-    - '2027'
-    tags:
-    - '*'
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
 
 env:
   SCCACHE_WEBDAV_ENDPOINT: "https://frcmaven.wpi.edu/artifactory/wpilib-generic-cache-cmake-local"
@@ -110,7 +101,7 @@ jobs:
     needs: [setup_concurrency]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: ["ubuntu-24.04", "ubuntu-24.04-arm", "macos-14", "windows-2022"]
         include:
@@ -154,7 +145,7 @@ jobs:
     needs: [setup_concurrency, build-other, build-pure]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
-      fail-fast: true
+      fail-fast: false
       matrix:
         os:
         - "ubuntu-24.04"
@@ -323,6 +314,7 @@ jobs:
     needs: [setup_concurrency, cross-other]
     strategy:
       max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel).v }}
+      fail-fast: false
       matrix:
         os:
         - container: wpilib/systemcore-cross-ubuntu:2026-24.04-py314
