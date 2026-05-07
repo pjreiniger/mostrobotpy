@@ -5,27 +5,27 @@ requires = [
     "hatch-meson~=0.1.2",
     "hatch-robotpy~=0.2.1",
     "hatchling",
-    "robotpy-native-wpilib==2027.0.0a5",
-    "robotpy-wpiutil==2027.0.0a5.post1",
-    "robotpy-wpimath==2027.0.0a5.post1",
-    "robotpy-hal==2027.0.0a5.post1",
-    "pyntcore==2027.0.0a5.post1",
+    "robotpy-native-wpilib==0.0.0",
+    "robotpy-wpiutil==0.0.0",
+    "robotpy-wpimath==0.0.0",
+    "robotpy-hal==0.0.0",
+    "pyntcore==0.0.0",
 ]
 
 [project]
 name = "wpilib"
-version = "2027.0.0a5.post1"
+version = "0.0.0"
 description = "Binary wrapper for WPILib"
 authors = [
     {name = "RobotPy Development Team", email = "robotpy@googlegroups.com"},
 ]
 license = "BSD-3-Clause"
 dependencies = [
-    "robotpy-native-wpilib==2027.0.0a5",
-    "robotpy-wpiutil==2027.0.0a5.post1",
-    "robotpy-wpimath==2027.0.0a5.post1",
-    "robotpy-hal==2027.0.0a5.post1",
-    "pyntcore==2027.0.0a5.post1",
+    "robotpy-native-wpilib==0.0.0",
+    "robotpy-wpiutil==0.0.0",
+    "robotpy-wpimath==0.0.0",
+    "robotpy-hal==0.0.0",
+    "pyntcore==0.0.0",
     "robotpy-cli~=2027.0.0a1",
 
     # For running robot tests
@@ -276,6 +276,7 @@ JoystickSim = "wpi/simulation/JoystickSim.hpp"
 LinearSystemSim = "wpi/simulation/LinearSystemSim.hpp"
 NiDsPS4ControllerSim = "wpi/simulation/NiDsPS4ControllerSim.hpp"
 NiDsPS5ControllerSim = "wpi/simulation/NiDsPS5ControllerSim.hpp"
+OnboardIMUSim = "wpi/simulation/OnboardIMUSim.hpp"
 PWMSim = "wpi/simulation/PWMSim.hpp"
 PneumaticsBaseSim = "wpi/simulation/PneumaticsBaseSim.hpp"
 PowerDistributionSim = "wpi/simulation/PowerDistributionSim.hpp"
