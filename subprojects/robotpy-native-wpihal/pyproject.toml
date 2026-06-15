@@ -57,7 +57,21 @@ enable_if = 'platform_machine != "systemcore"'
 pcfile = "src/native/wpihal/robotpy-native-wpihal.pc"
 name = "wpihal"
 
+# Hal DOES NOT requires mrclib on systemcore
+includedir = "src/native/wpihal/include"
+libdir = "src/native/wpihal/lib"
+shared_libraries = ["wpiHal"]
+requires = ["robotpy-native-wpiutil", "robotpy-native-ntcore"]
+
+enable_if = 'platform_machine == "systemcore"'
+
+[[tool.hatch.build.hooks.nativelib.pcfile]]
+pcfile = "src/native/wpihal/robotpy-native-wpihal.pc"
+name = "wpihal"
+
 includedir = "src/native/wpihal/include"
 libdir = "src/native/wpihal/lib"
 shared_libraries = ["wpiHal"]
 requires = ["robotpy-native-wpiutil", "robotpy-native-ntcore", "robotpy-native-mrclib"]
+
+enable_if = 'platform_machine != "systemcore"'
