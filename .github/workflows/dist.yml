@@ -293,6 +293,14 @@ jobs:
       run: |
         python -m pip --disable-pip-version-check install -r rdev_requirements.txt
 
+    # TEMPORARY: test unreleased semiwrap changes
+    - name: Install semiwrap from fork
+      shell: bash
+      run: |
+        python -m pip --disable-pip-version-check install "semiwrap @ https://github.com/pjreiniger/semiwrap/archive/35b29c2000cdd964ca6d6f1f248bc361f5aede26.tar.gz"
+      env:
+        SETUPTOOLS_SCM_PRETEND_VERSION: "0.8.1"
+
     - name: Install numpy (needed for stubgen but broken in raspbian CI)
       run: |
         python -m pip --disable-pip-version-check install numpy
@@ -410,6 +418,14 @@ jobs:
       shell: bash
       run: |
         /build/venv/bin/build-pip --disable-pip-version-check install -r rdev_requirements.txt
+
+    # TEMPORARY: test unreleased semiwrap changes
+    - name: Install semiwrap from fork
+      shell: bash
+      run: |
+        /build/venv/bin/build-pip --disable-pip-version-check install "semiwrap @ https://github.com/pjreiniger/semiwrap/archive/35b29c2000cdd964ca6d6f1f248bc361f5aede26.tar.gz"
+      env:
+        SETUPTOOLS_SCM_PRETEND_VERSION: "0.8.1"
 
     - name: Build wheels
       shell: bash
