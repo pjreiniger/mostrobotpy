@@ -102,6 +102,9 @@ def regen_generated(ctx: Context):
     envvar="RDEV_PORTABLE_BUILD_PATHS",
     help="Normalize GCC/Clang paths for cross-checkout ccache reuse (opt-in).",
 )
+@click.option(
+    "--werror", default=False, is_flag=True, help="Treat compiler warnings as errors"
+)
 @click.pass_obj
 def develop(
     ctx: Context,
@@ -111,6 +114,7 @@ def develop(
     jobs: int | None,
     stop_at: str,
     portable_build_paths: bool,
+    werror: bool,
 ):
     """Install robotpy packages in editable mode"""
     env = None
@@ -132,7 +136,7 @@ def develop(
 
         for project in ctx.subprojects.values():
             if project.name == package:
-                project.develop(buildtype, jobs, env=env)
+                project.develop(buildtype, jobs, env=env, werror=werror)
                 if test:
                     project.test()
                 break
@@ -140,7 +144,7 @@ def develop(
             raise click.BadParameter(f"invalid package {package}")
     else:
         for project in ctx.subprojects.values():
-            project.develop(buildtype, jobs, env=env)
+            project.develop(buildtype, jobs, env=env, werror=werror)
             if test:
                 project.test()
             if project.name == stop_at:

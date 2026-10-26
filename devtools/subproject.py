@@ -74,11 +74,14 @@ class Subproject:
         jobs: int | None = None,
         *,
         env: dict[str, str] | None = None,
+        werror: bool = False,
     ):
 
         config_settings = [f"setup-args=-Dbuildtype={buildtype}"]
         if jobs is not None:
             config_settings.append(f"compile-args=-j{jobs}")
+        if werror:
+            config_settings.append("setup-args=-Dwerror=true")
 
         config_settings = self._config_settings(config_settings)
         config_args = [f"--config-settings={setting}" for setting in config_settings]

@@ -299,7 +299,7 @@ jobs:
 
     - name: Build + test wheels
       run: |
-        python -m devtools ci build-meson-wheels ${{ matrix.build_arg }}
+        python -m devtools ci build-meson-wheels --werror ${{ matrix.build_arg }}
       env:
         SCCACHE_WEBDAV_USERNAME: ${{ secrets.WPI_ARTIFACTORY_USERNAME }}
         SCCACHE_WEBDAV_PASSWORD: ${{ secrets.WPI_ARTIFACTORY_TOKEN }}
@@ -414,7 +414,7 @@ jobs:
     - name: Build wheels
       shell: bash
       run: |
-        /build/venv/bin/cross-python -m devtools ci build-meson-wheels --no-test --cross=cross.txt
+        /build/venv/bin/cross-python -m devtools ci build-meson-wheels --no-test --werror --cross=cross.txt
 
 
     - uses: actions/upload-artifact@v7
